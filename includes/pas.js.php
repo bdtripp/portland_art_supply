@@ -473,11 +473,13 @@ function createAddToCartButton() {
         });
 
         let xhttp = new XMLHttpRequest();
-        let sendString = PRODUCT_ITEM_ID_FIELD + '=' + itemID + '&' + PRODUCT_CATEGORY_NAME_FIELD + '=' + category +
-            '&' + PRODUCT_SUBCATEGORY_NAME_FIELD + '=' + subcategory + '&' + PRODUCT_GROUP_CODE_FIELD + '=' + groupCode +
-            '&' + PRODUCT_COLOR_NAME_FIELD + '=' + currentColorSelection +
-            '&' + PRODUCT_SIZE_DESCRIPTION_FIELD + '=' + currentSizeSelection + '&' + PRODUCT_ITEM_PRICE_FIELD + '=' + currentPrice +
-            '&' + QUANTITY_FIELD + '=' + quantity + '&' + PRODUCT_GROUP_DESCRIPTION_FIELD + '=' + groupDescription;
+        let sendString = PRODUCT_ITEM_ID_FIELD + '=' + encodeURIComponent(itemID) + '&' + PRODUCT_CATEGORY_NAME_FIELD
+            + '=' + encodeURIComponent(category) + '&' + PRODUCT_SUBCATEGORY_NAME_FIELD + '=' +
+            encodeURIComponent(subcategory) + '&' + PRODUCT_GROUP_CODE_FIELD + '=' + encodeURIComponent(groupCode) +
+            '&' + PRODUCT_COLOR_NAME_FIELD + '=' + encodeURIComponent(currentColorSelection) +
+            '&' + PRODUCT_SIZE_DESCRIPTION_FIELD + '=' + encodeURIComponent(currentSizeSelection) + '&' +
+            PRODUCT_ITEM_PRICE_FIELD + '=' + encodeURIComponent(currentPrice) + '&' + QUANTITY_FIELD + '=' +
+            encodeURIComponent(quantity) + '&' + PRODUCT_GROUP_DESCRIPTION_FIELD + '=' + encodeURIComponent(groupDescription);
 
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {

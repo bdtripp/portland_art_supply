@@ -28,7 +28,11 @@ $price = get_post_value(PRODUCT_ITEM_PRICE_FIELD);
 $quantity = get_post_value(QUANTITY_FIELD);
 
 if (!empty($id)) {
-    addItemToCart($id, $category, $subcategory, $groupCode, $color, $size, $price, $quantity, $groupDescription);
+    addItemToCart(html_entity_decode(urldecode($id)), html_entity_decode(urldecode($category)),
+        html_entity_decode(urldecode($subcategory)), html_entity_decode(urldecode($groupCode)),
+        html_entity_decode(urldecode($color)), html_entity_decode(urldecode($size)),
+        html_entity_decode(urldecode($price)), html_entity_decode(urldecode($quantity)),
+        html_entity_decode(urldecode($groupDescription)));
     exit();
 }
 
