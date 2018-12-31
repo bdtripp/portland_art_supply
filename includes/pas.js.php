@@ -508,6 +508,8 @@ function onRemoveClicked(id, file) {
     let xhttp = new XMLHttpRequest();
     let sendString = "buttonID=" + id;
     let quantityDropDownID = "quantity_product_id_" + id;
+    let subtotalValue = parseFloat(document.getElementById("subtotal_product_" + id).children[0].innerText.replace(/\$|,/g, ''));
+    let totalValue = parseFloat(document.getElementById(TOTAL_DISPLAY_ID).children[0].innerText.replace(/\$|,/g, ''));
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -519,6 +521,8 @@ function onRemoveClicked(id, file) {
     xhttp.open("POST", file, true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(sendString);
+
+    updateTotalDisplay(totalValue - subtotalValue);
 }
 
 function hideAddToCartButton() {
