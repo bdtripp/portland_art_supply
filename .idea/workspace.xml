@@ -25,11 +25,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="db_constants.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="db_constants.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/includes/db_constants.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="16" column="11" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
+            <state relative-caret-position="255">
+              <caret line="20" column="2" lean-forward="true" selection-start-line="20" selection-start-column="2" selection-end-line="20" selection-end-column="2" />
             </state>
           </provider>
         </entry>
@@ -64,8 +64,8 @@
       <file leaf-file-name="pas.js.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/includes/pas.js.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="334">
-              <caret line="483" column="67" lean-forward="true" selection-start-line="483" selection-start-column="67" selection-end-line="483" selection-end-column="67" />
+            <state relative-caret-position="264">
+              <caret line="483" column="48" lean-forward="true" selection-start-line="483" selection-start-column="48" selection-end-line="483" selection-end-column="48" />
             </state>
           </provider>
         </entry>
@@ -88,11 +88,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="product_items.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="product_items.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/product_items.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="129">
-              <caret line="31" column="11" lean-forward="true" selection-start-line="31" selection-start-column="11" selection-end-line="31" selection-end-column="11" />
+            <state relative-caret-position="112">
+              <caret line="36" column="1" lean-forward="true" selection-start-line="36" selection-start-column="1" selection-end-line="36" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -212,9 +212,9 @@
         <option value="$PROJECT_DIR$/shopping_cart.php" />
         <option value="$PROJECT_DIR$/subcategories.php" />
         <option value="$PROJECT_DIR$/includes/ui_code.php" />
-        <option value="$PROJECT_DIR$/includes/db_constants.php" />
-        <option value="$PROJECT_DIR$/includes/pas.js.php" />
         <option value="$PROJECT_DIR$/product_items.php" />
+        <option value="$PROJECT_DIR$/includes/pas.js.php" />
+        <option value="$PROJECT_DIR$/includes/db_constants.php" />
       </list>
     </option>
   </component>
@@ -343,12 +343,12 @@
       <workItem from="1545408756133" duration="27127000" />
       <workItem from="1545622371320" duration="6127000" />
       <workItem from="1545789701465" duration="3286000" />
-      <workItem from="1546123576766" duration="10909000" />
+      <workItem from="1546123576766" duration="11685000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="591846000" />
+    <option name="totallyTimeSpent" value="592622000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -704,13 +704,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/includes/db_constants.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="16" column="11" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/shopping_cart.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -725,13 +718,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/includes/pas.js.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="483" column="67" lean-forward="true" selection-start-line="483" selection-start-column="67" selection-end-line="483" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/includes/shopping_cart_code.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="156">
@@ -741,8 +727,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/product_items.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="31" column="11" lean-forward="true" selection-start-line="31" selection-start-column="11" selection-end-line="31" selection-end-column="11" />
+        <state relative-caret-position="112">
+          <caret line="36" column="1" lean-forward="true" selection-start-line="36" selection-start-column="1" selection-end-line="36" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/pas.js.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="483" column="48" lean-forward="true" selection-start-line="483" selection-start-column="48" selection-end-line="483" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/includes/db_constants.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="20" column="2" lean-forward="true" selection-start-line="20" selection-start-column="2" selection-end-line="20" selection-end-column="2" />
         </state>
       </provider>
     </entry>
