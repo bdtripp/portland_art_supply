@@ -391,6 +391,13 @@ html {
                 *****************************/
 
                 &#cart_items {
+                    
+                    p {
+                        
+                        &#empty_cart_message {
+                            margin-bottom: 325px;
+                        }
+                    }
 
                     div {
 

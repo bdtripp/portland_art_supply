@@ -2,7 +2,7 @@
 
 header('Content-Type: text/css');
 ?>
-*/
+
 /* Link to color palette:
 
 https://color.adobe.com/create/color-wheel/?base=2&rule=Compound&selected=3&name=My%20Color%20Theme&mode=rgb&rgbvalues=0.054901960784313725,0.1411764705882353,0.8,0.24,0.2816842105262822,0.6,0,0.6421052631576458,1,1,0.5664583333332303,0.25,0.8,0.27879999999995564,0.07999999999999999&swatchOrder=0,1,2,3,4
@@ -246,6 +246,9 @@ html body main section#item_wrapper div#item_details div#color_thumbnails img {
 }
 html body main section.products {
   margin: 0 auto;
+}
+html body main section#cart_items p#empty_cart_message {
+  margin-bottom: 325px;
 }
 html body main section#cart_items div.cart_item {
   overflow: hidden;

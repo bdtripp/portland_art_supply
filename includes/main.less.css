@@ -249,6 +249,9 @@ html body main section#item_wrapper div#item_details div#color_thumbnails img {
 html body main section.products {
   margin: 0 auto;
 }
+html body main section#cart_items p#empty_cart_message {
+  margin-bottom: 325px;
+}
 html body main section#cart_items div.cart_item {
   overflow: hidden;
   box-shadow: 5px 5px 20px #AAA;

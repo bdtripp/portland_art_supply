@@ -185,7 +185,7 @@ function show_shopping_cart_content() {
         echo '        <p id="' . TOTAL_DISPLAY_ID . '">Total: <span class="' . PRICE_DISPLAY_CLASS . '">$' . number_format(getCartTotal(), 2) . '</span></p>' . "\n";
         echo '        <input id="' . CHECKOUT_BUTTON_ID . '" type="button" value="Checkout">' . "\n";
     } else {
-        echo '        <p>There are no items currently in the cart</p>' . "\n";
+        echo '        <p id="' . EMPTY_CART_MESSAGE . '">There are no items currently in the cart</p>' . "\n";
     }
     echo '    </section>' . "\n";
     echo '</main>' . "\n\n";
