@@ -256,10 +256,10 @@ function displayItemImage($category, $subcategory, $groupCode, $color, $size) {
         $size = '';
     }
 
-    $color = strtolower(preg_replace('/&quot+;|#+|\./', '_', $color));
+    $color = strtolower(preg_replace('/&quot+;|#+|\.|"+/', '_', $color));
     $color = preg_replace('/\s+(?=[^()]*(\(|$))/', '-', $color);
 
-    $size = strtolower(preg_replace('/&quot+;|#+|\./', '_', $size));
+    $size = strtolower(preg_replace('/&quot+;|#+|\.|"+/', '_', $size));
     $size = preg_replace('/\s+(?=[^()]*(\(|$))/', '-', $size);
     $size = preg_replace('/\//', '_', $size);
 
