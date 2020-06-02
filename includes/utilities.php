@@ -23,7 +23,7 @@ function get_session_value($key) {
     if(isset($_SESSION[$key])) {
         return $_SESSION[$key];
     }
-    return '';
+    return;
 }
 
 function set_session_value($key, $value) {
