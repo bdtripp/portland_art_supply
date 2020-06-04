@@ -30,7 +30,7 @@ function show_header_content($categoryName) {
     echo '    <!-- collapsable menu -->';
     echo '    <input class="' . MENU_BUTTON_CLASS . '" type="checkbox"' . ' ' . 'id="' . MENU_BUTTON_CLASS . '" />'  . "\n";
     echo '    <label class="' . MENU_ICON_CLASS . '" for="' . MENU_BUTTON_CLASS . '"><span class="' .
-                NAVIGATION_ICON_CLASS . '"></span></label>' . "\n\n";
+        NAVIGATION_ICON_CLASS . '"></span></label>' . "\n\n";
     echo '    <h1 id="' . WRAP_PAS . '">Portland<br>Art Supply</h1>' . "\n\n";
     echo '    <h1 id="' . NO_WRAP_PAS . '">Portland Art Supply</h1>' . "\n\n";
     echo '    <ul class="' . HEADER_LINKS_CLASS . '">' . "\n";
@@ -107,8 +107,8 @@ function show_subcategories($categoryID, $categoryName, $rowsPerColumn) {
     for ($i = $rowsPerColumn - ROWS_PER_COLUMN; ($i < $rowsPerColumn) && ($i < sizeof($subcategories)); $i++) {
         echo '                <li class="' . SUBCATEGORY_BUTTON_CLASS . '">' . "\n";
         echo '                    <a href="' . GROUP_PRODUCTS_PAGE . "?" . PRODUCT_CATEGORY_NAME_FIELD . "=" . urlencode($categoryName) . "&" .
-                                      PRODUCT_SUBCATEGORY_NAME_FIELD . "=" . urlencode($subcategories[$i][PRODUCT_SUBCATEGORY_NAME_FIELD]) . '">'
-                                      . ucfirst($subcategories[$i][PRODUCT_SUBCATEGORY_NAME_FIELD]) . '</a>' . "\n";
+            PRODUCT_SUBCATEGORY_NAME_FIELD . "=" . urlencode($subcategories[$i][PRODUCT_SUBCATEGORY_NAME_FIELD]) . '">'
+            . ucfirst($subcategories[$i][PRODUCT_SUBCATEGORY_NAME_FIELD]) . '</a>' . "\n";
         echo '                </li>' . "\n";
     }
     echo '            </ul>' . "\n";
@@ -144,8 +144,8 @@ function show_product_groups($product) {
     echo '                     ' . $product[PRODUCT_GROUP_DESCRIPTION_FIELD] . '</a>' . "\n";
     echo '                <a ' . $hrefString . '>' . "\n";
     echo '                    <img src="' . IMAGE_FOLDER . $product[PRODUCT_CATEGORY_NAME_FIELD] . '/' .
-                                    $product[PRODUCT_SUBCATEGORY_NAME_FIELD]
-                                    . '/' . $product[PRODUCT_GROUP_CODE_FIELD] . '.jpg">' . "\n";
+        $product[PRODUCT_SUBCATEGORY_NAME_FIELD]
+        . '/' . $product[PRODUCT_GROUP_CODE_FIELD] . '.jpg">' . "\n";
     echo '                </a>' . "\n";
     echo '            </div>' . "\n\n";
 }
@@ -222,7 +222,7 @@ function show_items_in_cart($itemsInCart) {
         echo '                    <div class="' . QUANTITY_DIV_CLASS . ' ' . SIX_COLUMNS_CLASS . '">'. "\n";
         echo '                        <p>Quantity: </p>' . "\n";
         echo '                        <select id="quantity_product_id_' . $id .
-                                        '" onchange="onCartPageQuantityChanged(this.id, ' . $id . ')">' . "\n";
+            '" onchange="onCartPageQuantityChanged(this.id, ' . $id . ')">' . "\n";
         for ($count = QUANTITY_MIN; $count <= QUANTITY_MAX; $count++) {
             if ($count == $quantity) {
                 echo '                            <option value="' . $count . '" selected="' . $quantity . '">' . $count . '</option>' . "\n";
@@ -233,11 +233,11 @@ function show_items_in_cart($itemsInCart) {
         echo '                        </select>' . "\n";
         echo '                    </div>' . "\n";
         echo '                    <p id="' . "subtotal_product_" . $id . '" class="' . SUBTOTAL_CLASS . ' ' . SIX_COLUMNS_CLASS . '">Subtotal:' .
-                                    '<span class="' . PRICE_DISPLAY_CLASS . '">$' . number_format($price * $quantity, 2) . '</span></p>' . "\n";
+            '<span class="' . PRICE_DISPLAY_CLASS . '">$' . number_format($price * $quantity, 2) . '</span></p>' . "\n";
         echo '                </div>' . "\n";
         echo '            </div>' ."\n";
         echo '            <input id="' . $item[PRODUCT_ITEM_ID_FIELD] . '" class="' . REMOVE_BUTTON_CLASS . '" type="button" value="Remove"' .
-                                ' onclick="onRemoveClicked(this.id,\'shopping_cart.php\')">' . "\n";
+            ' onclick="onRemoveClicked(this.id,\'shopping_cart.php\')">' . "\n";
         echo '        </div>' . "\n";
     }
 }
@@ -264,7 +264,7 @@ function displayItemImage($category, $subcategory, $groupCode, $color, $size) {
     $size = preg_replace('/\//', '_', $size);
 
     echo '            <img class="'. THREE_COLUMNS_CLASS . '" src="' . IMAGE_FOLDER . $category . '/' . $subcategory . '/' .
-                            $groupCode . $color . $size . '.jpg">' . "\n";
+        $groupCode . $color . $size . '.jpg">' . "\n";
 }
 
 function show_footer_content() {
@@ -285,7 +285,7 @@ function show_footer_content() {
     echo '                <li>352 N Lombard St</li>' . "\n";
     echo '                <li>Portland, OR 97205</li>' . "\n";
     echo '                <!-- The number below displays in mobile view only. It provides the ability for users ' .
-                           'to tap on the number to open their phones dialing application -->' . "\n";
+        'to tap on the number to open their phones dialing application -->' . "\n";
     echo '                <li><a class="' . PHONE_MOBILE_CLASS . '" href="tel:503-555-5555">(503) 555-5555</a></li>' . "\n";
     echo '                <!-- The number below displays in tablet and desktop view only. -->' . "\n";
     echo '                <li><a class="' . PHONE_NOT_MOBILE_CLASS . '">(503) 555-5555</a></li>' . "\n";
@@ -304,7 +304,7 @@ function show_footer_content() {
     echo '            </ul>' . "\n\n";
     echo '        </section>' . "\n\n";
     echo '        <br class="' . CLEAR_FLOAT_CLASS . '"> <!-- This clears the column floats from grid.css, otherwise the ' .
-                    'background image here won\'t display. -->' . "\n";
+        'background image here won\'t display. -->' . "\n";
     echo '    </div>' . "\n";
     echo '</footer>' . "\n";
 }
