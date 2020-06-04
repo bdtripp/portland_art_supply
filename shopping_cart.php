@@ -5,7 +5,6 @@
  * Date: 12/1/2018
  * Time: 7:52 AM
  */
-session_start();
 
 require_once('includes/ui_code.php');
 require_once('includes/page_constants.php');
@@ -14,6 +13,8 @@ require_once ('includes/db_constants.php');
 require_once('includes/login_constants.php');
 require_once('includes/utilities.php');
 require_once ('includes/shopping_cart_code.php');
+
+session_start();
 
 $buttonClickedID = get_post_value("buttonID");
 $newQuantity = get_post_value("quantity");
@@ -50,9 +51,9 @@ $activePage = SHOPPING_CART_PAGE_TITLE;
     <link href="includes/collapsable_menu.css.php" rel="stylesheet">
     <link href="includes/main.css.php" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="http://bdtripp.com/portland_art_supply/images/favicon.ico">
-<!--    <link href="includes/main.less.php" rel="stylesheet/less">-->
+    <!--    <link href="includes/main.less.php" rel="stylesheet/less">-->
     <script type="text/javascript" src="includes/pas.js.php"></script>
-<!--    <script src="includes/less.js.php"></script>-->
+    <!--    <script src="includes/less.js.php"></script>-->
 
 </head>
 

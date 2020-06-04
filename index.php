@@ -5,7 +5,6 @@
  * Date: 12/1/2018
  * Time: 7:52 AM
  */
-session_start();
 
 require_once('includes/ui_code.php');
 require_once('includes/page_constants.php');
@@ -14,6 +13,8 @@ require_once('includes/db_constants.php');
 require_once('includes/login_constants.php');
 require_once('includes/utilities.php');
 require_once('includes/shopping_cart_code.php');
+
+session_start();
 
 $activePage = HOME_PAGE_TITLE;
 
@@ -34,8 +35,8 @@ $activePage = HOME_PAGE_TITLE;
     <link href="includes/collapsable_menu.css.php" rel="stylesheet">
     <link href="includes/main.css.php" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="http://bdtripp.com/portland_art_supply/images/favicon.ico">
-<!--    <link href="includes/main.less.php" rel="stylesheet/less">-->
-<!--    <script src="includes/less.js.php"></script>-->
+    <!--    <link href="includes/main.less.php" rel="stylesheet/less">-->
+    <!--    <script src="includes/less.js.php"></script>-->
 
 </head>
 

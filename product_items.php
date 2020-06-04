@@ -5,7 +5,6 @@
  * Date: 11/11/2018
  * Time: 2:44 PM
  */
-session_start();
 
 require_once('includes/page_constants.php');
 require_once('includes/db_code.php');
@@ -15,6 +14,8 @@ require_once('includes/ui_code.php');
 require_once('includes/shopping_cart_code.php');
 require_once('includes/login_constants.php');
 require_once('includes/utilities.php');
+
+session_start();
 
 $id = get_post_value(PRODUCT_ITEM_ID_FIELD);
 $groupDescription = get_post_value(PRODUCT_GROUP_DESCRIPTION_FIELD);
@@ -59,8 +60,8 @@ $productItems = lookup_items($groupID);
     <link href="includes/collapsable_menu.css.php" rel="stylesheet">
     <link href="includes/main.css.php" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="http://bdtripp.com/portland_art_supply/images/favicon.ico">
-<!--    <link href="includes/main.less.php" rel="stylesheet/less">-->
-<!--    <script src="includes/less.js.php" type="text/javascript"></script>-->
+    <!--    <link href="includes/main.less.php" rel="stylesheet/less">-->
+    <!--    <script src="includes/less.js.php" type="text/javascript"></script>-->
     <script type="text/javascript">
         var groupCode = '<?php echo $groupCode; ?>';
         var productItems = <?php echo json_encode($productItems); ?>;

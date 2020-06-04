@@ -5,7 +5,6 @@
  * Date: 12/1/2018
  * Time: 7:52 AM
  */
-session_start();
 
 require_once('includes/ui_code.php');
 require_once('includes/page_constants.php');
@@ -14,6 +13,8 @@ require_once ('includes/db_constants.php');
 require_once('includes/login_constants.php');
 require_once('includes/utilities.php');
 require_once('includes/shopping_cart_code.php');
+
+session_start();
 
 $activePage = ABOUT_PAGE_TITLE;
 
@@ -34,8 +35,8 @@ $activePage = ABOUT_PAGE_TITLE;
     <link href="includes/collapsable_menu.css.php" rel="stylesheet">
     <link href="includes/main.css.php" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="http://bdtripp.com/portland_art_supply/images/favicon.ico">
-<!--    <link href="includes/main.less.php" rel="stylesheet/less">-->
-<!--    <script src="includes/less.js.php"></script>-->
+    <!--    <link href="includes/main.less.php" rel="stylesheet/less">-->
+    <!--    <script src="includes/less.js.php"></script>-->
 
 </head>
 
@@ -75,17 +76,17 @@ $activePage = ABOUT_PAGE_TITLE;
                 today. PAS was becoming not only a credible source for high-quality fine art materials but a destination for
                 the novice, student, hobbyist and just about anyone looking for something unusual or just plain fun.</p><br>
 
-<!--            <p>In 2009, A&C’s founder and then President, Larry Adlerstein, sold 48% of Artist & Craftsman Supply to its-->
-<!--                employees. Thus, the Artist & Craftsman Supply Employee Stock Ownership Plan Trust (ESOP) was formed. The-->
-<!--                next seven years saw significant expansion for A&C. By the fall of 2016, a total of 34 brick and mortar-->
-<!--                locations, as well as an online store, had been created.</p><br>-->
-<!---->
-<!--            <p>On December 30, 2016, A&C acquired the remaining shares of the company from the founder and became a 100%-->
-<!--                Employee-Owned Company. Today, A&C stands as one of the largest art material suppliers in the United States.-->
-<!--                Our goal is to continue to shape our company as a vital resource in the support of the creative spirit.-->
-<!--                As employee-owners or those soon to be, there is immeasurable satisfaction and opportunity ahead. There is-->
-<!--                work to be done and challenges to be met, but together as a family of employee owners, we are only limited-->
-<!--                by the boundaries of our imagination.</p><br>-->
+            <!--            <p>In 2009, A&C’s founder and then President, Larry Adlerstein, sold 48% of Artist & Craftsman Supply to its-->
+            <!--                employees. Thus, the Artist & Craftsman Supply Employee Stock Ownership Plan Trust (ESOP) was formed. The-->
+            <!--                next seven years saw significant expansion for A&C. By the fall of 2016, a total of 34 brick and mortar-->
+            <!--                locations, as well as an online store, had been created.</p><br>-->
+            <!---->
+            <!--            <p>On December 30, 2016, A&C acquired the remaining shares of the company from the founder and became a 100%-->
+            <!--                Employee-Owned Company. Today, A&C stands as one of the largest art material suppliers in the United States.-->
+            <!--                Our goal is to continue to shape our company as a vital resource in the support of the creative spirit.-->
+            <!--                As employee-owners or those soon to be, there is immeasurable satisfaction and opportunity ahead. There is-->
+            <!--                work to be done and challenges to be met, but together as a family of employee owners, we are only limited-->
+            <!--                by the boundaries of our imagination.</p><br>-->
 
             <p>PAS is proud to be an Oregon-based company and equally as proud to be ‘local’ to over 30 communities
                 nationwide and those who join us online.</p><br>

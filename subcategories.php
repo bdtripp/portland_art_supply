@@ -11,7 +11,6 @@
  */
 
 // TODO: change "To view our products" message so that it works for all categories
-session_start();
 
 require_once('includes/page_constants.php');
 require_once('includes/art_constants.php');
@@ -21,6 +20,8 @@ require_once('includes/db_code.php');
 require_once('includes/login_constants.php');
 require_once('includes/utilities.php');
 require_once('includes/shopping_cart_code.php');
+
+session_start();
 
 $categoryID = $_GET[PRODUCT_CATEGORY_ID_FIELD];
 $categoryName = $_GET[PRODUCT_CATEGORY_NAME_FIELD];
@@ -42,8 +43,8 @@ $categoryName = $_GET[PRODUCT_CATEGORY_NAME_FIELD];
     <link href="includes/collapsable_menu.css.php" rel="stylesheet">
     <link href="includes/main.css.php" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="http://bdtripp.com/portland_art_supply/images/favicon.ico">
-<!--    <link href="includes/main.less.php" rel="stylesheet/less">-->
-<!--    <script src="includes/less.js.php"></script>-->
+    <!--    <link href="includes/main.less.php" rel="stylesheet/less">-->
+    <!--    <script src="includes/less.js.php"></script>-->
 
 </head>
 
