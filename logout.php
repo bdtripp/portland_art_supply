@@ -5,6 +5,8 @@
  * Date: 11/11/2018
  * Time: 9:50 AM
  */
+session_start();
+
 require_once('includes/utilities.php');
 require_once('includes/page_constants.php');
 

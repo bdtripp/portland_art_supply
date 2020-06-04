@@ -5,6 +5,7 @@
  * Date: 11/11/2018
  * Time: 2:44 PM
  */
+session_start();
 
 require_once('includes/page_constants.php');
 require_once('includes/db_code.php');
@@ -14,8 +15,6 @@ require_once('includes/ui_code.php');
 require_once('includes/login_constants.php');
 require_once('includes/utilities.php');
 require_once('includes/shopping_cart_code.php');
-
-session_start();
 
 $categoryName = urldecode($_GET[PRODUCT_CATEGORY_NAME_FIELD]);
 $subcategoryName = urldecode($_GET[PRODUCT_SUBCATEGORY_NAME_FIELD]);

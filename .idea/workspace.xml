@@ -2,7 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ce070e4f-2b55-4dd0-815c-2f962bd6beb1" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/includes/ui_code.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/ui_code.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/about.php" beforeDir="false" afterPath="$PROJECT_DIR$/about.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/create_account.php" beforeDir="false" afterPath="$PROJECT_DIR$/create_account.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logout.php" beforeDir="false" afterPath="$PROJECT_DIR$/logout.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product_groups.php" beforeDir="false" afterPath="$PROJECT_DIR$/product_groups.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product_items.php" beforeDir="false" afterPath="$PROJECT_DIR$/product_items.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shopping_cart.php" beforeDir="false" afterPath="$PROJECT_DIR$/shopping_cart.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/subcategories.php" beforeDir="false" afterPath="$PROJECT_DIR$/subcategories.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,7 +174,7 @@
       <workItem from="1550675409164" duration="751000" />
       <workItem from="1590705603831" duration="3573000" />
       <workItem from="1591229328844" duration="6062000" />
-      <workItem from="1591302926711" duration="5480000" />
+      <workItem from="1591302926711" duration="5835000" />
     </task>
     <servers />
   </component>
