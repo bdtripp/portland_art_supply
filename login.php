@@ -8,14 +8,14 @@
  * TODO: in head, remove script link to local js file and uncomment the script link to the one on cdn
  *
  */
+session_start();
+
 require_once('includes/utilities.php');
 require_once('includes/login_constants.php');
 require_once('includes/login_code.php');
 require_once('includes/db_constants.php');
 require_once('includes/db_code.php');
 require_once('includes/page_constants.php');
-
-session_start();
 
 $login_username = get_post_value(LOGIN_USERNAME_KEY);
 $login_password = get_post_value(LOGIN_PASSWORD_KEY);

@@ -5,6 +5,7 @@
  * Date: 12/1/2018
  * Time: 7:52 AM
  */
+session_start();
 
 require_once('includes/ui_code.php');
 require_once('includes/page_constants.php');
@@ -13,8 +14,6 @@ require_once('includes/db_constants.php');
 require_once('includes/login_constants.php');
 require_once('includes/utilities.php');
 require_once('includes/shopping_cart_code.php');
-
-session_start();
 
 $activePage = HOME_PAGE_TITLE;
 

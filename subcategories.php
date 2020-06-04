@@ -11,6 +11,7 @@
  */
 
 // TODO: change "To view our products" message so that it works for all categories
+session_start();
 
 require_once('includes/page_constants.php');
 require_once('includes/art_constants.php');
@@ -20,8 +21,6 @@ require_once('includes/db_code.php');
 require_once('includes/login_constants.php');
 require_once('includes/utilities.php');
 require_once('includes/shopping_cart_code.php');
-
-session_start();
 
 $categoryID = $_GET[PRODUCT_CATEGORY_ID_FIELD];
 $categoryName = $_GET[PRODUCT_CATEGORY_NAME_FIELD];
