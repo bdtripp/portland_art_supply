@@ -37,7 +37,7 @@ Specific product image:		&nbsp;&nbsp;&nbsp;&nbsp;group code-color name-size desc
 	
 Color thumbnail:		 &nbsp;&nbsp;&nbsp;&nbsp;group code-tn-color name.jpg
 
-Note:  There will always be a “general product image”.  Some products will not have a “specific product image” or a “color thumbnail”.
+Note:  There will always be a “general product image”.  Some products will not have a “specific product image” or a “color thumbnail”.  
 <br/>
 
 **Image Files and Folders Example:**
