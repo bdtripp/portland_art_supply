@@ -4,7 +4,7 @@ Portland Art Supply (PAS) is an online shopping website for art supplies.  I cre
 
 
 View an ERD of the PAS database by first clicking on the “View Details” button under the “Projects” section of my portfolio site. Then click on the document icon to the right of “Data Modeling”.  
-<br/><br/>
+<br/>
 
 **Code Highlights:**
 
@@ -16,7 +16,7 @@ Go to includes/ui_code.php lines 194-243
 
 Generate dynamic drop-down list for color and size options using JavaScript:  
 Go to includes/pas.js.php lines 198-229  
-<br/><br/>
+<br/>
 
 **Images:**  
 Images are organized by category and subcategory folders.  
@@ -27,7 +27,7 @@ Images are organized by category and subcategory folders.
      -	Specific product image for a particular color and size  
      -	Color thumbnail  
 -	The category, sub category, group code, color, and size are stored in the database for each product.  The data is retrieved from the database and used to generate “src” attribute for each <img> tag. (see includes/ui_code.php lines 245 – 268)  
-<br/><br/>  
+<br/> 
 
 **Naming convention for the images:**
 
@@ -38,7 +38,7 @@ Specific product image:		&nbsp;&nbsp;&nbsp;&nbsp;group code-color name-size desc
 Color thumbnail:		 &nbsp;&nbsp;&nbsp;&nbsp;group code-tn-color name.jpg
 
 Note:  There will always be a “general product image”.  Some products will not have a “specific product image” or a “color thumbnail”.
-<br/><br/>
+<br/>
 
 **Image Files and Folders Example:**
 
