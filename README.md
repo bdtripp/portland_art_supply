@@ -1,7 +1,10 @@
 # Portland Art Supply
 
-Portland Art Supply (PAS) is an online shopping website for art supplies.  I created it to demonstrate what I learned in my HTML, CSS, JavaScript, PHP and Data Modeling and SQL courses.  This is a fully functional website except for the “checkout” process.  You can view products along with their description, color, size and price.  Products can be added to and deleted from the shopping cart and the quantity, sub- total and total purchase amounts will be adjusted accordingly.  If this was a “live” website, additional web pages would be added for the “checkout” process, to include shipping, and payment options.  Plus, a separate page for the staff at PAS would be included to allow users to add and delete products from the database.
+Portland Art Supply (PAS) is an online shopping website for art supplies.  I created it to demonstrate what I learned in my HTML, CSS, JavaScript, PHP and Data Modeling and SQL courses.  This is a fully functional website except for the “checkout” process.  You can view products along with their description, color, size and price.  Products can be added to and deleted from the shopping cart and the quantity, sub- total and total purchase amounts will be adjusted accordingly.  If this was a “live” website, additional web pages would be added for the “checkout” process, to include shipping, and payment options.  Plus, a separate page for the staff at PAS would be included to allow users to add and delete products from the database.  
+<br/>
 
+Visit the site at http://bdtripp.com/portland_art_supply/  
+<br/>
 
 View an ERD of the PAS database by first clicking on the “View Details” button under the “Projects” section of my portfolio site. Then click on the document icon to the right of “Data Modeling”.  
 <br/>
