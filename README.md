@@ -6,7 +6,7 @@ Portland Art Supply (PAS) is an online shopping website for art supplies.  I cre
 Visit the site at http://bdtripp.com/portland_art_supply/  
 <br/>
 
-To view an ERD of the PAS database, visit my portfolio site at http://www.bdtripp.com/ . Click on the “View Details” button under the “Projects” section. Then click on the document icon to the right of “Data Modeling”.  
+To view an ERD of the PAS database, visit my portfolio site at http://www.bdtripp.com/ . Click on the “View Details” button for PAS under the “Projects” section. Then click on the document icon to the right of “Data Modeling”.  
 <br/>
 
 **Code Highlights:**
