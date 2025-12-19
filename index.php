@@ -31,7 +31,7 @@ $activePage = HOME_PAGE_TITLE;
         gtag('js', new Date());
 
         gtag('config', 'UA-135450898-2');
-    </script>
+    </script> 
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -46,11 +46,14 @@ $activePage = HOME_PAGE_TITLE;
     <!--    <link href="includes/main.less.php" rel="stylesheet/less">-->
     <!--    <script src="includes/less.js.php"></script>-->
 
+    <script src="bundle.js"></script>
 </head>
 
 <body>
 
 <?php show_header_content($activePage); ?>
+  
+  <div id="test"></div>
 
 <img src="images/large_ad.jpg" class="hide_in_mobile" alt="Closeout Sale! 40% Off Jacquard Procion MX Dye">
 <img src="images/small_ad_1.jpg" class="show_in_mobile" alt="Closeout Sale!">
