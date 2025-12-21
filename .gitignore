@@ -5,11 +5,3 @@ bundle.js
 main.jsx
 package-lock.json
 package.json
-.idea/
-images/
-node_modules/
-bundle.js
-main.jsx
-package-lock.json
-package.json
-webpack.config.js
