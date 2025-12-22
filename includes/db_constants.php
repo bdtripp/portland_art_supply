@@ -15,7 +15,7 @@
 //offline version
 const DB_SERVER = 'localhost';
 const DB_USER = 'portland_art';
-const DB_PASSWORD = 'qIHICCAdcfUr9GuoLnOp';
+const DB_PASSWORD = '5ls_0q_qZlZ.xT-tR7e-dL9-XV';
 const DB_DATABASE = 'portland_art_supply';
 
 /*
