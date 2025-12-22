@@ -17,7 +17,7 @@ function addItemToCart($id, $category, $subcategory, $groupCode, $color, $size, 
     $items = getItemsInCart();
     $newItem = true;
 
-    if ($items !== NULL) {
+    if ($items !== null) {
         //check if the item already exists in the cart
         for ($count = 0; $count < count($items); $count++) {
             if ($items[$count][PRODUCT_ITEM_ID_FIELD] == $id) {

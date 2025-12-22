@@ -36,13 +36,17 @@ function lookup_session($userID) {
 
 function add_session($userID, $session) {
     $db = new mysqli(DB_SERVER, DB_USER, DB_PASSWORD, DB_DATABASE);
-    $query = "INSERT INTO";
-    $query .= " " . ACCOUNT_DATA_TABLE;
-    $query .= " (" . ACCOUNT_DATA_USER_ID_FIELD . ", " . ACCOUNT_DATA_SESSION_DATA_FIELD. ")";
-    $query .= " VALUES ('$userID','$session')";
-    $query .= " ON DUPLICATE KEY UPDATE " . ACCOUNT_DATA_SESSION_DATA_FIELD . " = '$session';";
-    $result = $db->query($query);
-    $a = 2;
+
+    if ($userID !== null) {
+        $query = "INSERT INTO";
+        $query .= " " . ACCOUNT_DATA_TABLE;
+        $query .= " (" . ACCOUNT_DATA_USER_ID_FIELD . ", " . ACCOUNT_DATA_SESSION_DATA_FIELD. ")";
+        $query .= " VALUES ('$userID','$session')";
+        // $query .= " VALUES (" . ($userID === null ? "NULL" : $userID) . ", $session')";
+        $query .= " ON DUPLICATE KEY UPDATE " . ACCOUNT_DATA_SESSION_DATA_FIELD . " = '$session';";
+        $result = $db->query($query);
+        $a = 2;
+    }
 }
 
 function lookup_categories() {
