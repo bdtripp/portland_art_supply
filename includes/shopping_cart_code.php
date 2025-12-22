@@ -17,14 +17,17 @@ function addItemToCart($id, $category, $subcategory, $groupCode, $color, $size, 
     $items = getItemsInCart();
     $newItem = true;
 
-    //check if the item already exists in the cart
-    for ($count = 0; $count < count($items); $count++) {
-        if ($items[$count][PRODUCT_ITEM_ID_FIELD] == $id) {
-            $items[$count][QUANTITY_FIELD] += $quantity;
-            $newItem = false;
-            set_session_value(SESSION_CART_KEY, $items);
+    if ($items !== NULL) {
+        //check if the item already exists in the cart
+        for ($count = 0; $count < count($items); $count++) {
+            if ($items[$count][PRODUCT_ITEM_ID_FIELD] == $id) {
+                $items[$count][QUANTITY_FIELD] += $quantity;
+                $newItem = false;
+                set_session_value(SESSION_CART_KEY, $items);
+            }
         }
     }
+    
     if ($newItem) {
         $items[] = array(PRODUCT_ITEM_ID_FIELD => $id, PRODUCT_CATEGORY_NAME_FIELD => $category,
             PRODUCT_SUBCATEGORY_NAME_FIELD => $subcategory, PRODUCT_GROUP_CODE_FIELD => $groupCode,
