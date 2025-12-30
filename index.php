@@ -53,11 +53,13 @@ $activePage = HOME_PAGE_TITLE;
 
 <?php show_header_content($activePage); ?>
   
-  <div id="test"></div>
+  <main id="home">
 
-<img src="images/large_ad.jpg" class="hide_in_mobile" alt="Closeout Sale! 40% Off Jacquard Procion MX Dye">
+  </main>
+
+<!-- <img src="images/large_ad.jpg" class="hide_in_mobile" alt="Closeout Sale! 40% Off Jacquard Procion MX Dye">
 <img src="images/small_ad_1.jpg" class="show_in_mobile" alt="Closeout Sale!">
-<img src="images/small_ad_2.jpg" class="show_in_mobile" alt="40% Off Jacquard Procion MX Dye">
+<img src="images/small_ad_2.jpg" class="show_in_mobile" alt="40% Off Jacquard Procion MX Dye"> -->
 
 <?php show_footer_content(); ?>
 

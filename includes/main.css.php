@@ -1,18 +1,21 @@
+/*
 <?php
 
 header('Content-Type: text/css');
 ?>
-
+*/
 /* Link to color palette:
 
-https://color.adobe.com/create/color-wheel/?base=2&rule=Compound&selected=3&name=My%20Color%20Theme&mode=rgb&rgbvalues=0.054901960784313725,0.1411764705882353,0.8,0.24,0.2816842105262822,0.6,0,0.6421052631576458,1,1,0.5664583333332303,0.25,0.8,0.27879999999995564,0.07999999999999999&swatchOrder=0,1,2,3,4
+https://paletton.com/#uid=60f0u0kuauvivBun-vxvonRAQiM
 
 */
 /* MIXINS */
 /* COLOR PALETTE */
-/*
- * Classes
- */
+/* @color1: #0E24CC;
+@color2: #3D4899;
+@color3: #00A4FF;
+@color4: #FF9040;
+@color5: #CC4714; */
 .clearfloat {
   clear: both;
 }
@@ -21,6 +24,10 @@ https://color.adobe.com/create/color-wheel/?base=2&rule=Compound&selected=3&name
 }
 .required {
   color: red;
+}
+.card {
+  background-color: white;
+  border-radius: 10px;
 }
 /*===============================
 ===== MOBILE CSS CODE AND UP ======
@@ -34,6 +41,8 @@ html {
 html body {
   font-family: 'Open Sans', sans-serif;
   overflow: auto;
+  background-color: #F2F2F2;
+  color: #333333;
   /*--------HEADER STYLE------*/
   /*--------MAIN STYLE------*/
   /*--------FOOTER STYLE------*/
@@ -45,7 +54,7 @@ html body img {
 }
 html body header {
   font-size: 1.2rem;
-  letter-spacing: .07rem;
+  letter-spacing: 0.07rem;
   position: relative;
   /*--------NAV STYLE------*/
 }
@@ -54,7 +63,7 @@ html body header h1 {
   font-family: 'Arvo', serif;
   /* This is a Google Font */
   color: white;
-  background-color: #ff9040;
+  background: linear-gradient(45deg, #F34F0E 0%, #F34F0E 30%, #F2F2F2 30%, #F2F2F2 100%);
   font-size: 1rem;
 }
 html body header h1#no_wrap_pas {
@@ -70,6 +79,7 @@ html body header ul.header_links {
   top: 0;
   right: 5px;
   transform: translateY(70%);
+  background-color: #F2F2F2;
 }
 html body header ul.header_links li {
   display: inline-block;
@@ -89,11 +99,11 @@ html body header ul.header_links li a.shopping_cart_icon p#cart_count_display {
   top: 33%;
   left: 60%;
   transform: translate(-50%, -50%);
-  font-size: .8rem;
+  font-size: 0.8rem;
   font-weight: bolder;
 }
 html body header ul.header_links li a#username_display {
-  font-size: .8rem;
+  font-size: 0.8rem;
   margin-bottom: 3px;
   display: block;
 }
@@ -105,6 +115,7 @@ html body header ul.header_links li a#login_link {
 html body header nav ul {
   width: 94%;
   margin: 0 auto;
+  background-color: #F2F2F2;
 }
 html body header nav ul li {
   text-align: center;
@@ -126,20 +137,25 @@ html body header nav ul li a {
   margin: 1px 0;
 }
 html body header nav ul li a:hover {
-  opacity: .8;
+  opacity: 0.8;
+}
+html body header nav ul li a:visited {
+  color: #333333;
 }
 html body main {
   text-align: center;
-  border-top: 1px dotted #ff9040;
+  min-height: calc(100vh - 252px);
+  background-color: #F2F2F2;
+  border-top: 1px dotted #F34F0E;
   /* The style below hides the dotted border when the navigation menu is collapsed */
   margin-top: -1px;
-  letter-spacing: .1rem;
+  letter-spacing: 0.1rem;
   overflow: hidden;
 }
 html body main h2 {
   font-size: 2rem;
   margin: 20px auto;
-  color: #cc4714;
+  color: #B83906;
   font-weight: bold;
   clear: both;
   max-width: 97%;
@@ -185,7 +201,7 @@ html body main section ul li a {
   margin: 7px auto;
   padding: 3px;
   border-radius: 3px;
-  color: #cc4714;
+  color: #B83906;
   box-shadow: 2px 2px 12px #444;
 }
 html body main section#product_groups div.group_row {
@@ -195,16 +211,18 @@ html body main section#product_groups div.product_group {
   padding: 20px 0 0 0;
   box-shadow: 5px 5px 20px #AAA;
   margin: 15px auto;
-  border-radius: 5px;
 }
 html body main section#product_groups div.product_group a.group_description_text {
   max-width: 97%;
   margin: 0 auto;
   text-decoration: none;
-  color: black;
   font-size: 1.2rem;
   display: block;
   padding: 0 0 5px 0;
+  color: #333333;
+}
+html body main section#product_groups div.product_group a.group_description_text:visited {
+  color: #333333;
 }
 html body main section#item_wrapper {
   overflow: hidden;
@@ -258,7 +276,7 @@ html body main section#cart_items div.cart_item {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  font-size: .8rem;
+  font-size: 0.8rem;
   width: 97%;
 }
 html body main section#cart_items div.cart_item img {
@@ -321,14 +339,14 @@ html body footer {
   height: auto;
   color: white;
   font-weight: bold;
-  font-size: .8rem;
+  font-size: 0.8rem;
 }
 html body footer div {
   width: 100%;
   margin: 0 auto;
   padding: 5px 0;
   background-color: #222;
-  opacity: .9;
+  opacity: 0.9;
 }
 html body footer div section {
   margin-top: 15px;
@@ -340,7 +358,7 @@ html body footer div section.address ul li {
 }
 html body footer div section.hours {
   padding: 10px 0;
-  letter-spacing: .06rem;
+  letter-spacing: 0.06rem;
   margin-top: 0;
 }
 html body footer div section.hours li:nth-child(odd) {
@@ -348,7 +366,7 @@ html body footer div section.hours li:nth-child(odd) {
   margin-top: 10px;
 }
 html body footer div section.address {
-  letter-spacing: .04rem;
+  letter-spacing: 0.04rem;
 }
 html body footer div section.address a {
   text-decoration: none;
@@ -358,7 +376,7 @@ html body footer div section.address a.phone_mobile {
   /* This is the style for the tappable phone link in mobile view */
 }
 html body footer div section.address a.phone_mobile:hover {
-  opacity: .7;
+  opacity: 0.7;
 }
 html body footer div section.address a.phone_not_mobile {
   /* This is the style that hides the non-clickable tablet/desktop version of      the phone number */
@@ -371,7 +389,7 @@ html body footer div section.social ul li a {
   padding: 0 1.2%;
 }
 html body footer div section.social ul li a:hover {
-  opacity: .9;
+  opacity: 0.9;
 }
 /*===============================
 ==== 700PX CSS CODE AND UP =======
@@ -412,7 +430,7 @@ html body footer div section.social ul li a:hover {
     transform: translateY(50%);
   }
   html body main {
-    border-top: 1px solid #ff9040;
+    border-top: 1px solid #F34F0E;
   }
   html body main section {
     /*****************************
@@ -457,7 +475,7 @@ html body footer div section.social ul li a:hover {
     width: 46%;
   }
   html body main section#product_groups div.group_row {
-    border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid #DDD;
     display: flex;
     border: none;
     justify-content: center;
@@ -466,8 +484,7 @@ html body footer div section.social ul li a:hover {
     margin-top: 20px;
   }
   html body main section#product_groups div.group_row div.product_group {
-    border: 1px solid #dddddd;
-    border-radius: 5px;
+    border: 1px solid #DDD;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -604,7 +621,7 @@ html body footer div section.social ul li a:hover {
   }
   html body footer div section.address {
     height: 100%;
-    letter-spacing: .04rem;
+    letter-spacing: 0.04rem;
     position: relative;
     margin-top: 0;
   }
@@ -640,7 +657,7 @@ html body footer div section.social ul li a:hover {
     margin: 0 auto;
   }
   html body footer div section.social ul li a {
-    padding: 0 .5%;
+    padding: 0 0.5%;
     display: inline-block;
   }
 }

@@ -1,15 +1,21 @@
+/*
 <?php
+
+
 header('Content-Type: text/css');
 ?>
-
+*/
 /*
  * Login/New Account Form
  */
+/* COLOR PALETTE */
 html {
   height: 100%;
 }
 html body {
   height: 100%;
+  background-color: #F2F2F2;
+  color: #333333;
 }
 html body div#error_message_container {
   width: 200px;
@@ -47,6 +53,10 @@ html body div.login.wrapper table.center td {
 }
 html body div.login.wrapper table.center td a {
   padding-right: 10px;
+  color: #333333;
+}
+html body div.login.wrapper table.center td a:visited {
+  color: #333333;
 }
 html body div.login.wrapper table.center td input {
   border: 1px solid #AAA;
