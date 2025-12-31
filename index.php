@@ -54,6 +54,10 @@ $activePage = HOME_PAGE_TITLE;
 <?php show_header_content($activePage); ?>
   
   <main id="home">
+    <div class="image_overlay"></div>
+    <img src="images/large_paint.png"></img>
+    <div class="image_overlay"></div>
+    <h2>Finest<br>selection<br> in Portland.</h2>
 
   </main>
 

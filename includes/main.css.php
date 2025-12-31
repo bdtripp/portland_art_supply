@@ -11,6 +11,16 @@ https://paletton.com/#uid=60f0u0kuauvivBun-vxvonRAQiM
 */
 /* MIXINS */
 /* COLOR PALETTE */
+@property --secondary-color1 {
+  syntax: '<color>';
+  initial-value: #D90D4B;
+  inherits: false;
+}
+@property --secondary-color2 {
+  syntax: '<color>';
+  initial-value: #F3910E;
+  inherits: false;
+}
 /* @color1: #0E24CC;
 @color2: #3D4899;
 @color3: #00A4FF;
@@ -63,8 +73,8 @@ html body header h1 {
   font-family: 'Arvo', serif;
   /* This is a Google Font */
   color: white;
-  background: linear-gradient(45deg, #F34F0E 0%, #F34F0E 30%, #F2F2F2 30%, #F2F2F2 100%);
   font-size: 1rem;
+  background: linear-gradient(10deg, #F34F0E, #F34F0E 19vw, #D90D4B 19vw, #D90D4B);
 }
 html body header h1#no_wrap_pas {
   display: none;
@@ -79,7 +89,6 @@ html body header ul.header_links {
   top: 0;
   right: 5px;
   transform: translateY(70%);
-  background-color: #F2F2F2;
 }
 html body header ul.header_links li {
   display: inline-block;
@@ -144,13 +153,40 @@ html body header nav ul li a:visited {
 }
 html body main {
   text-align: center;
-  min-height: calc(100vh - 252px);
-  background-color: #F2F2F2;
+  min-height: calc(100vh - 207.2px);
+  background-color: #fafafa;
   border-top: 1px dotted #F34F0E;
   /* The style below hides the dotted border when the navigation menu is collapsed */
   margin-top: -1px;
   letter-spacing: 0.1rem;
   overflow: hidden;
+}
+html body main#home {
+  background: linear-gradient(355deg, #F3910E, #F3910E 21vh, #D90D4B 192vh, #D90D4B);
+  min-height: 200vh;
+}
+html body main#home h2 {
+  position: relative;
+  top: -59vh;
+  left: 3vh;
+  font-size: 2.8em;
+  font-weight: 900;
+  text-align: left;
+}
+html body main#home img {
+  transform: scaleX(-1);
+}
+html body main#home div.image_overlay {
+  position: relative;
+  top: -8vh;
+  height: 57vh;
+  background-color: #F3910E;
+  transform: rotate(10deg);
+  width: 150vw;
+  left: -15vh;
+}
+html body main#home div.image_overlay:first-child {
+  display: none;
 }
 html body main h2 {
   font-size: 2rem;
@@ -392,6 +428,30 @@ html body footer div section.social ul li a:hover {
   opacity: 0.9;
 }
 /*===============================
+=== 440PX CSS CODE AND UP =======
+===============================*/
+@media (min-width: 440px) {
+  html body {
+    /*-------- 440PX HEADER STYLE ------*/
+    /*-------- 440PX NAV STYLE------*/
+    /*-------- 440PX MAIN STYLE ------*/
+    /*-------- 440PX FOOTER STYLE ------*/
+  }
+  html body main#home h2 {
+    top: -63vh;
+    left: 4vw;
+    font-size: 3.5em;
+  }
+  html body main#home div.image_overlay {
+    top: -10vh;
+  }
+  html body main section {
+    /*****************************
+                     * Style for product_items.php
+                     *****************************/
+  }
+}
+/*===============================
 ==== 700PX CSS CODE AND UP =======
 ===============================*/
 @media (min-width: 700px) {
@@ -419,6 +479,7 @@ html body footer div section.social ul li a:hover {
   html body header h1 {
     padding-left: 1%;
     font-size: 1.7rem;
+    background: linear-gradient(10deg, #F34F0E, #F34F0E 10vw, #D90D4B 10vw, #D90D4B);
   }
   html body header h1#wrap_pas {
     display: none;
@@ -431,6 +492,17 @@ html body footer div section.social ul li a:hover {
   }
   html body main {
     border-top: 1px solid #F34F0E;
+    position: relative;
+  }
+  html body main#home h2 {
+    top: -68vh;
+    font-size: 4.6em;
+  }
+  html body main#home div.image_overlay:first-child {
+    display: block;
+    top: -56vh;
+    position: absolute;
+    z-index: 2;
   }
   html body main section {
     /*****************************
@@ -686,6 +758,12 @@ html body footer div section.social ul li a:hover {
     /* This style adjusts the width of the navigation buttons */
     padding: 5px 10%;
   }
+  html body main {
+    min-height: calc(100vh - 251.2px);
+  }
+  html body main#home div.image_overlay:first-child {
+    top: -60vh;
+  }
   html body main section {
     /*****************************
                      * Style for product_items.php
@@ -704,6 +782,23 @@ html body footer div section.social ul li a:hover {
     /*-------- 1000PX NAV STYLE------*/
     /*-------- 1000PX MAIN STYLE ------*/
     /*-------- 1000PX FOOTER STYLE ------*/
+  }
+  html body main {
+    text-align: center;
+    min-height: calc(100vh - 207.2px);
+    background-color: #fafafa;
+    border-top: 1px dotted #F34F0E;
+    /* The style below hides the dotted border when the navigation menu is collapsed */
+    margin-top: -1px;
+    letter-spacing: 0.1rem;
+    overflow: hidden;
+  }
+  html body main#home h2 {
+    top: -80vh;
+    font-size: 5em;
+  }
+  html body main#home div.image_overlay {
+    top: -22vh;
   }
   html body main h2#mobile_version {
     display: none;
@@ -771,5 +866,24 @@ html body footer div section.social ul li a:hover {
     margin: 0;
     overflow: hidden;
     width: 50%;
+  }
+}
+/*===============================
+=== 1500PX CSS CODE AND UP =======
+===============================*/
+@media (min-width: 1500px) {
+  html body {
+    /*-------- 1500PX HEADER STYLE ------*/
+    /*-------- 1500PX NAV STYLE------*/
+    /*-------- 1500PX MAIN STYLE ------*/
+    /*-------- 1500PX FOOTER STYLE ------*/
+  }
+  html body main#home h2 {
+    font-size: 7em;
+  }
+  html body main section {
+    /*****************************
+                     * Style for product_items.php
+                     *****************************/
   }
 }
