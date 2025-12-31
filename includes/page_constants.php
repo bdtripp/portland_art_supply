@@ -101,6 +101,7 @@ const ABOUT_IMAGE_DIV_ID = 'about_images';
 const ABOUT_SECTION_ID = 'about';
 const COLOR_THUMBNAILS_DIV_ID = 'color_thumbnails';
 const EMPTY_CART_MESSAGE = 'empty_cart_message';
+const CARD_CLASS = 'card';
 
 /*
  * Classes

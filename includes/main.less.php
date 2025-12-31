@@ -7,7 +7,7 @@ header('Content-Type: text/css');
 
 /* Link to color palette:
 
-https://color.adobe.com/create/color-wheel/?base=2&rule=Compound&selected=3&name=My%20Color%20Theme&mode=rgb&rgbvalues=0.054901960784313725,0.1411764705882353,0.8,0.24,0.2816842105262822,0.6,0,0.6421052631576458,1,1,0.5664583333332303,0.25,0.8,0.27879999999995564,0.07999999999999999&swatchOrder=0,1,2,3,4
+https://paletton.com/#uid=60f0u0kuauvivBun-vxvonRAQiM
 
 */
 
@@ -22,16 +22,33 @@ https://color.adobe.com/create/color-wheel/?base=2&rule=Compound&selected=3&name
 
 /* COLOR PALETTE */
 
-@color1: #0E24CC;
+@property --secondary-color1 {
+    syntax: '<color>';
+    initial-value: #D90D4B;
+    inherits: false;
+}
+
+@property --secondary-color2 {
+    syntax: '<color>';
+    initial-value: #F3910E;
+    inherits: false;
+}
+
+@primary-color1: #F34F0E;
+@secondary-color1: #D90D4B;
+@secondary-color2: #F3910E;
+@secondary-color3: #B83906;
+@complementary-color1: #0AA764;
+
+@dark-gray: #333333;
+@off-white: #F2F2F2;
+@lightGrayBorder: #DDD;
+
+/* @color1: #0E24CC;
 @color2: #3D4899;
 @color3: #00A4FF;
 @color4: #FF9040;
-@color5: #CC4714;
-@lightGrayBorder: #DDD;
-
-/*
- * Classes
- */
+@color5: #CC4714; */
 
 .clearfloat {
     clear: both;
@@ -43,6 +60,11 @@ https://color.adobe.com/create/color-wheel/?base=2&rule=Compound&selected=3&name
 
 .required {
     color: red;
+}
+
+.card {
+    background-color: white;
+    border-radius: 10px;
 }
 
 /*===============================
@@ -59,6 +81,8 @@ html {
     body {
         font-family: 'Open Sans', sans-serif;
         overflow: auto;
+        background-color: @off-white;
+        color: @dark-gray;
 
         img {
             max-width: 100%;
@@ -77,8 +101,14 @@ html {
                 padding: 20px 0 20px 3%;
                 font-family: 'Arvo', serif; /* This is a Google Font */
                 color: white;
-                background-color: @color4;
                 font-size: 1rem;
+                background: linear-gradient(
+                    10deg, 
+                    @primary-color1 ,
+                    @primary-color1 19vw,  
+                    @secondary-color1 19vw,
+                    @secondary-color1
+                );
 
                 &#no_wrap_pas {
                     display: none;
@@ -93,49 +123,52 @@ html {
                 }
             }
 
-            ul.header_links {
-                float: right;
-                position: absolute;
-                top: 0;
-                right: 5px;
-                transform: translateY(70%);
+            ul {
 
-                li {
-                    display: inline-block;
-                    vertical-align: middle;
+                &.header_links {
+                    float: right;
+                    position: absolute;
+                    top: 0;
+                    right: 5px;
+                    transform: translateY(70%);
 
-                    a {
-                        padding: 0;
-                        text-decoration: none;
-                        color: black;
+                    li {
+                        display: inline-block;
+                        vertical-align: middle;
 
-                        &.shopping_cart_icon {
-                            position: relative;
-                            display: flex;
+                        a {
+                            padding: 0;
+                            text-decoration: none;
+                            color: black;
 
-                            p {
+                            &.shopping_cart_icon {
+                                position: relative;
+                                display: flex;
 
-                                &#cart_count_display {
-                                    position: absolute;
-                                    top: 33%;
-                                    left: 60%;
-                                    transform: translate(-50%, -50%);
-                                    font-size: .8rem;
-                                    font-weight: bolder;
+                                p {
+
+                                    &#cart_count_display {
+                                        position: absolute;
+                                        top: 33%;
+                                        left: 60%;
+                                        transform: translate(-50%, -50%);
+                                        font-size: .8rem;
+                                        font-weight: bolder;
+                                    }
                                 }
                             }
-                        }
 
-                        &#username_display {
-                            font-size: .8rem;
-                            margin-bottom: 3px;
-                            display: block;
-                        }
+                            &#username_display {
+                                font-size: .8rem;
+                                margin-bottom: 3px;
+                                display: block;
+                            }
 
-                        &#login_link {
-                            margin-right: 10px;
-                            font-size: 1rem;
-                            margin: 0;
+                            &#login_link {
+                                margin-right: 10px;
+                                font-size: 1rem;
+                                margin: 0;
+                        }
                     }
                 }
             }
@@ -149,6 +182,7 @@ html {
                 ul {
                     width: 94%;
                     margin: 0 auto;
+                    background-color: @off-white;
 
                     li {
                         text-align: center;
@@ -174,6 +208,10 @@ html {
                             &:hover {
                                 opacity: .8;
                             }
+
+                            &:visited {
+                                color: @dark-gray;
+                            }
                         }
                     }
                 }
@@ -186,16 +224,59 @@ html {
 
         main {
             text-align: center;
-            border-top: 1px dotted @color4;
+            min-height: calc(100vh - 207.2px);
+            background-color: lighten(@off-white, 3%);
+            border-top: 1px dotted @primary-color1;
             /* The style below hides the dotted border when the navigation menu is collapsed */
             margin-top: -1px;
             letter-spacing: .1rem;
             overflow: hidden;
 
+            &#home {
+                background: linear-gradient(
+                    355deg,
+                    @secondary-color2,
+                    @secondary-color2 21vh,
+                    @secondary-color1 192vh,
+                    @secondary-color1
+                );
+                min-height: 200vh;
+
+                h2 {
+                    position: relative;
+                    top: -59vh;
+                    left: 3vh;
+                    font-size: 2.8em;
+                    font-weight: 900;
+                    text-align: left;
+                }
+
+                img {
+                    transform: scaleX(-1);
+                }
+
+                div {
+                    &.image_overlay {
+                        position: relative;
+                        top: -8vh;
+                        height: 57vh;
+                        background-color: #F3910E;
+                        transform: rotate(10deg);
+                        width: 150vw;
+                        left: -15vh;
+
+                        &:first-child {
+                            display: none;
+                        }
+                    }
+                }
+
+            }
+
             h2 {
                 font-size: 2rem;
                 margin: 20px auto;
-                color: @color5;
+                color: @secondary-color3;
                 font-weight: bold;
                 clear: both;
                 max-width: 97%;
@@ -236,7 +317,7 @@ html {
                             margin: 7px auto;
                             padding: 3px;
                             border-radius: 3px;
-                            color: @color5;
+                            color: @secondary-color3;
                             box-shadow: 2px 2px 12px #444;
                         }
                     }
@@ -252,6 +333,7 @@ html {
 
                         &.group_row {
                             overflow: hidden;
+
                         }
                     }
 
@@ -261,7 +343,6 @@ html {
                             padding: 20px 0 0 0;
                             box-shadow: 5px 5px 20px #AAA;
                             margin: 15px auto;
-                            border-radius: 5px;
 
                             a {
 
@@ -269,10 +350,14 @@ html {
                                     max-width: 97%;
                                     margin: 0 auto;
                                     text-decoration: none;
-                                    color: black;
                                     font-size: 1.2rem;
                                     display: block;
                                     padding: 0 0 5px 0;
+                                    color: @dark-gray;
+
+                                    &:visited {
+                                        color: @dark-gray;
+                                    }
                                 }
                             }
                         }
@@ -606,6 +691,183 @@ html {
     }
 }
 
+/*===============================
+=== 440PX CSS CODE AND UP =======
+===============================*/
+
+@media (min-width: 440px) {
+
+    html {
+
+        body {
+
+            /*-------- 440PX HEADER STYLE ------*/
+
+            header {
+
+                h1 {
+
+                    &#wrap_pas {
+
+                    }
+
+                    &#no_wrap_pas {
+
+                    }
+                }
+
+                ul {
+
+                    &.header_links {
+
+                        li {
+
+                            a {
+
+                            }
+                        }
+                    }
+                }
+            }
+
+            /*-------- 440PX NAV STYLE------*/
+
+            nav {
+
+                ul{
+
+                    li {
+
+                        a {
+
+                        }
+                    }
+                }
+            }
+
+            /*-------- 440PX MAIN STYLE ------*/
+
+           main {
+
+                &#home {
+
+                    h2 {
+                        top: -63vh;
+                        left: 4vw;
+                        font-size: 3.5em;
+                    }
+
+                    img {
+
+                    }
+
+                    div {
+                        &.image_overlay {
+                            top: -10vh;
+                        }
+                    }
+                }
+
+                h2 {
+
+                    &#mobile_version {
+
+                    }
+                }
+
+                section {
+
+                    /*****************************
+                     * Style for product_items.php
+                     *****************************/
+
+                    &#item_wrapper {
+                        
+                        h2 {
+
+                            &#non_mobile_version {
+
+                            }
+                        }
+
+                        div {
+
+                            &#image_wrapper {
+
+                                img {
+
+                                    &#product_item_image {
+
+                                    }
+                                }
+                            }
+
+                            &#details_wrapper {
+
+                                div {
+
+                                    &#item_details {
+
+
+                                        p {
+                                            &#group_info {
+
+                                            }
+                                        }
+
+                                        div {
+
+                                            &#item_options {
+
+                                                div {
+
+                                                    &#color_thumbnails_wrapper {
+
+
+                                                        div {
+                                                            &#color_thumbnails {
+
+                                                            }
+                                                        }
+                                                    }
+
+
+                                                    &#image_wrapper {
+                                                        
+                                                        img {
+
+                                                        }
+                                                    }
+
+                                                    &#right_col_wrapper {
+
+                                                        div {
+
+                                                            &#item_options_right_col {
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            /*-------- 440PX FOOTER STYLE ------*/
+
+            footer {
+
+            }
+        }
+    }
+}
+
 
 /*===============================
 ==== 700PX CSS CODE AND UP =======
@@ -645,8 +907,15 @@ html {
                 }
 
                 h1 {
-                    padding-left: 1%;
-                    font-size: 1.7rem;
+                padding-left: 1%;
+                font-size: 1.7rem;
+                background: linear-gradient(
+                    10deg, 
+                    @primary-color1 ,
+                    @primary-color1 10vw,  
+                    @secondary-color1 10vw,
+                    @secondary-color1
+                );
 
                     &#wrap_pas {
                         display: none;
@@ -691,7 +960,34 @@ html {
         /*-------- 700PX MAIN STYLE------*/
 
             main {
-                border-top: 1px solid @color4;
+                border-top: 1px solid @primary-color1;
+                position: relative;
+
+                &#home {
+
+                    h2 {
+                        top: -68vh;
+                        font-size: 4.6em;
+                    }
+
+                    img {
+
+                    }
+
+                    div {
+                        &.image_overlay {
+                            
+                            &:first-child {
+                                display: block;
+                                top: -56vh;
+                                position: absolute;
+                                z-index: 2;
+                            }
+
+                        }
+                    }
+
+                }
 
                 h2 {
 
@@ -765,7 +1061,6 @@ html {
 
                                     &.product_group {
                                         border: 1px solid @lightGrayBorder;
-                                        border-radius: 5px;
                                         display: flex;
                                         flex-wrap: wrap;
                                         justify-content: center;
@@ -1178,7 +1473,29 @@ html {
             /*-------- 900PX MAIN STYLE ------*/
 
             main {
+                min-height: calc(100vh - 251.2px);
 
+                &#home {
+
+                    h2 {
+
+                    }
+
+                    img {
+
+                    }
+
+                    div {
+                        &.image_overlay {
+                            
+                            &:first-child {
+                                top: -60vh;
+                            }
+
+                        }
+                    }
+
+                }
                 section {
 
                     /*****************************
@@ -1391,7 +1708,32 @@ html {
 
             /*-------- 1000PX MAIN STYLE ------*/
 
-            main {
+           main {
+                text-align: center;
+                min-height: calc(100vh - 207.2px);
+                background-color: lighten(@off-white, 3%);
+                border-top: 1px dotted @primary-color1;
+                /* The style below hides the dotted border when the navigation menu is collapsed */
+                margin-top: -1px;
+                letter-spacing: .1rem;
+                overflow: hidden;
+
+                &#home {
+
+                    h2 {
+                        top: -80vh;
+                        font-size: 5em;
+                    }
+
+                    img {
+                    }
+
+                    div {
+                        &.image_overlay {
+                            top: -22vh;
+                        }
+                    }
+                }
 
                 h2 {
 
@@ -1517,6 +1859,179 @@ html {
             }
 
             /*-------- 1000PX FOOTER STYLE ------*/
+
+            footer {
+
+            }
+        }
+    }
+}
+
+/*===============================
+=== 1500PX CSS CODE AND UP =======
+===============================*/
+
+@media (min-width: 1500px) {
+
+    html {
+
+        body {
+
+            /*-------- 1500PX HEADER STYLE ------*/
+
+            header {
+
+                h1 {
+
+                    &#wrap_pas {
+
+                    }
+
+                    &#no_wrap_pas {
+
+                    }
+                }
+
+                ul {
+
+                    &.header_links {
+
+                        li {
+
+                            a {
+
+                            }
+                        }
+                    }
+                }
+            }
+
+            /*-------- 1500PX NAV STYLE------*/
+
+            nav {
+
+                ul{
+
+                    li {
+
+                        a {
+
+                        }
+                    }
+                }
+            }
+
+            /*-------- 1500PX MAIN STYLE ------*/
+
+           main {
+
+                &#home {
+
+                    h2 {
+                        font-size: 7em;
+                    }
+
+                    img {
+
+                    }
+
+                    div {
+                        &.image_overlay {
+
+                        }
+                    }
+                }
+
+                h2 {
+
+                    &#mobile_version {
+
+                    }
+                }
+
+                section {
+
+                    /*****************************
+                     * Style for product_items.php
+                     *****************************/
+
+                    &#item_wrapper {
+
+                        h2 {
+
+                            &#non_mobile_version {
+
+                            }
+                        }
+
+                        div {
+
+                            &#image_wrapper {
+
+                                img {
+
+                                    &#product_item_image {
+
+                                    }
+                                }
+                            }
+
+                            &#details_wrapper {
+
+                                div {
+
+                                    &#item_details {
+
+                                        p {
+                                            &#group_info {
+
+                                            }
+                                        }
+
+                                        div {
+
+                                            &#item_options {
+
+                                                div {
+
+                                                    &#color_thumbnails_wrapper {
+
+                                                        div {
+                                                            &#color_thumbnails {
+
+                                                            }
+                                                        }
+                                                    }
+
+
+                                                    &#image_wrapper {
+                                                        
+                                                        img {
+
+                                                        }
+                                                    }
+
+                                                    &#right_col_wrapper {
+
+                                                        div {
+
+                                                            &#item_options_right_col {
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            /*-------- 1500PX FOOTER STYLE ------*/
 
             footer {
 

@@ -1,17 +1,34 @@
-//<?php
-//
-//
-//header('Content-Type: text/css');
-//?>
+/*
+<?php
+
+
+header('Content-Type: text/css');
+?>
+*/
 
 /*
  * Login/New Account Form
  */
+
+/* COLOR PALETTE */
+
+@primary-color1: #F34F0E;
+@secondary-color1: #D90D4B;
+@secondary-color2: #F3910E;
+@secondary-color3: #B83906;
+@complementary-color1: #0AA764;
+
+@dark-gray: #333333;
+@off-white: #F2F2F2;
+@lightGrayBorder: #DDD;
+
 html {
     height: 100%;
 
     body {
         height: 100%;
+        background-color: @off-white;
+        color: @dark-gray;
 
         div {
 
@@ -62,6 +79,11 @@ html {
 
                             a {
                                 padding-right: 10px;
+                                color: @dark-gray;
+
+                                &:visited {
+                                    color: @dark-gray;
+                                }
                             }
 
                             input {

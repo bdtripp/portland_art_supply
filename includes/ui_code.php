@@ -138,7 +138,7 @@ function show_product_groups($product) {
     $hrefString .= '&' . PRODUCT_CATEGORY_NAME_FIELD . '=' . urlencode($product[PRODUCT_CATEGORY_NAME_FIELD]);
     $hrefString .= '&' . PRODUCT_SUBCATEGORY_NAME_FIELD . '=' . urlencode($product[PRODUCT_SUBCATEGORY_NAME_FIELD]);
     $hrefString .= '&' . PRODUCT_GROUP_CODE_FIELD . '=' . urlencode($product[PRODUCT_GROUP_CODE_FIELD]) . '"';
-    echo '            <div class="' . PRODUCT_GROUP_CLASS . ' ' . FOUR_COLUMNS_CLASS . '">' . "\n";
+    echo '            <div class="' . PRODUCT_GROUP_CLASS . ' ' . FOUR_COLUMNS_CLASS . ' ' . CARD_CLASS . '">' . "\n";
     echo '                <a class="' . GROUP_DESCRIPTION_TEXT_CLASS . '" ' . "\n";
     echo '                     ' . $hrefString . '>' . "\n";
     echo '                     ' . $product[PRODUCT_GROUP_DESCRIPTION_FIELD] . '</a>' . "\n";
@@ -154,11 +154,11 @@ function show_item_content($productGroup, $categoryName, $subCategoryName) {
     echo '<main>' . "\n";
     echo '    <h2 id="' . MOBILE_H2 . '">' . $productGroup[PRODUCT_GROUP_DESCRIPTION_FIELD] . '</h2>' . "\n";
     echo '    <section id="' . ITEM_WRAPPER_ID . '">' . "\n";
-    echo '        <div id="' . IMAGE_WRAPPER_ID . '" class="' . FIVE_COLUMNS_CLASS . '">' . "\n";
+    echo '        <div id="' . IMAGE_WRAPPER_ID . '" class="' . FIVE_COLUMNS_CLASS . ' ' . CARD_CLASS . '">' . "\n";
     echo '            <img id=' . PRODUCT_ITEM_IMAGE_ID . ' src="' . IMAGE_FOLDER . $categoryName . '/' .
         $subCategoryName . '/' . $productGroup[PRODUCT_GROUP_CODE_FIELD] . '.jpg">' . "\n";
     echo '        </div>' . "\n";
-    echo '        <div id="' . DETAILS_WRAPPER_ID . '" class="' . SEVEN_COLUMNS_CLASS . '">' . "\n";
+    echo '        <div id="' . DETAILS_WRAPPER_ID . '" class="' . SEVEN_COLUMNS_CLASS . ' ' . CARD_CLASS .  '">' . "\n";
     echo '            <div id="' . ITEM_DETAILS_DIV . '">' . "\n";
     echo '                <h2 id="' . NON_MOBILE_H2 . '">' . $productGroup[PRODUCT_GROUP_DESCRIPTION_FIELD] . '</h2>' . "\n";
     echo '                <p id="' . GROUP_INFORMATION_ID . '">' . $productGroup[PRODUCT_GROUP_INFORMATION_FIELD] . '</p>' . "\n";
@@ -203,7 +203,7 @@ function show_items_in_cart($itemsInCart) {
         $price = $item[PRODUCT_ITEM_PRICE_FIELD];
         $quantity = $item[QUANTITY_FIELD];
 
-        echo '        <div id="product_id_' . $id . '_div" class="' . CART_ITEM_CLASS . '">' . "\n";
+        echo '        <div id="product_id_' . $id . '_div" class="' . CART_ITEM_CLASS . ' ' . CARD_CLASS . '">' . "\n";
         displayItemImage($categoryName, $subcategoryName,
             $groupCode, $color,
             $size);
