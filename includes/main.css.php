@@ -86,8 +86,8 @@ html body header label.menu-icon {
 html body header ul.header_links {
   float: right;
   position: absolute;
-  top: 0;
-  right: 5px;
+  top: -6px;
+  right: 20px;
   transform: translateY(70%);
 }
 html body header ul.header_links li {
@@ -103,23 +103,33 @@ html body header ul.header_links li a.shopping_cart_icon {
   position: relative;
   display: flex;
 }
+html body header ul.header_links li a.shopping_cart_icon img {
+  width: 38px;
+}
 html body header ul.header_links li a.shopping_cart_icon p#cart_count_display {
   position: absolute;
-  top: 33%;
-  left: 60%;
+  top: 26%;
+  left: 50%;
   transform: translate(-50%, -50%);
   font-size: 0.8rem;
   font-weight: bolder;
+  color: #333333;
+  font-weight: 900;
 }
 html body header ul.header_links li a#username_display {
   font-size: 0.8rem;
   margin-bottom: 3px;
   display: block;
+  font-weight: 900;
+  color: #333;
 }
 html body header ul.header_links li a#login_link {
   margin-right: 10px;
   font-size: 1rem;
   margin: 0;
+}
+html body header ul.header_links li a#login_link img {
+  width: 38px;
 }
 html body header nav ul {
   width: 94%;

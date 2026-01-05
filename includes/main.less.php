@@ -128,8 +128,8 @@ html {
                 &.header_links {
                     float: right;
                     position: absolute;
-                    top: 0;
-                    right: 5px;
+                    top: -6px;
+                    right: 20px;
                     transform: translateY(70%);
 
                     li {
@@ -145,15 +145,21 @@ html {
                                 position: relative;
                                 display: flex;
 
+                                img {
+                                    width: 38px;
+                                }
+
                                 p {
 
                                     &#cart_count_display {
                                         position: absolute;
-                                        top: 33%;
-                                        left: 60%;
+                                        top: 26%;
+                                        left: 50%;
                                         transform: translate(-50%, -50%);
                                         font-size: .8rem;
                                         font-weight: bolder;
+                                        color: @dark-gray;
+                                        font-weight: 900;
                                     }
                                 }
                             }
@@ -162,12 +168,18 @@ html {
                                 font-size: .8rem;
                                 margin-bottom: 3px;
                                 display: block;
+                                font-weight: 900;
+                                color: #333;
                             }
 
                             &#login_link {
                                 margin-right: 10px;
                                 font-size: 1rem;
                                 margin: 0;
+
+                                img {
+                                    width: 38px;
+                                }
                         }
                     }
                 }
