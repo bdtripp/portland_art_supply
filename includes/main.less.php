@@ -631,9 +631,7 @@ html {
                 width: 100%;
                 margin: 0 auto;
                 padding: 5px 0;
-                background-color: #222;
-                opacity: .9;
-
+                background-color: rgba(34, 34, 34, .9);
 
                 section {
                     margin-top: 15px;
@@ -681,6 +679,7 @@ html {
                     }
 
                     &.social {
+                        margin-top: 20px;
 
                         ul {
 
@@ -688,10 +687,22 @@ html {
                                 display: inline;
 
                                 a {
-                                    padding: 0 1.2%;
+                                    padding: 7.5px;
+                                    border-radius: 10px;
+                                    line-height: 0;
+                                    display: inline-block;
+                                    margin: 0 1.2%;
 
-                                    &:hover {
-                                        opacity: .9;
+                                    &#x {
+                                        background-color: black;
+                                    }
+
+                                    &#facebook, &#instagram, &#pinterest {
+                                        background-color: white;
+                                    }
+
+                                    img {
+                                        width: 30px;
                                     }
                                 }
                             }
@@ -1406,9 +1417,7 @@ html {
                                     margin: 0 auto;
 
                                     a {
-                                        padding: 0 .5%;
                                         display: inline-block;
-
                                     }
                                 }
                             }

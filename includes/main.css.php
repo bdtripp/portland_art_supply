@@ -391,8 +391,7 @@ html body footer div {
   width: 100%;
   margin: 0 auto;
   padding: 5px 0;
-  background-color: #222;
-  opacity: 0.9;
+  background-color: rgba(34, 34, 34, 0.9);
 }
 html body footer div section {
   margin-top: 15px;
@@ -428,14 +427,29 @@ html body footer div section.address a.phone_not_mobile {
   /* This is the style that hides the non-clickable tablet/desktop version of      the phone number */
   display: none;
 }
+html body footer div section.social {
+  margin-top: 20px;
+}
 html body footer div section.social ul li {
   display: inline;
 }
 html body footer div section.social ul li a {
-  padding: 0 1.2%;
+  padding: 7.5px;
+  border-radius: 10px;
+  line-height: 0;
+  display: inline-block;
+  margin: 0 1.2%;
 }
-html body footer div section.social ul li a:hover {
-  opacity: 0.9;
+html body footer div section.social ul li a#x {
+  background-color: black;
+}
+html body footer div section.social ul li a#facebook,
+html body footer div section.social ul li a#instagram,
+html body footer div section.social ul li a#pinterest {
+  background-color: white;
+}
+html body footer div section.social ul li a img {
+  width: 30px;
 }
 /*===============================
 === 440PX CSS CODE AND UP =======
@@ -739,7 +753,6 @@ html body footer div section.social ul li a:hover {
     margin: 0 auto;
   }
   html body footer div section.social ul li a {
-    padding: 0 0.5%;
     display: inline-block;
   }
 }
