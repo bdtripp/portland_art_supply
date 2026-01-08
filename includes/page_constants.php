@@ -52,8 +52,8 @@ const SHOPPING_CART_IMAGE = 'shopping_cart.png';
 const SHOPPING_CART_IMAGE_ALT = 'Shopping Cart Icon';
 const FACEBOOK_ICON = 'facebook.png';
 const FACEBOOK_ICON_ALT = 'Facebook Icon';
-const TWITTER_ICON = 'twitter.png';
-const TWITTER_ICON_ALT = 'Twitter Icon';
+const X_ICON = 'x.png';
+const X_ICON_ALT = 'X Icon';
 const INSTAGRAM_ICON = 'instagram.png';
 const INSTAGRAM_ICON_ALT = 'Instagram Icon';
 const PINTEREST_ICON = 'pinterest.png';
@@ -102,6 +102,10 @@ const ABOUT_SECTION_ID = 'about';
 const COLOR_THUMBNAILS_DIV_ID = 'color_thumbnails';
 const EMPTY_CART_MESSAGE = 'empty_cart_message';
 const CARD_CLASS = 'card';
+const X_ID = 'x';
+const FACEBOOK_ID = 'facebook';
+const INSTAGRAM_ID = 'instagram';
+const PINTEREST_ID = 'pinterest';
 
 /*
  * Classes
@@ -157,7 +161,7 @@ const COLOR_THUMBNAIL_CLASS = 'color_tn';
  */
 
 const FACEBOOK_PAGE_URL = 'https://www.facebook.com/';
-const TWITTER_PAGE_URL = 'https://twitter.com/';
+const TWITTER_PAGE_URL = 'https://x.com/';
 const INSTAGRAM_PAGE_URL = 'https://www.instagram.com/';
 const PINTEREST_PAGE_URL = 'https://www.pinterest.com/';
 

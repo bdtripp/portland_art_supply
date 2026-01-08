@@ -293,13 +293,13 @@ function show_footer_content() {
     echo '        </section>' . "\n\n";
     echo '        <section class="' . SOCIAL_CLASS . ' ' . FOUR_COLUMNS_CLASS . '">' . "\n\n";
     echo '            <ul>' . "\n";
-    echo '                <li><a class="' . ICON_CLASS . '" href="' . FACEBOOK_PAGE_URL . '"><img src="' . IMAGE_FOLDER .
+    echo '                <li><a id="' . FACEBOOK_ID . '" class="' . ICON_CLASS . '" href="' . FACEBOOK_PAGE_URL . '" target="_blank"><img src="' . IMAGE_FOLDER .
         SOCIAL_FOLDER . FACEBOOK_ICON . '" alt="' . FACEBOOK_ICON_ALT . '"></a></li>' . "\n";
-    echo '                <li><a class="' . ICON_CLASS . '" href="' . TWITTER_PAGE_URL . '"><img src="' . IMAGE_FOLDER .
-        SOCIAL_FOLDER . TWITTER_ICON . '" alt="' . TWITTER_ICON_ALT . '"></a></li>' . "\n";
-    echo '                <li><a class="' . ICON_CLASS . '" href="' . INSTAGRAM_PAGE_URL . '"><img src="' .
+    echo '                <li><a id="' . X_ID . '" class="' . ICON_CLASS . '" href="' . TWITTER_PAGE_URL . '" target="_blank"><img src="' . IMAGE_FOLDER .
+        SOCIAL_FOLDER . X_ICON . '" alt="' . X_ICON_ALT . '"></a></li>' . "\n";
+    echo '                <li><a id="' . INSTAGRAM_ID . '" class="' . ICON_CLASS . '" href="' . INSTAGRAM_PAGE_URL . '" target="_blank"><img src="' .
         IMAGE_FOLDER . SOCIAL_FOLDER . INSTAGRAM_ICON . '" alt="' . INSTAGRAM_ICON_ALT . '"></a></li>' . "\n";
-    echo '                <li><a class="' . ICON_CLASS . '" href="' . PINTEREST_PAGE_URL . '"><img src="' . IMAGE_FOLDER .
+    echo '                <li><a id="' . PINTEREST_ID . '" class="' . ICON_CLASS . '" href="' . PINTEREST_PAGE_URL . '" target="_blank"><img src="' . IMAGE_FOLDER .
         SOCIAL_FOLDER . PINTEREST_ICON . '" alt="' . PINTEREST_ICON_ALT . '"></a></li>' . "\n";
     echo '            </ul>' . "\n\n";
     echo '        </section>' . "\n\n";
