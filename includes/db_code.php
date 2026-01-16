@@ -62,10 +62,11 @@ function add_session($userID, $session) {
         $stmt = $conn->prepare("
         INSERT INTO " . ACCOUNT_DATA_TABLE . " (" . ACCOUNT_DATA_USER_ID_FIELD . ", " . ACCOUNT_DATA_SESSION_DATA_FIELD . ")
         VALUES (:userID, :session)
-        ON DUPLICATE KEY UPDATE " . ACCOUNT_DATA_SESSION_DATA_FIELD . " = :session;
+        ON DUPLICATE KEY UPDATE " . ACCOUNT_DATA_SESSION_DATA_FIELD . " = :sessionDup;
         ");
         $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
         $stmt->bindParam(':session', $session, PDO::PARAM_STR);
+        $stmt->bindParam(':sessionDup', $session, PDO::PARAM_STR);
         $stmt->execute();
     }
 }
