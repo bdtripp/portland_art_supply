@@ -6,108 +6,140 @@
  * Time: 6:52 PM
  */
 
-//TODO use paramterized queries instead of real_escape string
+function connectToDB() {
+    $dsn = "mysql:host=" . DB_SERVER . ";dbname=" . DB_NAME . ";charset=utf8mb4";
+    $options = [
+        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION, // Throw errors as exceptions
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,       // Return arrays by default
+        PDO::ATTR_EMULATE_PREPARES   => false,                  // Use real prepared statements
+    ];
+
+    try {
+        $conn = new PDO($dsn, DB_USER, DB_PASSWORD, $options);
+    } catch (PDOException $e) {
+        throw $e; 
+    }
+    return $conn;
+}
 
 function lookup_user($username) {
-    $db = new mysqli(DB_SERVER, DB_USER, DB_PASSWORD, DB_DATABASE);
-    $safe_username = $db->real_escape_string($username);
-    $query = "SELECT * FROM " . USERS_TABLE . " WHERE " . USERS_USERNAME_FIELD . " = '$safe_username';";
-    $result = $db->query($query);
-    return $result->fetch_array(MYSQLI_ASSOC);
+    $conn = connectToDB();
+    $stmt = $conn->prepare("
+    SELECT * FROM " . USERS_TABLE . 
+    " WHERE " . USERS_USERNAME_FIELD . " = :username;
+    ");
+    $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
 function add_user($username, $hash) {
-    $db = new mysqli(DB_SERVER, DB_USER, DB_PASSWORD, DB_DATABASE);
-    $safe_username = $db->real_escape_string($username);
-    $query = "INSERT INTO";
-    $query .= " " . USERS_TABLE . " (" . USERS_USERNAME_FIELD . ", " . USERS_HASH_FIELD . ")";
-    $query .= " VALUES ('$safe_username','$hash');";
-    $db->query($query);
+    $conn = connectToDB();
+    $stmt = $conn->prepare("
+    INSERT INTO " . USERS_TABLE . " (" . USERS_USERNAME_FIELD . ", " . USERS_HASH_FIELD . ")
+    VALUES (:username, :hash);
+    ");
+    $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+    $stmt->bindParam(':hash', $hash, PDO::PARAM_STR);
+    $stmt->execute();
 }
 
 function lookup_session($userID) {
-    $db = new mysqli(DB_SERVER, DB_USER, DB_PASSWORD, DB_DATABASE);;
-    $query = "SELECT *";
-    $query .= " FROM " . ACCOUNT_DATA_TABLE;
-    $query .= " WHERE " . ACCOUNT_DATA_USER_ID_FIELD . " = '$userID';";
-    $result = $db->query($query);
-    return $result->fetch_array(MYSQLI_ASSOC);
+    $conn = connectToDB();;
+    $stmt = $conn->prepare("
+    SELECT *
+    FROM " . ACCOUNT_DATA_TABLE .
+    " WHERE " . ACCOUNT_DATA_USER_ID_FIELD . " = :userID;
+    ");
+    $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
 function add_session($userID, $session) {
-    $db = new mysqli(DB_SERVER, DB_USER, DB_PASSWORD, DB_DATABASE);
-
     if ($userID !== null) {
-        $query = "INSERT INTO";
-        $query .= " " . ACCOUNT_DATA_TABLE;
-        $query .= " (" . ACCOUNT_DATA_USER_ID_FIELD . ", " . ACCOUNT_DATA_SESSION_DATA_FIELD. ")";
-        $query .= " VALUES ('$userID','$session')";
-        // $query .= " VALUES (" . ($userID === null ? "NULL" : $userID) . ", $session')";
-        $query .= " ON DUPLICATE KEY UPDATE " . ACCOUNT_DATA_SESSION_DATA_FIELD . " = '$session';";
-        $result = $db->query($query);
-        $a = 2;
+        $conn = connectToDB();
+        $stmt = $conn->prepare("
+        INSERT INTO " . ACCOUNT_DATA_TABLE . " (" . ACCOUNT_DATA_USER_ID_FIELD . ", " . ACCOUNT_DATA_SESSION_DATA_FIELD . ")
+        VALUES (:userID, :session)
+        ON DUPLICATE KEY UPDATE " . ACCOUNT_DATA_SESSION_DATA_FIELD . " = :session;
+        ");
+        $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+        $stmt->bindParam(':session', $session, PDO::PARAM_STR);
+        $stmt->execute();
     }
 }
 
 function lookup_categories() {
-    $db = new mysqli(DB_SERVER, DB_USER, DB_PASSWORD, DB_DATABASE);
-    $query = "SELECT " . PRODUCT_CATEGORY_ID_FIELD . ', ' . PRODUCT_CATEGORY_NAME_FIELD . " FROM " . PRODUCT_CATEGORY_TABLE;
-    $result = $db->query($query);
-    while ($category = $result->fetch_array(MYSQLI_ASSOC)) {
-        $categories[] = $category;
-    }
-    return $categories;
+    $conn = connectToDB();
+    $stmt = $conn->query("
+    SELECT " . PRODUCT_CATEGORY_ID_FIELD . ", " . PRODUCT_CATEGORY_NAME_FIELD . 
+    " FROM " . PRODUCT_CATEGORY_TABLE . ";
+    ");
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 function lookup_subcategories($categoryID) {
-    $db = new mysqli(DB_SERVER, DB_USER, DB_PASSWORD, DB_DATABASE);
-    $query = "SELECT " . PRODUCT_SUBCATEGORY_NAME_FIELD . " FROM " . PRODUCT_SUBCATEGORY_TABLE . " WHERE ";
-    $query .= PRODUCT_SUBCATEGORY_CATEGORY_ID_FIELD . " = " . $categoryID;
-    $result = $db->query($query);
-    while ($subcat = $result->fetch_array(MYSQLI_ASSOC)) {
-        $subcats[] = $subcat;
-    }
-    return $subcats;
+    $conn = connectToDB();
+    $stmt = $conn->prepare("
+    SELECT " . PRODUCT_SUBCATEGORY_NAME_FIELD . 
+    " FROM " . PRODUCT_SUBCATEGORY_TABLE . 
+    " WHERE " . PRODUCT_SUBCATEGORY_CATEGORY_ID_FIELD . " = :categoryID;
+    ");
+    $stmt->bindParam(':categoryID', $categoryID, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 function lookup_product_groups($category, $subcategory) {
-    $db = new mysqli(DB_SERVER, DB_USER, DB_PASSWORD, DB_DATABASE);
-    $query = "SELECT " . PRODUCT_GROUP_ID_FIELD . ", " . PRODUCT_GROUP_CODE_FIELD . ", " . PRODUCT_GROUP_DESCRIPTION_FIELD . ", ";
-    $query .= PRODUCT_CATEGORY_NAME_FIELD . ", " . PRODUCT_SUBCATEGORY_NAME_FIELD . " FROM " . PRODUCT_GROUP_TABLE;
-    $query .= " JOIN " . PRODUCT_CATEGORY_TABLE . " ON " . PRODUCT_GROUP_TABLE . "." . PRODUCT_GROUP_CATEGORY_ID_FIELD;
-    $query .= " = " . PRODUCT_CATEGORY_TABLE . "." . PRODUCT_CATEGORY_ID_FIELD;
-    $query .= " JOIN " . PRODUCT_SUBCATEGORY_TABLE . " ON " . PRODUCT_GROUP_TABLE . "." . PRODUCT_GROUP_SUBCATEGORY_ID_FIELD;
-    $query .= " = " .  PRODUCT_SUBCATEGORY_TABLE . "." . PRODUCT_SUBCATEGORY_ID_FIELD;
-    $query .= " WHERE " . PRODUCT_CATEGORY_NAME_FIELD. " = '" . ucfirst($category) . "'";
-    $query .= " AND " . PRODUCT_SUBCATEGORY_NAME_FIELD . " = '" . ucfirst($subcategory) . "'";
-    $result = $db->query($query);
-    while($product_group = $result->fetch_array(MYSQLI_ASSOC)) {
-        $product_groups[] = $product_group;
-    };
-    return $product_groups;
+    $conn = connectToDB();
+    $stmt = $conn->prepare("
+    SELECT " . PRODUCT_GROUP_ID_FIELD . ", " . PRODUCT_GROUP_CODE_FIELD . ", " . PRODUCT_GROUP_DESCRIPTION_FIELD . ", " .
+    PRODUCT_CATEGORY_NAME_FIELD . ", " . PRODUCT_SUBCATEGORY_NAME_FIELD . 
+    " FROM " . PRODUCT_GROUP_TABLE . 
+    " JOIN " . PRODUCT_CATEGORY_TABLE . 
+    " ON " . PRODUCT_GROUP_TABLE . "." . PRODUCT_GROUP_CATEGORY_ID_FIELD . 
+    " = " . PRODUCT_CATEGORY_TABLE . "." . PRODUCT_CATEGORY_ID_FIELD .
+    " JOIN " . PRODUCT_SUBCATEGORY_TABLE . " 
+    ON " . PRODUCT_GROUP_TABLE . "." . PRODUCT_GROUP_SUBCATEGORY_ID_FIELD . 
+    " = " .  PRODUCT_SUBCATEGORY_TABLE . "." . PRODUCT_SUBCATEGORY_ID_FIELD .
+    " WHERE " . PRODUCT_CATEGORY_NAME_FIELD. " = :category" .
+    " AND " . PRODUCT_SUBCATEGORY_NAME_FIELD . " = :subcategory;
+    ");
+    $stmt->bindParam(':category', ucfirst($category), PDO::PARAM_STR);
+    $stmt->bindParam(':subcategory', ucfirst($subcategory), PDO::PARAM_STR);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 function lookup_group($groupID) {
-    $db = new mysqli(DB_SERVER, DB_USER, DB_PASSWORD, DB_DATABASE);
-    $query = "SELECT " . PRODUCT_GROUP_CODE_FIELD . ", " . PRODUCT_GROUP_DESCRIPTION_FIELD . ", ";
-    $query .= PRODUCT_GROUP_INFORMATION_FIELD . " FROM " . PRODUCT_GROUP_TABLE;
-    $query .= " WHERE " . PRODUCT_ITEM_GROUP_ID_FIELD . " = " . $groupID;
-    $result = $db->query($query);
-    return $result->fetch_array(MYSQLI_ASSOC);
+    $conn = connectToDB();
+    $stmt = $conn->prepare(
+    "SELECT " . PRODUCT_GROUP_CODE_FIELD . ", " . PRODUCT_GROUP_DESCRIPTION_FIELD . ", " . PRODUCT_GROUP_INFORMATION_FIELD . 
+    " FROM " . PRODUCT_GROUP_TABLE .
+    " WHERE " . PRODUCT_ITEM_GROUP_ID_FIELD . " = :groupID;
+    ");
+    $stmt->bindParam(':groupID', $groupID, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
 function lookup_items($groupID) {
-    $db = new mysqli(DB_SERVER, DB_USER, DB_PASSWORD, DB_DATABASE);
-    $query = "SELECT " . PRODUCT_ITEM_ID_FIELD . ', ' . PRODUCT_COLOR_NAME_FIELD . ", ";
-    $query .= PRODUCT_SIZE_DESCRIPTION_FIELD . ", " . PRODUCT_ITEM_PRICE_FIELD . " FROM " . PRODUCT_ITEM_TABLE;
-    $query .= " LEFT JOIN " . PRODUCT_COLOR_TABLE . " ON " . PRODUCT_ITEM_TABLE . "." . PRODUCT_ITEM_COLOR_ID_FIELD;
-    $query .= " = " . PRODUCT_COLOR_TABLE . "." . PRODUCT_COLOR_ID_FIELD . " LEFT JOIN " . PRODUCT_SIZE_TABLE;
-    $query .= " ON " . PRODUCT_ITEM_TABLE . "." . PRODUCT_ITEM_SIZE_ID_FIELD . " = " . PRODUCT_SIZE_TABLE . ".";
-    $query .= PRODUCT_SIZE_ID_FIELD . " WHERE " . PRODUCT_ITEM_GROUP_ID_FIELD . " = " . $groupID;
-    $result = $db->query($query);
-    while($item = $result->fetch_array(MYSQLI_ASSOC)) {
-        $items[] = $item;
-    };
-    return $items;
+    $conn = connectToDB();
+    $stmt = $conn->prepare("
+    SELECT " . PRODUCT_ITEM_ID_FIELD . ', ' . PRODUCT_COLOR_NAME_FIELD . 
+    ", " . PRODUCT_SIZE_DESCRIPTION_FIELD . ", " . PRODUCT_ITEM_PRICE_FIELD . 
+    " FROM " . PRODUCT_ITEM_TABLE . 
+    " LEFT JOIN " . PRODUCT_COLOR_TABLE . 
+    " ON " . PRODUCT_ITEM_TABLE . "." . PRODUCT_ITEM_COLOR_ID_FIELD . 
+    " = " . PRODUCT_COLOR_TABLE . "." . PRODUCT_COLOR_ID_FIELD . 
+    " LEFT JOIN " . PRODUCT_SIZE_TABLE . 
+    " ON " . PRODUCT_ITEM_TABLE . "." . PRODUCT_ITEM_SIZE_ID_FIELD . 
+    " = " . PRODUCT_SIZE_TABLE . "." . PRODUCT_SIZE_ID_FIELD . 
+    " WHERE " . PRODUCT_ITEM_GROUP_ID_FIELD . " = :groupID;
+    ");
+    $stmt->bindParam(':groupID', $groupID, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
