@@ -10,13 +10,13 @@
 //const DB_SERVER = '127.0.0.1';
 //const DB_USER = 'bdtripp_root';
 //const DB_PASSWORD = 'zCRZDvZJVf8cUym';
-//const DB_DATABASE = 'bdtripp_portland_art_supply';
+//const DB_NAME = 'bdtripp_portland_art_supply';
 
 //offline version
 const DB_SERVER = 'localhost';
 const DB_USER = 'portland_art';
 const DB_PASSWORD = '5ls_0q_qZlZ.xT-tR7e-dL9-XV';
-const DB_DATABASE = 'portland_art_supply';
+const DB_NAME = 'portland_art_supply';
 
 /*
  * users Table
