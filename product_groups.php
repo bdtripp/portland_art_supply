@@ -45,7 +45,7 @@ $products = lookup_product_groups($categoryName, $subcategoryName);
     <link href="includes/grid.css.php" rel="stylesheet">
     <link href="includes/collapsable_menu.css.php" rel="stylesheet">
     <link href="includes/main.css.php" rel="stylesheet">
-    <link rel="shortcut icon" type="image/x-icon" href="http://bdtripp.com/portland_art_supply/images/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
     <!--    <link href="includes/main.less.php" rel="stylesheet/less">-->
     <!--    <script src="includes/less.js.php"></script>-->
 
