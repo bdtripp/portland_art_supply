@@ -57,17 +57,23 @@ function lookup_session($userID) {
 }
 
 function add_session($userID, $session) {
-    if ($userID !== null) {
-        $conn = connectToDB();
-        $stmt = $conn->prepare("
-        INSERT INTO " . ACCOUNT_DATA_TABLE . " (" . ACCOUNT_DATA_USER_ID_FIELD . ", " . ACCOUNT_DATA_SESSION_DATA_FIELD . ")
-        VALUES (:userID, :session)
-        ON DUPLICATE KEY UPDATE " . ACCOUNT_DATA_SESSION_DATA_FIELD . " = :sessionDup;
-        ");
-        $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
-        $stmt->bindParam(':session', $session, PDO::PARAM_STR);
-        $stmt->bindParam(':sessionDup', $session, PDO::PARAM_STR);
-        $stmt->execute();
+    if ($userID !== null) {   
+        try {
+            $conn = connectToDB();
+            $stmt = $conn->prepare("
+            INSERT INTO " . ACCOUNT_DATA_TABLE . " (" . ACCOUNT_DATA_USER_ID_FIELD . ", " . ACCOUNT_DATA_SESSION_DATA_FIELD . ")
+            VALUES (:userID, :session)
+            ON DUPLICATE KEY UPDATE " . ACCOUNT_DATA_SESSION_DATA_FIELD . " = :sessionDup;
+            ");
+            $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+            $stmt->bindParam(':session', $session, PDO::PARAM_STR);
+            $stmt->bindParam(':sessionDup', $session, PDO::PARAM_STR);
+            $stmt->execute();
+            echo json_encode(["status" => "success"]);
+        } catch (Exception $e) {
+            http_response_code(500); 
+            echo $e;
+        }
     }
 }
 
@@ -107,8 +113,10 @@ function lookup_product_groups($category, $subcategory) {
     " WHERE " . PRODUCT_CATEGORY_NAME_FIELD. " = :category" .
     " AND " . PRODUCT_SUBCATEGORY_NAME_FIELD . " = :subcategory;
     ");
-    $stmt->bindParam(':category', ucfirst($category), PDO::PARAM_STR);
-    $stmt->bindParam(':subcategory', ucfirst($subcategory), PDO::PARAM_STR);
+    $ucCategory = ucfirst($category);
+    $ucSubcategory = ucfirst($subcategory);
+    $stmt->bindParam(':category', $ucCategory, PDO::PARAM_STR);
+    $stmt->bindParam(':subcategory', $ucSubcategory, PDO::PARAM_STR);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }

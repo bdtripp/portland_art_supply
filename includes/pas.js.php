@@ -461,7 +461,6 @@ function createAddToCartButton() {
     addToCartButton.hidden = true;
     document.getElementById(ITEM_OPTIONS_RIGHT_COL).appendChild(addToCartButton);
     addToCartButton.addEventListener("click", function() {
-        //let price = document.getElementById(PRICE_P_TAG_ID).innerText;
         let itemID;
         let quantity = findSelectedOption(QUANTITY_DROP_DOWN_ID);
 
@@ -484,6 +483,8 @@ function createAddToCartButton() {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 updateCartCountDisplay(QUANTITY_DROP_DOWN_ID, "+");
+            } else if (this.readyState == 4 && this.status !== 200) {
+                console.error("PHP Error:", this.responseText);
             }
         }
         xhttp.open("POST", "product_items.php", true);
