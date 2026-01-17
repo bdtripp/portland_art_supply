@@ -519,6 +519,8 @@ function onRemoveClicked(id, file) {
             let idToFind = "product_id_" + id + "_div";
             updateCartCountDisplay(quantityDropDownID, "-");
             document.getElementById(idToFind).remove();
+        } else if (this.readyState == 4 && this.status !== 200) {
+            console.error("PHP Error:", this.responseText);
         }
     };
     xhttp.open("POST", file, true);
@@ -585,6 +587,8 @@ function onCartPageQuantityChanged(dropDownID, itemID) {
            cartCountDisplay.innerText = parseInt(currentCartCount) - difference;
            updateSubtotalDisplay(subtotal, itemID);
            updateTotalDisplay(total);
+       } else if (this.readyState == 4 && this.status !== 200) {
+           console.error("PHP Error:", this.responseText);
        }
     };
     xhttp.open("POST", "shopping_cart.php", true);
