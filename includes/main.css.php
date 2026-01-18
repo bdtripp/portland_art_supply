@@ -211,7 +211,7 @@ html body main section {
                 * Style for subcategories.php
                 *****************************/
   /*****************************
-                 * Style for product_group.php
+                 * Style for product_groups.php
                  *****************************/
   /*****************************
                 * Style for product_items.php
@@ -250,13 +250,15 @@ html body main section ul li a {
   color: #B83906;
   box-shadow: 2px 2px 12px #444;
 }
-html body main section#product_groups div.group_row {
-  overflow: hidden;
+html body main section#product_groups {
+  display: grid;
+  gap: 20px;
+  margin: 40px 20px 20px 20px;
+  max-width: 1600px;
 }
 html body main section#product_groups div.product_group {
   padding: 20px 0 0 0;
   box-shadow: 5px 5px 20px #AAA;
-  margin: 15px auto;
 }
 html body main section#product_groups div.product_group a.group_description_text {
   max-width: 97%;
@@ -269,6 +271,9 @@ html body main section#product_groups div.product_group a.group_description_text
 }
 html body main section#product_groups div.product_group a.group_description_text:visited {
   color: #333333;
+}
+html body main section#product_groups div.product_group a img {
+  border-radius: 10px;
 }
 html body main section#item_wrapper {
   overflow: hidden;
@@ -476,6 +481,17 @@ html body footer div section.social ul li a img {
   }
 }
 /*===============================
+=== 550PX CSS CODE AND UP =======
+===============================*/
+@media (min-width: 550px) {
+  /*****************************
+    * Style for product_groups.php
+    *****************************/
+  section#product_groups {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+/*===============================
 ==== 700PX CSS CODE AND UP =======
 ===============================*/
 @media (min-width: 700px) {
@@ -570,29 +586,13 @@ html body footer div section.social ul li a img {
     margin: 7px 2% 20px 2%;
     width: 46%;
   }
-  html body main section#product_groups div.group_row {
-    border-bottom: 1px solid #DDD;
-    display: flex;
-    border: none;
-    justify-content: center;
-  }
-  html body main section#product_groups div.group_row:first-child {
-    margin-top: 20px;
-  }
-  html body main section#product_groups div.group_row div.product_group {
+  html body main section#product_groups div.product_group {
     border: 1px solid #DDD;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 0 0 10px 10px;
   }
-  html body main section#product_groups div.group_row div.product_group:first-child {
-    margin-left: 0;
-  }
-  html body main section#product_groups div.group_row div.product_group a.group_description_text {
+  html body main section#product_groups div.product_group a.group_description_text {
     align-self: flex-start;
   }
-  html body main section#product_groups div.group_row div.product_group a img {
+  html body main section#product_groups div.product_group a img {
     align-self: center;
   }
   html body main section#item_wrapper p#group_info {
@@ -757,6 +757,17 @@ html body footer div section.social ul li a img {
   }
 }
 /*===============================
+=== 800PX CSS CODE AND UP =======
+===============================*/
+@media (min-width: 800px) {
+  /*****************************
+    * Style for product_groups.php
+    *****************************/
+  section#product_groups {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+/*===============================
 === 900PX CSS CODE AND UP =======
 ===============================*/
 @media (min-width: 900px) {
@@ -828,8 +839,14 @@ html body footer div section.social ul li a img {
   }
   html body main section {
     /*****************************
+                     * Style for product_groups.php
+                     *****************************/
+    /*****************************
                      * Style for product_items.php
                      *****************************/
+  }
+  html body main section#product_groups {
+    grid-template-columns: repeat(4, 1fr);
   }
   html body main section#item_wrapper {
     height: 650px;
@@ -909,5 +926,13 @@ html body footer div section.social ul li a img {
     /*****************************
                      * Style for product_items.php
                      *****************************/
+  }
+}
+/*===============================
+=== 1600PX CSS CODE AND UP =======
+===============================*/
+@media (min-width: 1600px) {
+  html body main section#product_groups {
+    margin: 20px auto;
   }
 }

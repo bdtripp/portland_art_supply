@@ -141,7 +141,6 @@ const CART_ITEM_CLASS = 'cart_item';
 const SUBTOTAL_DISPLAY_CLASS = 'subtotal_display';
 const GROUP_DESCRIPTION_TEXT_CLASS = "group_description_text";
 const PRODUCT_GROUP_CLASS = 'product_group';
-const GROUP_ROW_CLASS = 'group_row';
 const CART_ITEM_INFO_CLASS = 'cart_item_info';
 const CART_ITEM_SPECS_CLASS = 'cart_item_specs';
 const QUANTITY_DIV_CLASS = 'quantity';

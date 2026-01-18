@@ -20,6 +20,16 @@ https://paletton.com/#uid=60f0u0kuauvivBun-vxvonRAQiM
     height: @bg_height;
 }
 
+.linear_gradient1() {
+    background: linear-gradient(
+        355deg,
+        @secondary-color2,
+        @secondary-color2 21vh,
+        @secondary-color1 192vh,
+        @secondary-color1
+    );
+}
+
 /* COLOR PALETTE */
 
 @property --secondary-color1 {
@@ -245,13 +255,7 @@ html {
             overflow: hidden;
 
             &#home {
-                background: linear-gradient(
-                    355deg,
-                    @secondary-color2,
-                    @secondary-color2 21vh,
-                    @secondary-color1 192vh,
-                    @secondary-color1
-                );
+                .linear_gradient1();
                 min-height: 200vh;
 
                 h2 {
@@ -336,25 +340,20 @@ html {
                 }
 
                 /*****************************
-                 * Style for product_group.php
+                 * Style for product_groups.php
                  *****************************/
 
                 &#product_groups {
-
-                    div {
-
-                        &.group_row {
-                            overflow: hidden;
-
-                        }
-                    }
+                    display: grid;
+                    gap: 20px;
+                    margin: 40px 20px 20px 20px;
+                    max-width: 1600px;
 
                     div {
 
                         &.product_group {
                             padding: 20px 0 0 0;
                             box-shadow: 5px 5px 20px #AAA;
-                            margin: 15px auto;
 
                             a {
 
@@ -370,6 +369,10 @@ html {
                                     &:visited {
                                         color: @dark-gray;
                                     }
+                                }
+
+                                img {
+                                    border-radius: 10px;
                                 }
                             }
                         }
@@ -891,6 +894,21 @@ html {
     }
 }
 
+/*===============================
+=== 550PX CSS CODE AND UP =======
+===============================*/
+
+@media (min-width: 550px) {
+
+    /*****************************
+    * Style for product_groups.php
+    *****************************/
+
+    section#product_groups {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 
 /*===============================
 ==== 700PX CSS CODE AND UP =======
@@ -1070,43 +1088,21 @@ html {
 
                         div {
 
-                            &.group_row {
-                                border-bottom: 1px solid @lightGrayBorder;
-                                display: flex;
-                                border: none;
-                                justify-content: center;
+                            &.product_group {
+                                border: 1px solid @lightGrayBorder;
 
-                                &:first-child {
-                                    margin-top: 20px;
-                                }
+                                a {
 
-                                div {
+                                    &.group_description_text {
+                                        align-self: flex-start;
+                                    }
 
-                                    &.product_group {
-                                        border: 1px solid @lightGrayBorder;
-                                        display: flex;
-                                        flex-wrap: wrap;
-                                        justify-content: center;
-                                        margin: 0 0 10px 10px;
-
-                                        &:first-child {
-                                            margin-left: 0;
-                                        }
-
-                                        a {
-
-                                            &.group_description_text {
-                                                align-self: flex-start;
-                                            }
-
-                                            img {
-                                                align-self: center;
-                                            }
-                                        }
+                                    img {
+                                        align-self: center;
                                     }
                                 }
                             }
-                        }
+                        }  
                     }
 
                     /*****************************
@@ -1426,6 +1422,21 @@ html {
                 }
             }
         }
+    }
+}
+
+/*===============================
+=== 800PX CSS CODE AND UP =======
+===============================*/
+
+@media (min-width: 800px) {
+    
+    /*****************************
+    * Style for product_groups.php
+    *****************************/
+
+    section#product_groups {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
@@ -1766,6 +1777,14 @@ html {
                 section {
 
                     /*****************************
+                     * Style for product_groups.php
+                     *****************************/
+
+                    &#product_groups {
+                        grid-template-columns: repeat(4, 1fr);
+                    }
+
+                    /*****************************
                      * Style for product_items.php
                      *****************************/
 
@@ -2061,3 +2080,14 @@ html {
         }
     }
 }
+
+/*===============================
+=== 1600PX CSS CODE AND UP =======
+===============================*/
+
+@media (min-width: 1600px) {
+
+    html body main section#product_groups {
+        margin: 20px auto;
+    }
+}           

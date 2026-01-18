@@ -11,7 +11,6 @@
 const ROWS_PER_COLUMN = 3;
 const QUANTITY_MIN = 1;
 const QUANTITY_MAX = 50;
-const SIZE_OF_PRODUCT_GROUPS_ROW = 3;
 
 function show_header_content($categoryName) {
     if (isset($_SESSION[SESSION_USER_ID_KEY])) {
@@ -119,16 +118,9 @@ function show_group_content($products) {
     echo '<main>' . "\n";
     echo '    <h2 class="' . LARGE_H2 . '">' . $products[0][PRODUCT_SUBCATEGORY_NAME_FIELD] . '</h2>' . "\n\n";
     echo '    <section id="' . PRODUCT_GROUPS_ID . '">' . "\n";
-    echo '        <div class="' . GROUP_ROW_CLASS . '">' . "\n\n";
     for ($i = 0; $i < sizeof($products); $i++) {
-        // Creates a div with three product groups per row
-        if ($i % SIZE_OF_PRODUCT_GROUPS_ROW == 0 && $i != 0) {
-            echo '        </div>' . "\n";
-            echo '        <div class="' . GROUP_ROW_CLASS . '">' . "\n\n";
-        }
         show_product_groups($products[$i]);
     }
-    echo '        </div>' . "\n";
     echo '    </section>' . "\n";
     echo '</main>' . "\n\n";
 }
@@ -138,7 +130,7 @@ function show_product_groups($product) {
     $hrefString .= '&' . PRODUCT_CATEGORY_NAME_FIELD . '=' . urlencode($product[PRODUCT_CATEGORY_NAME_FIELD]);
     $hrefString .= '&' . PRODUCT_SUBCATEGORY_NAME_FIELD . '=' . urlencode($product[PRODUCT_SUBCATEGORY_NAME_FIELD]);
     $hrefString .= '&' . PRODUCT_GROUP_CODE_FIELD . '=' . urlencode($product[PRODUCT_GROUP_CODE_FIELD]) . '"';
-    echo '            <div class="' . PRODUCT_GROUP_CLASS . ' ' . FOUR_COLUMNS_CLASS . ' ' . CARD_CLASS . '">' . "\n";
+    echo '            <div class="' . PRODUCT_GROUP_CLASS . ' ' . CARD_CLASS . '">' . "\n";
     echo '                <a class="' . GROUP_DESCRIPTION_TEXT_CLASS . '" ' . "\n";
     echo '                     ' . $hrefString . '>' . "\n";
     echo '                     ' . $product[PRODUCT_GROUP_DESCRIPTION_FIELD] . '</a>' . "\n";
