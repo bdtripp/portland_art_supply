@@ -275,7 +275,7 @@ html {
                         background-color: #F3910E;
                         transform: rotate(10deg);
                         width: 150vw;
-                        left: -15vh;
+                        left: -9vh;
 
                         &:first-child {
                             display: none;
@@ -1950,6 +1950,7 @@ html {
 
                     h2 {
                         font-size: 7em;
+                        top: -88vh;
                     }
 
                     img {

@@ -193,7 +193,7 @@ html body main#home div.image_overlay {
   background-color: #F3910E;
   transform: rotate(10deg);
   width: 150vw;
-  left: -15vh;
+  left: -9vh;
 }
 html body main#home div.image_overlay:first-child {
   display: none;
@@ -903,6 +903,7 @@ html body footer div section.social ul li a img {
   }
   html body main#home h2 {
     font-size: 7em;
+    top: -88vh;
   }
   html body main section {
     /*****************************
