@@ -30,10 +30,10 @@ https://paletton.com/#uid=60f0u0kuauvivBun-vxvonRAQiM
   clear: both;
 }
 .price_display {
-  color: red;
+  color: #0AA764;
 }
 .required {
-  color: red;
+  color: #c43f0a;
 }
 .card {
   background-color: white;
@@ -313,18 +313,75 @@ html body main section#item_wrapper div#details_wrapper div#item_details div#ite
   margin: 20px 0;
   text-align: center;
 }
+html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#drop_down_wrapper p#price {
+  color: #333333;
+  margin: 20px 0;
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+}
 html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#drop_down_wrapper p#price span.price_display {
-  font-size: 1.2rem;
+  font-size: 1.9rem;
+  font-weight: 600;
 }
 html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#drop_down_wrapper div#drop_down_options div {
+  display: flex;
+  gap: 15px;
   margin: 15px 0;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
-html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#drop_down_wrapper div#drop_down_options div p {
-  display: inline;
+html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#drop_down_wrapper div#drop_down_options div label {
   margin-right: 5px;
+  color: #333333;
+  font-size: 1.1em;
+  letter-spacing: 1px;
+}
+html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#drop_down_wrapper div#drop_down_options div select {
+  padding: 10px 16px;
+  font-size: 1.1em;
+  border: 3px solid #333333;
+  color: #333333;
+  background-color: white;
+  letter-spacing: 1px;
+  padding: 10px 0 10px 16px;
+  border-radius: 11px;
 }
 html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#drop_down_wrapper div#drop_down_options div#color {
   white-space: nowrap;
+}
+html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#drop_down_wrapper div#drop_down_options div#size select {
+  padding-right: 20px;
+}
+html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#drop_down_wrapper div#drop_down_options input#reset_button {
+  padding: 10px 16px;
+  font-size: 1.1em;
+  border: 3px solid #333333;
+  color: #333333;
+  background-color: white;
+  letter-spacing: 1px;
+  border-radius: 20px;
+  transition: transform 0.3s;
+}
+html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#drop_down_wrapper div#drop_down_options input#reset_button:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#drop_down_wrapper input#add_to_cart {
+  padding: 14px 20px;
+  font-size: 1.3em;
+  color: #0AA764;
+  border: 3px solid #0AA764;
+  border-radius: 50px;
+  background-color: white;
+  font-weight: 900;
+  letter-spacing: 1px;
+  margin: 20px 0 0 0;
+  transition: transform 0.3s;
+}
+html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#drop_down_wrapper input#add_to_cart:hover {
+  cursor: pointer;
+  transform: scale(1.1);
 }
 html body main section.products {
   margin: 0 auto;

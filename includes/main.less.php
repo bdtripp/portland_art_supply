@@ -30,6 +30,36 @@ https://paletton.com/#uid=60f0u0kuauvivBun-vxvonRAQiM
     );
 }
 
+.CTA() {
+  padding: 14px 20px;
+  font-size: 1.3em;
+  color: @complementary-color1;
+  border: 3px solid #0AA764;
+  border-radius: 50px;
+  background-color: white;
+  font-weight: 900;
+  letter-spacing: 1px;
+  margin: 20px 0 0 0;
+}
+
+.input_style() {
+    padding: 10px 16px;
+    font-size: 1.1em;
+    border: 3px solid @dark-gray;
+    color: @dark-gray;
+    background-color: white;
+    letter-spacing: 1px;
+}
+
+.hover1() {
+    transition: transform .3s;
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+    }
+}
+
 /* COLOR PALETTE */
 
 @property --secondary-color1 {
@@ -65,11 +95,11 @@ https://paletton.com/#uid=60f0u0kuauvivBun-vxvonRAQiM
 }
 
 .price_display {
-    color: red;
+    color: @complementary-color1;
 }
 
 .required {
-    color: red;
+    color: darken(@primary-color1, 10%);;
 }
 
 .card {
@@ -458,11 +488,16 @@ html {
                                                     p {
 
                                                         &#price {
+                                                            color: @dark-gray;
+                                                            margin: 20px 0;
+                                                            font-size: 1.3rem;
+                                                            letter-spacing: 1px;
 
                                                             span {
 
                                                                 &.price_display {
-                                                                    font-size: 1.2rem;
+                                                                    font-size: 1.9rem;
+                                                                    font-weight: 600;
                                                                 }
                                                             }
                                                         }
@@ -472,12 +507,27 @@ html {
 
                                                         &#drop_down_options {
 
+                                                            
                                                             div {
+                                                                display: flex;
+                                                                gap:15px;
                                                                 margin: 15px 0;
+                                                                justify-content: center;
+                                                                align-items: center;
+                                                                flex-wrap: wrap;
 
-                                                                p {
-                                                                    display: inline;
+                                                                label {
                                                                     margin-right: 5px;
+                                                                    color: @dark-gray;
+                                                                    font-size: 1.1em;
+                                                                    letter-spacing: 1px;
+                                                                    
+                                                                }
+
+                                                                select {
+                                                                    .input_style();
+                                                                    padding: 10px 0 10px 16px;
+                                                                    border-radius: 11px;
                                                                 }
 
                                                                 &#color {
@@ -486,13 +536,27 @@ html {
 
                                                                 &#size {
 
+                                                                    select {
+                                                                        padding-right: 20px;
+                                                                    }
                                                                 }
 
                                                                 &#quantity {
 
                                                                 }
                                                             }
+
+                                                            input#reset_button {
+                                                                .input_style();
+                                                                border-radius: 20px;
+                                                                .hover1();
+                                                            }
                                                         }
+                                                    }
+
+                                                    input#add_to_cart {
+                                                        .CTA();
+                                                        .hover1();
                                                     }
                                                 }
                                             }

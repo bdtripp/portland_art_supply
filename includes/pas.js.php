@@ -154,7 +154,7 @@ function createOuterDropDownDiv() {
 function createDropDown(dropDownSet, defaultOption, id) {
     let dropDownOptionsDiv = document.getElementById(DROP_DOWN_OPTIONS_DIV_ID);
     let innerDiv = document.createElement("div");
-    let dropDownLabel = document.createElement("p");
+    let dropDownLabel = document.createElement("label");
     let html = "";
 
     html = '<select id="' + id + '">';
@@ -172,6 +172,7 @@ function createDropDown(dropDownSet, defaultOption, id) {
         dropDownLabel.innerHTML = "Size: <span class=\"required\">*</span>";
         innerDiv.id = SIZE_DIV_ID;
     }
+    dropDownLabel.htmlFor = id;
     dropDownOptionsDiv.insertBefore(innerDiv, dropDownOptionsDiv.childNodes[0]);
     innerDiv.insertBefore(dropDownLabel, innerDiv.childNodes[0]);
     document.getElementById(id).onchange = function () {
@@ -497,16 +498,17 @@ document.getElementById(RESET_BUTTON_ID).hidden = false;
 // quantity drop down on product_item page
 function createQuantityDropDown() {
     let quantityDropDown = document.createElement("select");
-    let quantityText = document.createElement("p");
+    let quantityLabel = document.createElement("label");
     let quantityDiv = document.createElement("div");
     let dropDownOptionsDiv = document.getElementById(DROP_DOWN_OPTIONS_DIV_ID);
     let option;
 
     quantityDropDown.id = QUANTITY_DROP_DOWN_ID;
     quantityDiv.id = QUANTITY_DIV_ID;
-    quantityText.innerHTML = "Quantity: <span class=\"required\">*</span>";
+    quantityLabel.innerHTML = "Quantity: <span class=\"required\">*</span>";
+    quantityLabel.htmlFor = QUANTITY_DROP_DOWN_ID;
     dropDownOptionsDiv.appendChild(quantityDiv);
-    quantityDiv.appendChild(quantityText);
+    quantityDiv.appendChild(quantityLabel);
     quantityDiv.appendChild(quantityDropDown);
     for (let count = QUANTITY_MIN ; count <= QUANTITY_MAX; count++) {
         option = document.createElement("option");
