@@ -309,21 +309,21 @@ html body main section#item_wrapper div#details_wrapper div#item_details div#ite
   border: 1px solid black;
   border-radius: 3px;
 }
-html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#right_col_wrapper div#item_options_right_col {
+html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#drop_down_wrapper {
   margin: 20px 0;
   text-align: center;
 }
-html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#right_col_wrapper div#item_options_right_col p#price span.price_display {
+html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#drop_down_wrapper p#price span.price_display {
   font-size: 1.2rem;
 }
-html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#right_col_wrapper div#item_options_right_col div#drop_down_options div {
+html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#drop_down_wrapper div#drop_down_options div {
   margin: 15px 0;
 }
-html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#right_col_wrapper div#item_options_right_col div#drop_down_options div p {
+html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#drop_down_wrapper div#drop_down_options div p {
   display: inline;
   margin-right: 5px;
 }
-html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#right_col_wrapper div#item_options_right_col div#drop_down_options div#color {
+html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#drop_down_wrapper div#drop_down_options div#color {
   white-space: nowrap;
 }
 html body main section.products {

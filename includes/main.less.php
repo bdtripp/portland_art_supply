@@ -451,51 +451,45 @@ html {
                                                     }
                                                 }
 
-                                                &#right_col_wrapper {
+                                                &#drop_down_wrapper {
+                                                    margin: 20px 0;
+                                                    text-align: center; 
+                                                            
+                                                    p {
+
+                                                        &#price {
+
+                                                            span {
+
+                                                                &.price_display {
+                                                                    font-size: 1.2rem;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
 
                                                     div {
 
-                                                        &#item_options_right_col {
-                                                            margin: 20px 0;
-                                                            text-align: center;
-
-                                                            p {
-
-                                                                &#price {
-
-                                                                    span {
-
-                                                                        &.price_display {
-                                                                            font-size: 1.2rem;
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
+                                                        &#drop_down_options {
 
                                                             div {
+                                                                margin: 15px 0;
 
-                                                                &#drop_down_options {
+                                                                p {
+                                                                    display: inline;
+                                                                    margin-right: 5px;
+                                                                }
 
-                                                                    div {
-                                                                        margin: 15px 0;
+                                                                &#color {
+                                                                    white-space: nowrap;
+                                                                }
 
-                                                                        p {
-                                                                            display: inline;
-                                                                            margin-right: 5px;
-                                                                        }
+                                                                &#size {
 
-                                                                        &#color {
-                                                                            white-space: nowrap;
-                                                                        }
+                                                                }
 
-                                                                        &#size {
+                                                                &#quantity {
 
-                                                                        }
-
-                                                                        &#quantity {
-
-                                                                        }
-                                                                    }
                                                                 }
                                                             }
                                                         }
@@ -886,7 +880,7 @@ html {
                                                         }
                                                     }
 
-                                                    &#right_col_wrapper {
+                                                    &#drop_down_wrapper {
 
                                                         div {
 
@@ -1186,7 +1180,7 @@ html {
                                                         }
                                                     }
 
-                                                    &#right_col_wrapper {
+                                                    &#drop_down_wrapper {
 
                                                             div {
 
@@ -1826,7 +1820,7 @@ html {
                                                         }
                                                     }
 
-                                                    &#right_col_wrapper {
+                                                    &#drop_down_wrapper {
 
                                                         div {
 
@@ -2004,7 +1998,7 @@ html {
                                                         }
                                                     }
 
-                                                    &#right_col_wrapper {
+                                                    &#drop_down_wrapper {
 
                                                         div {
 

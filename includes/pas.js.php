@@ -30,7 +30,6 @@ var SUBTOTAL_FIELD = '<?php echo SUBTOTAL_FIELD; ?>';
 var TOTAL_FIELD = '<?php echo TOTAL_FIELD; ?>';
 var ITEM_DETAILS_DIV = '<?php echo ITEM_DETAILS_DIV; ?>';
 var ITEM_OPTIONS_DIV = '<?php echo ITEM_OPTIONS_DIV; ?>';
-var ITEM_OPTIONS_RIGHT_COL = '<?php echo ITEM_OPTIONS_RIGHT_COL; ?>';
 var PRICE_DISPLAY_CLASS = '<?php echo PRICE_DISPLAY_CLASS; ?>';
 var SIZE_DIV_ID = '<?php echo SIZE_DIV_ID; ?>';
 var COLOR_DIV_ID = '<?php echo COLOR_DIV_ID; ?>';
@@ -42,6 +41,7 @@ var COLOR_DEFAULT_OPTION = 'Select a Color...';
 var SIZE_DEFAULT_OPTION = 'Select a Size...';
 var COLOR_DROP_DOWN_ID = 'color_drop_down';
 var SIZE_DROP_DOWN_ID = 'size_drop_down';
+var DROP_DOWN_WRAPPER_DIV_ID = 'drop_down_wrapper';
 var DROP_DOWN_OPTIONS_DIV_ID = 'drop_down_options';
 var PRODUCT_ITEM_SECTION_ID = 'product_item';
 var RESET_BUTTON_ID = 'reset_button';
@@ -148,7 +148,7 @@ function showColorThumbnails(colorSet) {
 function createOuterDropDownDiv() {
     let dropDownOptionsDiv = document.createElement("div");
     dropDownOptionsDiv.id = DROP_DOWN_OPTIONS_DIV_ID;
-    document.getElementById(ITEM_OPTIONS_RIGHT_COL).appendChild(dropDownOptionsDiv);
+    document.getElementById(DROP_DOWN_WRAPPER_DIV_ID).appendChild(dropDownOptionsDiv);
 }
 
 function createDropDown(dropDownSet, defaultOption, id) {
@@ -395,9 +395,9 @@ function showPrice(color, size, first) {
         priceSpan.innerText = '$' + price;
         currentPrice = price;
     }
-    let optionsRightCol = document.getElementById(ITEM_OPTIONS_RIGHT_COL)
+    let dropDownWrapper = document.getElementById(DROP_DOWN_WRAPPER_DIV_ID)
     pricePTag.appendChild(priceSpan);
-    optionsRightCol.insertBefore(pricePTag, optionsRightCol.childNodes[0]);
+    dropDownWrapper.insertBefore(pricePTag, dropDownWrapper.childNodes[0]);
 }
 
 function createAddToCartButton() {
@@ -407,7 +407,7 @@ function createAddToCartButton() {
     addToCartButton.id = ADD_TO_CART_BUTTON_ID;
     addToCartButton.value = 'Add To Cart';
     addToCartButton.hidden = true;
-    document.getElementById(ITEM_OPTIONS_RIGHT_COL).appendChild(addToCartButton);
+    document.getElementById(DROP_DOWN_WRAPPER_DIV_ID).appendChild(addToCartButton);
     addToCartButton.addEventListener("click", function() {
         let itemID;
         let quantity = findSelectedOption(QUANTITY_DROP_DOWN_ID);

@@ -154,9 +154,7 @@ function show_item_content($productGroup, $categoryName, $subCategoryName) {
     echo '        <div id="' . DETAILS_WRAPPER_ID . '" class="' . CARD_CLASS .  '">' . "\n";
     echo '            <div id="' . ITEM_DETAILS_DIV . '">' . "\n";
     echo '                <div id="' . ITEM_OPTIONS_DIV . '">' . "\n";
-    echo '                    <div id="' . ITEM_OPTIONS_RIGHT_COL_WRAPPER_ID . '">' . "\n";
-    echo '                        <div id="' . ITEM_OPTIONS_RIGHT_COL . '">' . "\n";
-    echo '                        </div>' . "\n";
+    echo '                    <div id="' . DROP_DOWN_WRAPPER_ID . '">' . "\n";
     echo '                    </div>' . "\n";
     echo '                </div>' . "\n";
     echo '            </div>' . "\n";
