@@ -68,8 +68,6 @@ $productItems = lookup_items($groupID);
     <link href="includes/collapsable_menu.css.php" rel="stylesheet">
     <link href="includes/main.css.php" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
-    <!--    <link href="includes/main.less.php" rel="stylesheet/less">-->
-    <!--    <script src="includes/less.js.php" type="text/javascript"></script>-->
     <script type="text/javascript">
         var groupCode = '<?php echo $groupCode; ?>';
         var productItems = <?php echo json_encode($productItems); ?>;

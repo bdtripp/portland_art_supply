@@ -56,8 +56,6 @@ if (!$login_pressed) {
     <link href="includes/reset.css.php" rel="stylesheet">
     <link href="includes/login.css.php" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
-    <!--    <link href="includes/login.less.php" rel="stylesheet/less">-->
-    <!--    <script src="includes/less.js.php"></script>-->
 </head>
 <body>
 <?php echo $error_message; ?>

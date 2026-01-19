@@ -69,7 +69,6 @@ function add_session($userID, $session) {
             $stmt->bindParam(':session', $session, PDO::PARAM_STR);
             $stmt->bindParam(':sessionDup', $session, PDO::PARAM_STR);
             $stmt->execute();
-            echo json_encode(["status" => "success"]);
         } catch (Exception $e) {
             http_response_code(500); 
             echo $e;
