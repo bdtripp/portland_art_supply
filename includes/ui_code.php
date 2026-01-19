@@ -144,18 +144,17 @@ function show_product_groups($product) {
 
 function show_item_content($productGroup, $categoryName, $subCategoryName) {
     echo '<main>' . "\n";
-    echo '    <h2 id="' . MOBILE_H2 . '">' . $productGroup[PRODUCT_GROUP_DESCRIPTION_FIELD] . '</h2>' . "\n";
+    echo '    <h2>' . $productGroup[PRODUCT_GROUP_DESCRIPTION_FIELD] . '</h2>' . "\n";
     echo '    <section id="' . ITEM_WRAPPER_ID . '">' . "\n";
-    echo '        <div id="' . IMAGE_WRAPPER_ID . '" class="' . FIVE_COLUMNS_CLASS . ' ' . CARD_CLASS . '">' . "\n";
+    echo '        <p id="' . GROUP_INFORMATION_ID . '">' . $productGroup[PRODUCT_GROUP_INFORMATION_FIELD] . '</p>' . "\n";
+    echo '        <div id="' . IMAGE_WRAPPER_ID . '" class="' . CARD_CLASS . '">' . "\n";
     echo '            <img id=' . PRODUCT_ITEM_IMAGE_ID . ' src="' . IMAGE_FOLDER . $categoryName . '/' .
         $subCategoryName . '/' . $productGroup[PRODUCT_GROUP_CODE_FIELD] . '.jpg">' . "\n";
     echo '        </div>' . "\n";
-    echo '        <div id="' . DETAILS_WRAPPER_ID . '" class="' . SEVEN_COLUMNS_CLASS . ' ' . CARD_CLASS .  '">' . "\n";
+    echo '        <div id="' . DETAILS_WRAPPER_ID . '" class="' . CARD_CLASS .  '">' . "\n";
     echo '            <div id="' . ITEM_DETAILS_DIV . '">' . "\n";
-    echo '                <h2 id="' . NON_MOBILE_H2 . '">' . $productGroup[PRODUCT_GROUP_DESCRIPTION_FIELD] . '</h2>' . "\n";
-    echo '                <p id="' . GROUP_INFORMATION_ID . '">' . $productGroup[PRODUCT_GROUP_INFORMATION_FIELD] . '</p>' . "\n";
     echo '                <div id="' . ITEM_OPTIONS_DIV . '">' . "\n";
-    echo '                    <div id="' . ITEM_OPTIONS_RIGHT_COL_WRAPPER_ID . '" class="' . SIX_COLUMNS_CLASS . '">' . "\n";
+    echo '                    <div id="' . ITEM_OPTIONS_RIGHT_COL_WRAPPER_ID . '">' . "\n";
     echo '                        <div id="' . ITEM_OPTIONS_RIGHT_COL . '">' . "\n";
     echo '                        </div>' . "\n";
     echo '                    </div>' . "\n";

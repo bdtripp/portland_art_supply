@@ -29,15 +29,9 @@ var QUANTITY_FIELD = '<?php echo QUANTITY_FIELD; ?>';
 var SUBTOTAL_FIELD = '<?php echo SUBTOTAL_FIELD; ?>';
 var TOTAL_FIELD = '<?php echo TOTAL_FIELD; ?>';
 var ITEM_DETAILS_DIV = '<?php echo ITEM_DETAILS_DIV; ?>';
-var SIX_COLUMNS_CLASS = '<?php echo SIX_COLUMNS_CLASS; ?>';
 var ITEM_OPTIONS_DIV = '<?php echo ITEM_OPTIONS_DIV; ?>';
 var ITEM_OPTIONS_RIGHT_COL = '<?php echo ITEM_OPTIONS_RIGHT_COL; ?>';
-var ITEM_OPTIONS_RIGHT_COL_WRAPPER_ID = '<?php echo ITEM_OPTIONS_RIGHT_COL_WRAPPER_ID; ?>';
 var PRICE_DISPLAY_CLASS = '<?php echo PRICE_DISPLAY_CLASS; ?>';
-var GROUP_INFORMATION_ID = '<?php echo GROUP_INFORMATION_ID; ?>';
-var ITEM_WRAPPER_ID = '<?php echo ITEM_WRAPPER_ID; ?>';
-var IMAGE_WRAPPER_ID = '<?php echo IMAGE_WRAPPER_ID; ?>';
-var DETAILS_WRAPPER_ID = '<?php echo DETAILS_WRAPPER_ID; ?>';
 var SIZE_DIV_ID = '<?php echo SIZE_DIV_ID; ?>';
 var COLOR_DIV_ID = '<?php echo COLOR_DIV_ID; ?>';
 var QUANTITY_DIV_ID = '<?php echo QUANTITY_DIV_ID ?>';
@@ -64,15 +58,11 @@ var currentSizeSelection = '';
 var currentPrice;
 var inRange = false;
 var outOfRange = false;
-var tnCount = 0;
 
 function init() {
     console.log(productItems);
     let colorSet = createSet(PRODUCT_COLOR_NAME_FIELD);
     let sizeSet = createSet(PRODUCT_SIZE_DESCRIPTION_FIELD);
-
-    window.addEventListener('resize', checkSize);
-    window.addEventListener("resize", setHeight);
 
     showPrice("", "", true)
     createOuterDropDownDiv();
@@ -106,39 +96,6 @@ function init() {
     if (document.getElementById(COLOR_DROP_DOWN_ID) === null && document.getElementById(SIZE_DROP_DOWN_ID) === null) {
         showAddToCartButton();
     }
-
-    checkSize();
-
-    let thumbnails = document.getElementsByClassName(COLOR_THUMBNAIL_CLASS);
-    let itemImage = document.getElementById(PRODUCT_ITEM_IMAGE_ID);
-    let complete = true;
-
-    if (itemImage.complete = false) {
-        complete = false;
-    }
-    if (thumbnails !== null) {
-        for (let tn of thumbnails) {
-            if (tn.complete === false) {
-                complete = false;
-            }
-        }
-        if (complete) {
-            setHeight()
-        } else {
-            for (let tn of thumbnails) {
-                tn.addEventListener("load", function() {
-                    incrementTnCount(thumbnails.length);
-                });
-            }
-            itemImage.addEventListener("load", setHeight);
-        }
-    } else {
-        if (complete) {
-            setHeight();
-        } else {
-            itemImage.addEventListener("load", setHeight);
-        }
-    }
 }
 
 function createSet(property) {
@@ -158,7 +115,6 @@ function createColorThumbnailsWrapper() {
 
     colorThumbnailsDiv.id = COLOR_THUMBNAILS_DIV_ID;
     colorThumbnailsWrapper.id = COLOR_THUMBNAILS_WRAPPER_ID;
-    colorThumbnailsWrapper.className = SIX_COLUMNS_CLASS;
 
     colorThumbnailsWrapper.appendChild(colorThumbnailsDiv);
     optionsDiv.insertBefore(colorThumbnailsWrapper, optionsDiv.childNodes[0]);
@@ -293,14 +249,6 @@ function onDropDownItemSelected(id) {
         }
 
         showResetButton();
-    }
-
-    let image = document.getElementById(PRODUCT_ITEM_IMAGE_ID);
-
-    if (image.complete) {
-        setHeight();
-    } else {
-        image.addEventListener("load", setHeight);
     }
 }
 
@@ -603,140 +551,4 @@ function updateSubtotalDisplay(subtotal, itemID) {
 
 function updateTotalDisplay(total) {
     document.getElementById(TOTAL_DISPLAY_ID).children[0].innerText = "$" + parseFloat(Math.round(total * 100) / 100).toFixed(2);
-}
-
-function checkSize() {
-    let colorTN = document.getElementById(COLOR_THUMBNAILS_DIV_ID);
-    let itemOptionsRightColWrapper = document.getElementById(ITEM_OPTIONS_RIGHT_COL_WRAPPER_ID);
-    let imageWrapper = document.getElementById(IMAGE_WRAPPER_ID);
-    let itemWrapper = document.getElementById(ITEM_WRAPPER_ID);
-    let itemOptions = document.getElementById(ITEM_OPTIONS_DIV);
-
-    if (window.innerWidth <= 700) {
-        //itemWrapper.style.height = "auto";
-        //itemOptions.style.height = "auto";
-        if (colorTN === null) {
-            itemOptionsRightColWrapper.style.width = "100%";
-            imageWrapper.style.width = "100%";
-            //itemWrapper.style.height = "100%";
-            //itemOptions.style.height = "100%";
-        }
-    }
-    if (window.innerWidth >= 700 && window.innerWidth < 1000 && inRange === false) {
-        inRange = true;
-        outOfRange = false;
-        rearrangeContent();
-        if (colorTN === null) {
-            itemOptionsRightColWrapper.style.width = "50%";
-            imageWrapper.style.width = "46%";
-        }
-    }
-    if (window.innerWidth >= 1000) {
-        if (colorTN === null) {
-            itemOptionsRightColWrapper.style.width = "100%";
-            imageWrapper.style.width = "42%";
-        }
-    }
-    if ((window.innerWidth < 700 || window.innerWidth >= 1000) && outOfRange === false) {
-        outOfRange = true;
-        inRange = false;
-        backToOriginal();
-    }
-}
-
-function rearrangeContent() {
-    let itemWrapper = document.getElementById(ITEM_WRAPPER_ID);
-    let groupInfo = document.getElementById(GROUP_INFORMATION_ID);
-    let imageWrapper = document.getElementById(IMAGE_WRAPPER_ID);
-    let itemOptions = document.getElementById(ITEM_OPTIONS_DIV);
-    let itemOptionsRightColWrapper = document.getElementById(ITEM_OPTIONS_RIGHT_COL_WRAPPER_ID);
-    let colorThumbnailsWrapper = document.getElementById(COLOR_THUMBNAILS_WRAPPER_ID);
-
-    itemWrapper.insertBefore(groupInfo, imageWrapper);
-    itemOptions.insertBefore(imageWrapper, colorThumbnailsWrapper);
-}
-
-function backToOriginal() {
-    let itemWrapper = document.getElementById(ITEM_WRAPPER_ID);
-    let groupInfo = document.getElementById(GROUP_INFORMATION_ID);
-    let imageWrapper = document.getElementById(IMAGE_WRAPPER_ID);
-    let detailsWrapper = document.getElementById(DETAILS_WRAPPER_ID);
-    let itemOptions = document.getElementById(ITEM_OPTIONS_DIV);
-    let itemDetails = document.getElementById(ITEM_DETAILS_DIV);
-
-    itemDetails.insertBefore(groupInfo, itemOptions);
-    itemWrapper.insertBefore(imageWrapper, detailsWrapper);
-}
-
-function setHeight() {
-    let h2 = document.getElementById("non_mobile_version");
-    let groupInfo = document.getElementById(GROUP_INFORMATION_ID);
-    let itemOptions = document.getElementById(ITEM_OPTIONS_DIV);
-    let itemWrapper = document.getElementById(ITEM_WRAPPER_ID);
-    let colorThumbnails = document.getElementById(COLOR_THUMBNAILS_DIV_ID);
-    let optionsRightCol = document.getElementById(ITEM_OPTIONS_RIGHT_COL);
-    let itemImage = document.getElementById(PRODUCT_ITEM_IMAGE_ID);
-    let detailsWrapper = document.getElementById(DETAILS_WRAPPER_ID);
-    let imageWrapper = document.getElementById(IMAGE_WRAPPER_ID);
-
-    //setTimeout(function() {
-
-        let h2Style = window.getComputedStyle(h2);
-        let groupInfoStyle = window.getComputedStyle(groupInfo);
-        let optionsRightColStyle = window.getComputedStyle(optionsRightCol);
-        let itemOptionsStyle = window.getComputedStyle(itemOptions);
-
-        if (window.innerWidth <= 700) {
-            itemWrapper.style.height = "auto";
-            itemOptions.style.height = "auto";
-            if (colorThumbnails === null) {
-                itemWrapper.style.height = "100%";
-                itemOptions.style.height = "100%";
-            }
-        }
-
-        if (window.innerWidth >= 700 && window.innerWidth < 1000) {
-            if (colorThumbnails !== null) {
-                let colorThumbnailsStyle = window.getComputedStyle(colorThumbnails);
-
-                itemOptions.style.height = Math.max(colorThumbnails.clientHeight + parseInt(colorThumbnailsStyle.marginTop) +
-                    parseInt(colorThumbnailsStyle.marginBottom), optionsRightCol.clientHeight +
-                    parseInt(optionsRightColStyle.marginTop) + parseInt(optionsRightColStyle.marginBottom),
-                    itemImage.clientHeight + 40) + "px";
-            } else {
-                itemOptions.style.height = Math.max(optionsRightCol.clientHeight + parseInt(optionsRightColStyle.marginTop) +
-                    parseInt(optionsRightColStyle.marginBottom), itemImage.clientHeight + 40) + "px";
-            }
-
-            itemWrapper.style.height = "auto";
-        }
-
-        if (window.innerWidth >= 1000) {
-            if (colorThumbnails !== null) {
-                let colorThumbnailsStyle = window.getComputedStyle(colorThumbnails);
-
-                itemOptions.style.height = Math.max(colorThumbnails.clientHeight + parseInt(colorThumbnailsStyle.marginTop) +
-                    parseInt(colorThumbnailsStyle.marginBottom), optionsRightCol.clientHeight +
-                    parseInt(optionsRightColStyle.marginTop) + parseInt(optionsRightColStyle.marginBottom)) + "px";
-            } else {
-                itemOptions.style.height = optionsRightCol.clientHeight + parseInt(optionsRightColStyle.marginTop) +
-                    parseInt(optionsRightColStyle.marginBottom) + "px";
-            }
-
-            let itemWrapperRightColHeight = h2.clientHeight + parseInt(h2Style.marginTop) + parseInt(h2Style.marginBottom) +
-                groupInfo.clientHeight + parseInt(groupInfoStyle.marginTop)+ parseInt(groupInfoStyle.marginBottom)+
-                itemOptions.clientHeight + parseInt(itemOptionsStyle.marginTop) + parseInt(itemOptionsStyle.marginBottom);
-
-            itemWrapper.style.height = Math.max(itemWrapperRightColHeight, itemImage.clientHeight) + "px";
-
-        }
-    //}, 500);
-}
-
-function incrementTnCount(tnLength) {
-    tnCount++;
-
-    if(tnCount === tnLength) {
-        setHeight();
-    }
 }

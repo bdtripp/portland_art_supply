@@ -38,6 +38,7 @@ https://paletton.com/#uid=60f0u0kuauvivBun-vxvonRAQiM
 .card {
   background-color: white;
   border-radius: 10px;
+  box-shadow: 5px 5px 20px #AAA;
 }
 /*===============================
 ===== MOBILE CSS CODE AND UP ======
@@ -258,7 +259,6 @@ html body main section#product_groups {
 }
 html body main section#product_groups div.product_group {
   padding: 20px 0 0 0;
-  box-shadow: 5px 5px 20px #AAA;
 }
 html body main section#product_groups div.product_group a.group_description_text {
   max-width: 97%;
@@ -276,42 +276,55 @@ html body main section#product_groups div.product_group a img {
   border-radius: 10px;
 }
 html body main section#item_wrapper {
-  overflow: hidden;
+  display: grid;
+  margin: 40px 20px 20px 20px;
+  gap: 20px;
+  max-width: 1100px;
 }
-html body main section#item_wrapper h2#non_mobile_version {
-  display: none;
+html body main section#item_wrapper div#image_wrapper img {
+  border-radius: 10px;
 }
-html body main section#item_wrapper div#item_details p#group_info {
+html body main section#item_wrapper div#details_wrapper {
+  text-align: initial;
+  letter-spacing: initial;
+  padding: 20px;
+  align-content: center;
+}
+html body main section#item_wrapper div#details_wrapper div#item_details p#group_info {
   max-width: 97%;
   margin: 20px auto;
   display: none;
 }
-html body main section#item_wrapper div#item_details div#item_options {
-  overflow: hidden;
+html body main section#item_wrapper div#details_wrapper div#item_details div#item_options {
+  display: grid;
 }
-html body main section#item_wrapper div#item_details div#item_options div#item_options_right_col {
-  margin: 20px 0;
+html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#color_thumbnails_wrapper div#color_thumbnails {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 40px);
+  grid-auto-rows: 40px;
+  justify-content: center;
+  gap: 6px;
 }
-html body main section#item_wrapper div#item_details div#item_options div#item_options_right_col p#price span.price_display {
-  font-size: 1.2rem;
-}
-html body main section#item_wrapper div#item_details div#item_options div#item_options_right_col div#drop_down_options div {
-  margin: 15px 0;
-}
-html body main section#item_wrapper div#item_details div#item_options div#item_options_right_col div#drop_down_options div p {
-  display: inline;
-}
-html body main section#item_wrapper div#item_details div#item_options div#item_options_right_col div#drop_down_options div#color {
-  white-space: nowrap;
-}
-html body main section#item_wrapper div#item_details div#color_thumbnails {
-  line-height: 0;
-  margin-bottom: 20px;
-}
-html body main section#item_wrapper div#item_details div#color_thumbnails img {
+html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#color_thumbnails_wrapper div#color_thumbnails img {
   border: 1px solid black;
   border-radius: 3px;
-  margin: 2px;
+}
+html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#right_col_wrapper div#item_options_right_col {
+  margin: 20px 0;
+  text-align: center;
+}
+html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#right_col_wrapper div#item_options_right_col p#price span.price_display {
+  font-size: 1.2rem;
+}
+html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#right_col_wrapper div#item_options_right_col div#drop_down_options div {
+  margin: 15px 0;
+}
+html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#right_col_wrapper div#item_options_right_col div#drop_down_options div p {
+  display: inline;
+  margin-right: 5px;
+}
+html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#right_col_wrapper div#item_options_right_col div#drop_down_options div#color {
+  white-space: nowrap;
 }
 html body main section.products {
   margin: 0 auto;
@@ -321,7 +334,6 @@ html body main section#cart_items p#empty_cart_message {
 }
 html body main section#cart_items div.cart_item {
   overflow: hidden;
-  box-shadow: 5px 5px 20px #AAA;
   margin: 15px auto;
   display: flex;
   justify-content: center;
@@ -595,60 +607,17 @@ html body footer div section.social ul li a img {
   html body main section#product_groups div.product_group a img {
     align-self: center;
   }
+  html body main section#item_wrapper {
+    grid-template-columns: 1fr 1fr;
+  }
   html body main section#item_wrapper p#group_info {
     display: block;
     width: 80%;
-    margin: 0 auto;
+    margin: 0 auto 40px;
+    grid-column: 1 / -1;
   }
   html body main section#item_wrapper div#image_wrapper {
-    width: 25%;
-  }
-  html body main section#item_wrapper div#details_wrapper {
-    width: 100%;
-  }
-  html body main section#item_wrapper div#details_wrapper div#item_details div#item_options {
-    margin-top: 20px;
-    height: 328px;
-  }
-  html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#color_thumbnails_wrapper {
-    margin-left: 0;
-    height: 100%;
-    position: relative;
-    width: 25%;
-  }
-  html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#color_thumbnails_wrapper div#color_thumbnails {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-  }
-  html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#image_wrapper {
-    margin-left: 0;
-    height: 100%;
-    position: relative;
-    width: 33%;
-  }
-  html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#image_wrapper img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    margin: 0;
-  }
-  html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#right_col_wrapper {
-    width: 20%;
-    height: 100%;
-    position: relative;
-    margin: 0;
-    width: 37%;
-  }
-  html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#right_col_wrapper div#item_options_right_col {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    margin: 0;
+    align-content: center;
   }
   html body main section#cart_items div.cart_item {
     flex-wrap: nowrap;
@@ -821,8 +790,8 @@ html body footer div section.social ul li a img {
     text-align: center;
     min-height: calc(100vh - 207.2px);
     background-color: #fafafa;
-    border-top: 1px dotted #F34F0E;
-    /* The style below hides the dotted border when the navigation menu is collapsed */
+    border-top: 1px solid #F34F0E;
+    /* The style below hides the border when the navigation menu is collapsed */
     margin-top: -1px;
     letter-spacing: 0.1rem;
     overflow: hidden;
@@ -833,9 +802,6 @@ html body footer div section.social ul li a img {
   }
   html body main#home div.image_overlay {
     top: -22vh;
-  }
-  html body main h2#mobile_version {
-    display: none;
   }
   html body main section {
     /*****************************
@@ -848,64 +814,13 @@ html body footer div section.social ul li a img {
   html body main section#product_groups {
     grid-template-columns: repeat(4, 1fr);
   }
+}
+/*===============================
+=== 1100PX CSS CODE AND UP =======
+===============================*/
+@media (min-width: 1140px) {
   html body main section#item_wrapper {
-    height: 650px;
-    padding: 15px;
-  }
-  html body main section#item_wrapper h2#non_mobile_version {
-    font-size: 2rem;
-    display: block;
-  }
-  html body main section#item_wrapper div#image_wrapper {
-    width: 42%;
-    height: 100%;
-    position: relative;
-    box-shadow: 5px 5px 20px #AAA;
-    margin: 0;
-  }
-  html body main section#item_wrapper div#image_wrapper img#product_item_image {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
-  }
-  html body main section#item_wrapper div#details_wrapper {
-    height: 100%;
-    width: 56.67%;
-    position: relative;
-    box-shadow: 5px 5px 20px #AAA;
-    margin: 0 0 0 10px;
-  }
-  html body main section#item_wrapper div#details_wrapper div#item_details {
-    overflow: hidden;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    margin: auto;
-    height: min-content;
-  }
-  html body main section#item_wrapper div#details_wrapper div#item_details p#group_info {
-    margin: 0 auto 40px auto;
-    width: 80%;
-    display: block;
-  }
-  html body main section#item_wrapper div#details_wrapper div#item_details div#item_options {
-    height: 350px;
-  }
-  html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#color_thumbnails_wrapper {
-    width: 50%;
-  }
-  html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#color_thumbnails_wrapper div#color_thumbnails {
-    margin-left: 2%;
-  }
-  html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#right_col_wrapper {
-    margin: 0;
-    overflow: hidden;
-    width: 50%;
+    margin: 20px auto;
   }
 }
 /*===============================

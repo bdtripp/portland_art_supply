@@ -75,6 +75,7 @@ https://paletton.com/#uid=60f0u0kuauvivBun-vxvonRAQiM
 .card {
     background-color: white;
     border-radius: 10px;
+    box-shadow: 5px 5px 20px #AAA;
 }
 
 /*===============================
@@ -353,7 +354,6 @@ html {
 
                         &.product_group {
                             padding: 20px 0 0 0;
-                            box-shadow: 5px 5px 20px #AAA;
 
                             a {
 
@@ -384,19 +384,21 @@ html {
                 *****************************/
 
                 &#item_wrapper {
-                    overflow: hidden;
+                    display: grid;
+                    margin: 40px 20px 20px 20px;
+                    gap: 20px;
+                    max-width: 1100px;
 
                     h2 {
-                        &#non_mobile_version {
-                            display: none;
-                        }
+
                     }
 
                     div {
 
                         &#image_wrapper {
-
+                            
                             img {
+                                border-radius: 10px;
 
                                 &#product_item_image {
 
@@ -404,77 +406,103 @@ html {
                             }
                         }
 
-                        &#item_details {
-
-                            p {
-
-                                &#group_info {
-                                    max-width: 97%;
-                                    margin: 20px auto;
-                                    display: none;
-                                }
-                            }
+                        &#details_wrapper {
+                            text-align: initial;
+                            letter-spacing: initial;
+                            padding: 20px;
+                            align-content: center;
 
                             div {
 
-                                &#item_options {
-                                    overflow: hidden;
+                                &#item_details {
+
+                                    p {
+
+                                        &#group_info {
+                                            max-width: 97%;
+                                            margin: 20px auto;
+                                            display: none;
+                                        }
+                                    }
 
                                     div {
 
-                                        &#item_options_right_col {
-                                            margin: 20px 0;
-
-                                            p {
-
-                                                &#price {
-
-                                                    span {
-
-                                                        &.price_display {
-                                                            font-size: 1.2rem;
-                                                        }
-                                                    }
-                                                }
-                                            }
+                                        &#item_options {
+                                            display: grid;
 
                                             div {
 
-                                                &#drop_down_options {
+                                                &#color_thumbnails_wrapper {
 
                                                     div {
-                                                        margin: 15px 0;
 
-                                                        p {
-                                                            display: inline;
+                                                        &#color_thumbnails {
+                                                            display: grid;
+                                                            grid-template-columns: repeat(auto-fill, 40px);
+                                                            grid-auto-rows: 40px;
+                                                            justify-content: center;
+                                                            gap: 6px;
+
+                                                            img {
+                                                                border: 1px solid black;
+                                                                border-radius: 3px;
+                                                            }
                                                         }
+                                                    }
+                                                }
 
-                                                        &#color {
-                                                            white-space: nowrap;
-                                                        }
+                                                &#right_col_wrapper {
 
-                                                        &#size {
+                                                    div {
 
-                                                        }
+                                                        &#item_options_right_col {
+                                                            margin: 20px 0;
+                                                            text-align: center;
 
-                                                        &#quantity {
+                                                            p {
 
+                                                                &#price {
+
+                                                                    span {
+
+                                                                        &.price_display {
+                                                                            font-size: 1.2rem;
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+
+                                                            div {
+
+                                                                &#drop_down_options {
+
+                                                                    div {
+                                                                        margin: 15px 0;
+
+                                                                        p {
+                                                                            display: inline;
+                                                                            margin-right: 5px;
+                                                                        }
+
+                                                                        &#color {
+                                                                            white-space: nowrap;
+                                                                        }
+
+                                                                        &#size {
+
+                                                                        }
+
+                                                                        &#quantity {
+
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
                                                         }
                                                     }
                                                 }
                                             }
                                         }
-                                    }
-                                }
-
-                                &#color_thumbnails {
-                                    line-height: 0;
-                                    margin-bottom: 20px;
-
-                                    img {
-                                        border: 1px solid black;
-                                        border-radius: 3px;
-                                        margin: 2px;
                                     }
                                 }
                             }
@@ -503,7 +531,6 @@ html {
 
                         &.cart_item {
                             overflow: hidden;
-                            box-shadow: 5px 5px 20px #AAA;
                             margin: 15px auto;
                             display: flex;
                             justify-content: center;
@@ -796,9 +823,6 @@ html {
 
                 h2 {
 
-                    &#mobile_version {
-
-                    }
                 }
 
                 section {
@@ -811,9 +835,6 @@ html {
                         
                         h2 {
 
-                            &#non_mobile_version {
-
-                            }
                         }
 
                         div {
@@ -1032,9 +1053,6 @@ html {
 
                 h2 {
 
-                    &#mobile_version {
-
-                    }
                 }
 
                 section {
@@ -1110,27 +1128,26 @@ html {
                      *****************************/
 
                     &#item_wrapper {
+                        grid-template-columns: 1fr 1fr;
 
                         p {
 
                             &#group_info {
                                 display: block;
                                 width: 80%;
-                                margin: 0 auto;
+                                margin: 0 auto 40px;
+                                grid-column: 1 / -1;
                             }
                         }
 
                         h2 {
 
-                            &#non_mobile_version {
-
-                            }
                         }
 
                         div {
 
                             &#image_wrapper {
-                                width: 25%;
+                                  align-content: center;
 
                                 img {
 
@@ -1141,7 +1158,6 @@ html {
                             }
 
                             &#details_wrapper {
-                                width: 100%;
 
                                 div {
 
@@ -1150,59 +1166,32 @@ html {
                                         div {
 
                                             &#item_options {
-                                                margin-top: 20px;
-                                                height: 328px;
 
                                                 div {
 
                                                     &#color_thumbnails_wrapper {
-                                                        margin-left: 0;
-                                                        height: 100%;
-                                                        position: relative;
-                                                        width: 25%;
 
                                                         div {
 
                                                             &#color_thumbnails {
-                                                                position: absolute;
-                                                                top: 50%;
-                                                                left: 50%;
-                                                                transform: translate(-50%, -50%);
-                                                                width: 100%;
+
                                                             }
                                                         }
                                                     }
 
                                                     &#image_wrapper {
-                                                        margin-left: 0;
-                                                        height: 100%;
-                                                        position: relative;
-                                                        width: 33%;
-
 
                                                         img {
-                                                            position: absolute;
-                                                            top: 50%;
-                                                            left: 50%;
-                                                            transform: translate(-50%, -50%);
-                                                            margin: 0;
+
                                                         }
                                                     }
 
                                                     &#right_col_wrapper {
-                                                        width: 20%;
-                                                        height: 100%;
-                                                        position: relative;
-                                                        margin: 0;
-                                                        width: 37%;
 
                                                             div {
+
                                                                 &#item_options_right_col {
-                                                                    position: absolute;
-                                                                    top: 50%;
-                                                                    left: 50%;
-                                                                    transform: translate(-50%, -50%);
-                                                                    margin: 0;
+
                                                             }
                                                         }
                                                     }
@@ -1539,9 +1528,6 @@ html {
 
                         h2 {
 
-                            &#non_mobile_version {
-
-                            }
                         }
 
                         div {
@@ -1744,8 +1730,8 @@ html {
                 text-align: center;
                 min-height: calc(100vh - 207.2px);
                 background-color: lighten(@off-white, 3%);
-                border-top: 1px dotted @primary-color1;
-                /* The style below hides the dotted border when the navigation menu is collapsed */
+                border-top: 1px solid @primary-color1;
+                /* The style below hides the border when the navigation menu is collapsed */
                 margin-top: -1px;
                 letter-spacing: .1rem;
                 overflow: hidden;
@@ -1769,9 +1755,6 @@ html {
 
                 h2 {
 
-                    &#mobile_version {
-                        display: none;
-                    }
                 }
 
                 section {
@@ -1789,80 +1772,48 @@ html {
                      *****************************/
 
                     &#item_wrapper {
-                        height: 650px;
-                        padding: 15px;
                         
 
                         h2 {
 
-                            &#non_mobile_version {
-                                font-size: 2rem;
-                                display: block;
-                            }
                         }
 
                         div {
 
                             &#image_wrapper {
-                                width: 42%;
-                                height: 100%;
-                                position: relative;
-                                box-shadow: 5px 5px 20px #AAA;
-                                margin: 0;
 
                                 img {
 
                                     &#product_item_image {
-                                        position: absolute;
-                                        top: 0;
-                                        bottom: 0;
-                                        left: 0;
-                                        right: 0;
-                                        margin: auto;
+
                                     }
                                 }
                             }
 
                             &#details_wrapper {
-                                height: 100%;
-                                width: 56.67%;
-                                position: relative;
-                                box-shadow: 5px 5px 20px #AAA;
-                                margin: 0 0 0 10px;
 
                                 div {
 
                                     &#item_details {
-                                        overflow: hidden;
-                                        position: absolute;
-                                        top: 0;
-                                        bottom: 0;
-                                        right: 0;
-                                        left: 0;
-                                        margin: auto;
-                                        height: min-content;
 
                                         p {
                                             &#group_info {
-                                                margin: 0 auto 40px auto;
-                                                width: 80%;
-                                                display: block;
+
                                             }
                                         }
 
                                         div {
 
                                             &#item_options {
-                                                height: 350px;
 
                                                 div {
 
                                                     &#color_thumbnails_wrapper {
-                                                        width: 50%;
 
                                                         div {
+                                                            
                                                             &#color_thumbnails {
-                                                                margin-left: 2%;
+
                                                             }
                                                         }
                                                     }
@@ -1876,9 +1827,6 @@ html {
                                                     }
 
                                                     &#right_col_wrapper {
-                                                        margin: 0;
-                                                        overflow: hidden;
-                                                        width: 50%;
 
                                                         div {
 
@@ -1904,6 +1852,16 @@ html {
 
             }
         }
+    }
+}
+
+/*===============================
+=== 1100PX CSS CODE AND UP =======
+===============================*/
+
+@media (min-width: 1140px) {
+    html body main section#item_wrapper {
+        margin: 20px auto;
     }
 }
 
@@ -1985,9 +1943,6 @@ html {
 
                 h2 {
 
-                    &#mobile_version {
-
-                    }
                 }
 
                 section {
@@ -2000,9 +1955,6 @@ html {
 
                         h2 {
 
-                            &#non_mobile_version {
-
-                            }
                         }
 
                         div {
