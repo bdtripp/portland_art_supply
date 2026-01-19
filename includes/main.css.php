@@ -345,6 +345,7 @@ html body main section#item_wrapper div#details_wrapper div#item_details div#ite
   color: #333333;
   background-color: white;
   letter-spacing: 1px;
+  border-radius: 10px;
   padding: 10px 0 10px 16px;
   border-radius: 11px;
 }
@@ -361,6 +362,7 @@ html body main section#item_wrapper div#details_wrapper div#item_details div#ite
   color: #333333;
   background-color: white;
   letter-spacing: 1px;
+  border-radius: 10px;
   border-radius: 20px;
   transition: transform 0.3s;
 }
@@ -390,52 +392,77 @@ html body main section.products {
 html body main section#cart_items p#empty_cart_message {
   margin-bottom: 325px;
 }
-html body main section#cart_items div.cart_item {
-  overflow: hidden;
-  margin: 15px auto;
-  display: flex;
+html body main section#cart_items div#cart_items_wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 400px));
   justify-content: center;
+  margin: 40px 20px 20px 20px;
+  gap: 20px;
+  max-width: 2000px;
+}
+html body main section#cart_items div#cart_items_wrapper div.cart_item {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   align-items: center;
   flex-wrap: wrap;
-  font-size: 0.8rem;
-  width: 97%;
 }
-html body main section#cart_items div.cart_item img {
-  float: left;
-  width: 28%;
+html body main section#cart_items div#cart_items_wrapper div.cart_item img {
+  border-radius: 10px;
 }
-html body main section#cart_items div.cart_item div.cart_item_info {
-  padding: 10px 1%;
-  width: 70%;
+html body main section#cart_items div#cart_items_wrapper div.cart_item div.cart_item_info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
 }
-html body main section#cart_items div.cart_item div.cart_item_info p,
-html body main section#cart_items div.cart_item div.cart_item_info input {
-  margin: 5px 0;
+html body main section#cart_items div#cart_items_wrapper div.cart_item div.cart_item_info div.quantity select {
+  padding: 10px 16px;
+  font-size: 1.1em;
+  border: 3px solid #333333;
+  color: #333333;
+  background-color: white;
+  letter-spacing: 1px;
+  border-radius: 10px;
+  padding: 7px 16px;
 }
-html body main section#cart_items div.cart_item div.cart_item_info div.cart_item_specs p:first-child {
-  margin-bottom: 10px;
+html body main section#cart_items div#cart_items_wrapper div.cart_item input.remove_button {
+  padding: 10px 16px;
+  font-size: 1.1em;
+  border: 3px solid #333333;
+  color: #333333;
+  background-color: white;
+  letter-spacing: 1px;
+  border-radius: 10px;
+  transition: transform 0.3s;
+  margin: 20px 0 20px 0;
+  justify-self: flex-end;
 }
-html body main section#cart_items div.cart_item div.cart_item_info div.quantity_and_subtotal {
-  overflow: hidden;
-}
-html body main section#cart_items div.cart_item div.cart_item_info div.quantity_and_subtotal div.quantity {
-  margin: 0 0 10px 0;
-}
-html body main section#cart_items div.cart_item div.cart_item_info div.quantity_and_subtotal div.quantity p {
-  display: inline;
-}
-html body main section#cart_items div.cart_item div.cart_item_info p.price_display {
-  margin: 10px 0;
-}
-html body main section#cart_items div.cart_item input.remove_button {
-  margin: 0 0 10px 0;
+html body main section#cart_items div#cart_items_wrapper div.cart_item input.remove_button:hover {
+  cursor: pointer;
+  transform: scale(1.1);
 }
 html body main section#cart_items p#total_display {
-  margin: 20px 0;
-  font-size: 1rem;
+  margin: 50px 0 20px 0;
+  font-size: 1.5rem;
 }
 html body main section#cart_items input#checkout_button {
-  margin-bottom: 20px;
+  padding: 14px 20px;
+  font-size: 1.3em;
+  color: #0AA764;
+  border: 3px solid #0AA764;
+  border-radius: 50px;
+  background-color: white;
+  font-weight: 900;
+  letter-spacing: 1px;
+  margin: 20px 0 0 0;
+  transition: transform 0.3s;
+  margin-bottom: 40px;
+}
+html body main section#cart_items input#checkout_button:hover {
+  cursor: pointer;
+  transform: scale(1.1);
 }
 html body main section#about {
   margin-bottom: 50px;
@@ -676,50 +703,6 @@ html body footer div section.social ul li a img {
   html body main section#item_wrapper div#image_wrapper {
     align-content: center;
   }
-  html body main section#cart_items div.cart_item {
-    flex-wrap: nowrap;
-    position: relative;
-  }
-  html body main section#cart_items div.cart_item img {
-    width: 22%;
-  }
-  html body main section#cart_items div.cart_item div.cart_item_info {
-    width: 100%;
-    margin-left: 0;
-  }
-  html body main section#cart_items div.cart_item div.cart_item_info p,
-  html body main section#cart_items div.cart_item div.cart_item_info input {
-    font-size: 1rem;
-  }
-  html body main section#cart_items div.cart_item div.cart_item_info div.cart_item_specs {
-    margin: 0;
-  }
-  html body main section#cart_items div.cart_item div.cart_item_info div.cart_item_specs p:first-child {
-    margin-top: 0;
-    margin-bottom: 20px;
-  }
-  html body main section#cart_items div.cart_item div.cart_item_info div.quantity_and_subtotal {
-    width: 56%;
-    display: flex;
-    margin: 0;
-  }
-  html body main section#cart_items div.cart_item div.cart_item_info div.quantity_and_subtotal p.subtotal {
-    margin: 0;
-    width: 51%;
-  }
-  html body main section#cart_items div.cart_item div.cart_item_info p.price_display {
-    margin: 0;
-  }
-  html body main section#cart_items div.cart_item input.remove_button {
-    padding: 2px;
-    position: absolute;
-    right: 10px;
-    bottom: 0px;
-  }
-  html body main section#cart_items p#total_display {
-    margin: 20px 0;
-    font-size: 1.2rem;
-  }
   html body main section#about div#about_images {
     padding-right: 2%;
   }
@@ -906,5 +889,13 @@ html body footer div section.social ul li a img {
 @media (min-width: 1600px) {
   html body main section#product_groups {
     margin: 20px auto;
+  }
+}
+/*===============================
+=== 2040PX CSS CODE AND UP =======
+===============================*/
+@media (min-width: 2040px) {
+  html body main section#cart_items div#cart_items_wrapper {
+    margin: 40px auto 20px;
   }
 }

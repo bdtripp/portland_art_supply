@@ -49,6 +49,7 @@ https://paletton.com/#uid=60f0u0kuauvivBun-vxvonRAQiM
     color: @dark-gray;
     background-color: white;
     letter-spacing: 1px;
+    border-radius: 10px;
 }
 
 .hover1() {
@@ -578,6 +579,7 @@ html {
                 *****************************/
 
                 &#cart_items {
+
                     
                     p {
                         
@@ -588,70 +590,76 @@ html {
 
                     div {
 
-                        &.cart_item {
-                            overflow: hidden;
-                            margin: 15px auto;
-                            display: flex;
+                        &#cart_items_wrapper {
+                            display: grid;
+                            grid-template-columns: repeat(auto-fill, minmax(250px, 400px));
                             justify-content: center;
-                            align-items: center;
-                            flex-wrap: wrap;
-                            font-size: .8rem;
-                            width: 97%;
-
-                            img {
-                                float: left;
-                                width: 28%;
-                            }
+                            margin: 40px 20px 20px 20px;
+                            gap: 20px;
+                            max-width: 2000px;
 
                             div {
 
-                                &.cart_item_info {
-                                    padding: 10px 1%;
-                                    width: 70%;
+                                &.cart_item {
+                                    display: flex;
+                                    flex-direction: column;
+                                    justify-content: flex-end;
+                                    align-items: center;
+                                    flex-wrap: wrap;
 
-                                    p, input {
-                                        margin: 5px 0;
+                                    img {
+                                        border-radius: 10px;
                                     }
 
                                     div {
 
-                                        &.cart_item_specs {
-
-                                            p:first-child {
-                                                margin-bottom: 10px;
-                                            }
-
-                                        }
-
-                                        &.quantity_and_subtotal {
-                                            overflow: hidden;
+                                        &.cart_item_info {
+                                            display: flex;
+                                            flex-direction: column;
+                                            gap: 20px;
+                                            padding: 10px 20px;
+                                            font-size: 1.2rem;
 
                                             div {
 
-                                                &.quantity {
-                                                    margin: 0 0 10px 0;
+                                                &.cart_item_specs {
 
-                                                    p {
-                                                        display: inline;
+                                                    p:first-child {
+
                                                     }
+
+                                                }
+
+                                                &.quantity {
+
+                                                    label {
+                                                    }
+
+                                                    select {
+                                                        .input_style();
+                                                        padding: 7px 16px;
+                                                    }
+                                                }
+                                            }
+
+                                            p {
+
+                                                &.price_display {
+
                                                 }
                                             }
                                         }
                                     }
 
-                                    p {
+                                    input {
 
-                                        &.price_display {
-                                            margin: 10px 0;
+                                        &.remove_button {
+                                            .input_style();
+                                            .hover1();
+                                            margin: 20px 0 20px 0;
+                                            justify-self: flex-end;
                                         }
                                     }
-                                }
-                            }
-
-                            input {
-
-                                &.remove_button {
-                                    margin: 0 0 10px 0;
                                 }
                             }
                         }
@@ -660,15 +668,17 @@ html {
                     p {
 
                         &#total_display {
-                            margin: 20px 0;
-                            font-size: 1rem;
+                            margin: 50px 0 20px 0;
+                            font-size: 1.5rem;
                         }
                     }
 
                     input {
 
                         &#checkout_button {
-                            margin-bottom: 20px;
+                            .CTA();
+                            .hover1();
+                            margin-bottom: 40px;
                         }
                     }
                 }
@@ -1271,77 +1281,29 @@ html {
 
                         div {
 
-                            &.cart_item {
-                                flex-wrap: nowrap;
-                                position: relative;
-
-                                img {
-                                    width: 22%;
-                                }
+                            &#cart_items_wrapper {
 
                                 div {
 
-                                    &.cart_item_info {
-                                        width: 100%;
-                                        margin-left: 0;
-                                        
-                                        p, input {
-                                            font-size : 1rem;
+                                    &.cart_item {
+
+                                        img {
+
                                         }
 
                                         div {
 
-                                            &.cart_item_specs {
-                                                margin: 0;
+                                            &.cart_item_info {
 
-                                                p:first-child {
-                                                    margin-top: 0;
-                                                    margin-bottom: 20px;
-                                                }
-
-                                            }
-
-                                            &.quantity_and_subtotal {
-                                                width: 56%;                                           display: flex;
-                                                margin: 0;
-                                                
-
-                                                div {
-
-                                                    &.quantity {
-
-                                                        p {
-
-                                                        }
-                                                    }
-                                                }
-
-                                                p {
-
-                                                    &.subtotal {
-                                                        margin: 0;
-                                                        width: 51%;
-                                                    }
-                                                }
                                             }
                                         }
 
-                                        p {
+                                        input {
 
-                                            &.price_display {
-                                                margin: 0;
+                                            &.remove_button {
+
                                             }
                                         }
-                                    }
-                                }
-
-                                input {
-
-                                    &.remove_button {
-                                        padding: 2px;
-                                        position: absolute;
-                                        right: 10px;
-                                        bottom: 0px;
                                     }
                                 }
                             }
@@ -1350,8 +1312,7 @@ html {
                         p {
 
                             &#total_display {
-                                margin: 20px 0;
-                                font-size: 1.2rem;
+
                             }
                         }
 
@@ -1649,48 +1610,6 @@ html {
 
                                     &.cart_item_info {
 
-                                        p, input {
-
-                                        }
-
-                                        div {
-
-                                            &.cart_item_specs {
-
-                                                p:first-child {
-
-                                                }
-
-                                            }
-
-                                            &.quantity_and_subtotal {
-
-
-                                                div {
-
-                                                    &.quantity {
-
-                                                        p {
-
-                                                        }
-                                                    }
-                                                }
-
-                                                p {
-
-                                                    &.subtotal {
-
-                                                    }
-                                                }
-                                            }
-                                        }
-
-                                        p {
-
-                                            &.price_display {
-
-                                            }
-                                        }
                                     }
                                 }
 
@@ -2101,4 +2020,15 @@ html {
     html body main section#product_groups {
         margin: 20px auto;
     }
-}           
+}     
+
+/*===============================
+=== 2040PX CSS CODE AND UP =======
+===============================*/
+
+@media (min-width: 2040px) {
+
+    html body main section#cart_items div#cart_items_wrapper {
+        margin: 40px auto 20px;
+    }
+}    
