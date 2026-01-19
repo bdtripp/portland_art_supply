@@ -144,11 +144,11 @@ html {
                 color: white;
                 font-size: 1rem;
                 background: linear-gradient(
-                    10deg, 
-                    @primary-color1 ,
-                    @primary-color1 19vw,  
-                    @secondary-color1 19vw,
-                    @secondary-color1
+                    90deg, 
+                    darken(@primary-color1, 5%) ,
+                    darken(@primary-color1, 5%) 36vw,  
+                    lighten(@primary-color1, 20%) 62vw,
+                    lighten(@primary-color1, 20%)
                 );
 
                 &#no_wrap_pas {
@@ -296,6 +296,7 @@ html {
                     font-size: 2.8em;
                     font-weight: 900;
                     text-align: left;
+                    color: darken(@secondary-color3, 5%);
                 }
 
                 img {
@@ -307,7 +308,7 @@ html {
                         position: relative;
                         top: -8vh;
                         height: 57vh;
-                        background-color: #F3910E;
+                        background-color: lighten(@primary-color1, 20%);
                         transform: rotate(10deg);
                         width: 150vw;
                         left: -9vh;
@@ -1029,13 +1030,13 @@ html {
                 h1 {
                 padding-left: 1%;
                 font-size: 1.7rem;
-                background: linear-gradient(
-                    10deg, 
-                    @primary-color1 ,
-                    @primary-color1 10vw,  
-                    @secondary-color1 10vw,
-                    @secondary-color1
-                );
+                // background: linear-gradient(
+                //     10deg, 
+                //     darken(@primary-color1, 5%) ,
+                //     darken(@primary-color1, 5%) 13vw,  
+                //     lighten(@primary-color1, 20%) 13vw,
+                //     lighten(@primary-color1, 20%)
+                // );
 
                     &#wrap_pas {
                         display: none;

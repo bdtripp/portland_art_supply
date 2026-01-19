@@ -75,7 +75,7 @@ html body header h1 {
   /* This is a Google Font */
   color: white;
   font-size: 1rem;
-  background: linear-gradient(10deg, #F34F0E, #F34F0E 19vw, #D90D4B 19vw, #D90D4B);
+  background: linear-gradient(90deg, #dd460b, #dd460b 36vw, #f8966f 62vw, #f8966f);
 }
 html body header h1#no_wrap_pas {
   display: none;
@@ -183,6 +183,7 @@ html body main#home h2 {
   font-size: 2.8em;
   font-weight: 900;
   text-align: left;
+  color: #9f3105;
 }
 html body main#home img {
   transform: scaleX(-1);
@@ -191,7 +192,7 @@ html body main#home div.image_overlay {
   position: relative;
   top: -8vh;
   height: 57vh;
-  background-color: #F3910E;
+  background-color: #f8966f;
   transform: rotate(10deg);
   width: 150vw;
   left: -9vh;
@@ -588,7 +589,6 @@ html body footer div section.social ul li a img {
   html body header h1 {
     padding-left: 1%;
     font-size: 1.7rem;
-    background: linear-gradient(10deg, #F34F0E, #F34F0E 10vw, #D90D4B 10vw, #D90D4B);
   }
   html body header h1#wrap_pas {
     display: none;
