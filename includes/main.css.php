@@ -75,7 +75,7 @@ html body header h1 {
   /* This is a Google Font */
   color: white;
   font-size: 1rem;
-  background: linear-gradient(90deg, #dd460b, #dd460b 36vw, #f8966f 62vw, #f8966f);
+  background: linear-gradient(70deg, #dd460b, #dd460b 36vw, #f8966f 62vw, #f8966f);
 }
 html body header h1#no_wrap_pas {
   display: none;
@@ -109,8 +109,8 @@ html body header ul.header_links li a.shopping_cart_icon img {
 }
 html body header ul.header_links li a.shopping_cart_icon p#cart_count_display {
   position: absolute;
-  top: 26%;
-  left: 50%;
+  top: 20%;
+  left: 49%;
   transform: translate(-50%, -50%);
   font-size: 0.8rem;
   font-weight: bolder;
@@ -201,8 +201,9 @@ html body main#home div.image_overlay:first-child {
   display: none;
 }
 html body main h2 {
-  font-size: 2rem;
+  font-size: 3rem;
   margin: 20px auto;
+  padding: 0 20px;
   color: #B83906;
   font-weight: bold;
   clear: both;
@@ -394,7 +395,7 @@ html body main section#cart_items p#empty_cart_message {
 }
 html body main section#cart_items div#cart_items_wrapper {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 400px));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 400px));
   justify-content: center;
   margin: 40px 20px 20px 20px;
   gap: 20px;

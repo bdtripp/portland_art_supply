@@ -145,7 +145,7 @@ html {
                 color: white;
                 font-size: 1rem;
                 background: linear-gradient(
-                    90deg, 
+                    70deg, 
                     darken(@primary-color1, 5%) ,
                     darken(@primary-color1, 5%) 36vw,  
                     lighten(@primary-color1, 20%) 62vw,
@@ -195,8 +195,8 @@ html {
 
                                     &#cart_count_display {
                                         position: absolute;
-                                        top: 26%;
-                                        left: 50%;
+                                        top: 20%;
+                                        left: 49%;
                                         transform: translate(-50%, -50%);
                                         font-size: .8rem;
                                         font-weight: bolder;
@@ -323,8 +323,9 @@ html {
             }
 
             h2 {
-                font-size: 2rem;
+                font-size: 3rem;
                 margin: 20px auto;
+                padding: 0 20px;
                 color: @secondary-color3;
                 font-weight: bold;
                 clear: both;
@@ -592,7 +593,7 @@ html {
 
                         &#cart_items_wrapper {
                             display: grid;
-                            grid-template-columns: repeat(auto-fill, minmax(250px, 400px));
+                            grid-template-columns: repeat(auto-fit, minmax(250px, 400px));
                             justify-content: center;
                             margin: 40px 20px 20px 20px;
                             gap: 20px;
