@@ -137,6 +137,7 @@ const ICON_CLASS = 'icon';
 const LARGE_IMAGE_CLASS = 'lg_image';
 const HEADER_LINKS_CLASS = 'header_links';
 const DARK_BACKGROUND_CLASS = 'dark_background';
+const CART_ITEMS_WRAPPER_ID = "cart_items_wrapper";
 const CART_ITEM_CLASS = 'cart_item';
 const SUBTOTAL_DISPLAY_CLASS = 'subtotal_display';
 const GROUP_DESCRIPTION_TEXT_CLASS = "group_description_text";

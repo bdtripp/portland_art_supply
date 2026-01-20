@@ -169,8 +169,10 @@ function show_shopping_cart_content() {
     echo '<main>' . "\n";
     echo '    <section id="cart_items">' . "\n";
     echo '        <h2>' . 'Shopping Cart' . '</h2>' . "\n";
+    echo '            <div id="' . CART_ITEMS_WRAPPER_ID . '">' . "\n";
     if (!empty($itemsInCart)) {
         show_items_in_cart($itemsInCart);
+        echo '        </div>' . "\n";
         echo '        <p id="' . TOTAL_DISPLAY_ID . '">Total: <span class="' . PRICE_DISPLAY_CLASS . '">$' . number_format(getCartTotal(), 2) . '</span></p>' . "\n";
         echo '        <input id="' . CHECKOUT_BUTTON_ID . '" type="button" value="Checkout">' . "\n";
     } else {
@@ -196,8 +198,8 @@ function show_items_in_cart($itemsInCart) {
         displayItemImage($categoryName, $subcategoryName,
             $groupCode, $color,
             $size);
-        echo '            <div class="' . CART_ITEM_INFO_CLASS . ' ' . NINE_COLUMNS_CLASS . '">' . "\n";
-        echo '                <div class="' . CART_ITEM_SPECS_CLASS . ' ' . FOUR_COLUMNS_CLASS . '">' . "\n";
+        echo '            <div class="' . CART_ITEM_INFO_CLASS . '">' . "\n";
+        echo '                <div class="' . CART_ITEM_SPECS_CLASS . '">' . "\n";
         echo '                    <p>' . $groupDescription . '</p>' . "\n";
         if ($color != 'null') {
             echo '                    <p> Color: ' . $color . '</p>' . "\n";
@@ -206,10 +208,9 @@ function show_items_in_cart($itemsInCart) {
             echo '                    <p> Size: ' . $size . '</p>' . "\n";
         }
         echo '                </div>' . "\n";
-        echo '                <p class="' . PRICE_DISPLAY_CLASS . ' ' . TWO_COLUMNS_CLASS . '">$' . $price . '</p>' . "\n";
-        echo '                <div class="' . QUANTITY_AND_SUBTOTAL_CLASS . ' ' . SIX_COLUMNS_CLASS . '">' . "\n";
-        echo '                    <div class="' . QUANTITY_DIV_CLASS . ' ' . SIX_COLUMNS_CLASS . '">'. "\n";
-        echo '                        <p>Quantity: </p>' . "\n";
+        echo '                <p class="' . PRICE_DISPLAY_CLASS . '">$' . $price . '</p>' . "\n";
+        echo '                    <div class="' . QUANTITY_DIV_CLASS . '">'. "\n";
+        echo '                        <label for="quantity_product_id_' . $id . '"> Quantity: </label>' . "\n";
         echo '                        <select id="quantity_product_id_' . $id .
             '" onchange="onCartPageQuantityChanged(this.id, ' . $id . ')">' . "\n";
         for ($count = QUANTITY_MIN; $count <= QUANTITY_MAX; $count++) {
@@ -221,9 +222,8 @@ function show_items_in_cart($itemsInCart) {
         }
         echo '                        </select>' . "\n";
         echo '                    </div>' . "\n";
-        echo '                    <p id="' . "subtotal_product_" . $id . '" class="' . SUBTOTAL_CLASS . ' ' . SIX_COLUMNS_CLASS . '">Subtotal:' .
+        echo '                    <p id="' . "subtotal_product_" . $id . '" class="' . SUBTOTAL_CLASS . '">Subtotal:' .
             '<span class="' . PRICE_DISPLAY_CLASS . '">$' . number_format($price * $quantity, 2) . '</span></p>' . "\n";
-        echo '                </div>' . "\n";
         echo '            </div>' ."\n";
         echo '            <input id="' . $item[PRODUCT_ITEM_ID_FIELD] . '" class="' . REMOVE_BUTTON_CLASS . '" type="button" value="Remove"' .
             ' onclick="onRemoveClicked(this.id,\'shopping_cart.php\')">' . "\n";
@@ -252,7 +252,7 @@ function displayItemImage($category, $subcategory, $groupCode, $color, $size) {
     $size = preg_replace('/\s+(?=[^()]*(\(|$))/', '-', $size);
     $size = preg_replace('/\//', '_', $size);
 
-    echo '            <img class="'. THREE_COLUMNS_CLASS . '" src="' . IMAGE_FOLDER . $category . '/' . $subcategory . '/' .
+    echo '            <img src="' . IMAGE_FOLDER . $category . '/' . $subcategory . '/' .
         $groupCode . $color . $size . '.jpg">' . "\n";
 }
 

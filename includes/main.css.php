@@ -30,10 +30,10 @@ https://paletton.com/#uid=60f0u0kuauvivBun-vxvonRAQiM
   clear: both;
 }
 .price_display {
-  color: red;
+  color: #0AA764;
 }
 .required {
-  color: red;
+  color: #c43f0a;
 }
 .card {
   background-color: white;
@@ -75,7 +75,7 @@ html body header h1 {
   /* This is a Google Font */
   color: white;
   font-size: 1rem;
-  background: linear-gradient(10deg, #F34F0E, #F34F0E 19vw, #D90D4B 19vw, #D90D4B);
+  background: linear-gradient(70deg, #dd460b, #dd460b 36vw, #f8966f 62vw, #f8966f);
 }
 html body header h1#no_wrap_pas {
   display: none;
@@ -109,8 +109,8 @@ html body header ul.header_links li a.shopping_cart_icon img {
 }
 html body header ul.header_links li a.shopping_cart_icon p#cart_count_display {
   position: absolute;
-  top: 26%;
-  left: 50%;
+  top: 20%;
+  left: 49%;
   transform: translate(-50%, -50%);
   font-size: 0.8rem;
   font-weight: bolder;
@@ -183,6 +183,7 @@ html body main#home h2 {
   font-size: 2.8em;
   font-weight: 900;
   text-align: left;
+  color: #9f3105;
 }
 html body main#home img {
   transform: scaleX(-1);
@@ -191,7 +192,7 @@ html body main#home div.image_overlay {
   position: relative;
   top: -8vh;
   height: 57vh;
-  background-color: #F3910E;
+  background-color: #f8966f;
   transform: rotate(10deg);
   width: 150vw;
   left: -9vh;
@@ -200,8 +201,9 @@ html body main#home div.image_overlay:first-child {
   display: none;
 }
 html body main h2 {
-  font-size: 2rem;
+  font-size: 3rem;
   margin: 20px auto;
+  padding: 0 20px;
   color: #B83906;
   font-weight: bold;
   clear: both;
@@ -313,18 +315,77 @@ html body main section#item_wrapper div#details_wrapper div#item_details div#ite
   margin: 20px 0;
   text-align: center;
 }
+html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#drop_down_wrapper p#price {
+  color: #333333;
+  margin: 20px 0;
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+}
 html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#drop_down_wrapper p#price span.price_display {
-  font-size: 1.2rem;
+  font-size: 1.9rem;
+  font-weight: 600;
 }
 html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#drop_down_wrapper div#drop_down_options div {
+  display: flex;
+  gap: 15px;
   margin: 15px 0;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
-html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#drop_down_wrapper div#drop_down_options div p {
-  display: inline;
+html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#drop_down_wrapper div#drop_down_options div label {
   margin-right: 5px;
+  color: #333333;
+  font-size: 1.1em;
+  letter-spacing: 1px;
+}
+html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#drop_down_wrapper div#drop_down_options div select {
+  padding: 10px 16px;
+  font-size: 1.1em;
+  border: 3px solid #333333;
+  color: #333333;
+  background-color: white;
+  letter-spacing: 1px;
+  border-radius: 10px;
+  padding: 10px 0 10px 16px;
+  border-radius: 11px;
 }
 html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#drop_down_wrapper div#drop_down_options div#color {
   white-space: nowrap;
+}
+html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#drop_down_wrapper div#drop_down_options div#size select {
+  padding-right: 20px;
+}
+html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#drop_down_wrapper div#drop_down_options input#reset_button {
+  padding: 10px 16px;
+  font-size: 1.1em;
+  border: 3px solid #333333;
+  color: #333333;
+  background-color: white;
+  letter-spacing: 1px;
+  border-radius: 10px;
+  border-radius: 20px;
+  transition: transform 0.3s;
+}
+html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#drop_down_wrapper div#drop_down_options input#reset_button:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#drop_down_wrapper input#add_to_cart {
+  padding: 14px 20px;
+  font-size: 1.3em;
+  color: #0AA764;
+  border: 3px solid #0AA764;
+  border-radius: 50px;
+  background-color: white;
+  font-weight: 900;
+  letter-spacing: 1px;
+  margin: 20px 0 0 0;
+  transition: transform 0.3s;
+}
+html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#drop_down_wrapper input#add_to_cart:hover {
+  cursor: pointer;
+  transform: scale(1.1);
 }
 html body main section.products {
   margin: 0 auto;
@@ -332,52 +393,77 @@ html body main section.products {
 html body main section#cart_items p#empty_cart_message {
   margin-bottom: 325px;
 }
-html body main section#cart_items div.cart_item {
-  overflow: hidden;
-  margin: 15px auto;
-  display: flex;
+html body main section#cart_items div#cart_items_wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 400px));
   justify-content: center;
+  margin: 40px 20px 20px 20px;
+  gap: 20px;
+  max-width: 2000px;
+}
+html body main section#cart_items div#cart_items_wrapper div.cart_item {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   align-items: center;
   flex-wrap: wrap;
-  font-size: 0.8rem;
-  width: 97%;
 }
-html body main section#cart_items div.cart_item img {
-  float: left;
-  width: 28%;
+html body main section#cart_items div#cart_items_wrapper div.cart_item img {
+  border-radius: 10px;
 }
-html body main section#cart_items div.cart_item div.cart_item_info {
-  padding: 10px 1%;
-  width: 70%;
+html body main section#cart_items div#cart_items_wrapper div.cart_item div.cart_item_info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
 }
-html body main section#cart_items div.cart_item div.cart_item_info p,
-html body main section#cart_items div.cart_item div.cart_item_info input {
-  margin: 5px 0;
+html body main section#cart_items div#cart_items_wrapper div.cart_item div.cart_item_info div.quantity select {
+  padding: 10px 16px;
+  font-size: 1.1em;
+  border: 3px solid #333333;
+  color: #333333;
+  background-color: white;
+  letter-spacing: 1px;
+  border-radius: 10px;
+  padding: 7px 16px;
 }
-html body main section#cart_items div.cart_item div.cart_item_info div.cart_item_specs p:first-child {
-  margin-bottom: 10px;
+html body main section#cart_items div#cart_items_wrapper div.cart_item input.remove_button {
+  padding: 10px 16px;
+  font-size: 1.1em;
+  border: 3px solid #333333;
+  color: #333333;
+  background-color: white;
+  letter-spacing: 1px;
+  border-radius: 10px;
+  transition: transform 0.3s;
+  margin: 20px 0 20px 0;
+  justify-self: flex-end;
 }
-html body main section#cart_items div.cart_item div.cart_item_info div.quantity_and_subtotal {
-  overflow: hidden;
-}
-html body main section#cart_items div.cart_item div.cart_item_info div.quantity_and_subtotal div.quantity {
-  margin: 0 0 10px 0;
-}
-html body main section#cart_items div.cart_item div.cart_item_info div.quantity_and_subtotal div.quantity p {
-  display: inline;
-}
-html body main section#cart_items div.cart_item div.cart_item_info p.price_display {
-  margin: 10px 0;
-}
-html body main section#cart_items div.cart_item input.remove_button {
-  margin: 0 0 10px 0;
+html body main section#cart_items div#cart_items_wrapper div.cart_item input.remove_button:hover {
+  cursor: pointer;
+  transform: scale(1.1);
 }
 html body main section#cart_items p#total_display {
-  margin: 20px 0;
-  font-size: 1rem;
+  margin: 50px 0 20px 0;
+  font-size: 1.5rem;
 }
 html body main section#cart_items input#checkout_button {
-  margin-bottom: 20px;
+  padding: 14px 20px;
+  font-size: 1.3em;
+  color: #0AA764;
+  border: 3px solid #0AA764;
+  border-radius: 50px;
+  background-color: white;
+  font-weight: 900;
+  letter-spacing: 1px;
+  margin: 20px 0 0 0;
+  transition: transform 0.3s;
+  margin-bottom: 40px;
+}
+html body main section#cart_items input#checkout_button:hover {
+  cursor: pointer;
+  transform: scale(1.1);
 }
 html body main section#about {
   margin-bottom: 50px;
@@ -531,7 +617,6 @@ html body footer div section.social ul li a img {
   html body header h1 {
     padding-left: 1%;
     font-size: 1.7rem;
-    background: linear-gradient(10deg, #F34F0E, #F34F0E 10vw, #D90D4B 10vw, #D90D4B);
   }
   html body header h1#wrap_pas {
     display: none;
@@ -618,50 +703,6 @@ html body footer div section.social ul li a img {
   }
   html body main section#item_wrapper div#image_wrapper {
     align-content: center;
-  }
-  html body main section#cart_items div.cart_item {
-    flex-wrap: nowrap;
-    position: relative;
-  }
-  html body main section#cart_items div.cart_item img {
-    width: 22%;
-  }
-  html body main section#cart_items div.cart_item div.cart_item_info {
-    width: 100%;
-    margin-left: 0;
-  }
-  html body main section#cart_items div.cart_item div.cart_item_info p,
-  html body main section#cart_items div.cart_item div.cart_item_info input {
-    font-size: 1rem;
-  }
-  html body main section#cart_items div.cart_item div.cart_item_info div.cart_item_specs {
-    margin: 0;
-  }
-  html body main section#cart_items div.cart_item div.cart_item_info div.cart_item_specs p:first-child {
-    margin-top: 0;
-    margin-bottom: 20px;
-  }
-  html body main section#cart_items div.cart_item div.cart_item_info div.quantity_and_subtotal {
-    width: 56%;
-    display: flex;
-    margin: 0;
-  }
-  html body main section#cart_items div.cart_item div.cart_item_info div.quantity_and_subtotal p.subtotal {
-    margin: 0;
-    width: 51%;
-  }
-  html body main section#cart_items div.cart_item div.cart_item_info p.price_display {
-    margin: 0;
-  }
-  html body main section#cart_items div.cart_item input.remove_button {
-    padding: 2px;
-    position: absolute;
-    right: 10px;
-    bottom: 0px;
-  }
-  html body main section#cart_items p#total_display {
-    margin: 20px 0;
-    font-size: 1.2rem;
   }
   html body main section#about div#about_images {
     padding-right: 2%;
@@ -849,5 +890,13 @@ html body footer div section.social ul li a img {
 @media (min-width: 1600px) {
   html body main section#product_groups {
     margin: 20px auto;
+  }
+}
+/*===============================
+=== 2040PX CSS CODE AND UP =======
+===============================*/
+@media (min-width: 2040px) {
+  html body main section#cart_items div#cart_items_wrapper {
+    margin: 40px auto 20px;
   }
 }
