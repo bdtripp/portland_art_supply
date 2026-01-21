@@ -177,6 +177,10 @@ html body header nav ul li button::before {
   flex: 1;
   text-align: left;
 }
+html body header nav ul li button[aria-expanded="true"] span {
+  transform: scaleY(-1);
+  transition: transform 0.3s;
+}
 html body header nav ul li span {
   flex: 1;
   text-align: right;

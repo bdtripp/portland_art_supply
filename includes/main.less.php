@@ -283,6 +283,13 @@ html {
                                 flex: 1;
                                 text-align: left;
                             }
+
+                            &[aria-expanded="true"] {
+                                span {
+                                    transform: scaleY(-1);
+                                    transition: transform .3s;
+                                }
+                            }
                         }
 
                         span {
