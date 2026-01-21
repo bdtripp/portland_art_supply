@@ -60,16 +60,19 @@ function generateNavList($activePage) {
 
     echo '            <li ' . check_current_page(HOME_PAGE) . 'Home</a></li>' . "\n";
     foreach($categories as $category) {
+        $categoryID = $category[PRODUCT_CATEGORY_ID_FIELD];
+        $categoryName = $category[PRODUCT_CATEGORY_NAME_FIELD];
         $href = SUBCATEGORIES_PAGE . '?' . PRODUCT_CATEGORY_ID_FIELD . '=' .
-            $category[PRODUCT_CATEGORY_ID_FIELD] . '&' . PRODUCT_CATEGORY_NAME_FIELD . '=' .
-            $category[PRODUCT_CATEGORY_NAME_FIELD];
+            $categoryID . '&' . PRODUCT_CATEGORY_NAME_FIELD . '=' .
+            $categoryName;
+
             echo '            <li>' . "\n";
             echo '                <button 
                                       class="expand_btn"
                                       aria-expanded="false" 
                                       aria-haspopup="true" 
-                                      aria-controls="' . lcfirst($category[PRODUCT_CATEGORY_NAME_FIELD]) . '_menu"
-                                  >' . $category[PRODUCT_CATEGORY_NAME_FIELD] . "\n";
+                                      aria-controls="' . lcfirst($categoryName) . '_menu"
+                                  >' . $categoryName . "\n";
             echo '                    <span class="arrow" aria-hidden="true">▼</span>' . "\n";
             echo '                </button>' . "\n";
             show_subcategory_dropdown($category);
@@ -83,7 +86,7 @@ function show_subcategory_dropdown($category) {
     $categoryName = $category[PRODUCT_CATEGORY_NAME_FIELD];
     $subcategories = lookup_subcategories($categoryID);
 
-    echo '                <ul>' . "\n";
+    echo '                <ul id="' . lcfirst($categoryName) . '_menu" hidden>' . "\n";
     foreach ($subcategories as $subcategory) {
         $subcategoryName = $subcategory[PRODUCT_SUBCATEGORY_NAME_FIELD];
 

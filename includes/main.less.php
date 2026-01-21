@@ -288,6 +288,25 @@ html {
                             flex: 1;
                             text-align: right;
                         }
+
+                        // Drop down menu conent
+
+                        ul {
+                            display: block !important;
+                            max-height: 0;
+                            opacity: 0;
+                            transition: max-height .3s, opacity .3s;
+
+                        }
+
+                        button[aria-expanded="true"] + ul {
+                            max-height: 500px;
+                            opacity: 1;
+                        }
+
+                        ul[hidden] {
+                            display: none !important;
+                        }
                     }
 
                     li:not(:has(button)), button {

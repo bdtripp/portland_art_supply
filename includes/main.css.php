@@ -180,6 +180,19 @@ html body header nav ul li span {
   flex: 1;
   text-align: right;
 }
+html body header nav ul li ul {
+  display: block !important;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.3s, opacity 0.3s;
+}
+html body header nav ul li button[aria-expanded="true"] + ul {
+  max-height: 500px;
+  opacity: 1;
+}
+html body header nav ul li ul[hidden] {
+  display: none !important;
+}
 html body header nav ul li:not(:has(button)),
 html body header nav ul button {
   font-size: 1.5rem;

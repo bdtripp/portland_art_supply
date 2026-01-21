@@ -576,7 +576,15 @@ function setAriaExpanded() {
     document.querySelectorAll(".expand_btn").forEach(button => { 
         button.addEventListener("click", () => {
             const isExpanded = button.ariaExpanded === "true";
+            const dropDownContent = document.getElementById(button.getAttribute("aria-controls"));
+
             button.ariaExpanded = (!isExpanded).toString();
+
+            if (isExpanded) {
+                dropDownContent.setAttribute("hidden", "");
+            } else {
+                dropDownContent.removeAttribute("hidden");
+            }
         })
     });
 }
