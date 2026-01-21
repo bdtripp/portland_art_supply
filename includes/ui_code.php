@@ -6,8 +6,6 @@
  * Time: 3:14 PM
  */
 
-// TODO: add urlencode to variable values being passed via url, such as in the $hrefString?
-
 const ROWS_PER_COLUMN = 3;
 const QUANTITY_MIN = 1;
 const QUANTITY_MAX = 50;
@@ -60,28 +58,45 @@ function show_header_content($categoryName) {
 function generateNavList($activePage) {
     $categories = lookup_categories();
 
-    if ($activePage == HOME_PAGE_TITLE) {
-        echo '            <li class="active"><a href="#">Home</a></li>' . "\n";
-    } else {
-        echo '            <li><a href="' . HOME_PAGE . '">Home</a></li>' . "\n";
-    }
+    echo '            <li ' . check_current_page(HOME_PAGE) . 'Home</a></li>' . "\n";
     foreach($categories as $category) {
         $href = SUBCATEGORIES_PAGE . '?' . PRODUCT_CATEGORY_ID_FIELD . '=' .
             $category[PRODUCT_CATEGORY_ID_FIELD] . '&' . PRODUCT_CATEGORY_NAME_FIELD . '=' .
             $category[PRODUCT_CATEGORY_NAME_FIELD];
-
-        if ($category[PRODUCT_CATEGORY_NAME_FIELD] == $activePage) {
-            echo '            <li class="active"><a href="' . $href . '">' . $activePage . '</a></li>' . "\n";
-        } else {
-            echo '            <li><a href="' . $href . '">' . $category[PRODUCT_CATEGORY_NAME_FIELD] .  '</a></li>' . "\n";
-        }
+            echo '            <li>' . "\n";
+            echo '                <button 
+                                      class="expand_btn"
+                                      aria-expanded="false" 
+                                      aria-haspopup="true" 
+                                      aria-controls="' . lcfirst($category[PRODUCT_CATEGORY_NAME_FIELD]) . '_menu"
+                                  >' . $category[PRODUCT_CATEGORY_NAME_FIELD] . "\n";
+            echo '                    <span class="arrow" aria-hidden="true">▼</span>' . "\n";
+            echo '                </button>' . "\n";
+            show_subcategory_dropdown($category);
+            echo '            </li>' . "\n";
     }
-    if ($activePage == ABOUT_PAGE_TITLE) {
-        echo '            <li class="active"><a href="#">About</a></li>' . "\n";
-    } else {
-        echo '            <li><a href="' . ABOUT_PAGE . '">About</a></li>' . "\n";
-    }
+    echo '            <li ' . check_current_page(ABOUT_PAGE) . 'About</a></li>' . "\n";
+}
 
+function show_subcategory_dropdown($category) {
+    $categoryID = $category[PRODUCT_CATEGORY_ID_FIELD];
+    $categoryName = $category[PRODUCT_CATEGORY_NAME_FIELD];
+    $subcategories = lookup_subcategories($categoryID);
+
+    echo '                <ul>' . "\n";
+    foreach ($subcategories as $subcategory) {
+        $subcategoryName = $subcategory[PRODUCT_SUBCATEGORY_NAME_FIELD];
+
+        echo '                    <li>
+                                    <a href="' . GROUP_PRODUCTS_PAGE . 
+                                        "?" . PRODUCT_CATEGORY_NAME_FIELD . "=" . urlencode($categoryName) . 
+                                        "&" . PRODUCT_SUBCATEGORY_NAME_FIELD . "=" . urlencode($subcategoryName) . 
+                                        '" ' . check_current_subcat(PRODUCT_SUBCATEGORY_NAME_FIELD, $subcategoryName) . 
+                                    '>' . ucfirst($subcategoryName) . 
+                                    '</a>
+                                </li>'; 
+    }
+    echo '                </ul>' . "\n";
 }
 
 function show_subcategory_content($categoryID, $categoryName) {
@@ -103,7 +118,7 @@ function show_subcategories($categoryID, $categoryName, $rowsPerColumn) {
 
     echo '        <div class="' . SIX_COLUMNS_CLASS . '">' . "\n";
     echo '            <ul>' . "\n";
-    for ($i = $rowsPerColumn - ROWS_PER_COLUMN; ($i < $rowsPerColumn) && ($i < sizeof($subcategories)); $i++) {
+    for ($i = $rowsPerColumn - ROWS_PER_COLUMN; ($i < $rowsPerColumn) && ($i < count($subcategories)); $i++) {
         echo '                <li class="' . SUBCATEGORY_BUTTON_CLASS . '">' . "\n";
         echo '                    <a href="' . GROUP_PRODUCTS_PAGE . "?" . PRODUCT_CATEGORY_NAME_FIELD . "=" . urlencode($categoryName) . "&" .
             PRODUCT_SUBCATEGORY_NAME_FIELD . "=" . urlencode($subcategories[$i][PRODUCT_SUBCATEGORY_NAME_FIELD]) . '">'
@@ -118,7 +133,7 @@ function show_group_content($products) {
     echo '<main>' . "\n";
     echo '    <h2 class="' . LARGE_H2 . '">' . $products[0][PRODUCT_SUBCATEGORY_NAME_FIELD] . '</h2>' . "\n\n";
     echo '    <section id="' . PRODUCT_GROUPS_ID . '">' . "\n";
-    for ($i = 0; $i < sizeof($products); $i++) {
+    for ($i = 0; $i < count($products); $i++) {
         show_product_groups($products[$i]);
     }
     echo '    </section>' . "\n";

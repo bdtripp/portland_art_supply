@@ -36,6 +36,7 @@ var COLOR_DIV_ID = '<?php echo COLOR_DIV_ID; ?>';
 var QUANTITY_DIV_ID = '<?php echo QUANTITY_DIV_ID ?>';
 var COLOR_THUMBNAILS_WRAPPER_ID = '<?php echo COLOR_THUMBNAILS_WRAPPER_ID ?>';
 var COLOR_THUMBNAIL_CLASS = '<?php echo COLOR_THUMBNAIL_CLASS ?>';
+var PRODUCT_ITEMS_PAGE = '<?php echo PRODUCT_ITEMS_PAGE ?>';
 
 var COLOR_DEFAULT_OPTION = 'Select a Color...';
 var SIZE_DEFAULT_OPTION = 'Select a Size...';
@@ -60,12 +61,22 @@ var inRange = false;
 var outOfRange = false;
 
 function init() {
-    console.log(productItems);
+    const path = window.location.pathname;
+
+    if (path.includes(PRODUCT_ITEMS_PAGE)) {
+        initializeProductItemsPage();
+    }
+
+    setAriaExpanded();
+}
+
+function initializeProductItemsPage() {
     let colorSet = createSet(PRODUCT_COLOR_NAME_FIELD);
     let sizeSet = createSet(PRODUCT_SIZE_DESCRIPTION_FIELD);
 
     showPrice("", "", true)
     createOuterDropDownDiv();
+
     if (document.getElementById(QUANTITY_DROP_DOWN_ID) === null) {
         createQuantityDropDown();
     }
@@ -75,7 +86,7 @@ function init() {
         showPrice(colorSet.values().next().value, sizeSet.values().next().value);
     }
 
-        if (sizeSet.size > 1) {
+    if (sizeSet.size > 1) {
         createDropDown(sizeSet, SIZE_DEFAULT_OPTION, SIZE_DROP_DOWN_ID);
     }
 
@@ -95,8 +106,10 @@ function init() {
 
     if (document.getElementById(COLOR_DROP_DOWN_ID) === null && document.getElementById(SIZE_DROP_DOWN_ID) === null) {
         showAddToCartButton();
-    }
+    } 
 }
+
+// functions for product_items.php
 
 function createSet(property) {
     let dropDownItems = new Set();
@@ -553,4 +566,17 @@ function updateSubtotalDisplay(subtotal, itemID) {
 
 function updateTotalDisplay(total) {
     document.getElementById(TOTAL_DISPLAY_ID).children[0].innerText = "$" + parseFloat(Math.round(total * 100) / 100).toFixed(2);
+}
+
+
+// functions for every page
+
+function setAriaExpanded() {
+    console.log("test");
+    document.querySelectorAll(".expand_btn").forEach(button => { 
+        button.addEventListener("click", () => {
+            const isExpanded = button.ariaExpanded === "true";
+            button.ariaExpanded = (!isExpanded).toString();
+        })
+    });
 }

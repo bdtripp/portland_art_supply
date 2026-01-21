@@ -246,18 +246,19 @@ html {
                             background-color: #EEE;
                         }
 
-                        &.active {
-                            /* This style identifies the page the user is currently on */
+                        &[aria-current="page"], &:has([aria-current="page"]) {
+                            /* This style identifies the page or Category and Subcategory the user is currently on */
                             background-color: #DDD;
                         }
 
                         a {
                             text-decoration: none;
-                            font-size: 1.5rem;
-                            color: black;
-                            display: block;
-                            padding: 6px 0;
-                            margin: 1px 0;
+                            color: @dark-gray;
+
+                            &[aria-current="page"] {
+                                /* This style identifies the page or Category and Subcategory the user is currently on */
+                                background-color: #DDD;
+                            }
 
                             &:hover {
                                 opacity: .8;
@@ -267,6 +268,32 @@ html {
                                 color: @dark-gray;
                             }
                         }
+
+                        button {
+                            border: none;
+                            background-color: inherit;
+                            color: inherit;
+                            letter-spacing: inherit;
+                            width: 100%;
+                            display: flex;
+
+                            &::before {
+                                content: "";
+                                flex: 1;
+                                text-align: left;
+                            }
+                        }
+
+                        span {
+                            flex: 1;
+                            text-align: right;
+                        }
+                    }
+
+                    li:not(:has(button)), button {
+                        font-size: 1.5rem;
+                        padding: 6px 0;
+                        margin: 1px 0;
                     }
                 }
             }

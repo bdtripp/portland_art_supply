@@ -51,10 +51,11 @@ $categoryName = $_GET[PRODUCT_CATEGORY_NAME_FIELD];
     <link href="includes/collapsable_menu.css.php" rel="stylesheet">
     <link href="includes/main.css.php" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+    <script src="includes/pas.js.php" type="text/javascript"></script>
 
 </head>
 
-<body>
+<body onload="init();">
 
 <?php show_header_content($categoryName); ?>
 <?php show_subcategory_content($categoryID, $categoryName); ?>

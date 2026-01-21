@@ -144,23 +144,47 @@ html body header nav ul li {
 html body header nav ul li:hover {
   background-color: #EEE;
 }
-html body header nav ul li.active {
-  /* This style identifies the page the user is currently on */
+html body header nav ul li[aria-current="page"],
+html body header nav ul li:has([aria-current="page"]) {
+  /* This style identifies the page or Category and Subcategory the user is currently on */
   background-color: #DDD;
 }
 html body header nav ul li a {
   text-decoration: none;
-  font-size: 1.5rem;
-  color: black;
-  display: block;
-  padding: 6px 0;
-  margin: 1px 0;
+  color: #333333;
+}
+html body header nav ul li a[aria-current="page"] {
+  /* This style identifies the page or Category and Subcategory the user is currently on */
+  background-color: #DDD;
 }
 html body header nav ul li a:hover {
   opacity: 0.8;
 }
 html body header nav ul li a:visited {
   color: #333333;
+}
+html body header nav ul li button {
+  border: none;
+  background-color: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+  width: 100%;
+  display: flex;
+}
+html body header nav ul li button::before {
+  content: "";
+  flex: 1;
+  text-align: left;
+}
+html body header nav ul li span {
+  flex: 1;
+  text-align: right;
+}
+html body header nav ul li:not(:has(button)),
+html body header nav ul button {
+  font-size: 1.5rem;
+  padding: 6px 0;
+  margin: 1px 0;
 }
 html body main {
   text-align: center;

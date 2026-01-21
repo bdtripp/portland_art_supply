@@ -35,6 +35,7 @@ $products = lookup_product_groups($categoryName, $subcategoryName);
 
         gtag('config', 'UA-135450898-2');
     </script>
+    <script src="includes/pas.js.php" type="text/javascript"></script>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -49,7 +50,7 @@ $products = lookup_product_groups($categoryName, $subcategoryName);
 
 </head>
 
-<body>
+<body onload="init();">
 
 <?php show_header_content($categoryName); ?>
 <?php show_group_content($products); ?>
