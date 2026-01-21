@@ -294,7 +294,7 @@ html {
 
                         ul {
                             max-height: 0;
-                            transition: max-height 1s;
+                            transition: none;
                             border-radius: inherit;
 
                             li {
@@ -304,6 +304,7 @@ html {
 
                         button[aria-expanded="true"] + ul {
                             max-height: 300px;
+                            transition: max-height 1s;
                         }
                     }
 
