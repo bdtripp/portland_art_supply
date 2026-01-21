@@ -278,6 +278,8 @@ html {
                         }
 
                         button {
+                            font-size: 1.5rem;
+                            padding: 6px 0;
                             border: none;
                             background-color: inherit;
                             color: inherit;
@@ -291,9 +293,13 @@ html {
                                 content: "";
                                 flex: 1;
                                 text-align: left;
+                                padding-left: 3px;
                             }
 
                             &[aria-expanded="true"] {
+                                border: 2px solid white;
+                                border-bottom: none;
+                                border-radius: 5px 5px 0 0;
 
                                 span {
                                     transform: scaleY(-1);
@@ -305,6 +311,7 @@ html {
                         span {
                             flex: 1;
                             text-align: right;
+                            padding-right: 3px;
                         }
 
                         // Drop down menu conent
@@ -312,10 +319,13 @@ html {
                         ul {
                             max-height: 0;
                             transition: none;
-                            border-radius: inherit;
+                            border-top-left-radius: 0;
+                            border-top-right-radius: 0;
+                            border-bottom-left-radius: inherit;
+                            border-bottom-right-radius: inherit;
 
                             li {
-                                border-radius: inherit;
+                                border-radius: 5px;
                                 font-weight: initial;
                             }
                         }
@@ -330,7 +340,7 @@ html {
                         }
                     }
 
-                    li:not(:has(button)), button {
+                    li:not(:has(button)) {
                         font-size: 1.5rem;
                         padding: 6px 0;
                         margin: 1px 0;

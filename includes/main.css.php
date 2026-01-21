@@ -170,6 +170,8 @@ html body header nav ul li a:visited {
   color: #333333;
 }
 html body header nav ul li button {
+  font-size: 1.5rem;
+  padding: 6px 0;
   border: none;
   background-color: inherit;
   color: inherit;
@@ -183,6 +185,12 @@ html body header nav ul li button::before {
   content: "";
   flex: 1;
   text-align: left;
+  padding-left: 3px;
+}
+html body header nav ul li button[aria-expanded="true"] {
+  border: 2px solid white;
+  border-bottom: none;
+  border-radius: 5px 5px 0 0;
 }
 html body header nav ul li button[aria-expanded="true"] span {
   transform: scaleY(-1);
@@ -191,14 +199,18 @@ html body header nav ul li button[aria-expanded="true"] span {
 html body header nav ul li span {
   flex: 1;
   text-align: right;
+  padding-right: 3px;
 }
 html body header nav ul li ul {
   max-height: 0;
   transition: none;
-  border-radius: inherit;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: inherit;
 }
 html body header nav ul li ul li {
-  border-radius: inherit;
+  border-radius: 5px;
   font-weight: initial;
 }
 html body header nav ul li button[aria-expanded="true"] + ul {
@@ -207,8 +219,7 @@ html body header nav ul li button[aria-expanded="true"] + ul {
   width: 100%;
   background-color: white;
 }
-html body header nav ul li:not(:has(button)),
-html body header nav ul button {
+html body header nav ul li:not(:has(button)) {
   font-size: 1.5rem;
   padding: 6px 0;
   margin: 1px 0;
