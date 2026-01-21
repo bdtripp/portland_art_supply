@@ -276,6 +276,7 @@ html {
                             letter-spacing: inherit;
                             width: 100%;
                             display: flex;
+                            border-radius: inherit;
 
                             &::before {
                                 content: "";
@@ -292,20 +293,17 @@ html {
                         // Drop down menu conent
 
                         ul {
-                            display: block !important;
                             max-height: 0;
-                            opacity: 0;
-                            transition: max-height .3s, opacity .3s;
+                            transition: max-height 1s;
+                            border-radius: inherit;
 
+                            li {
+                                border-radius: inherit;
+                            }
                         }
 
                         button[aria-expanded="true"] + ul {
-                            max-height: 500px;
-                            opacity: 1;
-                        }
-
-                        ul[hidden] {
-                            display: none !important;
+                            max-height: 300px;
                         }
                     }
 

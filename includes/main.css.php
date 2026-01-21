@@ -170,6 +170,7 @@ html body header nav ul li button {
   letter-spacing: inherit;
   width: 100%;
   display: flex;
+  border-radius: inherit;
 }
 html body header nav ul li button::before {
   content: "";
@@ -181,17 +182,15 @@ html body header nav ul li span {
   text-align: right;
 }
 html body header nav ul li ul {
-  display: block !important;
   max-height: 0;
-  opacity: 0;
-  transition: max-height 0.3s, opacity 0.3s;
+  transition: max-height 1s;
+  border-radius: inherit;
+}
+html body header nav ul li ul li {
+  border-radius: inherit;
 }
 html body header nav ul li button[aria-expanded="true"] + ul {
-  max-height: 500px;
-  opacity: 1;
-}
-html body header nav ul li ul[hidden] {
-  display: none !important;
+  max-height: 300px;
 }
 html body header nav ul li:not(:has(button)),
 html body header nav ul button {

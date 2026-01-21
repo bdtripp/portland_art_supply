@@ -74,7 +74,7 @@ header .menu-btn { /* hide checkbox */
 }
 
 header .menu-btn:checked ~  nav .menu {
-    max-height: 350px;
+    max-height: 600px;
 }
 
 header .menu-btn:checked ~ .menu-icon .navicon {
