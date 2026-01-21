@@ -26,6 +26,9 @@ https://paletton.com/#uid=60f0u0kuauvivBun-vxvonRAQiM
 @color3: #00A4FF;
 @color4: #FF9040;
 @color5: #CC4714; */
+button {
+  font-family: 'Open Sans', sans-serif;
+}
 .clearfloat {
   clear: both;
 }
@@ -137,6 +140,9 @@ html body header nav ul {
   margin: 0 auto;
   background-color: #F2F2F2;
 }
+html body header nav ul > li {
+  font-weight: 700;
+}
 html body header nav ul li {
   text-align: center;
   border-radius: 5px;
@@ -171,6 +177,7 @@ html body header nav ul li button {
   width: 100%;
   display: flex;
   border-radius: inherit;
+  font-weight: inherit;
 }
 html body header nav ul li button::before {
   content: "";
@@ -192,10 +199,13 @@ html body header nav ul li ul {
 }
 html body header nav ul li ul li {
   border-radius: inherit;
+  font-weight: initial;
 }
 html body header nav ul li button[aria-expanded="true"] + ul {
   max-height: 300px;
   transition: max-height 1s;
+  width: 100%;
+  background-color: white;
 }
 html body header nav ul li:not(:has(button)),
 html body header nav ul button {

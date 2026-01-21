@@ -91,6 +91,10 @@ https://paletton.com/#uid=60f0u0kuauvivBun-vxvonRAQiM
 @color4: #FF9040;
 @color5: #CC4714; */
 
+button {
+    font-family: 'Open Sans', sans-serif;
+}
+
 .clearfloat {
     clear: both;
 }
@@ -238,6 +242,10 @@ html {
                     margin: 0 auto;
                     background-color: @off-white;
 
+                    & > li {
+                        font-weight: 700;
+                    }
+
                     li {
                         text-align: center;
                         border-radius: 5px;
@@ -277,6 +285,7 @@ html {
                             width: 100%;
                             display: flex;
                             border-radius: inherit;
+                            font-weight: inherit;
 
                             &::before {
                                 content: "";
@@ -285,6 +294,7 @@ html {
                             }
 
                             &[aria-expanded="true"] {
+
                                 span {
                                     transform: scaleY(-1);
                                     transition: transform .3s;
@@ -306,12 +316,17 @@ html {
 
                             li {
                                 border-radius: inherit;
+                                font-weight: initial;
                             }
                         }
+
+                        // The expanded drop down menu if any
 
                         button[aria-expanded="true"] + ul {
                             max-height: 300px;
                             transition: max-height 1s;
+                            width: 100%;
+                            background-color: white;
                         }
                     }
 
