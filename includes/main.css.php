@@ -171,7 +171,7 @@ html body header nav ul li a:visited {
 }
 html body header nav ul li button {
   font-size: 1.5rem;
-  padding: 6px 0;
+  padding: 15px 0;
   border: none;
   background-color: inherit;
   color: inherit;
@@ -208,20 +208,28 @@ html body header nav ul li ul {
   border-top-right-radius: 0;
   border-bottom-left-radius: inherit;
   border-bottom-right-radius: inherit;
+  width: 100%;
 }
 html body header nav ul li ul li {
   border-radius: 5px;
   font-weight: initial;
+  margin: 0 2px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+html body header nav ul li ul li a {
+  display: inline-block;
+  width: 100%;
 }
 html body header nav ul li button[aria-expanded="true"] + ul {
-  max-height: 300px;
+  max-height: 500px;
   transition: max-height 1s;
-  width: 100%;
   background-color: white;
+  padding-bottom: 2px;
 }
 html body header nav ul li:not(:has(button)) {
   font-size: 1.5rem;
-  padding: 6px 0;
+  padding: 15px 0;
   margin: 1px 0;
 }
 html body main {
