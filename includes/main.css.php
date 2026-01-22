@@ -865,8 +865,25 @@ html body footer div section.social ul li a img {
     left: 50%;
     translate: -50%;
   }
+  html body header nav > ul > li button + ul li:hover {
+    background-color: rgba(231, 231, 231, 0.5);
+  }
+  html body header nav > ul > li button + ul li a {
+    color: black;
+  }
+  html body header nav > ul > li button + ul li a:visited {
+    color: black;
+  }
   html body header nav > ul > li button[aria-expanded="true"] + ul {
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 5px 5px 20px #AAA;
+    box-shadow: 5px 5px 7px -5px #000;
+  }
+  html body header nav > ul > li button[aria-expanded="true"] + ul li:has(a[aria-current="page"]) {
+    background-color: rgba(221, 211, 211, 0.5);
+  }
+  html body header nav > ul > li button[aria-expanded="true"] + ul li:has(a[aria-current="page"]) a {
+    background-color: transparent;
   }
   html body main {
     min-height: calc(100vh - 251.2px);

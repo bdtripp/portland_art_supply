@@ -1593,13 +1593,37 @@ html {
                                     width: auto;
                                     left: 50%;
                                     translate: -50%;
+
+                                    li {
+
+                                        &:hover {
+                                            background-color: rgba(231, 231, 231, .5);
+                                        }
+
+                                        a {
+                                            color: black;
+
+                                            &:visited {
+                                                color: black;
+                                            }
+                                        }
+                                    }
                                 }
 
                                 // The dropdowns when they are expanded
 
-                                &[aria-expanded="true"] + ul {
-                                    
-                                    background-color: rgba(255, 255, 255, .95);
+                                &[aria-expanded="true"] + ul { 
+                                    background-color: rgba(255, 255, 255, .90);
+                                    box-shadow: 5px 5px 20px #AAA;
+                                    box-shadow: 5px 5px 7px -5px #000;
+
+                                    li:has(a[aria-current="page"]) {
+                                        background-color: rgba(221, 211, 211, .5);
+
+                                        a {
+                                            background-color: transparent;
+                                        }
+                                    }
                                 }
                             }
                         }
