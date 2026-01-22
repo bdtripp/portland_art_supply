@@ -844,13 +844,18 @@ html body footer div section.social ul li a img {
   html body header nav > ul {
     flex-direction: row;
     margin: 0;
-    padding: 0 20px;
     overflow: initial;
     width: initial;
   }
   html body header nav > ul > li {
-    flex-grow: 1;
+    flex: 1;
     position: relative;
+  }
+  html body header nav > ul > li:not(:has(button)) {
+    font-size: 1rem;
+  }
+  html body header nav > ul > li button {
+    font-size: 1rem;
   }
   html body header nav > ul > li ul {
     position: absolute;

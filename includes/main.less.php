@@ -1558,19 +1558,23 @@ html {
                     & > ul {
                         flex-direction: row;
                         margin: 0;
-                        padding: 0 20px;
                         overflow: initial;
                         width: initial;
 
                         & > li {
-                            flex-grow: 1;
+                            flex: 1;
                             position: relative;
+
+                            &:not(:has(button)) {
+                                font-size: 1rem;
+                            }
 
                             a {
 
                             }
 
                             button {
+                                font-size: 1rem;
 
                                 &::before {
 
