@@ -469,6 +469,8 @@ html {
 
                 &#product_groups {
                     display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(250px, 400px));
+                    justify-content: center;
                     gap: 20px;
                     margin: 40px 20px 20px 20px;
                     max-width: 1600px;
@@ -1075,21 +1077,6 @@ html {
     }
 }
 
-/*===============================
-=== 550PX CSS CODE AND UP =======
-===============================*/
-
-@media (min-width: 550px) {
-
-    /*****************************
-    * Style for product_groups.php
-    *****************************/
-
-    section#product_groups {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
 
 /*===============================
 ==== 700PX CSS CODE AND UP =======
@@ -1524,22 +1511,6 @@ html {
     }
 }
 
-/*===============================
-=== 800PX CSS CODE AND UP =======
-===============================*/
-
-@media (min-width: 800px) {
-    
-    /*****************************
-    * Style for product_groups.php
-    *****************************/
-
-    section#product_groups {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-
 
 /*===============================
 === 900PX CSS CODE AND UP =======
@@ -1853,7 +1824,7 @@ html {
                      *****************************/
 
                     &#product_groups {
-                        grid-template-columns: repeat(4, 1fr);
+
                     }
 
                     /*****************************
@@ -2129,7 +2100,7 @@ html {
 @media (min-width: 1600px) {
 
     html body main section#product_groups {
-        margin: 20px auto;
+        margin: 40px auto 20px auto;
     }
 }     
 
