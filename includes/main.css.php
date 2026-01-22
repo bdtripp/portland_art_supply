@@ -857,13 +857,16 @@ html body footer div section.social ul li a img {
   html body header nav > ul > li button {
     font-size: 1rem;
   }
-  html body header nav > ul > li ul {
+  html body header nav > ul > li button + ul {
     position: absolute;
     z-index: 1;
     min-width: 100%;
     width: auto;
     left: 50%;
     translate: -50%;
+  }
+  html body header nav > ul > li button[aria-expanded="true"] + ul {
+    background-color: rgba(255, 255, 255, 0.95);
   }
   html body main {
     min-height: calc(100vh - 251.2px);

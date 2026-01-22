@@ -1583,15 +1583,24 @@ html {
                                 span {
 
                                 }
-                            }
 
-                            ul {
-                                position: absolute;
-                                z-index: 1;
-                                min-width: 100%;
-                                width: auto;
-                                left: 50%;
-                                translate: -50%;
+                                // all dropdowns whether they are expanded or not
+
+                                & + ul {
+                                    position: absolute;
+                                    z-index: 1;
+                                    min-width: 100%;
+                                    width: auto;
+                                    left: 50%;
+                                    translate: -50%;
+                                }
+
+                                // The dropdowns when they are expanded
+
+                                &[aria-expanded="true"] + ul {
+                                    
+                                    background-color: rgba(255, 255, 255, .95);
+                                }
                             }
                         }
                     }
