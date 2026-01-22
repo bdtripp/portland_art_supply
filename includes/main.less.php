@@ -1588,6 +1588,7 @@ html {
                             ul {
                                 position: absolute;
                                 z-index: 1;
+                                min-width: 100%;
                                 width: auto;
                                 left: 50%;
                                 translate: -50%;
