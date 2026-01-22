@@ -139,6 +139,9 @@ html body header nav ul {
   width: 94%;
   margin: 0 auto;
   background-color: #F2F2F2;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 html body header nav ul > li {
   font-weight: 700;
@@ -699,7 +702,6 @@ html body footer div section.social ul li a img {
   }
   html body main {
     border-top: 1px solid #F34F0E;
-    position: relative;
   }
   html body main#home h2 {
     top: -68vh;
@@ -859,18 +861,24 @@ html body footer div section.social ul li a img {
   html body header {
     /*-------- 900PX NAV STYLE------*/
   }
-  html body header nav ul {
-    margin: 2px 0;
+  html body header nav > ul {
+    flex-direction: row;
     width: 100%;
+    margin: 0;
+    padding: 0 20px;
   }
-  html body header nav ul li {
-    margin-left: 2px;
-    /* This spaces out the navigation buttons evenly */
-    width: 12%;
+  html body header nav > ul > li {
+    flex: 1;
+    position: relative;
   }
-  html body header nav ul li a {
-    /* This style adjusts the width of the navigation buttons */
-    padding: 5px 10%;
+  html body header nav > ul > li button::before {
+    flex: initial;
+  }
+  html body header nav > ul > li button span {
+    flex: initial;
+  }
+  html body header nav > ul > li ul {
+    position: absolute;
   }
   html body main {
     min-height: calc(100vh - 251.2px);

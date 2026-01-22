@@ -21,11 +21,11 @@ header ul {
 
 /* clear float on line below */
 
-nav .menu {
+/* nav .menu {
     clear: both;
     max-height: 0;
     transition: max-height 1s ease-out;
-}
+} */
 
 /* menu icon for responsive hamburger menu */
 
@@ -101,7 +101,7 @@ header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after {
 
     /* Note: We float the entire menu to the right, so it is right-aligned. Then we float each list item to the left, so it sits to next to the next item. We have to clear the float in the following section so the text won't wrap around the menu. */
 
-    nav .menu {
+    /* nav .menu {
         float: left;
         max-height: none;
     }
@@ -120,7 +120,7 @@ header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after {
 
     main {
         clear: both;
-    }
+    } */
 
     /* hide the checkbox and label for it */
 

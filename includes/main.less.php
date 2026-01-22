@@ -241,6 +241,9 @@ html {
                     width: 94%;
                     margin: 0 auto;
                     background-color: @off-white;
+                    display: flex;
+                    flex-direction: column;
+                    overflow: hidden;
 
                     & > li {
                         font-weight: 700;
@@ -1181,7 +1184,6 @@ html {
 
             main {
                 border-top: 1px solid @primary-color1;
-                position: relative;
 
                 &#home {
 
@@ -1582,18 +1584,33 @@ html {
 
                 nav {
 
-                    ul{
-                        margin: 2px 0;
+                    & > ul {
+                        flex-direction: row;
                         width: 100%;
+                        margin: 0;
+                        padding: 0 20px;
 
-                        li {
-                            margin-left: 2px;
-                            /* This spaces out the navigation buttons evenly */
-                            width: 12%;
+                        & > li {
+                            flex: 1;
+                            position: relative;
 
                             a {
-                                /* This style adjusts the width of the navigation buttons */
-                                padding: 5px 10%;
+
+                            }
+
+                            button {
+
+                                &::before {
+                                    flex: initial;
+                                }
+
+                                span {
+                                    flex: initial;
+                                }
+                            }
+
+                            ul {
+                                position: absolute;
                             }
                         }
                     }
