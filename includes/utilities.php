@@ -52,3 +52,17 @@ function require_login() {
     }
     restore_session();
 }
+
+function check_current_subcat($param, $value) {
+    if (isset($_GET[$param]) && $_GET[$param] === $value) {
+        return 'aria-current="page"';
+    }
+    return '';
+}
+
+function check_current_page($url) {
+    if ($_SERVER['REQUEST_URI'] === $url) {
+        return 'aria-current="page"><a href="#">';
+    }
+    return '><a href="' . $url . '">';
+}

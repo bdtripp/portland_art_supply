@@ -91,6 +91,10 @@ https://paletton.com/#uid=60f0u0kuauvivBun-vxvonRAQiM
 @color4: #FF9040;
 @color5: #CC4714; */
 
+button {
+    font-family: 'Open Sans', sans-serif;
+}
+
 .clearfloat {
     clear: both;
 }
@@ -237,6 +241,13 @@ html {
                     width: 94%;
                     margin: 0 auto;
                     background-color: @off-white;
+                    display: flex;
+                    flex-direction: column;
+                    overflow: hidden;
+
+                    & > li {
+                        font-weight: 700;
+                    }
 
                     li {
                         text-align: center;
@@ -246,18 +257,19 @@ html {
                             background-color: #EEE;
                         }
 
-                        &.active {
-                            /* This style identifies the page the user is currently on */
+                        &[aria-current="page"], &:has([aria-current="page"]) {
+                            /* This style identifies the page or Category and Subcategory the user is currently on */
                             background-color: #DDD;
                         }
 
                         a {
                             text-decoration: none;
-                            font-size: 1.5rem;
-                            color: black;
-                            display: block;
-                            padding: 6px 0;
-                            margin: 1px 0;
+                            color: @dark-gray;
+
+                            &[aria-current="page"] {
+                                /* This style identifies the page or Category and Subcategory the user is currently on */
+                                background-color: #DDD;
+                            }
 
                             &:hover {
                                 opacity: .8;
@@ -267,6 +279,85 @@ html {
                                 color: @dark-gray;
                             }
                         }
+
+                        button {
+                            font-size: 1.5rem;
+                            padding: 15px 0;
+                            border: none;
+                            background-color: inherit;
+                            color: inherit;
+                            letter-spacing: inherit;
+                            width: 100%;
+                            display: flex;
+                            border-radius: inherit;
+                            font-weight: inherit;
+
+                            &::before {
+                                content: "";
+                                flex: 1;
+                                text-align: left;
+                                padding-left: 3px;
+                            }
+
+                            &[aria-expanded="true"] {
+                                border: 2px solid white;
+                                border-bottom: none;
+                                border-radius: 5px 5px 0 0;
+
+                                span {
+                                    transform: scaleY(-1);
+                                    transition: transform .3s;
+                                }
+                            }
+                        }
+
+                        span {
+                            flex: 1;
+                            text-align: right;
+                            padding-right: 3px;
+                        }
+
+                        // Drop down menu conent
+
+                        ul {
+                            max-height: 0;
+                            transition: none;
+                            border-top-left-radius: 0;
+                            border-top-right-radius: 0;
+                            border-bottom-left-radius: inherit;
+                            border-bottom-right-radius: inherit;
+                            width: 100%;
+
+                            li {
+                                border-radius: 5px;
+                                font-weight: initial;
+                                margin: 0 2px;
+                                padding-left: 10px;
+                                padding-right: 10px;
+
+                                a {
+                                    display: inline-block;
+                                    width: 100%;
+                                }
+                            }
+                        }
+
+                        // The expanded drop down menu if any
+
+                        button[aria-expanded="true"] + ul {
+                            max-height: 500px;
+                            transition: max-height 1s;
+                            background-color: white;
+                            padding-bottom: 2px;
+                        }
+                    }
+
+                    // Home and About <li>s
+
+                    li:not(:has(button)) {
+                        font-size: 1.5rem;
+                        padding: 15px 0;
+                        margin: 1px 0;
                     }
                 }
             }
@@ -1093,7 +1184,6 @@ html {
 
             main {
                 border-top: 1px solid @primary-color1;
-                position: relative;
 
                 &#home {
 
@@ -1494,18 +1584,33 @@ html {
 
                 nav {
 
-                    ul{
-                        margin: 2px 0;
+                    & > ul {
+                        flex-direction: row;
                         width: 100%;
+                        margin: 0;
+                        padding: 0 20px;
 
-                        li {
-                            margin-left: 2px;
-                            /* This spaces out the navigation buttons evenly */
-                            width: 12%;
+                        & > li {
+                            flex: 1;
+                            position: relative;
 
                             a {
-                                /* This style adjusts the width of the navigation buttons */
-                                padding: 5px 10%;
+
+                            }
+
+                            button {
+
+                                &::before {
+                                    flex: initial;
+                                }
+
+                                span {
+                                    flex: initial;
+                                }
+                            }
+
+                            ul {
+                                position: absolute;
                             }
                         }
                     }

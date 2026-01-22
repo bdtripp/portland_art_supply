@@ -32,6 +32,7 @@ $activePage = ABOUT_PAGE_TITLE;
 
         gtag('config', 'UA-135450898-2');
     </script>
+    <script src="includes/pas.js.php" type="text/javascript"></script>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -46,7 +47,7 @@ $activePage = ABOUT_PAGE_TITLE;
 
 </head>
 
-<body>
+<body onload="init();">
 
 <?php show_header_content($activePage); ?>
 

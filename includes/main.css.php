@@ -26,6 +26,9 @@ https://paletton.com/#uid=60f0u0kuauvivBun-vxvonRAQiM
 @color3: #00A4FF;
 @color4: #FF9040;
 @color5: #CC4714; */
+button {
+  font-family: 'Open Sans', sans-serif;
+}
 .clearfloat {
   clear: both;
 }
@@ -136,6 +139,12 @@ html body header nav ul {
   width: 94%;
   margin: 0 auto;
   background-color: #F2F2F2;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+html body header nav ul > li {
+  font-weight: 700;
 }
 html body header nav ul li {
   text-align: center;
@@ -144,23 +153,87 @@ html body header nav ul li {
 html body header nav ul li:hover {
   background-color: #EEE;
 }
-html body header nav ul li.active {
-  /* This style identifies the page the user is currently on */
+html body header nav ul li[aria-current="page"],
+html body header nav ul li:has([aria-current="page"]) {
+  /* This style identifies the page or Category and Subcategory the user is currently on */
   background-color: #DDD;
 }
 html body header nav ul li a {
   text-decoration: none;
-  font-size: 1.5rem;
-  color: black;
-  display: block;
-  padding: 6px 0;
-  margin: 1px 0;
+  color: #333333;
+}
+html body header nav ul li a[aria-current="page"] {
+  /* This style identifies the page or Category and Subcategory the user is currently on */
+  background-color: #DDD;
 }
 html body header nav ul li a:hover {
   opacity: 0.8;
 }
 html body header nav ul li a:visited {
   color: #333333;
+}
+html body header nav ul li button {
+  font-size: 1.5rem;
+  padding: 15px 0;
+  border: none;
+  background-color: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+  width: 100%;
+  display: flex;
+  border-radius: inherit;
+  font-weight: inherit;
+}
+html body header nav ul li button::before {
+  content: "";
+  flex: 1;
+  text-align: left;
+  padding-left: 3px;
+}
+html body header nav ul li button[aria-expanded="true"] {
+  border: 2px solid white;
+  border-bottom: none;
+  border-radius: 5px 5px 0 0;
+}
+html body header nav ul li button[aria-expanded="true"] span {
+  transform: scaleY(-1);
+  transition: transform 0.3s;
+}
+html body header nav ul li span {
+  flex: 1;
+  text-align: right;
+  padding-right: 3px;
+}
+html body header nav ul li ul {
+  max-height: 0;
+  transition: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: inherit;
+  width: 100%;
+}
+html body header nav ul li ul li {
+  border-radius: 5px;
+  font-weight: initial;
+  margin: 0 2px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+html body header nav ul li ul li a {
+  display: inline-block;
+  width: 100%;
+}
+html body header nav ul li button[aria-expanded="true"] + ul {
+  max-height: 500px;
+  transition: max-height 1s;
+  background-color: white;
+  padding-bottom: 2px;
+}
+html body header nav ul li:not(:has(button)) {
+  font-size: 1.5rem;
+  padding: 15px 0;
+  margin: 1px 0;
 }
 html body main {
   text-align: center;
@@ -629,7 +702,6 @@ html body footer div section.social ul li a img {
   }
   html body main {
     border-top: 1px solid #F34F0E;
-    position: relative;
   }
   html body main#home h2 {
     top: -68vh;
@@ -789,18 +861,24 @@ html body footer div section.social ul li a img {
   html body header {
     /*-------- 900PX NAV STYLE------*/
   }
-  html body header nav ul {
-    margin: 2px 0;
+  html body header nav > ul {
+    flex-direction: row;
     width: 100%;
+    margin: 0;
+    padding: 0 20px;
   }
-  html body header nav ul li {
-    margin-left: 2px;
-    /* This spaces out the navigation buttons evenly */
-    width: 12%;
+  html body header nav > ul > li {
+    flex: 1;
+    position: relative;
   }
-  html body header nav ul li a {
-    /* This style adjusts the width of the navigation buttons */
-    padding: 5px 10%;
+  html body header nav > ul > li button::before {
+    flex: initial;
+  }
+  html body header nav > ul > li button span {
+    flex: initial;
+  }
+  html body header nav > ul > li ul {
+    position: absolute;
   }
   html body main {
     min-height: calc(100vh - 251.2px);

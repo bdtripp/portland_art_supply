@@ -63,7 +63,7 @@ $activePage = SHOPPING_CART_PAGE_TITLE;
 
 </head>
 
-<body>
+<body onload="init();">
 
 <?php show_header_content($activePage); ?>
 <?php show_shopping_cart_content(); ?>
