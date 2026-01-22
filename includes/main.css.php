@@ -49,9 +49,6 @@ button {
 .hide_in_mobile {
   display: none;
 }
-html {
-  overflow: auto;
-}
 html body {
   font-family: 'Open Sans', sans-serif;
   overflow: auto;
@@ -861,24 +858,26 @@ html body footer div section.social ul li a img {
   html body header {
     /*-------- 900PX NAV STYLE------*/
   }
+  html body header ul {
+    overflow: visible;
+  }
   html body header nav > ul {
     flex-direction: row;
-    width: 100%;
     margin: 0;
     padding: 0 20px;
+    overflow: initial;
+    width: initial;
   }
   html body header nav > ul > li {
-    flex: 1;
+    flex-grow: 1;
     position: relative;
-  }
-  html body header nav > ul > li button::before {
-    flex: initial;
-  }
-  html body header nav > ul > li button span {
-    flex: initial;
   }
   html body header nav > ul > li ul {
     position: absolute;
+    z-index: 1;
+    width: auto;
+    left: 50%;
+    translate: -50%;
   }
   html body main {
     min-height: calc(100vh - 251.2px);

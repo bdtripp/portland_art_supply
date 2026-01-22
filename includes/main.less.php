@@ -122,7 +122,6 @@ button {
 }
 
 html {
-    overflow: auto;
 
     body {
         font-family: 'Open Sans', sans-serif;
@@ -1568,6 +1567,7 @@ html {
                 }
 
                 ul {
+                    overflow: visible;
 
                     &.header_links {
 
@@ -1586,12 +1586,13 @@ html {
 
                     & > ul {
                         flex-direction: row;
-                        width: 100%;
                         margin: 0;
                         padding: 0 20px;
+                        overflow: initial;
+                        width: initial;
 
                         & > li {
-                            flex: 1;
+                            flex-grow: 1;
                             position: relative;
 
                             a {
@@ -1601,16 +1602,20 @@ html {
                             button {
 
                                 &::before {
-                                    flex: initial;
+
                                 }
 
                                 span {
-                                    flex: initial;
+
                                 }
                             }
 
                             ul {
                                 position: absolute;
+                                z-index: 1;
+                                width: auto;
+                                left: 50%;
+                                translate: -50%;
                             }
                         }
                     }
