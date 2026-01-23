@@ -572,7 +572,6 @@ function updateTotalDisplay(total) {
 // functions for every page
 
 function setAriaExpanded() {
-    console.log("test");
     document.querySelectorAll(".expand_btn").forEach(button => { 
         button.addEventListener("click", (e) => {
             e.stopPropagation();

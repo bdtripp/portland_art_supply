@@ -86,7 +86,7 @@ function show_subcategory_dropdown($category) {
     $categoryName = $category[PRODUCT_CATEGORY_NAME_FIELD];
     $subcategories = lookup_subcategories($categoryID);
 
-    echo '                <ul id="' . lcfirst($categoryName) . '_menu">' . "\n";
+    echo '                <ul id="' . lcfirst($categoryName) . '_menu" class="dropdown">' . "\n";
     foreach ($subcategories as $subcategory) {
         $subcategoryName = $subcategory[PRODUCT_SUBCATEGORY_NAME_FIELD];
 
