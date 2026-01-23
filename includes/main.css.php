@@ -178,6 +178,7 @@ html body header nav ul li button {
   letter-spacing: inherit;
   width: 100%;
   display: flex;
+  align-items: center;
   border-radius: inherit;
   font-weight: inherit;
 }
@@ -185,7 +186,7 @@ html body header nav ul li button::before {
   content: "";
   flex: 1;
   text-align: left;
-  padding-left: 3px;
+  padding-left: 7px;
 }
 html body header nav ul li button[aria-expanded="true"] {
   border: 2px solid white;
@@ -199,7 +200,8 @@ html body header nav ul li button[aria-expanded="true"] span {
 html body header nav ul li span {
   flex: 1;
   text-align: right;
-  padding-right: 3px;
+  padding-right: 7px;
+  font-size: 1rem;
 }
 html body header nav ul li ul {
   max-height: 0;
@@ -220,12 +222,14 @@ html body header nav ul li ul li {
 html body header nav ul li ul li a {
   display: inline-block;
   width: 100%;
+  line-height: 1.2em;
 }
 html body header nav ul li button[aria-expanded="true"] + ul {
   max-height: 500px;
   transition: max-height 1s;
   background-color: white;
-  padding-bottom: 2px;
+  padding: 2px 0 2px 0;
+  gap: 2px;
 }
 html body header nav ul li:not(:has(button)) {
   font-size: 1.5rem;
@@ -870,12 +874,13 @@ html body footer div section.social ul li a img {
   }
   html body header nav > ul > li button + ul li a {
     color: black;
+    font-size: 1rem;
   }
   html body header nav > ul > li button + ul li a:visited {
     color: black;
   }
   html body header nav > ul > li button[aria-expanded="true"] + ul {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.92);
     box-shadow: 5px 5px 20px #AAA;
     box-shadow: 5px 5px 7px -5px #000;
   }
@@ -953,6 +958,11 @@ html body footer div section.social ul li a img {
     /*-------- 1500PX NAV STYLE------*/
     /*-------- 1500PX MAIN STYLE ------*/
     /*-------- 1500PX FOOTER STYLE ------*/
+  }
+  html body header nav > ul > li:not(:has(button)),
+  html body header nav > ul > li button,
+  html body header nav > ul > li button + ul li a {
+    font-size: 1.2rem;
   }
   html body main#home h2 {
     font-size: 7em;

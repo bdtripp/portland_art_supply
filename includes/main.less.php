@@ -288,14 +288,17 @@ html {
                             letter-spacing: inherit;
                             width: 100%;
                             display: flex;
+                            align-items: center;
                             border-radius: inherit;
                             font-weight: inherit;
 
+                            // This is here to center the button text
+                            
                             &::before {
                                 content: "";
                                 flex: 1;
                                 text-align: left;
-                                padding-left: 3px;
+                                padding-left: 7px;
                             }
 
                             &[aria-expanded="true"] {
@@ -313,7 +316,8 @@ html {
                         span {
                             flex: 1;
                             text-align: right;
-                            padding-right: 3px;
+                            padding-right: 7px;
+                            font-size: 1rem;
                         }
 
                         // Drop down menu conent
@@ -337,6 +341,7 @@ html {
                                 a {
                                     display: inline-block;
                                     width: 100%;
+                                    line-height: 1.2em;
                                 }
                             }
                         }
@@ -347,7 +352,8 @@ html {
                             max-height: 500px;
                             transition: max-height 1s;
                             background-color: white;
-                            padding-bottom: 2px;
+                            padding: 2px 0 2px 0;
+                            gap: 2px;
                         }
                     }
 
@@ -1602,6 +1608,7 @@ html {
 
                                         a {
                                             color: black;
+                                            font-size: 1rem;
 
                                             &:visited {
                                                 color: black;
@@ -1613,7 +1620,7 @@ html {
                                 // The dropdowns when they are expanded
 
                                 &[aria-expanded="true"] + ul { 
-                                    background-color: rgba(255, 255, 255, .90);
+                                    background-color: rgba(255, 255, 255, .92);
                                     box-shadow: 5px 5px 20px #AAA;
                                     box-shadow: 5px 5px 7px -5px #000;
 
@@ -2004,17 +2011,8 @@ html {
 
             /*-------- 1500PX NAV STYLE------*/
 
-            nav {
-
-                ul{
-
-                    li {
-
-                        a {
-
-                        }
-                    }
-                }
+            header nav > ul > li:not(:has(button)), header nav > ul > li button, header nav > ul > li button + ul li a {
+                font-size: 1.2rem;
             }
 
             /*-------- 1500PX MAIN STYLE ------*/
