@@ -122,7 +122,6 @@ button {
 }
 
 html {
-    overflow: auto;
 
     body {
         font-family: 'Open Sans', sans-serif;
@@ -470,6 +469,8 @@ html {
 
                 &#product_groups {
                     display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(250px, 400px));
+                    justify-content: center;
                     gap: 20px;
                     margin: 40px 20px 20px 20px;
                     max-width: 1600px;
@@ -1076,21 +1077,6 @@ html {
     }
 }
 
-/*===============================
-=== 550PX CSS CODE AND UP =======
-===============================*/
-
-@media (min-width: 550px) {
-
-    /*****************************
-    * Style for product_groups.php
-    *****************************/
-
-    section#product_groups {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
 
 /*===============================
 ==== 700PX CSS CODE AND UP =======
@@ -1525,22 +1511,6 @@ html {
     }
 }
 
-/*===============================
-=== 800PX CSS CODE AND UP =======
-===============================*/
-
-@media (min-width: 800px) {
-    
-    /*****************************
-    * Style for product_groups.php
-    *****************************/
-
-    section#product_groups {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-
 
 /*===============================
 === 900PX CSS CODE AND UP =======
@@ -1568,6 +1538,7 @@ html {
                 }
 
                 ul {
+                    overflow: visible;
 
                     &.header_links {
 
@@ -1586,31 +1557,74 @@ html {
 
                     & > ul {
                         flex-direction: row;
-                        width: 100%;
                         margin: 0;
-                        padding: 0 20px;
+                        overflow: initial;
+                        width: initial;
 
                         & > li {
                             flex: 1;
                             position: relative;
+
+                            &:not(:has(button)) {
+                                font-size: 1rem;
+                            }
 
                             a {
 
                             }
 
                             button {
+                                font-size: 1rem;
 
                                 &::before {
-                                    flex: initial;
+
                                 }
 
                                 span {
-                                    flex: initial;
-                                }
-                            }
 
-                            ul {
-                                position: absolute;
+                                }
+
+                                // all dropdowns whether they are expanded or not
+
+                                & + ul {
+                                    position: absolute;
+                                    z-index: 1;
+                                    min-width: 100%;
+                                    width: auto;
+                                    left: 50%;
+                                    translate: -50%;
+
+                                    li {
+
+                                        &:hover {
+                                            background-color: rgba(231, 231, 231, .5);
+                                        }
+
+                                        a {
+                                            color: black;
+
+                                            &:visited {
+                                                color: black;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                // The dropdowns when they are expanded
+
+                                &[aria-expanded="true"] + ul { 
+                                    background-color: rgba(255, 255, 255, .90);
+                                    box-shadow: 5px 5px 20px #AAA;
+                                    box-shadow: 5px 5px 7px -5px #000;
+
+                                    li:has(a[aria-current="page"]) {
+                                        background-color: rgba(221, 211, 211, .5);
+
+                                        a {
+                                            background-color: transparent;
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -1848,7 +1862,7 @@ html {
                      *****************************/
 
                     &#product_groups {
-                        grid-template-columns: repeat(4, 1fr);
+
                     }
 
                     /*****************************
@@ -2124,7 +2138,7 @@ html {
 @media (min-width: 1600px) {
 
     html body main section#product_groups {
-        margin: 20px auto;
+        margin: 40px auto 20px auto;
     }
 }     
 

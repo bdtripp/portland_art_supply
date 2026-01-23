@@ -49,9 +49,6 @@ button {
 .hide_in_mobile {
   display: none;
 }
-html {
-  overflow: auto;
-}
 html body {
   font-family: 'Open Sans', sans-serif;
   overflow: auto;
@@ -328,6 +325,8 @@ html body main section ul li a {
 }
 html body main section#product_groups {
   display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 400px));
+  justify-content: center;
   gap: 20px;
   margin: 40px 20px 20px 20px;
   max-width: 1600px;
@@ -652,17 +651,6 @@ html body footer div section.social ul li a img {
   }
 }
 /*===============================
-=== 550PX CSS CODE AND UP =======
-===============================*/
-@media (min-width: 550px) {
-  /*****************************
-    * Style for product_groups.php
-    *****************************/
-  section#product_groups {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-/*===============================
 ==== 700PX CSS CODE AND UP =======
 ===============================*/
 @media (min-width: 700px) {
@@ -839,17 +827,6 @@ html body footer div section.social ul li a img {
   }
 }
 /*===============================
-=== 800PX CSS CODE AND UP =======
-===============================*/
-@media (min-width: 800px) {
-  /*****************************
-    * Style for product_groups.php
-    *****************************/
-  section#product_groups {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-/*===============================
 === 900PX CSS CODE AND UP =======
 ===============================*/
 @media (min-width: 900px) {
@@ -861,24 +838,52 @@ html body footer div section.social ul li a img {
   html body header {
     /*-------- 900PX NAV STYLE------*/
   }
+  html body header ul {
+    overflow: visible;
+  }
   html body header nav > ul {
     flex-direction: row;
-    width: 100%;
     margin: 0;
-    padding: 0 20px;
+    overflow: initial;
+    width: initial;
   }
   html body header nav > ul > li {
     flex: 1;
     position: relative;
   }
-  html body header nav > ul > li button::before {
-    flex: initial;
+  html body header nav > ul > li:not(:has(button)) {
+    font-size: 1rem;
   }
-  html body header nav > ul > li button span {
-    flex: initial;
+  html body header nav > ul > li button {
+    font-size: 1rem;
   }
-  html body header nav > ul > li ul {
+  html body header nav > ul > li button + ul {
     position: absolute;
+    z-index: 1;
+    min-width: 100%;
+    width: auto;
+    left: 50%;
+    translate: -50%;
+  }
+  html body header nav > ul > li button + ul li:hover {
+    background-color: rgba(231, 231, 231, 0.5);
+  }
+  html body header nav > ul > li button + ul li a {
+    color: black;
+  }
+  html body header nav > ul > li button + ul li a:visited {
+    color: black;
+  }
+  html body header nav > ul > li button[aria-expanded="true"] + ul {
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 5px 5px 20px #AAA;
+    box-shadow: 5px 5px 7px -5px #000;
+  }
+  html body header nav > ul > li button[aria-expanded="true"] + ul li:has(a[aria-current="page"]) {
+    background-color: rgba(221, 211, 211, 0.5);
+  }
+  html body header nav > ul > li button[aria-expanded="true"] + ul li:has(a[aria-current="page"]) a {
+    background-color: transparent;
   }
   html body main {
     min-height: calc(100vh - 251.2px);
@@ -930,9 +935,6 @@ html body footer div section.social ul li a img {
                      * Style for product_items.php
                      *****************************/
   }
-  html body main section#product_groups {
-    grid-template-columns: repeat(4, 1fr);
-  }
 }
 /*===============================
 === 1100PX CSS CODE AND UP =======
@@ -967,7 +969,7 @@ html body footer div section.social ul li a img {
 ===============================*/
 @media (min-width: 1600px) {
   html body main section#product_groups {
-    margin: 20px auto;
+    margin: 40px auto 20px auto;
   }
 }
 /*===============================

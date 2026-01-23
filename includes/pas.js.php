@@ -572,7 +572,6 @@ function updateTotalDisplay(total) {
 // functions for every page
 
 function setAriaExpanded() {
-    console.log("test");
     document.querySelectorAll(".expand_btn").forEach(button => { 
         button.addEventListener("click", (e) => {
             e.stopPropagation();
@@ -585,6 +584,15 @@ function setAriaExpanded() {
             }
 
             button.ariaExpanded = (!isExpanded).toString();
+
+            // Make the dropdown close when the user clicks anything on the web page
+
+            // document.addEventListener("click", () => {
+            //     const isExpanded = button.ariaExpanded === "true";
+
+            //     button.ariaExpanded = (!isExpanded).toString();
+            //     document.removeEventListener() have to pass the same arguments as when it was defined
+            // });
         })
     });
 }
