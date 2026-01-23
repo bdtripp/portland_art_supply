@@ -62,7 +62,7 @@ function check_current_subcat($param, $value) {
 
 function check_current_page($url) {
     if ($_SERVER['REQUEST_URI'] === $url) {
-        return 'aria-current="page"><a href="#">';
+        return 'aria-current="page" href="#">';
     }
-    return '><a href="' . $url . '">';
+    return 'href="' . $url . '">';
 }

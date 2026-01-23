@@ -140,9 +140,6 @@ html body header nav ul {
   flex-direction: column;
   overflow: hidden;
 }
-html body header nav ul > li {
-  font-weight: 700;
-}
 html body header nav ul li {
   text-align: center;
   border-radius: 5px;
@@ -150,10 +147,10 @@ html body header nav ul li {
 html body header nav ul li:hover {
   background-color: #E5E5E5;
 }
-html body header nav ul li[aria-current="page"],
-html body header nav ul li:has([aria-current="page"]) {
+html body header nav ul li a[aria-current="page"],
+html body header nav ul li button:has( + ul li a[aria-current="page"] ) {
   /* This style identifies the page or Category and Subcategory the user is currently on */
-  border-bottom: 2px solid black;
+  border-bottom: 4px solid black;
   border-radius: 0px;
 }
 html body header nav ul li a {
@@ -230,6 +227,12 @@ html body header nav ul li button[aria-expanded="true"] + ul {
   background-color: white;
   padding: 2px 0 2px 0;
   gap: 2px;
+}
+html body header nav ul > li {
+  font-weight: 700;
+}
+html body header nav ul > li a:has([aria-expanded="true"]) {
+  border-bottom: none;
 }
 html body header nav ul li:not(:has(button)) {
   font-size: 1.5rem;

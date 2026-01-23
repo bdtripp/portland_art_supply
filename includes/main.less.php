@@ -244,10 +244,6 @@ html {
                     flex-direction: column;
                     overflow: hidden;
 
-                    & > li {
-                        font-weight: 700;
-                    }
-
                     li {
                         text-align: center;
                         border-radius: 5px;
@@ -256,9 +252,9 @@ html {
                             background-color: #E5E5E5;
                         }
 
-                        &[aria-current="page"], &:has([aria-current="page"]) {
+                        a[aria-current="page"], button:has( + ul li a[aria-current="page"] ) {
                             /* This style identifies the page or Category and Subcategory the user is currently on */
-                            border-bottom: 2px solid black;
+                            border-bottom: 4px solid black;
                             border-radius: 0px;
                         }
 
@@ -341,10 +337,7 @@ html {
                                 margin: 0 2px;
 
                                 a {
-                                    // display: inline-block;
                                     line-height: 1.2em;
-                                    // box-sizing: border-box;
-                                    // width: 100%;
                                 }
                             }
                         }
@@ -359,6 +352,16 @@ html {
                             gap: 2px;
                         }
                     }
+
+                    & > li {
+                        font-weight: 700;
+
+                        a:has([aria-expanded="true"]) {
+                            border-bottom: none;
+                        }
+                    }
+
+                    
 
                     // Home and About <li>s
 
