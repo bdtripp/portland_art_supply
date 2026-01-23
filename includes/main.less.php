@@ -265,6 +265,10 @@ html {
                         a {
                             text-decoration: none;
                             color: @dark-gray;
+                            padding: 15px 10px;
+                            display: inline-block;
+                            width: 100%;
+                            box-sizing: border-box;;
 
                             &:hover {
                                 opacity: .8;
@@ -287,6 +291,10 @@ html {
                             align-items: center;
                             border-radius: inherit;
                             font-weight: inherit;
+
+                            &:hover {
+                                cursor: pointer;
+                            }
 
                             // This is here to center the button text
 
@@ -331,13 +339,12 @@ html {
                                 border-radius: 5px;
                                 font-weight: initial;
                                 margin: 0 2px;
-                                padding-left: 10px;
-                                padding-right: 10px;
 
                                 a {
-                                    display: inline-block;
-                                    width: 100%;
+                                    // display: inline-block;
                                     line-height: 1.2em;
+                                    // box-sizing: border-box;
+                                    // width: 100%;
                                 }
                             }
                         }
@@ -357,7 +364,6 @@ html {
 
                     li:not(:has(button)) {
                         font-size: 1.5rem;
-                        padding: 15px 0;
                         margin: 1px 0;
                     }
                 }

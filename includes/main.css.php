@@ -159,6 +159,10 @@ html body header nav ul li:has([aria-current="page"]) {
 html body header nav ul li a {
   text-decoration: none;
   color: #333333;
+  padding: 15px 10px;
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
 }
 html body header nav ul li a:hover {
   opacity: 0.8;
@@ -178,6 +182,9 @@ html body header nav ul li button {
   align-items: center;
   border-radius: inherit;
   font-weight: inherit;
+}
+html body header nav ul li button:hover {
+  cursor: pointer;
 }
 html body header nav ul li button::before {
   content: "";
@@ -213,12 +220,8 @@ html body header nav ul li ul li {
   border-radius: 5px;
   font-weight: initial;
   margin: 0 2px;
-  padding-left: 10px;
-  padding-right: 10px;
 }
 html body header nav ul li ul li a {
-  display: inline-block;
-  width: 100%;
   line-height: 1.2em;
 }
 html body header nav ul li button[aria-expanded="true"] + ul {
@@ -230,7 +233,6 @@ html body header nav ul li button[aria-expanded="true"] + ul {
 }
 html body header nav ul li:not(:has(button)) {
   font-size: 1.5rem;
-  padding: 15px 0;
   margin: 1px 0;
 }
 html body main {
