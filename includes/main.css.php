@@ -148,20 +148,17 @@ html body header nav ul li {
   border-radius: 5px;
 }
 html body header nav ul li:hover {
-  background-color: #EEE;
+  background-color: #E5E5E5;
 }
 html body header nav ul li[aria-current="page"],
 html body header nav ul li:has([aria-current="page"]) {
   /* This style identifies the page or Category and Subcategory the user is currently on */
-  background-color: #DDD;
+  border-bottom: 2px solid black;
+  border-radius: 0px;
 }
 html body header nav ul li a {
   text-decoration: none;
   color: #333333;
-}
-html body header nav ul li a[aria-current="page"] {
-  /* This style identifies the page or Category and Subcategory the user is currently on */
-  background-color: #DDD;
 }
 html body header nav ul li a:hover {
   opacity: 0.8;

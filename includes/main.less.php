@@ -253,22 +253,18 @@ html {
                         border-radius: 5px;
 
                         &:hover {
-                            background-color: #EEE;
+                            background-color: #E5E5E5;
                         }
 
                         &[aria-current="page"], &:has([aria-current="page"]) {
                             /* This style identifies the page or Category and Subcategory the user is currently on */
-                            background-color: #DDD;
+                            border-bottom: 2px solid black;
+                            border-radius: 0px;
                         }
 
                         a {
                             text-decoration: none;
                             color: @dark-gray;
-
-                            &[aria-current="page"] {
-                                /* This style identifies the page or Category and Subcategory the user is currently on */
-                                background-color: #DDD;
-                            }
 
                             &:hover {
                                 opacity: .8;
@@ -293,7 +289,7 @@ html {
                             font-weight: inherit;
 
                             // This is here to center the button text
-                            
+
                             &::before {
                                 content: "";
                                 flex: 1;
