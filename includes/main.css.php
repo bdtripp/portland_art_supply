@@ -76,6 +76,7 @@ html body header h1 {
   color: white;
   font-size: 1rem;
   background: linear-gradient(70deg, #dd460b, #dd460b 36vw, #f8966f 62vw, #f8966f);
+  letter-spacing: 1px;
 }
 html body header h1#no_wrap_pas {
   display: none;
@@ -150,7 +151,7 @@ html body header nav ul li:hover {
 html body header nav ul li a[aria-current="page"],
 html body header nav ul li button:has( + ul li a[aria-current="page"] ) {
   /* This style identifies the page or Category and Subcategory the user is currently on */
-  border-bottom: 4px solid black;
+  border-bottom: 4px solid #D90D4B;
   border-radius: 0px;
 }
 html body header nav ul li a {
@@ -225,7 +226,7 @@ html body header nav ul li button[aria-expanded="true"] + ul {
   max-height: 500px;
   transition: max-height 1s;
   background-color: white;
-  padding: 2px 0 2px 0;
+  padding-top: 2px;
   gap: 2px;
 }
 html body header nav ul > li {
@@ -859,6 +860,7 @@ html body footer div section.social ul li a img {
   }
   html body header nav > ul > li:not(:has(button)) {
     font-size: 1rem;
+    margin: 0;
   }
   html body header nav > ul > li button {
     font-size: 1rem;
@@ -885,12 +887,6 @@ html body footer div section.social ul li a img {
     background-color: rgba(255, 255, 255, 0.92);
     box-shadow: 5px 5px 20px #AAA;
     box-shadow: 5px 5px 7px -5px #000;
-  }
-  html body header nav > ul > li button[aria-expanded="true"] + ul li:has(a[aria-current="page"]) {
-    background-color: rgba(221, 211, 211, 0.5);
-  }
-  html body header nav > ul > li button[aria-expanded="true"] + ul li:has(a[aria-current="page"]) a {
-    background-color: transparent;
   }
   html body main {
     min-height: calc(100vh - 251.2px);

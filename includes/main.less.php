@@ -254,7 +254,7 @@ html {
 
                         a[aria-current="page"], button:has( + ul li a[aria-current="page"] ) {
                             /* This style identifies the page or Category and Subcategory the user is currently on */
-                            border-bottom: 4px solid black;
+                            border-bottom: 4px solid @secondary-color1;
                             border-radius: 0px;
                         }
 
@@ -348,7 +348,7 @@ html {
                             max-height: 500px;
                             transition: max-height 1s;
                             background-color: white;
-                            padding: 2px 0 2px 0;
+                            padding-top: 2px;
                             gap: 2px;
                         }
                     }
@@ -1576,6 +1576,7 @@ html {
 
                             &:not(:has(button)) {
                                 font-size: 1rem;
+                                margin: 0;
                             }
 
                             a {
@@ -1626,14 +1627,6 @@ html {
                                     background-color: rgba(255, 255, 255, .92);
                                     box-shadow: 5px 5px 20px #AAA;
                                     box-shadow: 5px 5px 7px -5px #000;
-
-                                    li:has(a[aria-current="page"]) {
-                                        background-color: rgba(221, 211, 211, .5);
-
-                                        a {
-                                            background-color: transparent;
-                                        }
-                                    }
                                 }
                             }
                         }
