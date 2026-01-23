@@ -231,7 +231,7 @@ html body header nav ul li button[aria-expanded="true"] + ul {
 html body header nav ul > li {
   font-weight: 700;
 }
-html body header nav ul > li a:has([aria-expanded="true"]) {
+html body header nav ul > li button[aria-expanded="true"]:has(+ ul li a[aria-current="page"]) {
   border-bottom: none;
 }
 html body header nav ul li:not(:has(button)) {

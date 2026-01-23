@@ -356,12 +356,10 @@ html {
                     & > li {
                         font-weight: 700;
 
-                        a:has([aria-expanded="true"]) {
+                        button[aria-expanded="true"]:has(+ ul li a[aria-current="page"]) {
                             border-bottom: none;
                         }
                     }
-
-                    
 
                     // Home and About <li>s
 
