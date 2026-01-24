@@ -1616,7 +1616,7 @@ html {
                                     min-width: 100%;
                                     width: auto;
                                     left: 50%;
-                                    translate: -50%;
+                                    translate: -50% 1.5px; // push the dropdown down 1.5px to reduce the overlap
 
                                     li {
 

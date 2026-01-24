@@ -883,7 +883,7 @@ html body footer div section.social ul li a img {
     min-width: 100%;
     width: auto;
     left: 50%;
-    translate: -50%;
+    translate: -50% 1.5px;
   }
   html body header nav > ul > li button + ul li:hover {
     background-color: rgba(231, 231, 231, 0.5);
@@ -965,11 +965,6 @@ html body footer div section.social ul li a img {
 === 1300PX CSS CODE AND UP =======
 ===============================*/
 @media (min-width: 1300px) {
-  html body header nav > ul > li:not(:has(button)),
-  html body header nav > ul > li button,
-  html body header nav > ul > li button + ul li a {
-    font-size: 1.5rem;
-  }
   html body header nav > ul > li :is(:not(:has(button)), button, button + ul li a) {
     font-size: 1.5rem;
   }
