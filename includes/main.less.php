@@ -247,6 +247,7 @@ html {
                     li {
                         text-align: center;
                         border-radius: 5px;
+                        box-sizing: border-box;
 
                         &:hover {
                             background-color: #E5E5E5;
@@ -1575,8 +1576,7 @@ html {
                         & > li {
                             flex: 1;
                             position: relative;
-                            flex-direction: row;
-                            align-items: center;
+                            display: inline-block;
 
                             &:not(:has(button)) {
                                 font-size: 1rem;

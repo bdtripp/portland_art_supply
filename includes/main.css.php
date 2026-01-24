@@ -143,7 +143,7 @@ html body header nav ul {
 html body header nav ul li {
   text-align: center;
   border-radius: 5px;
-  flex: 1;
+  box-sizing: border-box;
 }
 html body header nav ul li:hover {
   background-color: #E5E5E5;
@@ -859,8 +859,7 @@ html body footer div section.social ul li a img {
   html body header nav > ul > li {
     flex: 1;
     position: relative;
-    flex-direction: row;
-    align-items: center;
+    display: inline-block;
   }
   html body header nav > ul > li:not(:has(button)) {
     font-size: 1rem;
