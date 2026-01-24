@@ -74,14 +74,14 @@ html body header h1 {
   font-family: 'Arvo', serif;
   /* This is a Google Font */
   color: white;
-  font-size: 1rem;
+  font-size: 1.3rem;
   background: linear-gradient(70deg, #dd460b, #dd460b 36vw, #f8966f 62vw, #f8966f);
 }
 html body header h1#no_wrap_pas {
   display: none;
 }
 html body header label.menu-icon {
-  transform: translateY(35%);
+  transform: translateY(50%);
   padding: 20px 15px;
 }
 html body header ul.header_links {
@@ -132,10 +132,12 @@ html body header ul.header_links li a#login_link {
 html body header ul.header_links li a#login_link img {
   width: 38px;
 }
+html body header nav {
+  background-color: #F2F2F2;
+}
 html body header nav ul {
   width: 94%;
   margin: 0 auto;
-  background-color: #F2F2F2;
   display: flex;
   flex-direction: column;
   overflow: hidden;

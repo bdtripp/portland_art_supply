@@ -146,7 +146,7 @@ html {
                 padding: 20px 0 20px 3%;
                 font-family: 'Arvo', serif; /* This is a Google Font */
                 color: white;
-                font-size: 1rem;
+                font-size: 1.3rem;
                 background: linear-gradient(
                     70deg, 
                     darken(@primary-color1, 5%) ,
@@ -163,7 +163,7 @@ html {
             label {
 
                 &.menu-icon {
-                    transform: translateY(35%);
+                    transform: translateY(50%);
                     padding: 20px 15px;
                 }
             }
@@ -235,11 +235,11 @@ html {
             /*--------NAV STYLE------*/
 
             nav {
-
+                background-color: @off-white;   
+                
                 ul {
                     width: 94%;
                     margin: 0 auto;
-                    background-color: @off-white;
                     display: flex;
                     flex-direction: column;
                     overflow: hidden;

@@ -21,6 +21,11 @@ header ul {
 
 /* clear float on line below */
 
+nav {
+    border-bottom: 0px dotted #F34F0E; /* needed for the transition to work */
+    transition: border 1s;
+}
+
 nav .menu {
     /* clear: both; */
     max-height: 0;
@@ -75,6 +80,10 @@ header .menu-btn { /* hide checkbox */
 
 header .menu-btn:checked ~  nav .menu {
     max-height: 800px;
+}
+
+header .menu-btn:checked ~ nav {
+    border-bottom: 1px dotted #F34F0E;
 }
 
 header .menu-btn:checked ~ .menu-icon .navicon {
