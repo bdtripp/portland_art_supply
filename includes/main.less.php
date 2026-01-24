@@ -95,6 +95,10 @@ button {
     font-family: 'Open Sans', sans-serif;
 }
 
+select:hover {
+    cursor: pointer;
+}
+
 .clearfloat {
     clear: both;
 }
@@ -236,7 +240,7 @@ html {
 
             nav {
                 background-color: @off-white;   
-                
+
                 ul {
                     width: 94%;
                     margin: 0 auto;
@@ -580,6 +584,11 @@ html {
                                                             grid-auto-rows: 40px;
                                                             justify-content: center;
                                                             gap: 6px;
+
+                                                            &:hover {
+                                                                cursor: pointer;        
+                                                            }
+                                                            
 
                                                             img {
                                                                 border: 1px solid black;
@@ -1964,12 +1973,22 @@ html {
 }
 
 /*===============================
-=== 1100PX CSS CODE AND UP =======
+=== 1140PX CSS CODE AND UP =======
 ===============================*/
 
 @media (min-width: 1140px) {
     html body main section#item_wrapper {
         margin: 20px auto;
+    }
+}
+
+/*===============================
+=== 1300PX CSS CODE AND UP =======
+===============================*/
+
+@media (min-width: 1300px) {
+    html body header nav > ul > li :is(:not(:has(button)), button, button + ul li a) {
+        font-size: 1.5rem;
     }
 }
 
@@ -2014,9 +2033,6 @@ html {
 
             /*-------- 1500PX NAV STYLE------*/
 
-            header nav > ul > li:not(:has(button)), header nav > ul > li button, header nav > ul > li button + ul li a {
-                font-size: 1.2rem;
-            }
 
             /*-------- 1500PX MAIN STYLE ------*/
 

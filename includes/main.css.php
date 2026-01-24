@@ -29,6 +29,9 @@ https://paletton.com/#uid=60f0u0kuauvivBun-vxvonRAQiM
 button {
   font-family: 'Open Sans', sans-serif;
 }
+select:hover {
+  cursor: pointer;
+}
 .clearfloat {
   clear: both;
 }
@@ -390,6 +393,9 @@ html body main section#item_wrapper div#details_wrapper div#item_details div#ite
   grid-auto-rows: 40px;
   justify-content: center;
   gap: 6px;
+}
+html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#color_thumbnails_wrapper div#color_thumbnails:hover {
+  cursor: pointer;
 }
 html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#color_thumbnails_wrapper div#color_thumbnails img {
   border: 1px solid black;
@@ -948,11 +954,24 @@ html body footer div section.social ul li a img {
   }
 }
 /*===============================
-=== 1100PX CSS CODE AND UP =======
+=== 1140PX CSS CODE AND UP =======
 ===============================*/
 @media (min-width: 1140px) {
   html body main section#item_wrapper {
     margin: 20px auto;
+  }
+}
+/*===============================
+=== 1300PX CSS CODE AND UP =======
+===============================*/
+@media (min-width: 1300px) {
+  html body header nav > ul > li:not(:has(button)),
+  html body header nav > ul > li button,
+  html body header nav > ul > li button + ul li a {
+    font-size: 1.5rem;
+  }
+  html body header nav > ul > li :is(:not(:has(button)), button, button + ul li a) {
+    font-size: 1.5rem;
   }
 }
 /*===============================
@@ -964,11 +983,6 @@ html body footer div section.social ul li a img {
     /*-------- 1500PX NAV STYLE------*/
     /*-------- 1500PX MAIN STYLE ------*/
     /*-------- 1500PX FOOTER STYLE ------*/
-  }
-  html body header nav > ul > li:not(:has(button)),
-  html body header nav > ul > li button,
-  html body header nav > ul > li button + ul li a {
-    font-size: 1.2rem;
   }
   html body main#home h2 {
     font-size: 7em;
