@@ -355,6 +355,8 @@ html {
 
                     & > li {
                         font-weight: 700;
+                        display: flex;
+                        flex-direction: column;
 
                         button[aria-expanded="true"]:has(+ ul li a[aria-current="page"]) {
                             border-bottom: none;
@@ -1573,6 +1575,8 @@ html {
                         & > li {
                             flex: 1;
                             position: relative;
+                            flex-direction: row;
+                            align-items: center;
 
                             &:not(:has(button)) {
                                 font-size: 1rem;

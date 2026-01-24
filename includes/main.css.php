@@ -76,7 +76,6 @@ html body header h1 {
   color: white;
   font-size: 1rem;
   background: linear-gradient(70deg, #dd460b, #dd460b 36vw, #f8966f 62vw, #f8966f);
-  letter-spacing: 1px;
 }
 html body header h1#no_wrap_pas {
   display: none;
@@ -144,6 +143,7 @@ html body header nav ul {
 html body header nav ul li {
   text-align: center;
   border-radius: 5px;
+  flex: 1;
 }
 html body header nav ul li:hover {
   background-color: #E5E5E5;
@@ -231,6 +231,8 @@ html body header nav ul li button[aria-expanded="true"] + ul {
 }
 html body header nav ul > li {
   font-weight: 700;
+  display: flex;
+  flex-direction: column;
 }
 html body header nav ul > li button[aria-expanded="true"]:has(+ ul li a[aria-current="page"]) {
   border-bottom: none;
@@ -857,6 +859,8 @@ html body footer div section.social ul li a img {
   html body header nav > ul > li {
     flex: 1;
     position: relative;
+    flex-direction: row;
+    align-items: center;
   }
   html body header nav > ul > li:not(:has(button)) {
     font-size: 1rem;
