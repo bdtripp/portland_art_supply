@@ -62,9 +62,9 @@ html {
                         left: 50%;
                         transform: translate(-50%, -50%);
 
-                        th {
+                        div {
 
-                            &.login_form_header {
+                            &#login_form_header {
                                 text-align: center;
                                 font-size: 1.5em;
                                 padding-bottom: 10px;
