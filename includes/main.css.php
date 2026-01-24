@@ -888,7 +888,9 @@ html body footer div section.social ul li a img {
     color: black;
   }
   html body header nav > ul > li button[aria-expanded="true"] + ul {
-    background-color: rgba(255, 255, 255, 0.92);
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     box-shadow: 5px 5px 20px #AAA;
     box-shadow: 5px 5px 7px -5px #000;
   }

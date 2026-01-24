@@ -1629,7 +1629,9 @@ html {
                                 // The dropdowns when they are expanded
 
                                 &[aria-expanded="true"] + ul { 
-                                    background-color: rgba(255, 255, 255, .92);
+                                    background-color: rgba(255, 255, 255, .7);
+                                    backdrop-filter: blur(10px); 
+                                    -webkit-backdrop-filter: blur(10px); 
                                     box-shadow: 5px 5px 20px #AAA;
                                     box-shadow: 5px 5px 7px -5px #000;
                                 }
