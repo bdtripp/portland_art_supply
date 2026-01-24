@@ -244,31 +244,28 @@ html {
                     flex-direction: column;
                     overflow: hidden;
 
-                    & > li {
-                        font-weight: 700;
-                    }
-
                     li {
                         text-align: center;
                         border-radius: 5px;
+                        box-sizing: border-box;
 
                         &:hover {
-                            background-color: #EEE;
+                            background-color: #E5E5E5;
                         }
 
-                        &[aria-current="page"], &:has([aria-current="page"]) {
+                        a[aria-current="page"], button:has( + ul li a[aria-current="page"] ) {
                             /* This style identifies the page or Category and Subcategory the user is currently on */
-                            background-color: #DDD;
+                            border-bottom: 4px solid @secondary-color1;
+                            border-radius: 0px;
                         }
 
                         a {
                             text-decoration: none;
                             color: @dark-gray;
-
-                            &[aria-current="page"] {
-                                /* This style identifies the page or Category and Subcategory the user is currently on */
-                                background-color: #DDD;
-                            }
+                            padding: 15px 10px;
+                            display: inline-block;
+                            width: 100%;
+                            box-sizing: border-box;;
 
                             &:hover {
                                 opacity: .8;
@@ -288,14 +285,21 @@ html {
                             letter-spacing: inherit;
                             width: 100%;
                             display: flex;
+                            align-items: center;
                             border-radius: inherit;
                             font-weight: inherit;
+
+                            &:hover {
+                                cursor: pointer;
+                            }
+
+                            // This is here to center the button text
 
                             &::before {
                                 content: "";
                                 flex: 1;
                                 text-align: left;
-                                padding-left: 3px;
+                                padding-left: 7px;
                             }
 
                             &[aria-expanded="true"] {
@@ -313,7 +317,8 @@ html {
                         span {
                             flex: 1;
                             text-align: right;
-                            padding-right: 3px;
+                            padding-right: 7px;
+                            font-size: 1rem;
                         }
 
                         // Drop down menu conent
@@ -331,12 +336,9 @@ html {
                                 border-radius: 5px;
                                 font-weight: initial;
                                 margin: 0 2px;
-                                padding-left: 10px;
-                                padding-right: 10px;
 
                                 a {
-                                    display: inline-block;
-                                    width: 100%;
+                                    line-height: 1.2em;
                                 }
                             }
                         }
@@ -347,7 +349,18 @@ html {
                             max-height: 500px;
                             transition: max-height 1s;
                             background-color: white;
-                            padding-bottom: 2px;
+                            padding-top: 2px;
+                            gap: 2px;
+                        }
+                    }
+
+                    & > li {
+                        font-weight: 700;
+                        display: flex;
+                        flex-direction: column;
+
+                        button[aria-expanded="true"]:has(+ ul li a[aria-current="page"]) {
+                            border-bottom: none;
                         }
                     }
 
@@ -355,7 +368,6 @@ html {
 
                     li:not(:has(button)) {
                         font-size: 1.5rem;
-                        padding: 15px 0;
                         margin: 1px 0;
                     }
                 }
@@ -1564,9 +1576,11 @@ html {
                         & > li {
                             flex: 1;
                             position: relative;
+                            display: inline-block;
 
                             &:not(:has(button)) {
                                 font-size: 1rem;
+                                margin: 0;
                             }
 
                             a {
@@ -1602,6 +1616,7 @@ html {
 
                                         a {
                                             color: black;
+                                            font-size: 1rem;
 
                                             &:visited {
                                                 color: black;
@@ -1613,17 +1628,9 @@ html {
                                 // The dropdowns when they are expanded
 
                                 &[aria-expanded="true"] + ul { 
-                                    background-color: rgba(255, 255, 255, .90);
+                                    background-color: rgba(255, 255, 255, .92);
                                     box-shadow: 5px 5px 20px #AAA;
                                     box-shadow: 5px 5px 7px -5px #000;
-
-                                    li:has(a[aria-current="page"]) {
-                                        background-color: rgba(221, 211, 211, .5);
-
-                                        a {
-                                            background-color: transparent;
-                                        }
-                                    }
                                 }
                             }
                         }
@@ -2004,17 +2011,8 @@ html {
 
             /*-------- 1500PX NAV STYLE------*/
 
-            nav {
-
-                ul{
-
-                    li {
-
-                        a {
-
-                        }
-                    }
-                }
+            header nav > ul > li:not(:has(button)), header nav > ul > li button, header nav > ul > li button + ul li a {
+                font-size: 1.2rem;
             }
 
             /*-------- 1500PX MAIN STYLE ------*/

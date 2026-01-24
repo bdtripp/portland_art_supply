@@ -58,7 +58,7 @@ function show_header_content($categoryName) {
 function generateNavList($activePage) {
     $categories = lookup_categories();
 
-    echo '            <li ' . check_current_page(HOME_PAGE) . 'Home</a></li>' . "\n";
+    echo '            <li><a ' . check_current_page(HOME_PAGE) . 'Home</a></li>' . "\n";
     foreach($categories as $category) {
         $categoryID = $category[PRODUCT_CATEGORY_ID_FIELD];
         $categoryName = $category[PRODUCT_CATEGORY_NAME_FIELD];
@@ -78,7 +78,7 @@ function generateNavList($activePage) {
             show_subcategory_dropdown($category);
             echo '            </li>' . "\n";
     }
-    echo '            <li ' . check_current_page(ABOUT_PAGE) . 'About</a></li>' . "\n";
+    echo '            <li><a ' . check_current_page(ABOUT_PAGE) . 'About</a></li>' . "\n";
 }
 
 function show_subcategory_dropdown($category) {

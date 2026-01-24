@@ -140,28 +140,27 @@ html body header nav ul {
   flex-direction: column;
   overflow: hidden;
 }
-html body header nav ul > li {
-  font-weight: 700;
-}
 html body header nav ul li {
   text-align: center;
   border-radius: 5px;
+  box-sizing: border-box;
 }
 html body header nav ul li:hover {
-  background-color: #EEE;
+  background-color: #E5E5E5;
 }
-html body header nav ul li[aria-current="page"],
-html body header nav ul li:has([aria-current="page"]) {
+html body header nav ul li a[aria-current="page"],
+html body header nav ul li button:has( + ul li a[aria-current="page"] ) {
   /* This style identifies the page or Category and Subcategory the user is currently on */
-  background-color: #DDD;
+  border-bottom: 4px solid #D90D4B;
+  border-radius: 0px;
 }
 html body header nav ul li a {
   text-decoration: none;
   color: #333333;
-}
-html body header nav ul li a[aria-current="page"] {
-  /* This style identifies the page or Category and Subcategory the user is currently on */
-  background-color: #DDD;
+  padding: 15px 10px;
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
 }
 html body header nav ul li a:hover {
   opacity: 0.8;
@@ -178,14 +177,18 @@ html body header nav ul li button {
   letter-spacing: inherit;
   width: 100%;
   display: flex;
+  align-items: center;
   border-radius: inherit;
   font-weight: inherit;
+}
+html body header nav ul li button:hover {
+  cursor: pointer;
 }
 html body header nav ul li button::before {
   content: "";
   flex: 1;
   text-align: left;
-  padding-left: 3px;
+  padding-left: 7px;
 }
 html body header nav ul li button[aria-expanded="true"] {
   border: 2px solid white;
@@ -199,7 +202,8 @@ html body header nav ul li button[aria-expanded="true"] span {
 html body header nav ul li span {
   flex: 1;
   text-align: right;
-  padding-right: 3px;
+  padding-right: 7px;
+  font-size: 1rem;
 }
 html body header nav ul li ul {
   max-height: 0;
@@ -214,22 +218,27 @@ html body header nav ul li ul li {
   border-radius: 5px;
   font-weight: initial;
   margin: 0 2px;
-  padding-left: 10px;
-  padding-right: 10px;
 }
 html body header nav ul li ul li a {
-  display: inline-block;
-  width: 100%;
+  line-height: 1.2em;
 }
 html body header nav ul li button[aria-expanded="true"] + ul {
   max-height: 500px;
   transition: max-height 1s;
   background-color: white;
-  padding-bottom: 2px;
+  padding-top: 2px;
+  gap: 2px;
+}
+html body header nav ul > li {
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+}
+html body header nav ul > li button[aria-expanded="true"]:has(+ ul li a[aria-current="page"]) {
+  border-bottom: none;
 }
 html body header nav ul li:not(:has(button)) {
   font-size: 1.5rem;
-  padding: 15px 0;
   margin: 1px 0;
 }
 html body main {
@@ -850,9 +859,11 @@ html body footer div section.social ul li a img {
   html body header nav > ul > li {
     flex: 1;
     position: relative;
+    display: inline-block;
   }
   html body header nav > ul > li:not(:has(button)) {
     font-size: 1rem;
+    margin: 0;
   }
   html body header nav > ul > li button {
     font-size: 1rem;
@@ -870,20 +881,15 @@ html body footer div section.social ul li a img {
   }
   html body header nav > ul > li button + ul li a {
     color: black;
+    font-size: 1rem;
   }
   html body header nav > ul > li button + ul li a:visited {
     color: black;
   }
   html body header nav > ul > li button[aria-expanded="true"] + ul {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.92);
     box-shadow: 5px 5px 20px #AAA;
     box-shadow: 5px 5px 7px -5px #000;
-  }
-  html body header nav > ul > li button[aria-expanded="true"] + ul li:has(a[aria-current="page"]) {
-    background-color: rgba(221, 211, 211, 0.5);
-  }
-  html body header nav > ul > li button[aria-expanded="true"] + ul li:has(a[aria-current="page"]) a {
-    background-color: transparent;
   }
   html body main {
     min-height: calc(100vh - 251.2px);
@@ -953,6 +959,11 @@ html body footer div section.social ul li a img {
     /*-------- 1500PX NAV STYLE------*/
     /*-------- 1500PX MAIN STYLE ------*/
     /*-------- 1500PX FOOTER STYLE ------*/
+  }
+  html body header nav > ul > li:not(:has(button)),
+  html body header nav > ul > li button,
+  html body header nav > ul > li button + ul li a {
+    font-size: 1.2rem;
   }
   html body main#home h2 {
     font-size: 7em;

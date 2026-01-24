@@ -67,7 +67,7 @@ function init() {
         initializeProductItemsPage();
     }
 
-    setAriaExpanded();
+    initDropdowns();
 }
 
 function initializeProductItemsPage() {
@@ -571,11 +571,12 @@ function updateTotalDisplay(total) {
 
 // functions for every page
 
-function setAriaExpanded() {
+function initDropdowns() {
     document.querySelectorAll(".expand_btn").forEach(button => { 
         button.addEventListener("click", (e) => {
-            e.stopPropagation();
             const isExpanded = button.ariaExpanded === "true";
+
+            e.stopPropagation();
 
             if(!isExpanded) {
                 document.querySelectorAll(".expand_btn").forEach(button => {
@@ -584,15 +585,23 @@ function setAriaExpanded() {
             }
 
             button.ariaExpanded = (!isExpanded).toString();
-
-            // Make the dropdown close when the user clicks anything on the web page
-
-            // document.addEventListener("click", () => {
-            //     const isExpanded = button.ariaExpanded === "true";
-
-            //     button.ariaExpanded = (!isExpanded).toString();
-            //     document.removeEventListener() have to pass the same arguments as when it was defined
-            // });
         })
+    });
+
+    // Make the dropdown close when the user clicks anything on the web page
+
+    document.addEventListener("click", (e) => {
+        const expandedBtn = document.querySelector('button[aria-expanded="true"]');
+
+        if (!expandedBtn) {
+            return;
+        }
+
+        const dropdownCntr = expandedBtn.parentElement;
+        const isInDropdownCntr = dropdownCntr.contains(e.target);
+
+        if (!isInDropdownCntr) {
+            expandedBtn.ariaExpanded = "false";
+        }
     });
 }
