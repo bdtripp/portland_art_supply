@@ -288,6 +288,7 @@ html {
                             align-items: center;
                             border-radius: inherit;
                             font-weight: inherit;
+                            line-height: 1; // had to set this to make each button and anchor element within the nav the same height
 
                             &:hover {
                                 cursor: pointer;

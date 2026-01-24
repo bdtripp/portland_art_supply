@@ -180,6 +180,7 @@ html body header nav ul li button {
   align-items: center;
   border-radius: inherit;
   font-weight: inherit;
+  line-height: 1;
 }
 html body header nav ul li button:hover {
   cursor: pointer;
