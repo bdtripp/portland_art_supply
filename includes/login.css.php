@@ -47,17 +47,19 @@ html body form h2 {
   text-align: center;
   line-height: 1.2em;
 }
-html body form div.form_row {
+html body form section {
   display: flex;
   flex-direction: column;
-  gap: 5px;
 }
-html body form div.form_row label {
+html body form section#password_section {
+  gap: 20px;
+}
+html body form section label {
   color: #333333;
   font-size: 1.1em;
   letter-spacing: 1px;
 }
-html body form div.form_row input {
+html body form section input {
   padding: 10px 16px;
   font-size: 1.1em;
   border: 3px solid #333333;
@@ -66,6 +68,22 @@ html body form div.form_row input {
   letter-spacing: 1px;
   border-radius: 10px;
   width: 175px;
+}
+html body form section span.message {
+  color: red;
+  width: 175px;
+}
+html body form section div.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  gap: 5px;
+}
+html body form section ul.requirements {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  list-style-type: disc;
 }
 html body form input.login_btn {
   padding: 14px 80px;
@@ -126,7 +144,4 @@ html body form div.links a:hover {
 html body form div.links a:visited {
   color: #333333;
   background-color: #fcfcfc;
-}
-html body form span {
-  color: red;
 }

@@ -157,7 +157,10 @@ const SUBCATEGORY_BUTTON_CLASS = 'subcategory_button';
 const NAV_DROPDOWN_CLASS = 'nav_drop_down';
 const DROPDOWN_CONTENT_CLASS = 'dropdown_content';
 const MESSAGE_CLASS = 'message';
+const REQUIREMENTS_CLASS = 'requirements';
 const COLOR_THUMBNAIL_CLASS = 'color_tn';
+const WRAPPER_CLASS = "wrapper";
+const PASSWORD_SECTION_CLASS = "password_section";
 /*
  * Social Media Sites
  */

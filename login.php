@@ -61,23 +61,25 @@ if (!$login_pressed && isset($_SERVER['HTTP_REFERER'])) {
     <?php echo $error_message; ?>
         <form method="POST" action="login.php">
             <h2>Log In</h2>
-            <div class="form_row">
+            <section>
                 <label for="<?php echo LOGIN_USERNAME_KEY; ?>">Username:</label>
                 <input 
                     id ="<?php echo LOGIN_USERNAME_KEY; ?>" 
                     type="text" 
                     name="<?php echo LOGIN_USERNAME_KEY; ?>" 
                     value="<?php echo $login_username; ?>"
+                    required
                 />
-            </div>
-            <div class="form_row">
+            </section>
+            <section>
                 <label for="<?php echo LOGIN_PASSWORD_KEY; ?>">Password:</label>
                 <input 
                     id="<?php echo LOGIN_PASSWORD_KEY; ?>" 
                     type="password" name="<?php echo LOGIN_PASSWORD_KEY; ?>" 
                     value="<?php echo $login_password; ?>" 
+                    required
                 />
-            </div>
+            </section>
             <input class="login_btn" type="submit" name="<?php echo LOGIN_BUTTON_VALUE; ?>" value="Log In" />
             <p>- or -</p>
             <div class="<?php echo LINKS_CLASS; ?>">

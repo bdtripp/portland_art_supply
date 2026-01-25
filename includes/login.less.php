@@ -103,10 +103,13 @@ html {
                 line-height: 1.2em;
             }
 
-            div.form_row {
+            section {
                 display: flex;
                 flex-direction: column;
-                gap: 5px;
+
+                &#password_section {
+                    gap: 20px;
+                }
 
                 label {
                     color: @dark-gray;
@@ -117,6 +120,25 @@ html {
                 input {
                     .input_style();
                     width: 175px;
+                }
+                
+                span.message {
+                    color: red;
+                    width: 175px;
+                }
+
+                div.wrapper {
+                    display: flex;
+                    flex-direction: column;
+                    align-self: center;
+                    gap: 5px;
+                }
+
+                ul.requirements {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+                    list-style-type: disc;
                 }
             }
 
@@ -155,10 +177,6 @@ html {
                         background-color: @off-white;
                     }
                 }
-            }
-
-            span {
-                color: red;
             }
         }
     }

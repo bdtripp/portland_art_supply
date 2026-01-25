@@ -19,6 +19,17 @@ const CREATE_CONFIRM_PASSWORD_KEY = 'create_confirm_password';
 const CREATE_ACCOUNT_BUTTON_ID = 'create_account_btn';
 
 /*
+ * Input Requirements
+ */
+
+const REQUIRED_SPECIAL_CHARACTERS = "!@#$%^&*~+=";
+const PASSWORD_MIN_LENGTH = 8;
+const PASSWORD_UPPERCASE_REQUIRE = 'At least 1 uppercase character.';
+const PASSWORD_DIGIT_REQUIRE = 'At least 1 digit.';
+const PASSWORD_SPECIAL_REQUIRE = 'At least 1 of the following:<br/>' . REQUIRED_SPECIAL_CHARACTERS;
+const PASSWORD_LENGTH_REQUIRE = 'At least ' . PASSWORD_MIN_LENGTH . ' characters long.';
+
+/*
  * Error Messages
  */
 

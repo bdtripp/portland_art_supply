@@ -59,36 +59,48 @@ if ($create_pressed) {
     </head>
     <body>
     <?php echo $error_message; ?>
-        <form method="POST" action="create_account.php" onsubmit="return checkIfValid();">
+        <form method="POST" action="create_account.php" onsubmit="return checkIfValid();" >
             <h2>Create a New Account</h2>
-            <div class="form_row">
+            <section>
                 <label for="<?php echo USERNAME_INPUT_ID; ?>">Username:</label>
                 <input 
                     id="<?php echo USERNAME_INPUT_ID; ?>" 
                     type="text" 
                     name="<?php echo CREATE_USERNAME_KEY; ?>" 
                     value="<?php echo $create_username; ?>"
+                    required
                 />
                 <span id="<?php echo USERNAME_MESSAGE_ID; ?>" class="<?php echo MESSAGE_CLASS; ?>"></span>
-            </div>
-            <div class="form_row">
-                <label for="<?php echo PASSWORD_INPUT_ID; ?>">Password:</label>
-                <input 
-                    id="<?php echo PASSWORD_INPUT_ID; ?>" 
-                    type="password" name="<?php echo CREATE_PASSWORD_KEY; ?>" 
-                    value="<?php echo $create_password; ?>" 
-                />
+            </section>
+            <section id="<?php echo PASSWORD_SECTION_CLASS ?>">
+                <div class="<?php echo WRAPPER_CLASS; ?>">
+                    <label for="<?php echo PASSWORD_INPUT_ID; ?>">Password:</label>
+                    <input 
+                        id="<?php echo PASSWORD_INPUT_ID; ?>" 
+                        type="password" name="<?php echo CREATE_PASSWORD_KEY; ?>" 
+                        value="<?php echo $create_password; ?>" 
+                        required
+                    />
+                </div>
+                <p>Password requirements:</p>
+                <ul class="<?php echo REQUIREMENTS_CLASS; ?>">
+                    <li><?php echo PASSWORD_UPPERCASE_REQUIRE; ?></li>
+                    <li><?php echo PASSWORD_DIGIT_REQUIRE; ?></li>
+                    <li><?php echo PASSWORD_SPECIAL_REQUIRE; ?></li>
+                    <li><?php echo PASSWORD_LENGTH_REQUIRE; ?></li>
+                </ul>
                 <span id="<?php echo PASSWORD_MESSAGE_ID; ?>" class="<?php echo MESSAGE_CLASS; ?>"></span>
-            </div>
-            <div class="form_row">
+            </section>
+            <section>
                 <label for="<?php echo CONFIRM_PASSWORD_INPUT_ID; ?>">Confirm Password:</label>
                 <input 
                     id="<?php echo CONFIRM_PASSWORD_INPUT_ID; ?>" 
                     type="password" name="<?php echo CREATE_CONFIRM_PASSWORD_KEY; ?>" 
                     value="<?php echo $create_confirm_password; ?>" 
+                    required
                 />
                 <span id="<?php echo CONFIRM_PASSWORD_MESSAGE_ID; ?>" class="<?php echo MESSAGE_CLASS; ?>"></span>
-            </div>
+           </section>
             <input 
                 id="<?php echo CREATE_ACCOUNT_BUTTON_ID; ?>" 
                 type="submit" 
