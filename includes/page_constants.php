@@ -106,6 +106,8 @@ const X_ID = 'x';
 const FACEBOOK_ID = 'facebook';
 const INSTAGRAM_ID = 'instagram';
 const PINTEREST_ID = 'pinterest';
+const CREATE_ACCOUNT_LINK_ID = "create_account_link";
+const HOME_LINK_ID = "home_link";
 
 /*
  * Classes

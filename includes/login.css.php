@@ -87,22 +87,7 @@ html body form input.login_btn:hover {
   cursor: pointer;
   transform: scale(1.1);
 }
-html body form div.links {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-html body form div.links a {
-  text-decoration: none;
-  text-align: center;
-  transition: transform 0.3s;
-}
-html body form div.links a:hover {
-  cursor: pointer;
-  transform: scale(1.1);
-}
-html body form div.links a#create_account_link {
+html body form input#create_account_btn {
   padding: 14px 80px;
   font-size: 1.3em;
   color: white;
@@ -113,11 +98,20 @@ html body form div.links a#create_account_link {
   letter-spacing: 1px;
   margin: 20px 0 0 0;
   line-height: 1.3rem;
-  padding: 8px 20px;
-  width: 186px;
+  padding: 16px 30px;
+  width: 228px;
   border: none;
 }
-html body form div.links a#home_link {
+html body form div.links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+html body form div.links a {
+  text-decoration: none;
+  text-align: center;
+  transition: transform 0.3s;
   padding: 10px 16px;
   font-size: 1.1em;
   border: 3px solid #333333;
@@ -126,7 +120,11 @@ html body form div.links a#home_link {
   letter-spacing: 1px;
   border-radius: 10px;
 }
-html body form div.links a#home_link:visited {
+html body form div.links a:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+html body form div.links a:visited {
   color: #333333;
   background-color: #fcfcfc;
 }

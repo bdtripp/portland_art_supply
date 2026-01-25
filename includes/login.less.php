@@ -121,12 +121,23 @@ html {
                 }
             }
 
-            input.login_btn {
-                .CTA();
-                .hover1();
-                line-height: 1;
-                border: none;
+            input {
+
+                &.login_btn {
+                    .CTA();
+                    .hover1();
+                    line-height: 1;
+                    border: none;
+                }
+
+                &#create_account_btn {
+                    .CTA();
+                    padding: 16px 30px;
+                    width: 228px;
+                    border: none;
+                }
             }
+
 
             div.links {
                 display: flex;
@@ -138,22 +149,11 @@ html {
                     text-decoration: none;
                     text-align: center;
                     .hover1();
+                    .input_style();
 
-                    &#create_account_link {
-                        .CTA();
-                        padding: 8px 20px;
-                        width: 186px;
-                        border: none;
-
-                    }
-
-                    &#home_link {
-                        .input_style();
-
-                        &:visited {
-                            color: @dark-gray;
-                            background-color: @off-white;
-                        }
+                    &:visited {
+                        color: @dark-gray;
+                        background-color: @off-white;
                     }
                 }
             }

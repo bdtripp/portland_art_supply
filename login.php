@@ -79,9 +79,10 @@ if (!$login_pressed && isset($_SERVER['HTTP_REFERER'])) {
                 />
             </div>
             <input class="login_btn" type="submit" name="<?php echo LOGIN_BUTTON_VALUE; ?>" value="Log In" />
+            <p>- or -</p>
             <div class="<?php echo LINKS_CLASS; ?>">
-                <a id="create_account_link" href="<?php echo CREATE_ACCOUNT_PAGE; ?>">Create an Account</a>
-                <a id="home_link" href="<?php echo HOME_PAGE; ?>">Home</a>
+                <a id="<?php echo CREATE_ACCOUNT_LINK_ID; ?>" href="<?php echo CREATE_ACCOUNT_PAGE; ?>">Create an Account</a>
+                <a id="<?php echo HOME_LINK_ID; ?>" href="<?php echo HOME_PAGE; ?>">Home</a>
             </div>
         </form>
     </body>

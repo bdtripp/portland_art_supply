@@ -17,7 +17,7 @@ require_once('includes/page_constants.php');
 $create_username = get_post_value(CREATE_USERNAME_KEY);
 $create_password = get_post_value(CREATE_PASSWORD_KEY);
 $create_confirm_password = get_post_value(CREATE_CONFIRM_PASSWORD_KEY);
-$create_pressed = get_post_value(CREATE_BUTTON_VALUE);
+$create_pressed = get_post_value(CREATE_ACCOUNT_BUTTON_ID);
 $error_message = '';
 
 if ($create_pressed) {
@@ -90,14 +90,15 @@ if ($create_pressed) {
             </div>
             <span id="<?php echo CONFIRM_PASSWORD_MESSAGE_ID; ?>" class="<?php echo MESSAGE_CLASS; ?>"></span>
             <input 
-                class="login_btn" 
+                id="<?php echo CREATE_ACCOUNT_BUTTON_ID; ?>" 
                 type="submit" 
-                name="<?php echo CREATE_BUTTON_VALUE; ?>" 
-                value="Create" 
+                name="<?php echo CREATE_ACCOUNT_BUTTON_ID; ?>" 
+                value="Create Account" 
             />
+            <p>- or -</p>
             <div class="<?php echo LINKS_CLASS; ?>">
-                <a href="<?php echo LOGIN_PAGE; ?>">Login</a>
-                <a href="<?php echo HOME_PAGE; ?>">Home</a>
+                <a id="<?php echo LOGIN_LINK_ID; ?>" href="<?php echo LOGIN_PAGE; ?>">Log In</a>
+                <a id="<?php echo HOME_LINK_ID; ?>" href="<?php echo HOME_PAGE; ?>">Home</a>
             </div>
         </form>
     </body>

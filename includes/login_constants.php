@@ -16,7 +16,7 @@ const LOGIN_BUTTON_VALUE = 'login';
 const CREATE_USERNAME_KEY = 'create_username';
 const CREATE_PASSWORD_KEY = 'create_password';
 const CREATE_CONFIRM_PASSWORD_KEY = 'create_confirm_password';
-const CREATE_BUTTON_VALUE = 'create';
+const CREATE_ACCOUNT_BUTTON_ID = 'create_account_btn';
 
 /*
  * Error Messages
