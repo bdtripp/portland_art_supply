@@ -60,7 +60,7 @@ if (!$login_pressed && isset($_SERVER['HTTP_REFERER'])) {
     <body>
     <?php echo $error_message; ?>
         <form method="POST" action="login.php">
-            <div id="login_form_header">Login</div>
+            <h2>Login</h2>
             <div class="form_row">
                 <label for="<?php echo LOGIN_USERNAME_KEY; ?>">Username:</label>
                 <input 

@@ -10,6 +10,28 @@ header('Content-Type: text/css');
  * Login/New Account Form
  */
 
+ .CTA() {
+  padding: 14px 80px;
+  font-size: 1.3em;
+  color: white;
+  border: 3px solid #0AA764;
+  border-radius: 40px;
+  background-color: @complementary-color1;
+  font-weight: 900;
+  letter-spacing: 1px;
+  margin: 20px 0 0 0;
+}
+
+.input_style() {
+    padding: 10px 16px;
+    font-size: 1.1em;
+    border: 3px solid @dark-gray;
+    color: @dark-gray;
+    background-color: white;
+    letter-spacing: 1px;
+    border-radius: 10px;
+}
+
 /* COLOR PALETTE */
 
 @primary-color1: #F34F0E;
@@ -23,12 +45,12 @@ header('Content-Type: text/css');
 @lightGrayBorder: #DDD;
 
 html {
-    height: 100%;
 
     body {
-        height: 100%;
-        background-color: @off-white;
-        color: @dark-gray;
+        height: 100vh;
+        display: grid;
+        justify-content: center;
+        align-items: center;
 
         div {
 
@@ -48,29 +70,30 @@ html {
         }
 
         form {
-            border: 1px solid #DDD;
-            border-radius: 5px;
-            padding: 20px;
-            height: 100%;
-                
-            div {
+            display: grid;
+            gap: 20px;
+            justify-items: center;
 
-                &#login_form_header {
-                    text-align: center;
-                    font-size: 1.5em;
-                    padding-bottom: 10px;
+            h2 {
+                font-size: 2rem;
+                text-align: center;
+            }
+
+            div.form_row {
+                display: flex;
+                flex-direction: column;
+
+                input {
+                    .input_style();
+                    flex: 1 1 0;
+                    min-width: 0;
+
+                    &[type="submit"] {
+                        .CTA();
+                    }
                 }
             }
 
-            div {
-
-
-
-
-
-            }
-
-            
             span {
                 color: red;
             }
