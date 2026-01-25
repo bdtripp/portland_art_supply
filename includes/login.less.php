@@ -16,10 +16,11 @@ header('Content-Type: text/css');
   color: white;
   border: 3px solid #0AA764;
   border-radius: 40px;
-  background-color: @complementary-color1;
+  background-color: @primary-color1;
   font-weight: 900;
   letter-spacing: 1px;
   margin: 20px 0 0 0;
+  line-height: 1.3rem;
 }
 
 .input_style() {
@@ -27,9 +28,18 @@ header('Content-Type: text/css');
     font-size: 1.1em;
     border: 3px solid @dark-gray;
     color: @dark-gray;
-    background-color: white;
+    background-color: @off-white;
     letter-spacing: 1px;
     border-radius: 10px;
+}
+
+.hover1() {
+    transition: transform .3s;
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+    }
 }
 
 /* COLOR PALETTE */
@@ -41,12 +51,15 @@ header('Content-Type: text/css');
 @complementary-color1: #0AA764;
 
 @dark-gray: #333333;
-@off-white: #F2F2F2;
+@off-white: lighten(#F2F2F2, 4%);
 @lightGrayBorder: #DDD;
 
 html {
 
     body {
+        font-family: 'Open Sans', sans-serif;
+        background-color: white;
+        color: @dark-gray;
         height: 100vh;
         display: grid;
         justify-content: center;
@@ -73,23 +86,74 @@ html {
             display: grid;
             gap: 20px;
             justify-items: center;
+            max-width: 370px;
+            border: 3px solid @primary-color1;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 0 10px;
+            background-color: @off-white;
+            border-radius: 10px;
+            box-shadow: 5px 5px 20px #AAA;
 
             h2 {
-                font-size: 2rem;
+                font-size: 3rem;
+                color: @secondary-color3;
+                font-weight: bold;
                 text-align: center;
+                line-height: 1.2em;
             }
 
             div.form_row {
                 display: flex;
                 flex-direction: column;
+                gap: 5px;
+
+                label {
+                    margin-right: 5px;
+                    color: @dark-gray;
+                    font-size: 1.1em;
+                    letter-spacing: 1px;
+                }
 
                 input {
                     .input_style();
-                    flex: 1 1 0;
-                    min-width: 0;
+                    width: 175px;
+                }
+            }
 
-                    &[type="submit"] {
+            input.login_btn {
+                .CTA();
+                .hover1();
+                line-height: 1;
+                border: none;
+            }
+
+            div.links {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+
+                a {
+                    text-decoration: none;
+                    text-align: center;
+                    .hover1();
+
+                    &#create_account_link {
                         .CTA();
+                        padding: 8px 20px;
+                        width: 186px;
+                        border: none;
+
+                    }
+
+                    &#home_link {
+                        .input_style();
+
+                        &:visited {
+                            color: @dark-gray;
+                            background-color: @off-white;
+                        }
                     }
                 }
             }

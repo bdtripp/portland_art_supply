@@ -60,7 +60,7 @@ if (!$login_pressed && isset($_SERVER['HTTP_REFERER'])) {
     <body>
     <?php echo $error_message; ?>
         <form method="POST" action="login.php">
-            <h2>Login</h2>
+            <h2>Log in or Create an Account</h2>
             <div class="form_row">
                 <label for="<?php echo LOGIN_USERNAME_KEY; ?>">Username:</label>
                 <input 
@@ -74,10 +74,10 @@ if (!$login_pressed && isset($_SERVER['HTTP_REFERER'])) {
                 <label for="<?php echo LOGIN_PASSWORD_KEY; ?>">Password:</label>
                 <input id="<?php echo LOGIN_PASSWORD_KEY; ?>" type="password" name="<?php echo LOGIN_PASSWORD_KEY; ?>" value="<?php echo $login_password; ?>">
             </div>
-            <input class="login_btn" type="submit" name="<?php echo LOGIN_BUTTON_VALUE; ?>" value="Login" />
+            <input class="login_btn" type="submit" name="<?php echo LOGIN_BUTTON_VALUE; ?>" value="Log In" />
             <div class="<?php echo LINKS_CLASS; ?>">
-                <a href="<?php echo CREATE_ACCOUNT_PAGE; ?>">Create an Account</a>
-                <a href="<?php echo HOME_PAGE; ?>">Home</a>
+                <a id="create_account_link" href="<?php echo CREATE_ACCOUNT_PAGE; ?>">Create an Account</a>
+                <a id="home_link" href="<?php echo HOME_PAGE; ?>">Home</a>
             </div>
         </form>
     </body>
