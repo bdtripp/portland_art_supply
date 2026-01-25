@@ -154,7 +154,7 @@ const LARGE_H2 = 'large_h2';
 const SUBCATEGORY_BUTTON_CLASS = 'subcategory_button';
 const NAV_DROPDOWN_CLASS = 'nav_drop_down';
 const DROPDOWN_CONTENT_CLASS = 'dropdown_content';
-const MESSAGE_TD = 'message_td';
+const MESSAGE_CLASS = 'message';
 const COLOR_THUMBNAIL_CLASS = 'color_tn';
 /*
  * Social Media Sites

@@ -72,7 +72,11 @@ if (!$login_pressed && isset($_SERVER['HTTP_REFERER'])) {
             </div>
             <div class="form_row">
                 <label for="<?php echo LOGIN_PASSWORD_KEY; ?>">Password:</label>
-                <input id="<?php echo LOGIN_PASSWORD_KEY; ?>" type="password" name="<?php echo LOGIN_PASSWORD_KEY; ?>" value="<?php echo $login_password; ?>">
+                <input 
+                    id="<?php echo LOGIN_PASSWORD_KEY; ?>" 
+                    type="password" name="<?php echo LOGIN_PASSWORD_KEY; ?>" 
+                    value="<?php echo $login_password; ?>" 
+                />
             </div>
             <input class="login_btn" type="submit" name="<?php echo LOGIN_BUTTON_VALUE; ?>" value="Log In" />
             <div class="<?php echo LINKS_CLASS; ?>">

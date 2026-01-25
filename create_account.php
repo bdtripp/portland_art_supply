@@ -35,89 +35,70 @@ if ($create_pressed) {
 
 <!doctype html>
 <html lang="en">
-<head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135450898-2"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135450898-2"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
 
-        gtag('config', 'UA-135450898-2');
-    </script>
+            gtag('config', 'UA-135450898-2');
+        </script>
 
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>PAS | Create Account</title>
-    <link href="includes/reset.css.php" rel="stylesheet">
-    <link href="includes/login.css.php" rel="stylesheet">
-    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
-    <script src="includes/create_account.js.php"></script>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>PAS | Create Account</title>
+        <link href="includes/reset.css.php" rel="stylesheet">
+        <link href="includes/login.css.php" rel="stylesheet">
+        <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+        <script src="includes/create_account.js.php"></script>
 
-</head>
-<body>
-<?php echo $error_message; ?>
-<div class="login wrapper">
-    <form method="POST" action="create_account.php" onsubmit="return checkIfValid();">
-        <table class="login_table center">
-            <tr>
-                <th class="login_form_header" colspan="2">Create a New Account</th>
-            </tr>
-            <tr>
-                <td>
+    </head>
+    <body>
+    <?php echo $error_message; ?>
+        <form method="POST" action="create_account.php" onsubmit="return checkIfValid();">
+            <h2>Create a New Account</h2>
+            <div class="form_row">
                     <label>Username:</label>
-                </td>
-                <td>
-                    <input id="<?php echo USERNAME_INPUT_ID; ?>" type="text" name="<?php echo CREATE_USERNAME_KEY; ?>" value="<?php echo $create_username; ?>">
-                </td>
-            </tr>
-            <tr>
-                <td class="<?php echo MESSAGE_TD; ?>" colspan="2">
-                    <span id="<?php echo USERNAME_MESSAGE_ID; ?>"></span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label>Password:</label>
-                </td>
-                <td>
-                    <input id="<?php echo PASSWORD_INPUT_ID; ?>" type="password" name="<?php echo CREATE_PASSWORD_KEY; ?>" value="<?php echo $create_password; ?>">
-                </td>
-            </tr>
-            <tr>
-                <td class="<?php echo MESSAGE_TD; ?>" colspan="2">
-                    <span id="<?php echo PASSWORD_MESSAGE_ID; ?>"></span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label>Confirm Password:</label>
-                </td>
-                <td>
-                    <input id="<?php echo CONFIRM_PASSWORD_INPUT_ID; ?>" type="password" name="<?php echo CREATE_CONFIRM_PASSWORD_KEY; ?>" value="<?php echo $create_confirm_password; ?>">
-                </td>
-            </tr>
-            <tr>
-                <td class="<?php echo MESSAGE_TD; ?>" colspan="2">
-                    <span id="<?php echo CONFIRM_PASSWORD_MESSAGE_ID; ?>"></span>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2"><input class="login_btn" type="submit" name="<?php echo CREATE_BUTTON_VALUE; ?>" value="Create"></td>
-            </tr>
-            <tr>
-                <td class="<?php echo LINKS; ?>" colspan="2">
-                    <a href="<?php echo LOGIN_PAGE; ?>">Login</a>
-                    <a href="<?php echo HOME_PAGE; ?>">Home</a>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2"></td>
-            </tr>
-        </table>
-    </form>
-</div>
-</body>
+                    <input 
+                        id="<?php echo USERNAME_INPUT_ID; ?>" 
+                        type="text" 
+                        name="<?php echo CREATE_USERNAME_KEY; ?>" 
+                        value="<?php echo $create_username; ?>"
+                    />
+            </div>
+            <span id="<?php echo USERNAME_MESSAGE_ID; ?>" class="<?php echo MESSAGE_CLASS; ?>"></span>
+            <div class="form_row">
+                <label>Password:</label>
+                <input 
+                    id="<?php echo PASSWORD_INPUT_ID; ?>" 
+                    type="password" name="<?php echo CREATE_PASSWORD_KEY; ?>" 
+                    value="<?php echo $create_password; ?>" 
+                />
+            </div>
+            <span id="<?php echo PASSWORD_MESSAGE_ID; ?>" class="<?php echo MESSAGE_CLASS; ?>"></span>
+            <div class="form_row">
+                <label>Confirm Password:</label>
+                <input 
+                    id="<?php echo CONFIRM_PASSWORD_INPUT_ID; ?>" 
+                    type="password" name="<?php echo CREATE_CONFIRM_PASSWORD_KEY; ?>" 
+                    value="<?php echo $create_confirm_password; ?>" 
+                />
+            </div>
+            <span id="<?php echo CONFIRM_PASSWORD_MESSAGE_ID; ?>" class="<?php echo MESSAGE_CLASS; ?>"></span>
+            <input 
+                class="login_btn" 
+                type="submit" 
+                name="<?php echo CREATE_BUTTON_VALUE; ?>" 
+                value="Create" 
+            />
+            <div class="<?php echo LINKS_CLASS; ?>">
+                <a href="<?php echo LOGIN_PAGE; ?>">Login</a>
+                <a href="<?php echo HOME_PAGE; ?>">Home</a>
+            </div>
+        </form>
+    </body>
 </html>
