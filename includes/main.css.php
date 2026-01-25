@@ -29,6 +29,9 @@ https://paletton.com/#uid=60f0u0kuauvivBun-vxvonRAQiM
 button {
   font-family: 'Open Sans', sans-serif;
 }
+select:hover {
+  cursor: pointer;
+}
 .clearfloat {
   clear: both;
 }
@@ -74,14 +77,14 @@ html body header h1 {
   font-family: 'Arvo', serif;
   /* This is a Google Font */
   color: white;
-  font-size: 1rem;
+  font-size: 1.3rem;
   background: linear-gradient(70deg, #dd460b, #dd460b 36vw, #f8966f 62vw, #f8966f);
 }
 html body header h1#no_wrap_pas {
   display: none;
 }
 html body header label.menu-icon {
-  transform: translateY(35%);
+  transform: translateY(50%);
   padding: 20px 15px;
 }
 html body header ul.header_links {
@@ -132,10 +135,12 @@ html body header ul.header_links li a#login_link {
 html body header ul.header_links li a#login_link img {
   width: 38px;
 }
+html body header nav {
+  background-color: #F2F2F2;
+}
 html body header nav ul {
   width: 94%;
   margin: 0 auto;
-  background-color: #F2F2F2;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -180,6 +185,7 @@ html body header nav ul li button {
   align-items: center;
   border-radius: inherit;
   font-weight: inherit;
+  line-height: 1;
 }
 html body header nav ul li button:hover {
   cursor: pointer;
@@ -387,6 +393,9 @@ html body main section#item_wrapper div#details_wrapper div#item_details div#ite
   grid-auto-rows: 40px;
   justify-content: center;
   gap: 6px;
+}
+html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#color_thumbnails_wrapper div#color_thumbnails:hover {
+  cursor: pointer;
 }
 html body main section#item_wrapper div#details_wrapper div#item_details div#item_options div#color_thumbnails_wrapper div#color_thumbnails img {
   border: 1px solid black;
@@ -874,7 +883,7 @@ html body footer div section.social ul li a img {
     min-width: 100%;
     width: auto;
     left: 50%;
-    translate: -50%;
+    translate: -50% 1.5px;
   }
   html body header nav > ul > li button + ul li:hover {
     background-color: rgba(231, 231, 231, 0.5);
@@ -887,7 +896,9 @@ html body footer div section.social ul li a img {
     color: black;
   }
   html body header nav > ul > li button[aria-expanded="true"] + ul {
-    background-color: rgba(255, 255, 255, 0.92);
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     box-shadow: 5px 5px 20px #AAA;
     box-shadow: 5px 5px 7px -5px #000;
   }
@@ -943,11 +954,19 @@ html body footer div section.social ul li a img {
   }
 }
 /*===============================
-=== 1100PX CSS CODE AND UP =======
+=== 1140PX CSS CODE AND UP =======
 ===============================*/
 @media (min-width: 1140px) {
   html body main section#item_wrapper {
     margin: 20px auto;
+  }
+}
+/*===============================
+=== 1300PX CSS CODE AND UP =======
+===============================*/
+@media (min-width: 1300px) {
+  html body header nav > ul > li :is(:not(:has(button)), button, button + ul li a) {
+    font-size: 1.5rem;
   }
 }
 /*===============================
@@ -959,11 +978,6 @@ html body footer div section.social ul li a img {
     /*-------- 1500PX NAV STYLE------*/
     /*-------- 1500PX MAIN STYLE ------*/
     /*-------- 1500PX FOOTER STYLE ------*/
-  }
-  html body header nav > ul > li:not(:has(button)),
-  html body header nav > ul > li button,
-  html body header nav > ul > li button + ul li a {
-    font-size: 1.2rem;
   }
   html body main#home h2 {
     font-size: 7em;

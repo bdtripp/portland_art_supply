@@ -27,54 +27,46 @@ html body div#error_message_container {
 html body div#error_message_container div#error_header {
   color: red;
 }
-html body div.login.wrapper {
-  height: 100%;
-  position: relative;
-}
-html body div.login.wrapper table.center {
-  display: block;
+html body form {
   border: 1px solid #DDD;
   border-radius: 5px;
   padding: 20px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  height: 100%;
 }
-html body div.login.wrapper table.center th.login_form_header {
+html body form div#login_form_header {
   text-align: center;
   font-size: 1.5em;
   padding-bottom: 10px;
 }
-html body div.login.wrapper table.center td {
+html body form td {
   padding: 5px;
   text-align: right;
   width: 1rem;
 }
-html body div.login.wrapper table.center td a {
+html body form td a {
   padding-right: 10px;
   color: #333333;
 }
-html body div.login.wrapper table.center td a:visited {
+html body form td a:visited {
   color: #333333;
 }
-html body div.login.wrapper table.center td input {
+html body form td input {
   border: 1px solid #AAA;
 }
-html body div.login.wrapper table.center td input.login_btn {
+html body form td input.login_btn {
   display: block;
   margin: 0 auto;
 }
-html body div.login.wrapper table.center td.message_td {
+html body form td.message_td {
   text-align: center;
 }
-html body div.login.wrapper table.center td.message_td span {
+html body form td.message_td span {
   color: red;
 }
-html body div.login.wrapper table.center td#links_td {
+html body form td.links {
   text-align: left;
 }
-html body div.login.wrapper table.center label {
+html body form label {
   display: inline-block;
   width: 4.5em;
   padding: 2px 0;

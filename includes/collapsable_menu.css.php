@@ -21,11 +21,16 @@ header ul {
 
 /* clear float on line below */
 
-/* nav .menu {
-    clear: both;
+nav {
+    border-bottom: 0px dotted #F34F0E; /* needed for the transition to work */
+    transition: border 1s;
+}
+
+nav .menu {
+    /* clear: both; */
     max-height: 0;
     transition: max-height 1s ease-out;
-} */
+}
 
 /* menu icon for responsive hamburger menu */
 
@@ -77,6 +82,10 @@ header .menu-btn:checked ~  nav .menu {
     max-height: 800px;
 }
 
+header .menu-btn:checked ~ nav {
+    border-bottom: 1px dotted #F34F0E;
+}
+
 header .menu-btn:checked ~ .menu-icon .navicon {
     background: transparent;
 }
@@ -99,28 +108,9 @@ header .menu-btn:checked ~ .menu-icon:not(.steps) .navicon:after {
 /*  TABLET AND DESKTOP: CREATE HORIZONTAL NAVIGATION BAR */
 @media only screen and (min-width: 900px) {
 
-    /* Note: We float the entire menu to the right, so it is right-aligned. Then we float each list item to the left, so it sits to next to the next item. We have to clear the float in the following section so the text won't wrap around the menu. */
-
-    /* nav .menu {
-        float: left;
+    nav .menu {
         max-height: none;
     }
-
-    header ul {
-        padding: 2px 0;
-    }
-
-    header ul.menu li {
-        float: left;
-    }
-
-    header li a {
-        padding: 10px 10px;
-    }
-
-    main {
-        clear: both;
-    } */
 
     /* hide the checkbox and label for it */
 

@@ -95,6 +95,10 @@ button {
     font-family: 'Open Sans', sans-serif;
 }
 
+select:hover {
+    cursor: pointer;
+}
+
 .clearfloat {
     clear: both;
 }
@@ -146,7 +150,7 @@ html {
                 padding: 20px 0 20px 3%;
                 font-family: 'Arvo', serif; /* This is a Google Font */
                 color: white;
-                font-size: 1rem;
+                font-size: 1.3rem;
                 background: linear-gradient(
                     70deg, 
                     darken(@primary-color1, 5%) ,
@@ -163,7 +167,7 @@ html {
             label {
 
                 &.menu-icon {
-                    transform: translateY(35%);
+                    transform: translateY(50%);
                     padding: 20px 15px;
                 }
             }
@@ -235,11 +239,11 @@ html {
             /*--------NAV STYLE------*/
 
             nav {
+                background-color: @off-white;   
 
                 ul {
                     width: 94%;
                     margin: 0 auto;
-                    background-color: @off-white;
                     display: flex;
                     flex-direction: column;
                     overflow: hidden;
@@ -288,6 +292,7 @@ html {
                             align-items: center;
                             border-radius: inherit;
                             font-weight: inherit;
+                            line-height: 1; // had to set this to make each button and anchor element within the nav the same height
 
                             &:hover {
                                 cursor: pointer;
@@ -579,6 +584,11 @@ html {
                                                             grid-auto-rows: 40px;
                                                             justify-content: center;
                                                             gap: 6px;
+
+                                                            &:hover {
+                                                                cursor: pointer;        
+                                                            }
+                                                            
 
                                                             img {
                                                                 border: 1px solid black;
@@ -1606,7 +1616,7 @@ html {
                                     min-width: 100%;
                                     width: auto;
                                     left: 50%;
-                                    translate: -50%;
+                                    translate: -50% 1.5px; // push the dropdown down 1.5px to reduce the overlap
 
                                     li {
 
@@ -1628,7 +1638,9 @@ html {
                                 // The dropdowns when they are expanded
 
                                 &[aria-expanded="true"] + ul { 
-                                    background-color: rgba(255, 255, 255, .92);
+                                    background-color: rgba(255, 255, 255, .7);
+                                    backdrop-filter: blur(10px); 
+                                    -webkit-backdrop-filter: blur(10px); 
                                     box-shadow: 5px 5px 20px #AAA;
                                     box-shadow: 5px 5px 7px -5px #000;
                                 }
@@ -1961,12 +1973,22 @@ html {
 }
 
 /*===============================
-=== 1100PX CSS CODE AND UP =======
+=== 1140PX CSS CODE AND UP =======
 ===============================*/
 
 @media (min-width: 1140px) {
     html body main section#item_wrapper {
         margin: 20px auto;
+    }
+}
+
+/*===============================
+=== 1300PX CSS CODE AND UP =======
+===============================*/
+
+@media (min-width: 1300px) {
+    html body header nav > ul > li :is(:not(:has(button)), button, button + ul li a) {
+        font-size: 1.5rem;
     }
 }
 
@@ -2011,9 +2033,6 @@ html {
 
             /*-------- 1500PX NAV STYLE------*/
 
-            header nav > ul > li:not(:has(button)), header nav > ul > li button, header nav > ul > li button + ul li a {
-                font-size: 1.2rem;
-            }
 
             /*-------- 1500PX MAIN STYLE ------*/
 
