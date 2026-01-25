@@ -21,7 +21,7 @@ $login_username = get_post_value(LOGIN_USERNAME_KEY);
 $login_password = get_post_value(LOGIN_PASSWORD_KEY);
 $login_pressed = get_post_value(LOGIN_BUTTON_VALUE);
 $error_message = '';
-if (!$login_pressed) {
+if (!$login_pressed && isset($_SERVER['HTTP_REFERER'])) {
     set_session_value(SESSION_RETURN_TO_URL, $_SERVER['HTTP_REFERER']);
 } else {
     $returnToUrl = get_session_value(SESSION_RETURN_TO_URL);
@@ -62,15 +62,20 @@ if (!$login_pressed) {
         <form method="POST" action="login.php">
             <div id="login_form_header">Login</div>
             <div class="form_row">
-                <label>Username:</label>
-                <input type="text" name="<?php echo LOGIN_USERNAME_KEY; ?>" value="<?php echo $login_username; ?>">
+                <label for="<?php echo LOGIN_USERNAME_KEY; ?>">Username:</label>
+                <input 
+                    id ="<?php echo LOGIN_USERNAME_KEY; ?>" 
+                    type="text" 
+                    name="<?php echo LOGIN_USERNAME_KEY; ?>" 
+                    value="<?php echo $login_username; ?>"
+                />
             </div>
             <div class="form_row">
-                <label>Password:</label>
-                <input type="password" name="<?php echo LOGIN_PASSWORD_KEY; ?>" value="<?php echo $login_password; ?>">
+                <label for="<?php echo LOGIN_PASSWORD_KEY; ?>">Password:</label>
+                <input id="<?php echo LOGIN_PASSWORD_KEY; ?>" type="password" name="<?php echo LOGIN_PASSWORD_KEY; ?>" value="<?php echo $login_password; ?>">
             </div>
             <input class="login_btn" type="submit" name="<?php echo LOGIN_BUTTON_VALUE; ?>" value="Login" />
-            <div id="<?php echo LINKS_TD_ID; ?>">
+            <div class="<?php echo LINKS_CLASS; ?>">
                 <a href="<?php echo CREATE_ACCOUNT_PAGE; ?>">Create an Account</a>
                 <a href="<?php echo HOME_PAGE; ?>">Home</a>
             </div>

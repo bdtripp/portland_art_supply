@@ -108,7 +108,7 @@ if ($create_pressed) {
                 <td colspan="2"><input class="login_btn" type="submit" name="<?php echo CREATE_BUTTON_VALUE; ?>" value="Create"></td>
             </tr>
             <tr>
-                <td id="<?php echo LINKS_TD_ID; ?>" colspan="2">
+                <td class="<?php echo LINKS; ?>" colspan="2">
                     <a href="<?php echo LOGIN_PAGE; ?>">Login</a>
                     <a href="<?php echo HOME_PAGE; ?>">Home</a>
                 </td>
