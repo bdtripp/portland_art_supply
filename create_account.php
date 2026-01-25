@@ -62,33 +62,33 @@ if ($create_pressed) {
         <form method="POST" action="create_account.php" onsubmit="return checkIfValid();">
             <h2>Create a New Account</h2>
             <div class="form_row">
-                    <label>Username:</label>
-                    <input 
-                        id="<?php echo USERNAME_INPUT_ID; ?>" 
-                        type="text" 
-                        name="<?php echo CREATE_USERNAME_KEY; ?>" 
-                        value="<?php echo $create_username; ?>"
-                    />
+                <label for="<?php echo USERNAME_INPUT_ID; ?>">Username:</label>
+                <input 
+                    id="<?php echo USERNAME_INPUT_ID; ?>" 
+                    type="text" 
+                    name="<?php echo CREATE_USERNAME_KEY; ?>" 
+                    value="<?php echo $create_username; ?>"
+                />
+                <span id="<?php echo USERNAME_MESSAGE_ID; ?>" class="<?php echo MESSAGE_CLASS; ?>"></span>
             </div>
-            <span id="<?php echo USERNAME_MESSAGE_ID; ?>" class="<?php echo MESSAGE_CLASS; ?>"></span>
             <div class="form_row">
-                <label>Password:</label>
+                <label for="<?php echo PASSWORD_INPUT_ID; ?>">Password:</label>
                 <input 
                     id="<?php echo PASSWORD_INPUT_ID; ?>" 
                     type="password" name="<?php echo CREATE_PASSWORD_KEY; ?>" 
                     value="<?php echo $create_password; ?>" 
                 />
+                <span id="<?php echo PASSWORD_MESSAGE_ID; ?>" class="<?php echo MESSAGE_CLASS; ?>"></span>
             </div>
-            <span id="<?php echo PASSWORD_MESSAGE_ID; ?>" class="<?php echo MESSAGE_CLASS; ?>"></span>
             <div class="form_row">
-                <label>Confirm Password:</label>
+                <label for="<?php echo CONFIRM_PASSWORD_INPUT_ID; ?>">Confirm Password:</label>
                 <input 
                     id="<?php echo CONFIRM_PASSWORD_INPUT_ID; ?>" 
                     type="password" name="<?php echo CREATE_CONFIRM_PASSWORD_KEY; ?>" 
                     value="<?php echo $create_confirm_password; ?>" 
                 />
+                <span id="<?php echo CONFIRM_PASSWORD_MESSAGE_ID; ?>" class="<?php echo MESSAGE_CLASS; ?>"></span>
             </div>
-            <span id="<?php echo CONFIRM_PASSWORD_MESSAGE_ID; ?>" class="<?php echo MESSAGE_CLASS; ?>"></span>
             <input 
                 id="<?php echo CREATE_ACCOUNT_BUTTON_ID; ?>" 
                 type="submit" 

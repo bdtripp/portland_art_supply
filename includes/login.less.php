@@ -109,7 +109,6 @@ html {
                 gap: 5px;
 
                 label {
-                    margin-right: 5px;
                     color: @dark-gray;
                     font-size: 1.1em;
                     letter-spacing: 1px;
@@ -160,14 +159,6 @@ html {
 
             span {
                 color: red;
-            }
-
-            label {
-                display: inline-block;
-                width: 4.5em;
-                padding: 2px 0;
-                text-align: right;
-                vertical-align: top;
             }
         }
     }

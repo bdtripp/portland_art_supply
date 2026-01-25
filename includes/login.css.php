@@ -53,7 +53,6 @@ html body form div.form_row {
   gap: 5px;
 }
 html body form div.form_row label {
-  margin-right: 5px;
   color: #333333;
   font-size: 1.1em;
   letter-spacing: 1px;
@@ -130,11 +129,4 @@ html body form div.links a:visited {
 }
 html body form span {
   color: red;
-}
-html body form label {
-  display: inline-block;
-  width: 4.5em;
-  padding: 2px 0;
-  text-align: right;
-  vertical-align: top;
 }
