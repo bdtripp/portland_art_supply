@@ -148,8 +148,17 @@ html {
                             color: green;
 
                             &::marker {
-                                // \00A0 is for space after checkmark
+                                // \00A0 is for space after ✓
                                 content: "✓\00A0"; 
+                            }
+                        }
+
+                        &.still_needed {
+                            color: red;
+
+                            &::marker {
+                                // \00A0 is for space after ✗
+                                content: "✗\00A0"; 
                             }
                         }
                         

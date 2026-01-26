@@ -28,6 +28,10 @@ const UPPERCASE_REQUIREMENT_ID = '<?php echo UPPERCASE_REQUIREMENT_ID; ?>';
 const DIGIT_REQUIREMENT_ID = '<?php echo DIGIT_REQUIREMENT_ID; ?>';
 const SPECIAL_CHAR_REQUIREMENT_ID = '<?php echo SPECIAL_CHAR_REQUIREMENT_ID; ?>';
 const LENGTH_REQUIREMENT_ID = '<?php echo LENGTH_REQUIREMENT_ID; ?>';
+const REQUIREMENTS_CLASS = '<?php echo REQUIREMENTS_CLASS; ?>';
+const MEETS_REQUIREMENTS_CLASS = '<?php echo MEETS_REQUIREMENTS_CLASS; ?>';
+const STILL_NEEDED_CLASS = '<?php echo STILL_NEEDED_CLASS; ?>';
+
 
 function isUpper(character) {
     return character >= 'A' && character <= 'Z';
@@ -53,9 +57,8 @@ function clearMessage(id) {
     document.getElementById(id).innerText = '';
 }
 
-function checkIfValidLength(input) {
+function isValidLength(input) {
     if (input.length < PASSWORD_MIN_LENGTH) {
-        // setErrorMessage(PASSWORD_MESSAGE_ID, PASSWORD_LENGTH_ERROR)
         return false;
     } else {
         return true;
@@ -82,7 +85,11 @@ function checkPasswordRequirements(input) {
     let hasUpper = false;
     let hasDigit = false;
     let hasSpecial = false;
+    let meetsLength = false;
     let uppercaseRequirement = document.getElementById(UPPERCASE_REQUIREMENT_ID);
+    let digitRequirement = document.getElementById(DIGIT_REQUIREMENT_ID);
+    let specialCharRequirement = document.getElementById(SPECIAL_CHAR_REQUIREMENT_ID);
+    let lengthRequirement = document.getElementById(LENGTH_REQUIREMENT_ID);
 
     for (count = 0; count < input.length; count++) {
         if (isUpper(input.charAt(count))) {
@@ -94,17 +101,17 @@ function checkPasswordRequirements(input) {
         if (isSpecial(input.charAt(count))) {
             hasSpecial = true;
         }
+        if (isValidLength(input)) {
+            meetsLength = true;
+        }
     }
 
     hasUpper ? markOffRequirement(uppercaseRequirement) : showRequirementNeeded(uppercaseRequirement);
-    
-    if (hasDigit) {
-        // setErrorMessage(PASSWORD_MESSAGE_ID, PASSWORD_DIGIT_ERROR);
-    } else if (hasSpecial) {
-        // setErrorMessage(PASSWORD_MESSAGE_ID, PASSWORD_SPECIAL_ERROR);
-    }
+    hasDigit ? markOffRequirement(digitRequirement) : showRequirementNeeded(digitRequirement);
+    hasSpecial ? markOffRequirement(specialCharRequirement) : showRequirementNeeded(specialCharRequirement);
+    meetsLength ? markOffRequirement(lengthRequirement) : showRequirementNeeded(lengthRequirement);
 
-    if (hasUpper && hasDigit && hasSpecial) {
+    if (hasUpper && hasDigit && hasSpecial && meetsLength) {
         return true;
     } else {
         return false;
@@ -112,11 +119,24 @@ function checkPasswordRequirements(input) {
 }
 
 function markOffRequirement(requirement) {
-    requirement.classList.add('meets_requirements');
+    requirement.classList.remove(STILL_NEEDED_CLASS);
+    requirement.classList.add(MEETS_REQUIREMENTS_CLASS);
 }
 
+// puts requirement list item back to the default style after they delete a character that had previously met a requirement
 function showRequirementNeeded(requirement) {
-    requirement.classList.remove('meets_requirements');
+    requirement.classList.remove(MEETS_REQUIREMENTS_CLASS);
+}
+
+// add more emphasis to the particular requirement that is still needed after the user tries to submit the form
+function markAsStillNeeded() {
+    let requirements = document.getElementsByClassName(REQUIREMENTS_CLASS)[0].children;
+
+    [...requirements].map(requirement => {
+        if (!requirement.classList.contains(MEETS_REQUIREMENTS_CLASS)) {
+            requirement.classList.add(STILL_NEEDED_CLASS);
+        }
+    });
 }
 
 function checkConfirmRequirements(input) {
@@ -137,14 +157,16 @@ function checkIfValidUsername() {
     return checkUsernameRequirements(input);
 }
 
-function checkIfValidPassword() {
+function checkIfValidPassword(submitClicked) {
     let input = getValue(PASSWORD_INPUT_ID);
 
-    // clearMessage(PASSWORD_MESSAGE_ID);
-    let validLength = checkIfValidLength(input);
     let meetsRequirements = checkPasswordRequirements(input);
 
-    return validLength && meetsRequirements;
+    if (submitClicked && !meetsRequirements) {
+        markAsStillNeeded();
+    }
+
+    return meetsRequirements;
 }
 
 function checkIfValidConfirm() {
@@ -155,7 +177,7 @@ function checkIfValidConfirm() {
 }
 
 function checkIfValid() {
-    let isValidPassword = checkIfValidPassword();
+    let isValidPassword = checkIfValidPassword(true);
     let isValidUsername = checkIfValidUsername();
     let isValidConfirm = checkIfValidConfirm();
 
@@ -163,6 +185,6 @@ function checkIfValid() {
 }
 
 window.addEventListener("load", function() {
-   document.getElementById(PASSWORD_INPUT_ID).addEventListener("input", checkIfValidPassword);
+   document.getElementById(PASSWORD_INPUT_ID).addEventListener("input", () => checkIfValidPassword(false));
    document.getElementById(USERNAME_INPUT_ID).addEventListener("input", checkIfValidUsername);
 });

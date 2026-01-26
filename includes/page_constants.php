@@ -163,9 +163,12 @@ const NAV_DROPDOWN_CLASS = 'nav_drop_down';
 const DROPDOWN_CONTENT_CLASS = 'dropdown_content';
 const MESSAGE_CLASS = 'message';
 const REQUIREMENTS_CLASS = 'requirements';
+const MEETS_REQUIREMENTS_CLASS = 'meets_requirements';
+const STILL_NEEDED_CLASS = 'still_needed';
 const COLOR_THUMBNAIL_CLASS = 'color_tn';
 const WRAPPER_CLASS = "wrapper";
 const PASSWORD_SECTION_CLASS = "password_section";
+
 /*
  * Social Media Sites
  */

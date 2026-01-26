@@ -95,6 +95,12 @@ html body form section ul.requirements li.meets_requirements {
 html body form section ul.requirements li.meets_requirements::marker {
   content: "✓\00A0";
 }
+html body form section ul.requirements li.still_needed {
+  color: red;
+}
+html body form section ul.requirements li.still_needed::marker {
+  content: "✗\00A0";
+}
 html body form section ul.requirements li span {
   display: block;
   text-align: center;
