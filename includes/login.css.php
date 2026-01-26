@@ -50,6 +50,7 @@ html body form h2 {
 html body form section {
   display: flex;
   flex-direction: column;
+  gap: 5px;
 }
 html body form section#password_section {
   gap: 20px;
@@ -84,6 +85,14 @@ html body form section ul.requirements {
   flex-direction: column;
   gap: 5px;
   list-style-type: disc;
+}
+html body form section ul.requirements li {
+  line-height: 1.2rem;
+}
+html body form section ul.requirements li span {
+  display: block;
+  text-align: center;
+  letter-spacing: 4px;
 }
 html body form input.login_btn {
   padding: 14px 80px;
@@ -121,8 +130,6 @@ html body form input#create_account_btn {
 }
 html body form div.links {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   gap: 20px;
 }
 html body form div.links a {

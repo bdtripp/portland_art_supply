@@ -86,7 +86,10 @@ if ($create_pressed) {
                 <ul class="<?php echo REQUIREMENTS_CLASS; ?>">
                     <li><?php echo PASSWORD_UPPERCASE_REQUIRE; ?></li>
                     <li><?php echo PASSWORD_DIGIT_REQUIRE; ?></li>
-                    <li><?php echo PASSWORD_SPECIAL_REQUIRE; ?></li>
+                    <li>
+                        <?php echo PASSWORD_SPECIAL_REQUIRE; ?>
+                        <span><?php echo REQUIRED_SPECIAL_CHARACTERS ?></span>
+                    </li>
                     <li><?php echo PASSWORD_LENGTH_REQUIRE; ?></li>
                 </ul>
                 <span id="<?php echo PASSWORD_MESSAGE_ID; ?>" class="<?php echo MESSAGE_CLASS; ?>"></span>

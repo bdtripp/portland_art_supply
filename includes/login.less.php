@@ -106,6 +106,7 @@ html {
             section {
                 display: flex;
                 flex-direction: column;
+                gap: 5px;
 
                 &#password_section {
                     gap: 20px;
@@ -139,6 +140,22 @@ html {
                     flex-direction: column;
                     gap: 5px;
                     list-style-type: disc;
+
+                    li {
+                        line-height: 1.2rem;
+
+                        //have it change to this
+                        
+                        // &::marker {
+                        //     content: "✓"; 
+                        // }
+
+                        span {
+                            display: block;
+                            text-align: center;
+                            letter-spacing: 4px;
+                        }
+                    }
                 }
             }
 
@@ -162,8 +179,6 @@ html {
 
             div.links {
                 display: flex;
-                flex-direction: column;
-                align-items: center;
                 gap: 20px;
 
                 a {
