@@ -33,10 +33,10 @@ const PASSWORD_LENGTH_REQUIRE = 'At least ' . PASSWORD_MIN_LENGTH . ' characters
  * Error Messages
  */
 
+// server-side
+
 const E_LOGIN = 'Error Loggin In!';
 const E_REGISTER = 'Error Registering!';
-
-
 const E_NO_USERNAME = 'Username must be supplied.';
 const E_NO_PASSWORD = 'Password must be supplied.';
 const E_NO_CONFIRM = 'Password confirmation must be supplied.';
@@ -44,3 +44,8 @@ const E_CONFIRM_MISMATCH = 'Password and confirmation must match';
 const E_ACCOUNT_EXISTS = 'Username already exists. Please try a different username.';
 const E_USERNAME_NOT_FOUND = 'Username does not exist.';
 const E_PASSWORD_INCORRECT = 'Password is incorrect.';
+
+// client-side
+
+const E_USERNAME_INVALID_CHARACTER = 'Username can only contain alpha-numeric characters.';
+const E_CONFIRM_NOT_MATCH = 'Confirmation password does not match.';

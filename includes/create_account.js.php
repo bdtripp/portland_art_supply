@@ -8,18 +8,19 @@
 header('Content-Type: text/javascript');
 
 require_once('page_constants.php');
+require_once('login_constants.php');
 ?>
 
-const REQUIRED_SPECIAL_CHARACTERS = "!@#$%^&*~+=";
-const PASSWORD_MIN_LENGTH = 8;
+const REQUIRED_SPECIAL_CHARACTERS = '<?php echo REQUIRED_SPECIAL_CHARACTERS; ?>';
+const PASSWORD_MIN_LENGTH = '<?php echo PASSWORD_MIN_LENGTH; ?>';
 const USERNAME_INPUT_ID = '<?php echo USERNAME_INPUT_ID; ?>';
 const PASSWORD_INPUT_ID = '<?php echo PASSWORD_INPUT_ID; ?>';
 const CONFIRM_PASSWORD_INPUT_ID = '<?php echo CONFIRM_PASSWORD_INPUT_ID; ?>';
 const PASSWORD_MESSAGE_ID = '<?php echo PASSWORD_MESSAGE_ID ?>';
 const USERNAME_MESSAGE_ID = '<?php echo USERNAME_MESSAGE_ID ?>';
 const CONFIRM_PASSWORD_MESSAGE_ID = '<?php echo CONFIRM_PASSWORD_MESSAGE_ID ?>';
-const USERNAME_INVALID_CHARACTER_ERROR = 'Username can only contain alpha-numeric characters.';
-const CONFIRM_NOT_MATCH_ERROR = 'Confirmation password doesn\'t match.';
+const E_USERNAME_INVALID_CHARACTER = 'Username can only contain alpha-numeric characters.';
+const E_CONFIRM_NOT_MATCH = 'Confirmation password does not match.';
 const UPPERCASE_REQUIREMENT_ID = '<?php echo UPPERCASE_REQUIREMENT_ID; ?>';
 const DIGIT_REQUIREMENT_ID = '<?php echo DIGIT_REQUIREMENT_ID; ?>';
 const SPECIAL_CHAR_REQUIREMENT_ID = '<?php echo SPECIAL_CHAR_REQUIREMENT_ID; ?>';
@@ -50,8 +51,8 @@ function getValue(id) {
     return document.getElementById(id).value;
 }
 
-function clearMessage(id) {
-    document.getElementById(id).innerText = '';
+function removeText(element) {
+    element.innerText = '';
 }
 
 function isValidLength(input) {
@@ -75,7 +76,7 @@ function checkUsernameRequirements(input) {
 
     for (count = 0; count < input.length; count++) {
         if (!isLower(input.charAt(count)) && !isUpper(input.charAt(count)) && !isDigit(input.charAt(count))) {
-            setErrorMessage(USERNAME_MESSAGE_ID, USERNAME_INVALID_CHARACTER_ERROR);
+            setErrorMessage(USERNAME_MESSAGE_ID, E_USERNAME_INVALID_CHARACTER);
             meetsRequirements = false;
         }
     }
@@ -144,7 +145,7 @@ function checkConfirmRequirements(input) {
     let password = getValue(PASSWORD_INPUT_ID);
 
     if (password !== input) {
-        setErrorMessage(CONFIRM_PASSWORD_MESSAGE_ID, CONFIRM_NOT_MATCH_ERROR);
+        setErrorMessage(CONFIRM_PASSWORD_MESSAGE_ID, E_CONFIRM_NOT_MATCH);
         return false;
     } else {
         return true;
@@ -153,8 +154,11 @@ function checkConfirmRequirements(input) {
 
 function checkIfValidUsername() {
     let input = getValue(USERNAME_INPUT_ID);
+    let usernameMessageSpan = document.getElementById(USERNAME_MESSAGE_ID);
+    let errorSymbolSpan = usernameMessageSpan.previousElementSibling;
 
-    clearMessage(USERNAME_MESSAGE_ID);
+    removeText(usernameMessageSpan);
+    removeText(errorSymbolSpan);
     return checkUsernameRequirements(input);
 }
 
@@ -172,8 +176,11 @@ function checkIfValidPassword(submitClicked) {
 
 function checkIfValidConfirm() {
     let input = getValue(CONFIRM_PASSWORD_INPUT_ID);
+    let confirmMessageSpan = document.getElementById(CONFIRM_PASSWORD_MESSAGE_ID);
+    let errorSymbolSpan = confirmMessageSpan.previousElementSibling;
 
-    clearMessage(CONFIRM_PASSWORD_MESSAGE_ID);
+    removeText(confirmMessageSpan);
+    removeText(errorSymbolSpan);
     return checkConfirmRequirements(input);
 }
 

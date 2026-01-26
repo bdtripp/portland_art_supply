@@ -41,7 +41,7 @@ html body form {
   box-shadow: 5px 5px 20px #AAA;
 }
 html body form h2 {
-  font-size: 2.4rem;
+  font-size: 2.2rem;
   color: #B83906;
   font-weight: bold;
   text-align: center;
@@ -91,6 +91,8 @@ html body form section ul.requirements {
   flex-direction: column;
   gap: 8px;
   list-style-type: disc;
+  font-size: 0.8rem;
+  list-style-position: inside;
 }
 html body form section ul.requirements li {
   line-height: 1.2rem;

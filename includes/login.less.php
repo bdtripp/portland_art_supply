@@ -96,7 +96,7 @@ html {
             box-shadow: 5px 5px 20px #AAA;
 
             h2 {
-                font-size: 2.4rem;
+                font-size: 2.2rem;
                 color: @secondary-color3;
                 font-weight: bold;
                 text-align: center;
@@ -154,6 +154,8 @@ html {
                     flex-direction: column;
                     gap: 8px;
                     list-style-type: disc;
+                    font-size: .8rem;
+                    list-style-position: inside;
 
                     li {
                         line-height: 1.2rem;

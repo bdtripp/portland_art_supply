@@ -104,7 +104,10 @@ if ($create_pressed) {
                     value="<?php echo $create_confirm_password; ?>" 
                     required
                 />
-                <span id="<?php echo CONFIRM_PASSWORD_MESSAGE_ID; ?>" class="<?php echo MESSAGE_CLASS; ?>"></span>
+                <div class="<?php echo MESSAGE_WRAPPER_CLASS; ?>">
+                    <span class="<?php echo ERROR_SYMBOL_CLASS; ?>"></span>
+                    <span id="<?php echo CONFIRM_PASSWORD_MESSAGE_ID; ?>" class="<?php echo MESSAGE_CLASS; ?>"></span>
+                </div>
            </section>
             <input 
                 id="<?php echo CREATE_ACCOUNT_BUTTON_ID; ?>" 
