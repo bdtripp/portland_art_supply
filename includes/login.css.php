@@ -41,7 +41,7 @@ html body form {
   box-shadow: 5px 5px 20px #AAA;
 }
 html body form h2 {
-  font-size: 3rem;
+  font-size: 2.4rem;
   color: #B83906;
   font-weight: bold;
   text-align: center;
@@ -88,6 +88,12 @@ html body form section ul.requirements {
 }
 html body form section ul.requirements li {
   line-height: 1.2rem;
+}
+html body form section ul.requirements li.meets_requirements {
+  color: green;
+}
+html body form section ul.requirements li.meets_requirements::marker {
+  content: "✓\00A0";
 }
 html body form section ul.requirements li span {
   display: block;
@@ -151,4 +157,8 @@ html body form div.links a:hover {
 html body form div.links a:visited {
   color: #333333;
   background-color: #fcfcfc;
+}
+html body form div.links a#home_link {
+  display: flex;
+  align-items: center;
 }

@@ -10,20 +10,24 @@ header('Content-Type: text/javascript');
 require_once('page_constants.php');
 ?>
 
-var REQUIRED_SPECIAL_CHARACTERS = "!@#$%^&*~+=";
-var PASSWORD_MIN_LENGTH = 8;
-var USERNAME_INPUT_ID = '<?php echo USERNAME_INPUT_ID; ?>';
-var PASSWORD_INPUT_ID = '<?php echo PASSWORD_INPUT_ID; ?>';
-var CONFIRM_PASSWORD_INPUT_ID = '<?php echo CONFIRM_PASSWORD_INPUT_ID; ?>';
-var PASSWORD_MESSAGE_ID = '<?php echo PASSWORD_MESSAGE_ID ?>';
-var USERNAME_MESSAGE_ID = '<?php echo USERNAME_MESSAGE_ID ?>';
-var CONFIRM_PASSWORD_MESSAGE_ID = '<?php echo CONFIRM_PASSWORD_MESSAGE_ID ?>';
-var PASSWORD_UPPERCASE_ERROR = 'Password must contain at least 1 uppercase character.';
-var PASSWORD_DIGIT_ERROR = 'Password must contain at least 1 digit.';
-var PASSWORD_SPECIAL_ERROR = 'Password must contain at least 1 of the following:\n' + REQUIRED_SPECIAL_CHARACTERS;
-var PASSWORD_LENGTH_ERROR = 'Password must be at least ' + PASSWORD_MIN_LENGTH + ' characters long.';
-var USERNAME_INVALID_CHARACTER_ERROR = 'Username can only contain alpha-numeric characters.';
-var CONFIRM_NOT_MATCH_ERROR = 'Confirmation password doesn\'t match.';
+const REQUIRED_SPECIAL_CHARACTERS = "!@#$%^&*~+=";
+const PASSWORD_MIN_LENGTH = 8;
+const USERNAME_INPUT_ID = '<?php echo USERNAME_INPUT_ID; ?>';
+const PASSWORD_INPUT_ID = '<?php echo PASSWORD_INPUT_ID; ?>';
+const CONFIRM_PASSWORD_INPUT_ID = '<?php echo CONFIRM_PASSWORD_INPUT_ID; ?>';
+const PASSWORD_MESSAGE_ID = '<?php echo PASSWORD_MESSAGE_ID ?>';
+const USERNAME_MESSAGE_ID = '<?php echo USERNAME_MESSAGE_ID ?>';
+const CONFIRM_PASSWORD_MESSAGE_ID = '<?php echo CONFIRM_PASSWORD_MESSAGE_ID ?>';
+const PASSWORD_UPPERCASE_ERROR = 'Password must contain at least 1 uppercase character.';
+const PASSWORD_DIGIT_ERROR = 'Password must contain at least 1 digit.';
+const PASSWORD_SPECIAL_ERROR = 'Password must contain at least 1 of the following:\n' + REQUIRED_SPECIAL_CHARACTERS;
+const PASSWORD_LENGTH_ERROR = 'Password must be at least ' + PASSWORD_MIN_LENGTH + ' characters long.';
+const USERNAME_INVALID_CHARACTER_ERROR = 'Username can only contain alpha-numeric characters.';
+const CONFIRM_NOT_MATCH_ERROR = 'Confirmation password doesn\'t match.';
+const UPPERCASE_REQUIREMENT_ID = '<?php echo UPPERCASE_REQUIREMENT_ID; ?>';
+const DIGIT_REQUIREMENT_ID = '<?php echo DIGIT_REQUIREMENT_ID; ?>';
+const SPECIAL_CHAR_REQUIREMENT_ID = '<?php echo SPECIAL_CHAR_REQUIREMENT_ID; ?>';
+const LENGTH_REQUIREMENT_ID = '<?php echo LENGTH_REQUIREMENT_ID; ?>';
 
 function isUpper(character) {
     return character >= 'A' && character <= 'Z';
@@ -51,7 +55,7 @@ function clearMessage(id) {
 
 function checkIfValidLength(input) {
     if (input.length < PASSWORD_MIN_LENGTH) {
-        setErrorMessage(PASSWORD_MESSAGE_ID, PASSWORD_LENGTH_ERROR)
+        // setErrorMessage(PASSWORD_MESSAGE_ID, PASSWORD_LENGTH_ERROR)
         return false;
     } else {
         return true;
@@ -78,6 +82,7 @@ function checkPasswordRequirements(input) {
     let hasUpper = false;
     let hasDigit = false;
     let hasSpecial = false;
+    let uppercaseRequirement = document.getElementById(UPPERCASE_REQUIREMENT_ID);
 
     for (count = 0; count < input.length; count++) {
         if (isUpper(input.charAt(count))) {
@@ -91,12 +96,12 @@ function checkPasswordRequirements(input) {
         }
     }
 
-    if (!hasUpper) {
-        setErrorMessage(PASSWORD_MESSAGE_ID, PASSWORD_UPPERCASE_ERROR);
-    } else if (!hasDigit) {
-        setErrorMessage(PASSWORD_MESSAGE_ID, PASSWORD_DIGIT_ERROR);
-    } else if (!hasSpecial) {
-        setErrorMessage(PASSWORD_MESSAGE_ID, PASSWORD_SPECIAL_ERROR);
+    hasUpper ? markOffRequirement(uppercaseRequirement) : showRequirementNeeded(uppercaseRequirement);
+    
+    if (hasDigit) {
+        // setErrorMessage(PASSWORD_MESSAGE_ID, PASSWORD_DIGIT_ERROR);
+    } else if (hasSpecial) {
+        // setErrorMessage(PASSWORD_MESSAGE_ID, PASSWORD_SPECIAL_ERROR);
     }
 
     if (hasUpper && hasDigit && hasSpecial) {
@@ -104,6 +109,14 @@ function checkPasswordRequirements(input) {
     } else {
         return false;
     }
+}
+
+function markOffRequirement(requirement) {
+    requirement.classList.add('meets_requirements');
+}
+
+function showRequirementNeeded(requirement) {
+    requirement.classList.remove('meets_requirements');
 }
 
 function checkConfirmRequirements(input) {
@@ -127,7 +140,7 @@ function checkIfValidUsername() {
 function checkIfValidPassword() {
     let input = getValue(PASSWORD_INPUT_ID);
 
-    clearMessage(PASSWORD_MESSAGE_ID);
+    // clearMessage(PASSWORD_MESSAGE_ID);
     let validLength = checkIfValidLength(input);
     let meetsRequirements = checkPasswordRequirements(input);
 

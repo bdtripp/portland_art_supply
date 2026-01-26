@@ -102,36 +102,6 @@ function show_subcategory_dropdown($category) {
     echo '                </ul>' . "\n";
 }
 
-function show_subcategory_content($categoryID, $categoryName) {
-    echo '<main>' . "\n";
-    echo '    <h2 class="' . LARGE_H2 . '">' . $categoryName . '</h2>' . "\n\n";
-    echo '    <section class="' . SUB_INTRO_CLASS . '">' . "\n";
-    echo '        <p>To view our products, select the type of ' . strtolower($categoryName) . ' you are looking for.</p>' . "\n";
-    echo '    </section>' . "\n\n";
-    echo '    <section class="' . SUBCATEGORIES_CLASS . ' ' . SIX_COLUMNS_CLASS . '">' . "\n\n";
-    show_subcategories($categoryID, $categoryName, ROWS_PER_COLUMN);
-    show_subcategories($categoryID, $categoryName, ROWS_PER_COLUMN + ROWS_PER_COLUMN);
-    echo '    </section>' . "\n\n";
-    echo '    <section class="' . LARGE_IMAGE_CLASS . ' ' . SIX_COLUMNS_CLASS . '"></section>' . "\n";
-    echo '</main>' . "\n\n";
-}
-
-function show_subcategories($categoryID, $categoryName, $rowsPerColumn) {
-    $subcategories = lookup_subcategories($categoryID);
-
-    echo '        <div class="' . SIX_COLUMNS_CLASS . '">' . "\n";
-    echo '            <ul>' . "\n";
-    for ($i = $rowsPerColumn - ROWS_PER_COLUMN; ($i < $rowsPerColumn) && ($i < count($subcategories)); $i++) {
-        echo '                <li class="' . SUBCATEGORY_BUTTON_CLASS . '">' . "\n";
-        echo '                    <a href="' . GROUP_PRODUCTS_PAGE . "?" . PRODUCT_CATEGORY_NAME_FIELD . "=" . urlencode($categoryName) . "&" .
-            PRODUCT_SUBCATEGORY_NAME_FIELD . "=" . urlencode($subcategories[$i][PRODUCT_SUBCATEGORY_NAME_FIELD]) . '">'
-            . ucfirst($subcategories[$i][PRODUCT_SUBCATEGORY_NAME_FIELD]) . '</a>' . "\n";
-        echo '                </li>' . "\n";
-    }
-    echo '            </ul>' . "\n";
-    echo '        </div>' . "\n\n";
-}
-
 function show_group_content($products) {
     echo '<main>' . "\n";
     echo '    <h2 class="' . LARGE_H2 . '">' . $products[0][PRODUCT_SUBCATEGORY_NAME_FIELD] . '</h2>' . "\n\n";

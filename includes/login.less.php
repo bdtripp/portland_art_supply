@@ -96,7 +96,7 @@ html {
             box-shadow: 5px 5px 20px #AAA;
 
             h2 {
-                font-size: 3rem;
+                font-size: 2.4rem;
                 color: @secondary-color3;
                 font-weight: bold;
                 text-align: center;
@@ -144,12 +144,15 @@ html {
                     li {
                         line-height: 1.2rem;
 
-                        //have it change to this
-                        
-                        // &::marker {
-                        //     content: "✓"; 
-                        // }
+                        &.meets_requirements {
+                            color: green;
 
+                            &::marker {
+                                // \00A0 is for space after checkmark
+                                content: "✓\00A0"; 
+                            }
+                        }
+                        
                         span {
                             display: block;
                             text-align: center;
@@ -190,6 +193,11 @@ html {
                     &:visited {
                         color: @dark-gray;
                         background-color: @off-white;
+                    }
+
+                    &#home_link {
+                        display: flex;
+                        align-items: center;
                     }
                 }
             }

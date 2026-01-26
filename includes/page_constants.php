@@ -108,6 +108,11 @@ const INSTAGRAM_ID = 'instagram';
 const PINTEREST_ID = 'pinterest';
 const CREATE_ACCOUNT_LINK_ID = "create_account_link";
 const HOME_LINK_ID = "home_link";
+const UPPERCASE_REQUIREMENT_ID = "uppercase_requirement";
+const DIGIT_REQUIREMENT_ID = "digit_requirement";
+const SPECIAL_CHAR_REQUIREMENT_ID = "special_char_requirement";
+const LENGTH_REQUIREMENT_ID = "length_requirement";
+
 
 /*
  * Classes

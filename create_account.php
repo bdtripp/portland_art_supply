@@ -60,7 +60,7 @@ if ($create_pressed) {
     <body>
     <?php echo $error_message; ?>
         <form method="POST" action="create_account.php" onsubmit="return checkIfValid();" >
-            <h2>Create a New Account</h2>
+            <h2>Create an Account</h2>
             <section>
                 <label for="<?php echo USERNAME_INPUT_ID; ?>">Username:</label>
                 <input 
@@ -84,15 +84,14 @@ if ($create_pressed) {
                 </div>
                 <p>Password requirements:</p>
                 <ul class="<?php echo REQUIREMENTS_CLASS; ?>">
-                    <li><?php echo PASSWORD_UPPERCASE_REQUIRE; ?></li>
-                    <li><?php echo PASSWORD_DIGIT_REQUIRE; ?></li>
-                    <li>
+                    <li id="<?php echo UPPERCASE_REQUIREMENT_ID; ?>"><?php echo PASSWORD_UPPERCASE_REQUIRE; ?></li>
+                    <li id="<?php echo DIGIT_REQUIREMENT_ID; ?>"><?php echo PASSWORD_DIGIT_REQUIRE; ?></li>
+                    <li id="<?php echo SPECIAL_CHAR_REQUIREMENT_ID; ?>">
                         <?php echo PASSWORD_SPECIAL_REQUIRE; ?>
                         <span><?php echo REQUIRED_SPECIAL_CHARACTERS ?></span>
                     </li>
-                    <li><?php echo PASSWORD_LENGTH_REQUIRE; ?></li>
+                    <li id="<?php echo LENGTH_REQUIREMENT_ID; ?>"><?php echo PASSWORD_LENGTH_REQUIRE; ?></li>
                 </ul>
-                <span id="<?php echo PASSWORD_MESSAGE_ID; ?>" class="<?php echo MESSAGE_CLASS; ?>"></span>
             </section>
             <section>
                 <label for="<?php echo CONFIRM_PASSWORD_INPUT_ID; ?>">Confirm Password:</label>
