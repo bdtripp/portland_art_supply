@@ -70,8 +70,14 @@ html body form section input {
   border-radius: 10px;
   width: 175px;
 }
-html body form section span.message {
+html body form section div.message_wrapper {
+  display: flex;
+  gap: 5px;
   color: red;
+  font-size: 0.8rem;
+  justify-content: center;
+}
+html body form section div.message_wrapper span.message {
   width: 175px;
 }
 html body form section div.wrapper {
@@ -83,7 +89,7 @@ html body form section div.wrapper {
 html body form section ul.requirements {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 8px;
   list-style-type: disc;
 }
 html body form section ul.requirements li {

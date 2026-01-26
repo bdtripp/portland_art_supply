@@ -70,7 +70,10 @@ if ($create_pressed) {
                     value="<?php echo $create_username; ?>"
                     required
                 />
-                <span id="<?php echo USERNAME_MESSAGE_ID; ?>" class="<?php echo MESSAGE_CLASS; ?>"></span>
+                <div class="<?php echo MESSAGE_WRAPPER_CLASS; ?>">
+                    <span class="<?php echo ERROR_SYMBOL_CLASS; ?>"></span>
+                    <span id="<?php echo USERNAME_MESSAGE_ID; ?>" class="<?php echo MESSAGE_CLASS; ?>"></span>
+                </div>
             </section>
             <section id="<?php echo PASSWORD_SECTION_CLASS ?>">
                 <div class="<?php echo WRAPPER_CLASS; ?>">

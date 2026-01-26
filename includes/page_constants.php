@@ -168,6 +168,8 @@ const STILL_NEEDED_CLASS = 'still_needed';
 const COLOR_THUMBNAIL_CLASS = 'color_tn';
 const WRAPPER_CLASS = "wrapper";
 const PASSWORD_SECTION_CLASS = "password_section";
+const ERROR_SYMBOL_CLASS = "error_symbol";
+const MESSAGE_WRAPPER_CLASS = "message_wrapper";
 
 /*
  * Social Media Sites

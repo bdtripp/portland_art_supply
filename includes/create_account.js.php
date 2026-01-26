@@ -18,10 +18,6 @@ const CONFIRM_PASSWORD_INPUT_ID = '<?php echo CONFIRM_PASSWORD_INPUT_ID; ?>';
 const PASSWORD_MESSAGE_ID = '<?php echo PASSWORD_MESSAGE_ID ?>';
 const USERNAME_MESSAGE_ID = '<?php echo USERNAME_MESSAGE_ID ?>';
 const CONFIRM_PASSWORD_MESSAGE_ID = '<?php echo CONFIRM_PASSWORD_MESSAGE_ID ?>';
-const PASSWORD_UPPERCASE_ERROR = 'Password must contain at least 1 uppercase character.';
-const PASSWORD_DIGIT_ERROR = 'Password must contain at least 1 digit.';
-const PASSWORD_SPECIAL_ERROR = 'Password must contain at least 1 of the following:\n' + REQUIRED_SPECIAL_CHARACTERS;
-const PASSWORD_LENGTH_ERROR = 'Password must be at least ' + PASSWORD_MIN_LENGTH + ' characters long.';
 const USERNAME_INVALID_CHARACTER_ERROR = 'Username can only contain alpha-numeric characters.';
 const CONFIRM_NOT_MATCH_ERROR = 'Confirmation password doesn\'t match.';
 const UPPERCASE_REQUIREMENT_ID = '<?php echo UPPERCASE_REQUIREMENT_ID; ?>';
@@ -31,6 +27,7 @@ const LENGTH_REQUIREMENT_ID = '<?php echo LENGTH_REQUIREMENT_ID; ?>';
 const REQUIREMENTS_CLASS = '<?php echo REQUIREMENTS_CLASS; ?>';
 const MEETS_REQUIREMENTS_CLASS = '<?php echo MEETS_REQUIREMENTS_CLASS; ?>';
 const STILL_NEEDED_CLASS = '<?php echo STILL_NEEDED_CLASS; ?>';
+const ERROR_SYMBOL_CLASS = '<?php echo ERROR_SYMBOL_CLASS; ?>';
 
 
 function isUpper(character) {
@@ -66,7 +63,11 @@ function isValidLength(input) {
 }
 
 function setErrorMessage(id, message) {
-    document.getElementById(id).innerText = message;
+    let messageSpan = document.getElementById(id)
+    let symbolSpan = messageSpan.previousElementSibling;
+
+    symbolSpan.innerText = "⚠ ";
+    messageSpan.innerText = message;
 }
 
 function checkUsernameRequirements(input) {

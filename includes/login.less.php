@@ -122,10 +122,24 @@ html {
                     .input_style();
                     width: 175px;
                 }
-                
-                span.message {
+
+                div.message_wrapper {
+                    display: flex;
+                    gap: 5px;
                     color: red;
-                    width: 175px;
+                    font-size: .8rem;
+                    justify-content: center;
+
+                    span {
+
+                        &.error_symbol {
+                            
+                        }
+
+                        &.message {
+                            width: 175px;
+                        }
+                    }
                 }
 
                 div.wrapper {
@@ -138,7 +152,7 @@ html {
                 ul.requirements {
                     display: flex;
                     flex-direction: column;
-                    gap: 5px;
+                    gap: 8px;
                     list-style-type: disc;
 
                     li {
