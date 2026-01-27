@@ -42,6 +42,7 @@ const E_NO_PASSWORD = 'Password must be supplied.';
 const E_NO_CONFIRM = 'Password confirmation must be supplied.';
 const E_CONFIRM_MISMATCH = 'Password and confirmation must match';
 const E_ACCOUNT_EXISTS = 'Username already exists. Please try a different username.';
+// for login
 const E_USERNAME_NOT_FOUND = 'Username does not exist.';
 const E_PASSWORD_INCORRECT = 'Password is incorrect.';
 

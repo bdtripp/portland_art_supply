@@ -44,26 +44,33 @@ function login($username, $password, $returnToUrl) {
 }
 
 function register($username, $password, $confirm, $returnToUrl) {
+    $errorStatus = new stdClass();
+
     if (empty($username)) {
-        return error_message(E_REGISTER, E_NO_USERNAME);
+        $errorStatus->usernameError = E_NO_USERNAME;
     }
 
     if (empty($password)) {
-        return error_message(E_REGISTER, E_NO_PASSWORD);
+        $errorStatus->passwordError = E_NO_PASSWORD;
     }
 
     if (empty($confirm)) {
-        return error_message(E_REGISTER, E_NO_CONFIRM);
+        $errorStatus->confirmPassError = E_NO_CONFIRM;
     }
 
     if ($password != $confirm) {
-        return error_message(E_REGISTER, E_CONFIRM_MISMATCH);
+        $errorStatus->confrimPassError = E_CONFIRM_MISMATCH;
     }
 
     $user = lookup_user($username);
 
     if (!empty($user)) {
-        return error_message(E_REGISTER, E_ACCOUNT_EXISTS);
+        $errorStatus->usernameError = E_ACCOUNT_EXISTS;
+    }
+
+    // if there are any errors, return without loggin in
+    if (!empty((array)$errorStatus)) {
+        return $errorStatus;
     }
 
     add_user($username, password_hash($password, PASSWORD_DEFAULT));
