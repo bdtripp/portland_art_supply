@@ -13,22 +13,29 @@ function set_user($userID, $username, $returnToUrl) {
 }
 
 function login($username, $password, $returnToUrl) {
+    $errorStatus = new stdClass();
+
     if (empty($username)) {
-        return error_message(E_LOGIN, E_NO_USERNAME);
+        $errorStatus->usernameError = E_NO_USERNAME;
     }
 
     if (empty($password)) {
-        return error_message(E_LOGIN, E_NO_PASSWORD);
+        $errorStatus->passwordError = E_NO_PASSWORD;
     }
 
     $user = lookup_user($username);
 
     if (!$user) {
-        return error_message(E_LOGIN, E_USERNAME_NOT_FOUND);
+        $errorStatus->usernameError = E_USERNAME_NOT_FOUND;
     }
 
     if (!password_verify($password, $user[USERS_HASH_FIELD])) {
-        return error_message(E_LOGIN, E_PASSWORD_INCORRECT);
+        $errorStatus->usernameError = E_PASSWORD_INCORRECT;
+    }
+
+    // if there are any errors, return without loggin in
+    if (!empty((array)$errorStatus)) {
+        return $errorStatus;
     }
 
     set_user($user[USER_ID_FIELD], $username, $returnToUrl);

@@ -30,7 +30,6 @@ if (!$login_pressed && isset($_SERVER['HTTP_REFERER'])) {
     } else {
         $error_message = login($login_username, $login_password, HOME_PAGE);
     }
-
 }
 
 ?>
@@ -68,8 +67,16 @@ if (!$login_pressed && isset($_SERVER['HTTP_REFERER'])) {
                     type="text" 
                     name="<?php echo LOGIN_USERNAME_KEY; ?>" 
                     value="<?php echo $login_username; ?>"
-                    required
+                    <?php //required ?>
                 />
+                <div class="<?php echo MESSAGE_WRAPPER_CLASS; ?>">
+                    <span class="<?php echo ERROR_SYMBOL_CLASS; ?>">
+                        <?php echo isset($errorStatus->usernameError) ? showErrorSymbol() : '' ?>
+                    </span>
+                    <span id="<?php echo USERNAME_MESSAGE_ID; ?>" class="<?php echo MESSAGE_CLASS; ?>">
+                        <?php echo isset($errorStatus->usernameError) ? $errorStatus->usernameError : '' ?>
+                    </span>
+                </div>
             </section>
             <section>
                 <label for="<?php echo LOGIN_PASSWORD_KEY; ?>">Password:</label>
@@ -77,8 +84,16 @@ if (!$login_pressed && isset($_SERVER['HTTP_REFERER'])) {
                     id="<?php echo LOGIN_PASSWORD_KEY; ?>" 
                     type="password" name="<?php echo LOGIN_PASSWORD_KEY; ?>" 
                     value="<?php echo $login_password; ?>" 
-                    required
+                    <?php //required ?>
                 />
+                <div class="<?php echo MESSAGE_WRAPPER_CLASS; ?>">
+                    <span class="<?php echo ERROR_SYMBOL_CLASS; ?>">
+                        <?php echo isset($errorStatus->passwordError) ? showErrorSymbol() : '' ?>
+                    </span>
+                    <span id="<?php echo PASSWORD_MESSAGE_ID; ?>" class="<?php echo MESSAGE_CLASS; ?>">
+                        <?php echo isset($errorStatus->passwordError) ? $errorStatus->passwordError : '' ?>
+                    </span>
+                </div>
             </section>
             <input class="login_btn" type="submit" name="<?php echo LOGIN_BUTTON_VALUE; ?>" value="Log In" />
             <p>- or -</p>
