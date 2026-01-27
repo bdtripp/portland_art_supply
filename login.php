@@ -20,15 +20,16 @@ require_once('includes/page_constants.php');
 $login_username = get_post_value(LOGIN_USERNAME_KEY);
 $login_password = get_post_value(LOGIN_PASSWORD_KEY);
 $login_pressed = get_post_value(LOGIN_BUTTON_VALUE);
-$error_message = '';
+$errorStatus = new stdClass();
+
 if (!$login_pressed && isset($_SERVER['HTTP_REFERER'])) {
     set_session_value(SESSION_RETURN_TO_URL, $_SERVER['HTTP_REFERER']);
 } else {
     $returnToUrl = get_session_value(SESSION_RETURN_TO_URL);
     if ($returnToUrl != DOMAIN_NAME . CREATE_ACCOUNT_PAGE) {
-        $error_message = login($login_username, $login_password, $returnToUrl);
+        $errorStatus = login($login_username, $login_password, $returnToUrl);
     } else {
-        $error_message = login($login_username, $login_password, HOME_PAGE);
+        $errorStatus = login($login_username, $login_password, HOME_PAGE);
     }
 }
 
@@ -57,7 +58,6 @@ if (!$login_pressed && isset($_SERVER['HTTP_REFERER'])) {
         <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
     </head>
     <body>
-    <?php echo $error_message; ?>
         <form method="POST" action="login.php">
             <h2>Log In</h2>
             <section>
@@ -67,7 +67,7 @@ if (!$login_pressed && isset($_SERVER['HTTP_REFERER'])) {
                     type="text" 
                     name="<?php echo LOGIN_USERNAME_KEY; ?>" 
                     value="<?php echo $login_username; ?>"
-                    <?php //required ?>
+                    required
                 />
                 <div class="<?php echo MESSAGE_WRAPPER_CLASS; ?>">
                     <span class="<?php echo ERROR_SYMBOL_CLASS; ?>">
@@ -84,7 +84,7 @@ if (!$login_pressed && isset($_SERVER['HTTP_REFERER'])) {
                     id="<?php echo LOGIN_PASSWORD_KEY; ?>" 
                     type="password" name="<?php echo LOGIN_PASSWORD_KEY; ?>" 
                     value="<?php echo $login_password; ?>" 
-                    <?php //required ?>
+                    required
                 />
                 <div class="<?php echo MESSAGE_WRAPPER_CLASS; ?>">
                     <span class="<?php echo ERROR_SYMBOL_CLASS; ?>">
