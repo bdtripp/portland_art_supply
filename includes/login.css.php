@@ -144,7 +144,7 @@ html body form input#create_account_btn {
   letter-spacing: 1px;
   margin: 20px 0 0 0;
   line-height: 1.3rem;
-  padding: 16px 30px;
+  padding: 16px 16px;
   width: 228px;
   border: none;
 }

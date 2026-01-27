@@ -6,13 +6,6 @@
  * Time: 4:36 PM
  */
 
-function error_message($type, $detail) {
-    return '<div id="' . ERROR_MESSAGE_CONTAINER . '">
-                <div id="error_header">' . $type . '</div>
-                <div id="error_detail">' . $detail . '</div>
-            </div>';
-}
-
 function set_user($userID, $username, $returnToUrl) {
     set_session_value(SESSION_USER_ID_KEY, $userID);
     set_session_value(SESSION_USERNAME_KEY, $username);
@@ -58,8 +51,8 @@ function register($username, $password, $confirm, $returnToUrl) {
         $errorStatus->confirmPassError = E_NO_CONFIRM;
     }
 
-    if ($password != $confirm) {
-        $errorStatus->confrimPassError = E_CONFIRM_MISMATCH;
+    if ((!empty($confirm)) && ($password != $confirm)) {
+        $errorStatus->confirmPassError = E_CONFIRM_MISMATCH;
     }
 
     $user = lookup_user($username);
@@ -76,4 +69,8 @@ function register($username, $password, $confirm, $returnToUrl) {
     add_user($username, password_hash($password, PASSWORD_DEFAULT));
     $user = lookup_user($username);
     set_user($user[USER_ID_FIELD], $username, $returnToUrl);
+}
+
+function showErrorSymbol() {
+    return "⚠ ";
 }

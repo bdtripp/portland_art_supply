@@ -35,8 +35,10 @@ const PASSWORD_LENGTH_REQUIRE = 'At least ' . PASSWORD_MIN_LENGTH . ' characters
 
 // server-side
 
+// delete the following two after fixing login page
 const E_LOGIN = 'Error Loggin In!';
 const E_REGISTER = 'Error Registering!';
+// for creating an account
 const E_NO_USERNAME = 'Username must be supplied.';
 const E_NO_PASSWORD = 'Password must be supplied.';
 const E_NO_CONFIRM = 'Password confirmation must be supplied.';

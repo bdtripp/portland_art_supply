@@ -14,22 +14,18 @@ require_once('includes/db_constants.php');
 require_once('includes/db_code.php');
 require_once('includes/page_constants.php');
 
-$create_username = get_post_value(CREATE_USERNAME_KEY);
-$create_password = get_post_value(CREATE_PASSWORD_KEY);
-$create_confirm_password = get_post_value(CREATE_CONFIRM_PASSWORD_KEY);
-$create_pressed = get_post_value(CREATE_ACCOUNT_BUTTON_ID);
-$error_message = '';
-// $username_error = '';
-// $password_error = '';
-// $confirm_password_error = '';
+$createUsername = get_post_value(CREATE_USERNAME_KEY);
+$createPassword = get_post_value(CREATE_PASSWORD_KEY);
+$createConfirmPassword = get_post_value(CREATE_CONFIRM_PASSWORD_KEY);
+$createPressed = get_post_value(CREATE_ACCOUNT_BUTTON_ID);
+$errorStatus = new stdClass();
 
-
-if ($create_pressed) {
+if ($createPressed) {
     $returnToUrl = get_session_value(SESSION_RETURN_TO_URL);
     if ($returnToUrl != DOMAIN_NAME . CREATE_ACCOUNT_PAGE) {
-        $errorStatus = register($create_username, $create_password, $create_confirm_password, $returnToUrl);
+        $errorStatus = register($createUsername, $createPassword, $createConfirmPassword, $returnToUrl);
     } else {
-        $errorStatus = register($create_username, $create_password, $create_confirm_password, HOME_PAGE);
+        $errorStatus = register($createUsername, $createPassword, $createConfirmPassword, HOME_PAGE);
     }
 }
 
@@ -60,7 +56,7 @@ if ($create_pressed) {
 
     </head>
     <body>
-        <form method="POST" action="create_account.php" > <!-- onsubmit="return checkIfValid();" -->
+        <form method="POST" action="create_account.php" onsubmit="return checkIfValid();"> <!--  -->
             <h2>Create an Account</h2>
             <section>
                 <label for="<?php echo USERNAME_INPUT_ID; ?>">Username:</label>
@@ -68,11 +64,14 @@ if ($create_pressed) {
                     id="<?php echo USERNAME_INPUT_ID; ?>" 
                     type="text" 
                     name="<?php echo CREATE_USERNAME_KEY; ?>" 
-                    value="<?php echo $create_username; ?>"
+                    value="<?php echo $createUsername; ?>"
+                    required
                     <?php //required ?>
                 />
                 <div class="<?php echo MESSAGE_WRAPPER_CLASS; ?>">
-                    <span class="<?php echo ERROR_SYMBOL_CLASS; ?>"></span>
+                    <span class="<?php echo ERROR_SYMBOL_CLASS; ?>">
+                        <?php echo isset($errorStatus->usernameError) ? showErrorSymbol() : '' ?>
+                    </span>
                     <span id="<?php echo USERNAME_MESSAGE_ID; ?>" class="<?php echo MESSAGE_CLASS; ?>">
                         <?php echo isset($errorStatus->usernameError) ? $errorStatus->usernameError : '' ?>
                     </span>
@@ -84,9 +83,18 @@ if ($create_pressed) {
                     <input 
                         id="<?php echo PASSWORD_INPUT_ID; ?>" 
                         type="password" name="<?php echo CREATE_PASSWORD_KEY; ?>" 
-                        value="<?php echo $create_password; ?>" 
+                        value="<?php echo $createPassword; ?>" 
+                        required
                         <?php //required ?>
                     />
+                    <div class="<?php echo MESSAGE_WRAPPER_CLASS; ?>">
+                        <span class="<?php echo ERROR_SYMBOL_CLASS; ?>">
+                            <?php echo isset($errorStatus->passwordError) ? showErrorSymbol() : '' ?>
+                        </span>
+                        <span id="<?php echo PASSWORD_MESSAGE_ID; ?>" class="<?php echo MESSAGE_CLASS; ?>">
+                            <?php echo isset($errorStatus->passwordError) ? $errorStatus->passwordError : '' ?>
+                        </span>
+                    </div>
                 </div>
                 <p>Password requirements:</p>
                 <ul class="<?php echo REQUIREMENTS_CLASS; ?>">
@@ -104,12 +112,17 @@ if ($create_pressed) {
                 <input 
                     id="<?php echo CONFIRM_PASSWORD_INPUT_ID; ?>" 
                     type="password" name="<?php echo CREATE_CONFIRM_PASSWORD_KEY; ?>" 
-                    value="<?php echo $create_confirm_password; ?>" 
+                    value="<?php echo $createConfirmPassword; ?>" 
+                    required
                     <?php //required ?>
                 />
                 <div class="<?php echo MESSAGE_WRAPPER_CLASS; ?>">
-                    <span class="<?php echo ERROR_SYMBOL_CLASS; ?>"></span>
-                    <span id="<?php echo CONFIRM_PASSWORD_MESSAGE_ID; ?>" class="<?php echo MESSAGE_CLASS; ?>"></span>
+                    <span class="<?php echo ERROR_SYMBOL_CLASS; ?>">
+                        <?php echo isset($errorStatus->confirmPassError) ? showErrorSymbol() : '' ?>
+                    </span>
+                    <span id="<?php echo CONFIRM_PASSWORD_MESSAGE_ID; ?>" class="<?php echo MESSAGE_CLASS; ?>">
+                        <?php echo isset($errorStatus->confirmPassError) ? $errorStatus->confirmPassError : '' ?>
+                    </span>
                 </div>
            </section>
             <input 

@@ -198,7 +198,7 @@ html {
 
                 &#create_account_btn {
                     .CTA();
-                    padding: 16px 30px;
+                    padding: 16px 16px;
                     width: 228px;
                     border: none;
                 }

@@ -164,6 +164,8 @@ function checkIfValidUsername() {
 
 function checkIfValidPassword(submitClicked) {
     let input = getValue(PASSWORD_INPUT_ID);
+    let passwordMessageSpan = document.getElementById(PASSWORD_MESSAGE_ID);
+    let errorSymbolSpan = passwordMessageSpan.previousElementSibling;
 
     let meetsRequirements = checkPasswordRequirements(input);
 
@@ -171,6 +173,8 @@ function checkIfValidPassword(submitClicked) {
         markAsStillNeeded();
     }
 
+    removeText(passwordMessageSpan);
+    removeText(errorSymbolSpan);
     return meetsRequirements;
 }
 
@@ -195,4 +199,5 @@ function checkIfValid() {
 window.addEventListener("load", function() {
    document.getElementById(PASSWORD_INPUT_ID).addEventListener("input", () => checkIfValidPassword(false));
    document.getElementById(USERNAME_INPUT_ID).addEventListener("input", checkIfValidUsername);
+   document.getElementById(CONFIRM_PASSWORD_INPUT_ID).addEventListener("input", checkIfValidConfirm);
 });
