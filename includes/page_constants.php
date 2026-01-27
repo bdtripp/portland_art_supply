@@ -106,6 +106,13 @@ const X_ID = 'x';
 const FACEBOOK_ID = 'facebook';
 const INSTAGRAM_ID = 'instagram';
 const PINTEREST_ID = 'pinterest';
+const CREATE_ACCOUNT_LINK_ID = "create_account_link";
+const HOME_LINK_ID = "home_link";
+const UPPERCASE_REQUIREMENT_ID = "uppercase_requirement";
+const DIGIT_REQUIREMENT_ID = "digit_requirement";
+const SPECIAL_CHAR_REQUIREMENT_ID = "special_char_requirement";
+const LENGTH_REQUIREMENT_ID = "length_requirement";
+
 
 /*
  * Classes
@@ -154,8 +161,16 @@ const LARGE_H2 = 'large_h2';
 const SUBCATEGORY_BUTTON_CLASS = 'subcategory_button';
 const NAV_DROPDOWN_CLASS = 'nav_drop_down';
 const DROPDOWN_CONTENT_CLASS = 'dropdown_content';
-const MESSAGE_TD = 'message_td';
+const MESSAGE_CLASS = 'message';
+const REQUIREMENTS_CLASS = 'requirements';
+const MEETS_REQUIREMENTS_CLASS = 'meets_requirements';
+const STILL_NEEDED_CLASS = 'still_needed';
 const COLOR_THUMBNAIL_CLASS = 'color_tn';
+const WRAPPER_CLASS = "wrapper";
+const PASSWORD_SECTION_CLASS = "password_section";
+const ERROR_SYMBOL_CLASS = "error_symbol";
+const MESSAGE_WRAPPER_CLASS = "message_wrapper";
+
 /*
  * Social Media Sites
  */

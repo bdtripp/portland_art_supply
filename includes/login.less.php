@@ -96,20 +96,23 @@ html {
             box-shadow: 5px 5px 20px #AAA;
 
             h2 {
-                font-size: 3rem;
+                font-size: 2.2rem;
                 color: @secondary-color3;
                 font-weight: bold;
                 text-align: center;
                 line-height: 1.2em;
             }
 
-            div.form_row {
+            section {
                 display: flex;
                 flex-direction: column;
                 gap: 5px;
 
+                &#password_section {
+                    gap: 20px;
+                }
+
                 label {
-                    margin-right: 5px;
                     color: @dark-gray;
                     font-size: 1.1em;
                     letter-spacing: 1px;
@@ -119,55 +122,109 @@ html {
                     .input_style();
                     width: 175px;
                 }
+
+                div.message_wrapper {
+                    display: flex;
+                    gap: 5px;
+                    color: red;
+                    font-size: .8rem;
+                    justify-content: center;
+
+                    span {
+
+                        &.error_symbol {
+                            
+                        }
+
+                        &.message {
+                            width: 175px;
+                        }
+                    }
+                }
+
+                div.wrapper {
+                    display: flex;
+                    flex-direction: column;
+                    align-self: center;
+                    gap: 5px;
+                }
+
+                ul.requirements {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
+                    list-style-type: disc;
+                    font-size: .8rem;
+                    list-style-position: inside;
+
+                    li {
+                        line-height: 1.2rem;
+
+                        &.meets_requirements {
+                            color: green;
+
+                            &::marker {
+                                // \00A0 is for space after ✓
+                                content: "✓\00A0"; 
+                            }
+                        }
+
+                        &.still_needed {
+                            color: red;
+
+                            &::marker {
+                                // \00A0 is for space after ✗
+                                content: "✗\00A0"; 
+                            }
+                        }
+                        
+                        span {
+                            display: block;
+                            text-align: center;
+                            letter-spacing: 4px;
+                        }
+                    }
+                }
             }
 
-            input.login_btn {
-                .CTA();
-                .hover1();
-                line-height: 1;
-                border: none;
+            input {
+
+                &.login_btn {
+                    .CTA();
+                    .hover1();
+                    line-height: 1;
+                    border: none;
+                }
+
+                &#create_account_btn {
+                    .CTA();
+                    padding: 16px 16px;
+                    width: 228px;
+                    border: none;
+                }
             }
+
 
             div.links {
                 display: flex;
-                flex-direction: column;
-                align-items: center;
                 gap: 20px;
 
                 a {
                     text-decoration: none;
                     text-align: center;
                     .hover1();
+                    .input_style();
 
-                    &#create_account_link {
-                        .CTA();
-                        padding: 8px 20px;
-                        width: 186px;
-                        border: none;
-
+                    &:visited {
+                        color: @dark-gray;
+                        background-color: @off-white;
                     }
 
                     &#home_link {
-                        .input_style();
-
-                        &:visited {
-                            color: @dark-gray;
-                            background-color: @off-white;
-                        }
+                        display: flex;
+                        align-items: center;
                     }
                 }
-            }
-
-            span {
-                color: red;
-            }
-
-            label {
-                display: inline-block;
-                width: 4.5em;
-                padding: 2px 0;
-                text-align: right;
-                vertical-align: top;
             }
         }
     }

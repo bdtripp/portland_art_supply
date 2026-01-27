@@ -41,24 +41,26 @@ html body form {
   box-shadow: 5px 5px 20px #AAA;
 }
 html body form h2 {
-  font-size: 3rem;
+  font-size: 2.2rem;
   color: #B83906;
   font-weight: bold;
   text-align: center;
   line-height: 1.2em;
 }
-html body form div.form_row {
+html body form section {
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
-html body form div.form_row label {
-  margin-right: 5px;
+html body form section#password_section {
+  gap: 20px;
+}
+html body form section label {
   color: #333333;
   font-size: 1.1em;
   letter-spacing: 1px;
 }
-html body form div.form_row input {
+html body form section input {
   padding: 10px 16px;
   font-size: 1.1em;
   border: 3px solid #333333;
@@ -67,6 +69,50 @@ html body form div.form_row input {
   letter-spacing: 1px;
   border-radius: 10px;
   width: 175px;
+}
+html body form section div.message_wrapper {
+  display: flex;
+  gap: 5px;
+  color: red;
+  font-size: 0.8rem;
+  justify-content: center;
+}
+html body form section div.message_wrapper span.message {
+  width: 175px;
+}
+html body form section div.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  gap: 5px;
+}
+html body form section ul.requirements {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  list-style-type: disc;
+  font-size: 0.8rem;
+  list-style-position: inside;
+}
+html body form section ul.requirements li {
+  line-height: 1.2rem;
+}
+html body form section ul.requirements li.meets_requirements {
+  color: green;
+}
+html body form section ul.requirements li.meets_requirements::marker {
+  content: "✓\00A0";
+}
+html body form section ul.requirements li.still_needed {
+  color: red;
+}
+html body form section ul.requirements li.still_needed::marker {
+  content: "✗\00A0";
+}
+html body form section ul.requirements li span {
+  display: block;
+  text-align: center;
+  letter-spacing: 4px;
 }
 html body form input.login_btn {
   padding: 14px 80px;
@@ -87,22 +133,7 @@ html body form input.login_btn:hover {
   cursor: pointer;
   transform: scale(1.1);
 }
-html body form div.links {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-html body form div.links a {
-  text-decoration: none;
-  text-align: center;
-  transition: transform 0.3s;
-}
-html body form div.links a:hover {
-  cursor: pointer;
-  transform: scale(1.1);
-}
-html body form div.links a#create_account_link {
+html body form input#create_account_btn {
   padding: 14px 80px;
   font-size: 1.3em;
   color: white;
@@ -113,11 +144,18 @@ html body form div.links a#create_account_link {
   letter-spacing: 1px;
   margin: 20px 0 0 0;
   line-height: 1.3rem;
-  padding: 8px 20px;
-  width: 186px;
+  padding: 16px 16px;
+  width: 228px;
   border: none;
 }
-html body form div.links a#home_link {
+html body form div.links {
+  display: flex;
+  gap: 20px;
+}
+html body form div.links a {
+  text-decoration: none;
+  text-align: center;
+  transition: transform 0.3s;
   padding: 10px 16px;
   font-size: 1.1em;
   border: 3px solid #333333;
@@ -126,17 +164,15 @@ html body form div.links a#home_link {
   letter-spacing: 1px;
   border-radius: 10px;
 }
-html body form div.links a#home_link:visited {
+html body form div.links a:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+html body form div.links a:visited {
   color: #333333;
   background-color: #fcfcfc;
 }
-html body form span {
-  color: red;
-}
-html body form label {
-  display: inline-block;
-  width: 4.5em;
-  padding: 2px 0;
-  text-align: right;
-  vertical-align: top;
+html body form div.links a#home_link {
+  display: flex;
+  align-items: center;
 }
