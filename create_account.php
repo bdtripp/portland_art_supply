@@ -56,7 +56,7 @@ if ($createPressed) {
 
     </head>
     <body>
-        <form method="POST" action="create_account.php" onsubmit="return checkIfValid();"> <!--  -->
+        <form method="POST" action="create_account.php" onsubmit="return checkIfValid();">
             <h2>Create an Account</h2>
             <section>
                 <label for="<?php echo USERNAME_INPUT_ID; ?>">Username:</label>
@@ -66,7 +66,6 @@ if ($createPressed) {
                     name="<?php echo CREATE_USERNAME_KEY; ?>" 
                     value="<?php echo $createUsername; ?>"
                     required
-                    <?php //required ?>
                 />
                 <div class="<?php echo MESSAGE_WRAPPER_CLASS; ?>">
                     <span class="<?php echo ERROR_SYMBOL_CLASS; ?>">
@@ -85,7 +84,6 @@ if ($createPressed) {
                         type="password" name="<?php echo CREATE_PASSWORD_KEY; ?>" 
                         value="<?php echo $createPassword; ?>" 
                         required
-                        <?php //required ?>
                     />
                     <div class="<?php echo MESSAGE_WRAPPER_CLASS; ?>">
                         <span class="<?php echo ERROR_SYMBOL_CLASS; ?>">
@@ -114,7 +112,6 @@ if ($createPressed) {
                     type="password" name="<?php echo CREATE_CONFIRM_PASSWORD_KEY; ?>" 
                     value="<?php echo $createConfirmPassword; ?>" 
                     required
-                    <?php //required ?>
                 />
                 <div class="<?php echo MESSAGE_WRAPPER_CLASS; ?>">
                     <span class="<?php echo ERROR_SYMBOL_CLASS; ?>">

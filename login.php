@@ -20,17 +20,17 @@ require_once('includes/page_constants.php');
 $login_username = get_post_value(LOGIN_USERNAME_KEY);
 $login_password = get_post_value(LOGIN_PASSWORD_KEY);
 $login_pressed = get_post_value(LOGIN_BUTTON_VALUE);
-$error_message = '';
+$errorStatus = new stdClass();
+
 if (!$login_pressed && isset($_SERVER['HTTP_REFERER'])) {
     set_session_value(SESSION_RETURN_TO_URL, $_SERVER['HTTP_REFERER']);
 } else {
     $returnToUrl = get_session_value(SESSION_RETURN_TO_URL);
     if ($returnToUrl != DOMAIN_NAME . CREATE_ACCOUNT_PAGE) {
-        $error_message = login($login_username, $login_password, $returnToUrl);
+        $errorStatus = login($login_username, $login_password, $returnToUrl);
     } else {
-        $error_message = login($login_username, $login_password, HOME_PAGE);
+        $errorStatus = login($login_username, $login_password, HOME_PAGE);
     }
-
 }
 
 ?>
@@ -58,7 +58,6 @@ if (!$login_pressed && isset($_SERVER['HTTP_REFERER'])) {
         <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
     </head>
     <body>
-    <?php echo $error_message; ?>
         <form method="POST" action="login.php">
             <h2>Log In</h2>
             <section>
@@ -70,6 +69,14 @@ if (!$login_pressed && isset($_SERVER['HTTP_REFERER'])) {
                     value="<?php echo $login_username; ?>"
                     required
                 />
+                <div class="<?php echo MESSAGE_WRAPPER_CLASS; ?>">
+                    <span class="<?php echo ERROR_SYMBOL_CLASS; ?>">
+                        <?php echo isset($errorStatus->usernameError) ? showErrorSymbol() : '' ?>
+                    </span>
+                    <span id="<?php echo USERNAME_MESSAGE_ID; ?>" class="<?php echo MESSAGE_CLASS; ?>">
+                        <?php echo isset($errorStatus->usernameError) ? $errorStatus->usernameError : '' ?>
+                    </span>
+                </div>
             </section>
             <section>
                 <label for="<?php echo LOGIN_PASSWORD_KEY; ?>">Password:</label>
@@ -79,6 +86,14 @@ if (!$login_pressed && isset($_SERVER['HTTP_REFERER'])) {
                     value="<?php echo $login_password; ?>" 
                     required
                 />
+                <div class="<?php echo MESSAGE_WRAPPER_CLASS; ?>">
+                    <span class="<?php echo ERROR_SYMBOL_CLASS; ?>">
+                        <?php echo isset($errorStatus->passwordError) ? showErrorSymbol() : '' ?>
+                    </span>
+                    <span id="<?php echo PASSWORD_MESSAGE_ID; ?>" class="<?php echo MESSAGE_CLASS; ?>">
+                        <?php echo isset($errorStatus->passwordError) ? $errorStatus->passwordError : '' ?>
+                    </span>
+                </div>
             </section>
             <input class="login_btn" type="submit" name="<?php echo LOGIN_BUTTON_VALUE; ?>" value="Log In" />
             <p>- or -</p>
