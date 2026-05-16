@@ -13,6 +13,5 @@ require_once PROJECT_ROOT . '/includes/page_constants.php';
 
 $returnToUrl = $_SERVER['HTTP_REFERER'];
 
-session_start();
 destroy_session();
 header('Location: ' . $returnToUrl);
