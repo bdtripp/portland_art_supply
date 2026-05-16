@@ -1,12 +1,13 @@
 # Portland Art Supply
 
-Portland Art Supply (PAS) is a fictional e-commerce site. 
+Portland Art Supply (PAS) is an e-commerce site for art supplies.  
 
-Visit the site at https://portland-art-supply.bdtripp.com/  
+Note: This is a demo site for a fictional company. A production version would include checkout (shipping + payment) and an admin interface for managing products. 
 
-To view an ERD of the PAS database, visit my portfolio site at https://bdtripp.com/#projects . Click on the “View Details” button for PAS. Then click on the document icon to the right of “Data Modeling”.  
+---
 
-Note: This is a demo site. A production version would include checkout (shipping + payment) and an admin interface for managing products. 
+## Visit the site
+[**▶ Live Demo**](https://portland-art-supply.bdtripp.com/)
 
 ---
 
@@ -18,7 +19,7 @@ A quick walkthrough of browsing products, selecting options, and updating the sh
 
 ---
 
-## Screenshots
+## UI Screenshots
 
 <img src="assets/product_screenshot.png" width="750" />
 <br>
@@ -40,6 +41,78 @@ A quick walkthrough of browsing products, selecting options, and updating the sh
 - Implemented dynamic drop-down lists for product color and size options using multi-JOIN queries.
 - Used AJAX to provide real-time updates to shopping cart quantities and totals.
 - Stored PHP sessions in the database so the shopping cart is restored when the user logs in.
+
+---
+
+## Database Entity‑Relationship Diagram (ERD)
+
+```mermaid
+erDiagram
+users {
+    int user_id PK
+    string username
+    string password_hash
+}
+
+account_data {
+    int user_id PK, FK
+    string session_data
+}
+
+product_category {
+    int category_id PK
+    string category_name
+}
+
+product_subcategory {
+    int subcategory_id PK
+    int category_id FK
+    string subcategory_name
+}
+
+product_manufacturer {
+    int manufacturer_id PK
+    string manufacturer_name
+}
+
+product_color {
+    int color_id PK
+    string color_name
+}
+
+product_size {
+    int size_id PK
+    string size_description
+}
+
+product_group {
+    int product_group_id PK
+    int category_id FK
+    int subcategory_id FK
+    int manufacturer_id FK
+    string group_description
+    string group_information
+    string group_code
+}
+
+product_item {
+    int product_item_id PK
+    int product_group_id FK
+    int color_id FK
+    int size_id FK
+    decimal price
+}
+
+%% Relationships
+users ||--o| account_data : "has session"
+product_category ||--o{ product_subcategory : "contains"
+product_category ||--o{ product_group : "categorizes"
+product_subcategory ||--o{ product_group : "sub-categorizes"
+product_manufacturer ||--o{ product_group : "manufactures"
+product_group ||--o{ product_item : "has variations"
+product_color ||--o{ product_item : "applied to"
+product_size ||--o{ product_item : "applied to"
+```
 
 ---
 
@@ -97,3 +170,9 @@ Category Folder: Paint
 
 &nbsp;&nbsp;&nbsp;&nbsp; Subcategory Folder: Oil Color Thumbnails  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; winsor-newton-artists-oil-tn-alizarin-crimson.jpg &nbsp;&nbsp;&nbsp;&nbsp; <- groupcode-tn-colorname
+
+
+
+
+
+
