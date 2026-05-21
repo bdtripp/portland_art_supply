@@ -15,6 +15,13 @@ require_once PROJECT_ROOT . '/includes/db_constants.php';
 require_once PROJECT_ROOT . '/includes/db_code.php';
 require_once PROJECT_ROOT . '/includes/page_constants.php';
 
+use PAS\Utilities;
+use PAS\LoginConstants;
+use PAS\LoginService;
+use PAS\DbConstants;
+use PAS\Database;
+use PAS\PageConstants;
+
 $createUsername = get_post_value(CREATE_USERNAME_KEY);
 $createPassword = get_post_value(CREATE_PASSWORD_KEY);
 $createConfirmPassword = get_post_value(CREATE_CONFIRM_PASSWORD_KEY);
