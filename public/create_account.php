@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Brian
- * Date: 10/21/2018
- * Time: 12:38 PM
- */
 session_start();
 
 use PAS\Utilities;

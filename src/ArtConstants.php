@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Brian
- * Date: 11/11/2018
- * Time: 5:51 PM
- */
 
 /*
  * Categories

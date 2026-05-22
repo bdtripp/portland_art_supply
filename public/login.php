@@ -1,13 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Brian
- * Date: 10/21/2018
- * Time: 11:31 AM
- *
- * TODO: in head, remove script link to local js file and uncomment the script link to the one on cdn
- *
- */
 session_start();
 
 require_once __DIR__ . '/../config.php';

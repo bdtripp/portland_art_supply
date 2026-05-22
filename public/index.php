@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Brian
- * Date: 12/1/2018
- * Time: 7:52 AM
- */
 session_start();
 
 require_once __DIR__ . '/../config.php';

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Brian
- * Date: 11/11/2018
- * Time: 2:44 PM
- */
 session_start();
 
 use PAS\PageConstants;
