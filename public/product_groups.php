@@ -8,14 +8,14 @@
 session_start();
 
 require_once __DIR__ . '/../config.php';
-require_once PROJECT_ROOT . '/includes/page_constants.php';
-require_once PROJECT_ROOT . '/includes/db_code.php';
-require_once PROJECT_ROOT . '/includes/art_constants.php';
-require_once PROJECT_ROOT . '/includes/db_constants.php';
-require_once PROJECT_ROOT . '/includes/ui_code.php';
-require_once PROJECT_ROOT . '/includes/login_constants.php';
-require_once PROJECT_ROOT . '/includes/utilities.php';
-require_once PROJECT_ROOT . '/includes/shopping_cart_code.php';
+use PAS\PageConstants;
+use PAS\Database;
+use PAS\ArtConstants;
+use PAS\DbConstants;
+use PAS\Ui;
+use PAS\LoginConstants;
+use PAS\Utilities;
+use PAS\Cart;
 
 $categoryName = urldecode($_GET[PRODUCT_CATEGORY_NAME_FIELD]);
 $subcategoryName = urldecode($_GET[PRODUCT_SUBCATEGORY_NAME_FIELD]);

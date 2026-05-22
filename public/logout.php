@@ -8,8 +8,8 @@
 session_start();
 
 require_once __DIR__ . '/../config.php';
-require_once PROJECT_ROOT . '/includes/utilities.php';
-require_once PROJECT_ROOT . '/includes/page_constants.php';
+use PAS\Utilities;
+use PAS\PageConstants;
 
 $returnToUrl = $_SERVER['HTTP_REFERER'];
 

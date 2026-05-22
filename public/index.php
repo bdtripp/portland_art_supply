@@ -8,13 +8,13 @@
 session_start();
 
 require_once __DIR__ . '/../config.php';
-require_once PROJECT_ROOT . '/includes/ui_code.php';
-require_once PROJECT_ROOT . '/includes/page_constants.php';
-require_once PROJECT_ROOT . '/includes/db_code.php';
-require_once PROJECT_ROOT . '/includes/db_constants.php';
-require_once PROJECT_ROOT . '/includes/login_constants.php';
-require_once PROJECT_ROOT . '/includes/utilities.php';
-require_once PROJECT_ROOT . '/includes/shopping_cart_code.php';
+use PAS\Ui;
+use PAS\PageConstants;
+use PAS\Database;
+use PAS\DbConstants;
+use PAS\LoginConstants;
+use PAS\Utilities;
+use PAS\Cart;
 
 $activePage = HOME_PAGE_TITLE;
 

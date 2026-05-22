@@ -7,15 +7,14 @@
  */
 session_start();
 
-require_once __DIR__ . '/../config.php';
-require_once PROJECT_ROOT . '/includes/page_constants.php';
-require_once PROJECT_ROOT . '/includes/db_code.php';
-require_once PROJECT_ROOT . '/includes/art_constants.php';
-require_once PROJECT_ROOT . '/includes/db_constants.php';
-require_once PROJECT_ROOT . '/includes/ui_code.php';
-require_once PROJECT_ROOT . '/includes/shopping_cart_code.php';
-require_once PROJECT_ROOT . '/includes/login_constants.php';
-require_once PROJECT_ROOT . '/includes/utilities.php';
+use PAS\PageConstants;
+use PAS\Database;
+use PAS\ArtConstants;
+use PAS\DbConstants;
+use PAS\Ui;
+use PAS\Cart;
+use PAS\LoginConstants;
+use PAS\Utilities;
 
 $id = get_post_value(PRODUCT_ITEM_ID_FIELD);
 $groupDescription = get_post_value(PRODUCT_GROUP_DESCRIPTION_FIELD);

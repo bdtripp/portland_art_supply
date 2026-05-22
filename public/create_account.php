@@ -7,14 +7,6 @@
  */
 session_start();
 
-require_once __DIR__ . '/../config.php';
-require_once PROJECT_ROOT . '/includes/utilities.php';
-require_once PROJECT_ROOT . '/includes/login_constants.php';
-require_once PROJECT_ROOT . '/includes/login_code.php';
-require_once PROJECT_ROOT . '/includes/db_constants.php';
-require_once PROJECT_ROOT . '/includes/db_code.php';
-require_once PROJECT_ROOT . '/includes/page_constants.php';
-
 use PAS\Utilities;
 use PAS\LoginConstants;
 use PAS\LoginService;
