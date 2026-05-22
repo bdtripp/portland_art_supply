@@ -3,7 +3,6 @@ session_start();
 
 use PAS\PageConstants;
 use PAS\Database;
-use PAS\ArtConstants;
 use PAS\DbConstants;
 use PAS\Ui;
 use PAS\Cart;
