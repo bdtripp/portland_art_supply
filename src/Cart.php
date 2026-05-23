@@ -1,119 +1,117 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Brian
- * Date: 12/1/2018
- * Time: 10:16 AM
- */
-require_once('db_constants.php');
-require_once('utilities.php');
-require_once('page_constants.php');
+namespace PAS;
 
-function getItemsInCart() {
-    return get_session_value(SESSION_CART_KEY);
-}
+use PAS\DbConstants;
+use PAS\Utilities;
+use PAS\PageConstants;
 
-function addItemToCart($id, $category, $subcategory, $groupCode, $color, $size, $price, $quantity, $groupDescription) {
-    $items = getItemsInCart();
-    $newItem = true;
+class Cart
+{
+    public function getItemsInCart() {
+        return Utilities::getSessionValue(PageConstants::SESSION_CART_KEY);
+    }
 
-    if ($items !== null) {
-        //check if the item already exists in the cart
+    public function addItemToCart($id, $category, $subcategory, $groupCode, $color, $size, $price, $quantity, $groupDescription) {
+        $items = $this->getItemsInCart();
+        $newItem = true;
+
+        if ($items !== null) {
+            //check if the item already exists in the cart
+            for ($count = 0; $count < count($items); $count++) {
+                if ($items[$count][DbConstants::PRODUCT_ITEM_ID_FIELD] == $id) {
+                    $items[$count][DbConstants::QUANTITY_FIELD] += $quantity;
+                    $newItem = false;
+                    Utilities::setSessionValue(PageConstants::SESSION_CART_KEY, $items);
+                }
+            }
+        }
+        
+        if ($newItem) {
+            $items[] = array(DbConstants::PRODUCT_ITEM_ID_FIELD => $id, DbConstants::PRODUCT_CATEGORY_NAME_FIELD => $category,
+                DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD => $subcategory, DbConstants::PRODUCT_GROUP_CODE_FIELD => $groupCode,
+                DbConstants::PRODUCT_COLOR_NAME_FIELD => $color, DbConstants::PRODUCT_SIZE_DESCRIPTION_FIELD => $size,
+                DbConstants::PRODUCT_ITEM_PRICE_FIELD => $price, DbConstants::QUANTITY_FIELD => $quantity, DbConstants::PRODUCT_GROUP_DESCRIPTION_FIELD => $groupDescription);
+            Utilities::setSessionValue(PageConstants::SESSION_CART_KEY, $items);
+        }
+        Utilities::saveSession();
+    }
+
+    public function updateQuantityInSession($newQuantity, $id) {
+        $items = $this->getItemsInCart();
+
         for ($count = 0; $count < count($items); $count++) {
-            if ($items[$count][PRODUCT_ITEM_ID_FIELD] == $id) {
-                $items[$count][QUANTITY_FIELD] += $quantity;
-                $newItem = false;
-                set_session_value(SESSION_CART_KEY, $items);
+            if ($items[$count][DbConstants::PRODUCT_ITEM_ID_FIELD] == $id) {
+                $previousQuantity = $items[$count][DbConstants::QUANTITY_FIELD];
+                $items[$count][DbConstants::QUANTITY_FIELD] = $newQuantity;
+                Utilities::setSessionValue(PageConstants::SESSION_CART_KEY, $items);
             }
         }
+        Utilities::saveSession();
+        return $previousQuantity;
     }
-    
-    if ($newItem) {
-        $items[] = array(PRODUCT_ITEM_ID_FIELD => $id, PRODUCT_CATEGORY_NAME_FIELD => $category,
-            PRODUCT_SUBCATEGORY_NAME_FIELD => $subcategory, PRODUCT_GROUP_CODE_FIELD => $groupCode,
-            PRODUCT_COLOR_NAME_FIELD => $color, PRODUCT_SIZE_DESCRIPTION_FIELD => $size,
-            PRODUCT_ITEM_PRICE_FIELD => $price, QUANTITY_FIELD => $quantity, PRODUCT_GROUP_DESCRIPTION_FIELD => $groupDescription);
-        set_session_value(SESSION_CART_KEY, $items);
-    }
-    save_session();
-}
 
-function updateQuantityInSession($newQuantity, $id) {
-    $items = getItemsInCart();
-
-    for ($count = 0; $count < count($items); $count++) {
-        if ($items[$count][PRODUCT_ITEM_ID_FIELD] == $id) {
-            $previousQuantity = $items[$count][QUANTITY_FIELD];
-            $items[$count][QUANTITY_FIELD] = $newQuantity;
-            set_session_value(SESSION_CART_KEY, $items);
-        }
-    }
-    save_session();
-    return $previousQuantity;
-}
-
-function removeItemFromCart($buttonClickedID) {
-    $itemsInCart = getItemsInCart();
-    for ($count = 0; $count < count($itemsInCart); $count++) {
-        if ($itemsInCart[$count][PRODUCT_ITEM_ID_FIELD] == $buttonClickedID) {
-            unset($itemsInCart[$count]);
-            $itemsInCart = array_values($itemsInCart);
-        }
-    }
-    set_session_value(SESSION_CART_KEY, $itemsInCart);
-    save_session();
-    header("Refresh:0");
-    exit();
-}
-
-function getNumItemsInCart() {
-    $itemsInCart = getItemsInCart();
-    $numItemsInCart = 0;
-
-    if (!empty($itemsInCart)) {
-        foreach ($itemsInCart as $item) {
-            $numItemsInCart += $item[QUANTITY_FIELD];
-        }
-    }
-    return $numItemsInCart;
-}
-
-function getQuantityOfItem($id) {
-    $itemsInCart = getItemsInCart();
-
-    if (!empty($itemsInCart)) {
-        foreach ($itemsInCart as $item) {
-            if ($item[PRODUCT_ITEM_ID_FIELD] == $id) {
-                return $item[QUANTITY_FIELD];
+    public function removeItemFromCart($buttonClickedID) {
+        $itemsInCart = $this->getItemsInCart();
+        for ($count = 0; $count < count($itemsInCart); $count++) {
+            if ($itemsInCart[$count][DbConstants::PRODUCT_ITEM_ID_FIELD] == $buttonClickedID) {
+                unset($itemsInCart[$count]);
+                $itemsInCart = array_values($itemsInCart);
             }
         }
-        return 0;
+        Utilities::setSessionValue(PageConstants::SESSION_CART_KEY, $itemsInCart);
+        Utilities::saveSession();
+        header("Refresh:0");
+        exit();
     }
-}
 
-function getItemSubtotal($id) {
-    $itemsInCart = getItemsInCart();
-    $subtotal = 0;
+    public function getNumItemsInCart() {
+        $itemsInCart = $this->getItemsInCart();
+        $numItemsInCart = 0;
 
-    if (!empty($itemsInCart)) {
-        foreach ($itemsInCart as $item) {
-            if ($item[PRODUCT_ITEM_ID_FIELD] == $id) {
-                $subtotal += $item[PRODUCT_ITEM_PRICE_FIELD] * $item[QUANTITY_FIELD];
+        if (!empty($itemsInCart)) {
+            foreach ($itemsInCart as $item) {
+                $numItemsInCart += $item[DbConstants::QUANTITY_FIELD];
             }
         }
+        return $numItemsInCart;
     }
-    return $subtotal;
-}
 
-function getCartTotal() {
-    $itemsInCart = getItemsInCart();
-    $total = 0;
+    public function getQuantityOfItem($id) {
+        $itemsInCart = $this->getItemsInCart();
 
-    if (!empty($itemsInCart)) {
-        foreach ($itemsInCart as $item) {
-            $total += $item[PRODUCT_ITEM_PRICE_FIELD] * $item[QUANTITY_FIELD];
+        if (!empty($itemsInCart)) {
+            foreach ($itemsInCart as $item) {
+                if ($item[DbConstants::PRODUCT_ITEM_ID_FIELD] == $id) {
+                    return $item[DbConstants::QUANTITY_FIELD];
+                }
+            }
+            return 0;
         }
     }
-    return $total;
+
+    public function getItemSubtotal($id) {
+        $itemsInCart = $this->getItemsInCart();
+        $subtotal = 0;
+
+        if (!empty($itemsInCart)) {
+            foreach ($itemsInCart as $item) {
+                if ($item[DbConstants::PRODUCT_ITEM_ID_FIELD] == $id) {
+                    $subtotal += $item[DbConstants::PRODUCT_ITEM_PRICE_FIELD] * $item[DbConstants::QUANTITY_FIELD];
+                }
+            }
+        }
+        return $subtotal;
+    }
+
+    public function getCartTotal() {
+        $itemsInCart = $this->getItemsInCart();
+        $total = 0;
+
+        if (!empty($itemsInCart)) {
+            foreach ($itemsInCart as $item) {
+                $total += $item[DbConstants::PRODUCT_ITEM_PRICE_FIELD] * $item[DbConstants::QUANTITY_FIELD];
+            }
+        }
+        return $total;
+    }
 }
-?>
