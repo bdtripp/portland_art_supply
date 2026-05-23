@@ -1,79 +1,84 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Brian
- * Date: 10/21/2018
- * Time: 4:36 PM
- */
+Namespace PAS;
 
-function set_user($userID, $username, $returnToUrl) {
-    set_session_value(SESSION_USER_ID_KEY, $userID);
-    set_session_value(SESSION_USERNAME_KEY, $username);
-    header('Location: ' . $returnToUrl);
-}
+class LoginService
+{
+    private Database $db;
 
-function login($username, $password, $returnToUrl) {
-    $errorStatus = new stdClass();
-
-    $user = lookup_user($username);
-
-    if (empty($username)) {
-        $errorStatus->usernameError = E_NO_USERNAME;
-    } elseif (!$user) {
-        $errorStatus->usernameError = E_USERNAME_NOT_FOUND;
-    } elseif (!password_verify($password, $user[USERS_HASH_FIELD])) {
-        $errorStatus->passwordError = E_PASSWORD_INCORRECT;
+    public function __construct()
+    {
+        $this->db = new Database();
+    }
+    public function setUser($userID, $username, $returnToUrl) {
+        Utilities::setSessionValue(PageConstants::SESSION_USER_ID_KEY, $userID);
+        Utilities::setSessionValue(PageConstants::SESSION_USERNAME_KEY, $username);
+        header('Location: ' . $returnToUrl);
     }
 
-    if (empty($password)) {
-        $errorStatus->passwordError = E_NO_PASSWORD;
+    public function login($username, $password, $returnToUrl) {
+        $errorStatus = new \stdClass();
+
+        $user = $this->db->lookupUser($username);
+
+        if (empty($username)) {
+            $errorStatus->usernameError = LoginConstants::E_NO_USERNAME;
+        } elseif (!$user) {
+            $errorStatus->usernameError = LoginConstants::E_USERNAME_NOT_FOUND;
+        } elseif (!password_verify($password, $user[DbConstants::USERS_HASH_FIELD])) {
+            $errorStatus->passwordError = LoginConstants::E_PASSWORD_INCORRECT;
+        }
+
+        if (empty($password)) {
+            $errorStatus->passwordError = LoginConstants::E_NO_PASSWORD;
+        }
+
+        // if there are any errors, return without loggin in
+        if (!empty((array)$errorStatus)) {
+            return $errorStatus;
+        }
+
+        $this->setUser($user[DbConstants::USER_ID_FIELD], $username, $returnToUrl);
+        Utilities::restoreSession();
+        return '';
     }
 
-    // if there are any errors, return without loggin in
-    if (!empty((array)$errorStatus)) {
-        return $errorStatus;
+    public function register($username, $password, $confirm, $returnToUrl) {
+        $errorStatus = new \stdClass();
+
+        if (empty($username)) {
+            $errorStatus->usernameError = LoginConstants::E_NO_USERNAME;
+        }
+
+        if (empty($password)) {
+            $errorStatus->passwordError = LoginConstants::E_NO_PASSWORD;
+        }
+
+        if (empty($confirm)) {
+            $errorStatus->confirmPassError = LoginConstants::E_NO_CONFIRM;
+        }
+
+        if ((!empty($confirm)) && ($password != $confirm)) {
+            $errorStatus->confirmPassError = LoginConstants::E_CONFIRM_MISMATCH;
+        }
+
+        $user = $this->db->lookupUser($username);
+
+        if (!empty($user)) {
+            $errorStatus->usernameError = LoginConstants::E_ACCOUNT_EXISTS;
+        }
+
+        // if there are any errors, return without loggin in
+        if (!empty((array)$errorStatus)) {
+            return $errorStatus;
+        }
+
+        
+        $this->db->addUser($username, password_hash($password, PASSWORD_DEFAULT));
+        $user = $this->db->lookupUser($username);
+        $this->setUser($user[DbConstants::USER_ID_FIELD], $username, $returnToUrl);
     }
 
-    set_user($user[USER_ID_FIELD], $username, $returnToUrl);
-    restore_session();
-    return '';
-}
-
-function register($username, $password, $confirm, $returnToUrl) {
-    $errorStatus = new stdClass();
-
-    if (empty($username)) {
-        $errorStatus->usernameError = E_NO_USERNAME;
+    public function showErrorSymbol() {
+        return "⚠ ";
     }
-
-    if (empty($password)) {
-        $errorStatus->passwordError = E_NO_PASSWORD;
-    }
-
-    if (empty($confirm)) {
-        $errorStatus->confirmPassError = E_NO_CONFIRM;
-    }
-
-    if ((!empty($confirm)) && ($password != $confirm)) {
-        $errorStatus->confirmPassError = E_CONFIRM_MISMATCH;
-    }
-
-    $user = lookup_user($username);
-
-    if (!empty($user)) {
-        $errorStatus->usernameError = E_ACCOUNT_EXISTS;
-    }
-
-    // if there are any errors, return without loggin in
-    if (!empty((array)$errorStatus)) {
-        return $errorStatus;
-    }
-
-    add_user($username, password_hash($password, PASSWORD_DEFAULT));
-    $user = lookup_user($username);
-    set_user($user[USER_ID_FIELD], $username, $returnToUrl);
-}
-
-function showErrorSymbol() {
-    return "⚠ ";
 }
