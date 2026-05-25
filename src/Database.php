@@ -104,7 +104,7 @@ class Database
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function lookupProduct_groups($category, $subcategory) {
+    public function lookupProductGroups($category, $subcategory) {
         $conn = $this->connectToDB();
         $stmt = $conn->prepare("
         SELECT " . DbConstants::PRODUCT_GROUP_ID_FIELD . ", " . DbConstants::PRODUCT_GROUP_CODE_FIELD . ", " . DbConstants::PRODUCT_GROUP_DESCRIPTION_FIELD . ", " .
