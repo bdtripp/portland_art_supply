@@ -1,66 +1,72 @@
 <?php
+Namespace PAS;
 
-function save_session() {
-    $userID = get_session_value(SESSION_USER_ID_KEY);
-    add_session($userID, serialize($_SESSION));
-}
-
-function restore_session() {
-    $userID = get_session_value(SESSION_USER_ID_KEY);
-    $session_data = lookup_session($userID);
-    if (!empty($session_data)) {
-        $_SESSION = unserialize($session_data[ACCOUNT_DATA_SESSION_DATA_FIELD]);
+class Utilities
+{
+    public static function getSessionValue($key) {
+        if(isset($_SESSION[$key])) {
+            return $_SESSION[$key];
+        }
+        return;
     }
-}
-
-function get_session_value($key) {
-    if(isset($_SESSION[$key])) {
-        return $_SESSION[$key];
+    public static function saveSession() {
+        $db = new Database();
+        $userID = self::getSessionValue(PageConstants::SESSION_USER_ID_KEY);
+        $db->addSession($userID, serialize($_SESSION));
     }
-    return;
-}
 
-function set_session_value($key, $value) {
-    $_SESSION[$key] = $value;
-}
+    public static function restoreSession() {
+        $db = new Database();
+        $userID = self::getSessionValue(PageConstants::SESSION_USER_ID_KEY);
+        $session_data = $db->lookupSession($userID);
 
-function destroy_session() {
-    $session_info = session_get_cookie_params();
-    $_SESSION = [];
-    setcookie(session_name(), '', 0, $session_info['path'], $session_info['domain'],
-        $session_info['secure'], $session_info['httponly']);
-    session_destroy();
-}
-
-function get_post_value($key) {
-    if (isset($_POST[$key])) {
-        return htmlentities($_POST[$key]);
+        if (!empty($session_data)) {
+            $_SESSION = unserialize($session_data[DbConstants::ACCOUNT_DATA_SESSION_DATA_FIELD]);
+        }
     }
-    return '';
-}
 
-function require_login() {
-    if (!isset($_SESSION[SESSION_USERNAME_KEY]) || empty($_SESSION[SESSION_USERNAME_KEY])) {
-        header('Location: ' . LOGIN_PAGE);
-        exit();
+    public static function setSessionValue($key, $value) {
+        $_SESSION[$key] = $value;
     }
-    restore_session();
-}
 
-function check_current_subcat($categoryParam, $categoryValue, $subcategoryParam, $subcategoryValue) {
-    if (hasMatchingGETValue($categoryParam, $categoryValue) && hasMatchingGETValue($subcategoryParam, $subcategoryValue)) {
-        return 'aria-current="page"';
+    public static function destroySession() {
+        $session_info = session_get_cookie_params();
+        $_SESSION = [];
+        setcookie(session_name(), '', 0, $session_info['path'], $session_info['domain'],
+            $session_info['secure'], $session_info['httponly']);
+        session_destroy();
     }
-    return '';
-}
 
-function hasMatchingGETValue($param, $value) {
-    return isset($_GET[$param]) && $_GET[$param] === $value;
-}
-
-function check_current_page($url) {
-    if ($_SERVER['REQUEST_URI'] === $url) {
-        return 'aria-current="page" href="#">';
+    public static function getPostValue($key) {
+        if (isset($_POST[$key])) {
+            return htmlentities($_POST[$key]);
+        }
+        return '';
     }
-    return 'href="' . $url . '">';
+
+    public static function requireLogin() {
+        if (!isset($_SESSION[PageConstants::SESSION_USERNAME_KEY]) || empty($_SESSION[PageConstants::SESSION_USERNAME_KEY])) {
+            header('Location: ' . PageConstants::LOGIN_PAGE);
+            exit();
+        }
+        self::restoreSession();
+    }
+
+    public static function hasMatchingGETValue($param, $value) {
+        return isset($_GET[$param]) && $_GET[$param] === $value;
+    }
+
+    public static function checkCurrentSubcat($categoryParam, $categoryValue, $subcategoryParam, $subcategoryValue) {
+        if (self::hasMatchingGETValue($categoryParam, $categoryValue) && self::hasMatchingGETValue($subcategoryParam, $subcategoryValue)) {
+            return 'aria-current="page"';
+        }
+        return '';
+    }
+
+    public static function checkCurrentPage($url) {
+        if ($_SERVER['REQUEST_URI'] === $url) {
+            return 'aria-current="page" href="#">';
+        }
+        return 'href="' . $url . '">';
+    }
 }
