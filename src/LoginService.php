@@ -5,9 +5,9 @@ class LoginService
 {
     private Database $db;
 
-    public function __construct()
+    public function __construct(Database $db)
     {
-        $this->db = new Database();
+        $this->db = $db;
     }
     public function setUser($userID, $username, $returnToUrl) {
         Utilities::setSessionValue(PageConstants::SESSION_USER_ID_KEY, $userID);
