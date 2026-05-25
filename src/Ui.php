@@ -4,9 +4,9 @@ Namespace PAS;
 
 class Ui
 {
-    const ROWS_PER_COLUMN = 3;
-    const QUANTITY_MIN = 1;
-    const QUANTITY_MAX = 50;
+    private const ROWS_PER_COLUMN = 3;
+    private const QUANTITY_MIN = 1;
+    private const QUANTITY_MAX = 50;
     private Database $db;
     private Cart $cart;
 
