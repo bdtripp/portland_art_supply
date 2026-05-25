@@ -4,14 +4,10 @@ session_start();
 require_once __DIR__ . '/../config.php';
 use PAS\Ui;
 use PAS\PageConstants;
-use PAS\Database;
-use PAS\DbConstants;
-use PAS\LoginConstants;
-use PAS\Utilities;
-use PAS\Cart;
 
-$activePage = HOME_PAGE_TITLE;
+$activePage = PageConstants::HOME_PAGE_TITLE;
 
+$ui = new Ui();
 ?>
 
 <!doctype html>
@@ -43,7 +39,7 @@ $activePage = HOME_PAGE_TITLE;
 
 <body onload="init();">
 
-<?php show_header_content($activePage); ?>
+<?php $ui->showHeaderContent($activePage); ?>
   
   <main id="home">
     <img src="images/large_paint.png"></img>
@@ -52,7 +48,7 @@ $activePage = HOME_PAGE_TITLE;
 
   </main>
 
-<?php show_footer_content(); ?>
+<?php $ui->showFooterContent(); ?>
 
 </body>
 

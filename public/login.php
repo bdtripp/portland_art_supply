@@ -5,25 +5,25 @@ require_once __DIR__ . '/../config.php';
 use PAS\Utilities;
 use PAS\LoginConstants;
 use PAS\LoginService;
-use PAS\DbConstants;
 use PAS\Database;
 use PAS\PageConstants;
 
-$login_username = get_post_value(LOGIN_USERNAME_KEY);
-$login_password = get_post_value(LOGIN_PASSWORD_KEY);
-$login_pressed = get_post_value(LOGIN_BUTTON_KEY);
+$login_username = Utilities::getPostValue(LoginConstants::LOGIN_USERNAME_KEY);
+$login_password = Utilities::getPostValue(LoginConstants::LOGIN_PASSWORD_KEY);
+$login_pressed = Utilities::getPostValue(LoginConstants::LOGIN_BUTTON_KEY);
 $errorStatus = new stdClass();
+$loginService = new LoginService(new Database());
 
 if (!$login_pressed) {
     if (isset($_SERVER['HTTP_REFERER'])) {
-        set_session_value(SESSION_RETURN_TO_URL, $_SERVER['HTTP_REFERER']);
+        Utilities::setSessionValue(PageConstants::SESSION_RETURN_TO_URL, $_SERVER['HTTP_REFERER']);
     }
 } else {
-    $returnToUrl = get_session_value(SESSION_RETURN_TO_URL);
-    if ($returnToUrl != DOMAIN_NAME . CREATE_ACCOUNT_PAGE) {
-        $errorStatus = login($login_username, $login_password, $returnToUrl);
+    $returnToUrl = Utilities::getSessionValue(PageConstants::SESSION_RETURN_TO_URL);
+    if ($returnToUrl != PageConstants::DOMAIN_NAME . PageConstants::CREATE_ACCOUNT_PAGE) {
+        $errorStatus = $loginService->login($login_username, $login_password, $returnToUrl);
     } else {
-        $errorStatus = login($login_username, $login_password, HOME_PAGE);
+        $errorStatus = $loginService->login($login_username, $login_password, PageConstants::HOME_PAGE);
     }
 }
 
@@ -55,45 +55,45 @@ if (!$login_pressed) {
         <form method="POST" action="login.php">
             <h2>Log In</h2>
             <section>
-                <label for="<?php echo LOGIN_USERNAME_KEY; ?>">Username:</label>
+                <label for="<?php echo LoginConstants::LOGIN_USERNAME_KEY; ?>">Username:</label>
                 <input 
-                    id ="<?php echo LOGIN_USERNAME_KEY; ?>" 
+                    id ="<?php echo LoginConstants::LOGIN_USERNAME_KEY; ?>" 
                     type="text" 
-                    name="<?php echo LOGIN_USERNAME_KEY; ?>" 
+                    name="<?php echo LoginConstants::LOGIN_USERNAME_KEY; ?>" 
                     value="<?php echo $login_username; ?>"
                     required
                 />
-                <div class="<?php echo MESSAGE_WRAPPER_CLASS; ?>">
-                    <span class="<?php echo ERROR_SYMBOL_CLASS; ?>">
-                        <?php echo isset($errorStatus->usernameError) ? showErrorSymbol() : '' ?>
+                <div class="<?php echo PageConstants::MESSAGE_WRAPPER_CLASS; ?>">
+                    <span class="<?php echo PageConstants::ERROR_SYMBOL_CLASS; ?>">
+                        <?php echo isset($errorStatus->usernameError) ? $loginService->showErrorSymbol() : '' ?>
                     </span>
-                    <span id="<?php echo USERNAME_MESSAGE_ID; ?>" class="<?php echo MESSAGE_CLASS; ?>">
+                    <span id="<?php echo PageConstants::USERNAME_MESSAGE_ID; ?>" class="<?php echo PageConstants::MESSAGE_CLASS; ?>">
                         <?php echo isset($errorStatus->usernameError) ? $errorStatus->usernameError : '' ?>
                     </span>
                 </div>
             </section>
             <section>
-                <label for="<?php echo LOGIN_PASSWORD_KEY; ?>">Password:</label>
+                <label for="<?php echo LoginConstants::LOGIN_PASSWORD_KEY; ?>">Password:</label>
                 <input 
-                    id="<?php echo LOGIN_PASSWORD_KEY; ?>" 
-                    type="password" name="<?php echo LOGIN_PASSWORD_KEY; ?>" 
+                    id="<?php echo LoginConstants::LOGIN_PASSWORD_KEY; ?>" 
+                    type="password" name="<?php echo LoginConstants::LOGIN_PASSWORD_KEY; ?>" 
                     value="<?php echo $login_password; ?>" 
                     required
                 />
-                <div class="<?php echo MESSAGE_WRAPPER_CLASS; ?>">
-                    <span class="<?php echo ERROR_SYMBOL_CLASS; ?>">
-                        <?php echo isset($errorStatus->passwordError) ? showErrorSymbol() : '' ?>
+                <div class="<?php echo PageConstants::MESSAGE_WRAPPER_CLASS; ?>">
+                    <span class="<?php echo PageConstants::ERROR_SYMBOL_CLASS; ?>">
+                        <?php echo isset($errorStatus->passwordError) ? $loginService->showErrorSymbol() : '' ?>
                     </span>
-                    <span id="<?php echo PASSWORD_MESSAGE_ID; ?>" class="<?php echo MESSAGE_CLASS; ?>">
+                    <span id="<?php echo PageConstants::PASSWORD_MESSAGE_ID; ?>" class="<?php echo PageConstants::MESSAGE_CLASS; ?>">
                         <?php echo isset($errorStatus->passwordError) ? $errorStatus->passwordError : '' ?>
                     </span>
                 </div>
             </section>
-            <input id="<?php echo LOGIN_BUTTON_ID; ?>" type="submit" name="<?php echo LOGIN_BUTTON_KEY; ?>" value="Log In" />
+            <input id="<?php echo PageConstants::LOGIN_BUTTON_ID; ?>" type="submit" name="<?php echo LoginConstants::LOGIN_BUTTON_KEY; ?>" value="Log In" />
             <p>- or -</p>
-            <div class="<?php echo LINKS_CLASS; ?>">
-                <a id="<?php echo CREATE_ACCOUNT_LINK_ID; ?>" href="<?php echo CREATE_ACCOUNT_PAGE; ?>">Create an Account</a>
-                <a id="<?php echo HOME_LINK_ID; ?>" href="<?php echo HOME_PAGE; ?>">Home</a>
+            <div class="<?php echo PageConstants::LINKS_CLASS; ?>">
+                <a id="<?php echo PageConstants::CREATE_ACCOUNT_LINK_ID; ?>" href="<?php echo PageConstants::CREATE_ACCOUNT_PAGE; ?>">Create an Account</a>
+                <a id="<?php echo PageConstants::HOME_LINK_ID; ?>" href="<?php echo PageConstants::HOME_PAGE; ?>">Home</a>
             </div>
         </form>
     </body>
