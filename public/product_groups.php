@@ -1,25 +1,17 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Brian
- * Date: 11/11/2018
- * Time: 2:44 PM
- */
 session_start();
 
 require_once __DIR__ . '/../config.php';
-require_once PROJECT_ROOT . '/includes/page_constants.php';
-require_once PROJECT_ROOT . '/includes/db_code.php';
-require_once PROJECT_ROOT . '/includes/art_constants.php';
-require_once PROJECT_ROOT . '/includes/db_constants.php';
-require_once PROJECT_ROOT . '/includes/ui_code.php';
-require_once PROJECT_ROOT . '/includes/login_constants.php';
-require_once PROJECT_ROOT . '/includes/utilities.php';
-require_once PROJECT_ROOT . '/includes/shopping_cart_code.php';
 
-$categoryName = urldecode($_GET[PRODUCT_CATEGORY_NAME_FIELD]);
-$subcategoryName = urldecode($_GET[PRODUCT_SUBCATEGORY_NAME_FIELD]);
-$products = lookup_product_groups($categoryName, $subcategoryName);
+use PAS\Database;
+use PAS\DbConstants;
+use PAS\Ui;
+
+$categoryName = urldecode($_GET[DbConstants::PRODUCT_CATEGORY_NAME_FIELD]);
+$subcategoryName = urldecode($_GET[DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD]);
+$ui = new Ui();
+$db = new Database();
+$products = $db->lookupProductGroups($categoryName, $subcategoryName);
 
 ?>
 
@@ -53,9 +45,9 @@ $products = lookup_product_groups($categoryName, $subcategoryName);
 
 <body onload="init();">
 
-<?php show_header_content($categoryName); ?>
-<?php show_group_content($products); ?>
-<?php show_footer_content(); ?>
+<?php $ui->showHeaderContent($categoryName); ?>
+<?php $ui->showGroupContent($products); ?>
+<?php $ui->showFooterContent(); ?>
 
 </body>
 

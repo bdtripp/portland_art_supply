@@ -1,38 +1,33 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Brian
- * Date: 12/1/2018
- * Time: 7:52 AM
- */
 session_start();
 
 require_once __DIR__ . '/../config.php';
-require_once PROJECT_ROOT . '/includes/ui_code.php';
-require_once PROJECT_ROOT . '/includes/page_constants.php';
-require_once PROJECT_ROOT . '/includes/db_code.php';
-require_once PROJECT_ROOT . '/includes/db_constants.php';
-require_once PROJECT_ROOT . '/includes/login_constants.php';
-require_once PROJECT_ROOT . '/includes/utilities.php';
-require_once PROJECT_ROOT . '/includes/shopping_cart_code.php';
 
-$buttonClickedID = get_post_value("buttonID");
-$newQuantity = get_post_value("quantity");
+use PAS\Ui;
+use PAS\PageConstants;
+use PAS\DbConstants;
+use PAS\Utilities;
+use PAS\Cart;
+
+$buttonClickedID = Utilities::getPostValue("buttonID");
+$newQuantity = Utilities::getPostValue("quantity");
 // id of the item that the quantity is being changed for
-$idOfItemChanged = get_post_value("idOfItemChanged");
+$idOfItemChanged = Utilities::getPostValue("idOfItemChanged");
+$ui = new Ui();
+$cart = new Cart();
 
 if (!empty($buttonClickedID)) {
-    removeItemFromCart($buttonClickedID);
+    $cart->removeItemFromCart($buttonClickedID);
     exit();
 }
 if (!empty($newQuantity)) {
-    $responseData = array(QUANTITY_FIELD => updateQuantityInSession($newQuantity, $idOfItemChanged),
-        SUBTOTAL_FIELD => getItemSubtotal($idOfItemChanged), TOTAL_FIELD => getCartTotal()) ;
+    $responseData = array(DbConstants::QUANTITY_FIELD => $cart->updateQuantityInSession($newQuantity, $idOfItemChanged),
+        DbConstants::SUBTOTAL_FIELD => $cart->getItemSubtotal($idOfItemChanged), DbConstants::TOTAL_FIELD => $cart->getCartTotal()) ;
     echo json_encode($responseData);
     exit();
 }
 
-$activePage = SHOPPING_CART_PAGE_TITLE;
+$activePage = PageConstants::SHOPPING_CART_PAGE_TITLE;
 
 ?>
 
@@ -66,9 +61,9 @@ $activePage = SHOPPING_CART_PAGE_TITLE;
 
 <body onload="init();">
 
-<?php show_header_content($activePage); ?>
-<?php show_shopping_cart_content(); ?>
-<?php show_footer_content(); ?>
+<?php $ui->showHeaderContent($activePage); ?>
+<?php $ui->showShoppingCartContent(); ?>
+<?php $ui->showFooterContent(); ?>
 
 </body>
 

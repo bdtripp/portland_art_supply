@@ -1,23 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Brian
- * Date: 12/1/2018
- * Time: 7:52 AM
- */
 session_start();
 
 require_once __DIR__ . '/../config.php';
-require_once PROJECT_ROOT . '/includes/ui_code.php';
-require_once PROJECT_ROOT . '/includes/page_constants.php';
-require_once PROJECT_ROOT . '/includes/db_code.php';
-require_once PROJECT_ROOT . '/includes/db_constants.php';
-require_once PROJECT_ROOT . '/includes/login_constants.php';
-require_once PROJECT_ROOT . '/includes/utilities.php';
-require_once PROJECT_ROOT . '/includes/shopping_cart_code.php';
 
-$activePage = ABOUT_PAGE_TITLE;
+use PAS\Ui;
+use PAS\PageConstants;
 
+$activePage = PageConstants::ABOUT_PAGE_TITLE;
+
+$ui = new Ui();
 ?>
 
 <!doctype html>
@@ -50,13 +41,13 @@ $activePage = ABOUT_PAGE_TITLE;
 
 <body onload="init();">
 
-<?php show_header_content($activePage); ?>
+<?php $ui->showHeaderContent($activePage); ?>
 
 <main>
-    <section id="<?php echo ABOUT_SECTION_ID; ?>">
+    <section id="<?php echo PageConstants::ABOUT_SECTION_ID; ?>">
         <h2>About Us</h2>
 
-        <div id="<?php echo ABOUT_TEXT_ID; ?>" class="<?php echo SEVEN_COLUMNS_CLASS; ?>">
+        <div id="<?php echo PageConstants::ABOUT_TEXT_ID; ?>" class="<?php echo PageConstants::SEVEN_COLUMNS_CLASS; ?>">
             <p>
                 Portland Art Supply (PAS) was founded in 1975. Having its roots in the Northwest District of downtown
                 Portland as a small retailer of craft supplies, PAS has grown to becoming one of the Northwest'
@@ -90,14 +81,14 @@ $activePage = ABOUT_PAGE_TITLE;
 
             <p>We hope to continue to provide artist's with the products that they love for many years to come!</p>
         </div>
-        <div id="<?php echo ABOUT_IMAGE_DIV_ID; ?>" class="<?php echo FIVE_COLUMNS_CLASS; ?>">
+        <div id="<?php echo PageConstants::ABOUT_IMAGE_DIV_ID; ?>" class="<?php echo PageConstants::FIVE_COLUMNS_CLASS; ?>">
             <img src="images/about1.jpg" alt="An artist drawing plants in a notebook">
             <img src="images/about2.jpg" alt="Artist getting paint from a palette">
         </div>
     </section>
 </main>
 
-<?php show_footer_content(); ?>
+<?php $ui->showFooterContent(); ?>
 
 </body>
 

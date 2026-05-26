@@ -1,34 +1,29 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Brian
- * Date: 11/11/2018
- * Time: 2:44 PM
- */
 session_start();
 
 require_once __DIR__ . '/../config.php';
-require_once PROJECT_ROOT . '/includes/page_constants.php';
-require_once PROJECT_ROOT . '/includes/db_code.php';
-require_once PROJECT_ROOT . '/includes/art_constants.php';
-require_once PROJECT_ROOT . '/includes/db_constants.php';
-require_once PROJECT_ROOT . '/includes/ui_code.php';
-require_once PROJECT_ROOT . '/includes/shopping_cart_code.php';
-require_once PROJECT_ROOT . '/includes/login_constants.php';
-require_once PROJECT_ROOT . '/includes/utilities.php';
 
-$id = get_post_value(PRODUCT_ITEM_ID_FIELD);
-$groupDescription = get_post_value(PRODUCT_GROUP_DESCRIPTION_FIELD);
-$category = get_post_value(PRODUCT_CATEGORY_NAME_FIELD);
-$subcategory = get_post_value(PRODUCT_SUBCATEGORY_NAME_FIELD);
-$groupCode = get_post_value(PRODUCT_GROUP_CODE_FIELD);
-$color = get_post_value(PRODUCT_COLOR_NAME_FIELD);
-$size = get_post_value(PRODUCT_SIZE_DESCRIPTION_FIELD);
-$price = get_post_value(PRODUCT_ITEM_PRICE_FIELD);
-$quantity = get_post_value(QUANTITY_FIELD);
+use PAS\Database;
+use PAS\DbConstants;
+use PAS\Ui;
+use PAS\Cart;
+use PAS\Utilities;
+
+$id = Utilities::getPostValue(DbConstants::PRODUCT_ITEM_ID_FIELD);
+$groupDescription = Utilities::getPostValue(DbConstants::PRODUCT_GROUP_DESCRIPTION_FIELD);
+$category = Utilities::getPostValue(DbConstants::PRODUCT_CATEGORY_NAME_FIELD);
+$subcategory = Utilities::getPostValue(DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD);
+$groupCode = Utilities::getPostValue(DbConstants::PRODUCT_GROUP_CODE_FIELD);
+$color = Utilities::getPostValue(DbConstants::PRODUCT_COLOR_NAME_FIELD);
+$size = Utilities::getPostValue(DbConstants::PRODUCT_SIZE_DESCRIPTION_FIELD);
+$price = Utilities::getPostValue(DbConstants::PRODUCT_ITEM_PRICE_FIELD);
+$quantity = Utilities::getPostValue(DbConstants::QUANTITY_FIELD);
+$db = new Database();
+$cart = new Cart();
+$ui = new Ui();
 
 if (!empty($id)) {
-    addItemToCart(html_entity_decode(urldecode($id)), html_entity_decode(urldecode($category)),
+    $cart->addItemToCart(html_entity_decode(urldecode($id)), html_entity_decode(urldecode($category)),
         html_entity_decode(urldecode($subcategory)), html_entity_decode(urldecode($groupCode)),
         html_entity_decode(urldecode($color)), html_entity_decode(urldecode($size)),
         html_entity_decode(urldecode($price)), html_entity_decode(urldecode($quantity)),
@@ -36,12 +31,12 @@ if (!empty($id)) {
     exit();
 }
 
-$categoryName = urldecode($_GET[PRODUCT_CATEGORY_NAME_FIELD]);
-$subcategoryName = urldecode($_GET[PRODUCT_SUBCATEGORY_NAME_FIELD]);
-$groupCode = urldecode($_GET[PRODUCT_GROUP_CODE_FIELD]);
-$groupID = urldecode($_GET[PRODUCT_GROUP_ID_FIELD]);
-$productGroup = lookup_group($groupID);
-$productItems = lookup_items($groupID);
+$categoryName = urldecode($_GET[DbConstants::PRODUCT_CATEGORY_NAME_FIELD]);
+$subcategoryName = urldecode($_GET[DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD]);
+$groupCode = urldecode($_GET[DbConstants::PRODUCT_GROUP_CODE_FIELD]);
+$groupID = urldecode($_GET[DbConstants::PRODUCT_GROUP_ID_FIELD]);
+$productGroup = $db->lookupGroup($groupID);
+$productItems = $db->lookupItems($groupID);
 
 ?>
 
@@ -74,7 +69,7 @@ $productItems = lookup_items($groupID);
         var productItems = <?php echo json_encode($productItems); ?>;
         var category = '<?php echo $categoryName; ?>';
         var subcategory = '<?php echo $subcategoryName; ?>';
-        var groupDescription = '<?php echo addslashes($productGroup[PRODUCT_GROUP_DESCRIPTION_FIELD]) ?>';
+        var groupDescription = '<?php echo addslashes($productGroup[DbConstants::PRODUCT_GROUP_DESCRIPTION_FIELD]) ?>';
     </script>
     <script src="js/pas.js.php" type="text/javascript"></script>
 
@@ -82,9 +77,9 @@ $productItems = lookup_items($groupID);
 
 <body onload="init();">
 
-<?php show_header_content($categoryName); ?>
-<?php show_item_content($productGroup, $categoryName, $subcategoryName); ?>
-<?php show_footer_content(); ?>
+<?php $ui->showHeaderContent($categoryName); ?>
+<?php $ui->showItemContent($productGroup, $categoryName, $subcategoryName); ?>
+<?php $ui->showFooterContent(); ?>
 
 </body>
 
