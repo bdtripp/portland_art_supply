@@ -1,35 +1,29 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Brian
- * Date: 12/10/2018
- * Time: 3:42 PM
- */
 header('Content-Type: text/javascript');
 
 require_once __DIR__ . '/../../config.php';
-require_once PROJECT_ROOT . '/includes/page_constants.php';
-require_once PROJECT_ROOT . '/includes/login_constants.php';
+use PAS\LoginConstants;
+use PAS\PageConstants;
 ?>
 
-const REQUIRED_SPECIAL_CHARACTERS = '<?php echo REQUIRED_SPECIAL_CHARACTERS; ?>';
-const PASSWORD_MIN_LENGTH = '<?php echo PASSWORD_MIN_LENGTH; ?>';
-const USERNAME_INPUT_ID = '<?php echo USERNAME_INPUT_ID; ?>';
-const PASSWORD_INPUT_ID = '<?php echo PASSWORD_INPUT_ID; ?>';
-const CONFIRM_PASSWORD_INPUT_ID = '<?php echo CONFIRM_PASSWORD_INPUT_ID; ?>';
-const PASSWORD_MESSAGE_ID = '<?php echo PASSWORD_MESSAGE_ID ?>';
-const USERNAME_MESSAGE_ID = '<?php echo USERNAME_MESSAGE_ID ?>';
-const CONFIRM_PASSWORD_MESSAGE_ID = '<?php echo CONFIRM_PASSWORD_MESSAGE_ID ?>';
+const REQUIRED_SPECIAL_CHARACTERS = '<?php echo LoginConstants::REQUIRED_SPECIAL_CHARACTERS; ?>';
+const PASSWORD_MIN_LENGTH = '<?php echo LoginConstants::PASSWORD_MIN_LENGTH; ?>';
+const USERNAME_INPUT_ID = '<?php echo PageConstants::USERNAME_INPUT_ID; ?>';
+const PASSWORD_INPUT_ID = '<?php echo PageConstants::PASSWORD_INPUT_ID; ?>';
+const CONFIRM_PASSWORD_INPUT_ID = '<?php echo PageConstants::CONFIRM_PASSWORD_INPUT_ID; ?>';
+const PASSWORD_MESSAGE_ID = '<?php echo PageConstants::PASSWORD_MESSAGE_ID ?>';
+const USERNAME_MESSAGE_ID = '<?php echo PageConstants::USERNAME_MESSAGE_ID ?>';
+const CONFIRM_PASSWORD_MESSAGE_ID = '<?php echo PageConstants::CONFIRM_PASSWORD_MESSAGE_ID ?>';
 const E_USERNAME_INVALID_CHARACTER = 'Username can only contain alpha-numeric characters.';
 const E_CONFIRM_NOT_MATCH = 'Confirmation password does not match.';
-const UPPERCASE_REQUIREMENT_ID = '<?php echo UPPERCASE_REQUIREMENT_ID; ?>';
-const DIGIT_REQUIREMENT_ID = '<?php echo DIGIT_REQUIREMENT_ID; ?>';
-const SPECIAL_CHAR_REQUIREMENT_ID = '<?php echo SPECIAL_CHAR_REQUIREMENT_ID; ?>';
-const LENGTH_REQUIREMENT_ID = '<?php echo LENGTH_REQUIREMENT_ID; ?>';
-const REQUIREMENTS_CLASS = '<?php echo REQUIREMENTS_CLASS; ?>';
-const MEETS_REQUIREMENTS_CLASS = '<?php echo MEETS_REQUIREMENTS_CLASS; ?>';
-const STILL_NEEDED_CLASS = '<?php echo STILL_NEEDED_CLASS; ?>';
-const ERROR_SYMBOL_CLASS = '<?php echo ERROR_SYMBOL_CLASS; ?>';
+const UPPERCASE_REQUIREMENT_ID = '<?php echo PageConstants::UPPERCASE_REQUIREMENT_ID; ?>';
+const DIGIT_REQUIREMENT_ID = '<?php echo PageConstants::DIGIT_REQUIREMENT_ID; ?>';
+const SPECIAL_CHAR_REQUIREMENT_ID = '<?php echo PageConstants::SPECIAL_CHAR_REQUIREMENT_ID; ?>';
+const LENGTH_REQUIREMENT_ID = '<?php echo PageConstants::LENGTH_REQUIREMENT_ID; ?>';
+const REQUIREMENTS_CLASS = '<?php echo PageConstants::REQUIREMENTS_CLASS; ?>';
+const MEETS_REQUIREMENTS_CLASS = '<?php echo PageConstants::MEETS_REQUIREMENTS_CLASS; ?>';
+const STILL_NEEDED_CLASS = '<?php echo PageConstants::STILL_NEEDED_CLASS; ?>';
+const ERROR_SYMBOL_CLASS = '<?php echo PageConstants::ERROR_SYMBOL_CLASS; ?>';
 
 
 function isUpper(character) {
