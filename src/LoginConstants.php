@@ -1,5 +1,5 @@
 <?php
-Namespace PAS;
+namespace PAS;
 
 class LoginConstants
 {
