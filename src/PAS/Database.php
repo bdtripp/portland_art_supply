@@ -1,9 +1,6 @@
 <?php
 namespace PAS;
 
-require_once __DIR__ . '/../config.php';
-require PROJECT_ROOT . '/vendor/autoload.php';
-
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
 

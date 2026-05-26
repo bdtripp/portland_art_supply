@@ -53,7 +53,7 @@ class ComposerStaticInite875ae8441d070d7dda5f4b47a2117aa
         ),
         'PAS\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/src',
+            0 => __DIR__ . '/../..' . '/src/PAS',
         ),
         'GrahamCampbell\\ResultType\\' => 
         array (
