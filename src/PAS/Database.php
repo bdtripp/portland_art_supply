@@ -1,8 +1,8 @@
 <?php
 namespace PAS;
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
-$dotenv->load();
+use PDO;
+use PDOException;
 
 class Database
 {
