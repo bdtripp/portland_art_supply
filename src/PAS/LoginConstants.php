@@ -24,7 +24,7 @@ class LoginConstants
     const PASSWORD_UPPERCASE_REQUIRE = 'At least 1 uppercase character.';
     const PASSWORD_DIGIT_REQUIRE = 'At least 1 digit.';
     const PASSWORD_SPECIAL_REQUIRE = 'At least 1 of the following:';
-    const PASSWORD_LENGTH_REQUIRE = 'At least ' . PASSWORD_MIN_LENGTH . ' characters long.';
+    const PASSWORD_LENGTH_REQUIRE = 'At least ' . self::PASSWORD_MIN_LENGTH . ' characters long.';
 
     /*
     * Error Messages

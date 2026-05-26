@@ -94,7 +94,7 @@ if ($createPressed) {
                 <ul class="<?php echo PageConstants::REQUIREMENTS_CLASS; ?>">
                     <li id="<?php echo PageConstants::UPPERCASE_REQUIREMENT_ID; ?>"><?php echo LoginConstants::PASSWORD_UPPERCASE_REQUIRE; ?></li>
                     <li id="<?php echo PageConstants::DIGIT_REQUIREMENT_ID; ?>"><?php echo LoginConstants::PASSWORD_DIGIT_REQUIRE; ?></li>
-                    <li id="<?php echo SPECIAL_CHAR_REQUIREMENT_ID; ?>">
+                    <li id="<?php echo PageConstants::SPECIAL_CHAR_REQUIREMENT_ID; ?>">
                         <?php echo LoginConstants::PASSWORD_SPECIAL_REQUIRE; ?>
                         <span><?php echo LoginConstants::REQUIRED_SPECIAL_CHARACTERS ?></span>
                     </li>
@@ -119,9 +119,9 @@ if ($createPressed) {
                 </div>
            </section>
             <input 
-                id="<?php echo PageConstants::CREATE_ACCOUNT_BUTTON_ID; ?>" 
+                id="<?php echo LoginConstants::CREATE_ACCOUNT_BUTTON_ID; ?>" 
                 type="submit" 
-                name="<?php echo PageConstants::CREATE_ACCOUNT_BUTTON_ID; ?>" 
+                name="<?php echo LoginConstants::CREATE_ACCOUNT_BUTTON_ID; ?>" 
                 value="Create Account" 
             />
             <p>- or -</p>
