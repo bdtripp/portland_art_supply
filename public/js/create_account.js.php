@@ -157,14 +157,14 @@ function checkIfValidUsername() {
     return checkUsernameRequirements(input);
 }
 
-function checkIfValidPassword(markAsStillNeeded) {
+function checkIfValidPassword(stillNeeded) {
     let input = getValue(PASSWORD_INPUT_ID);
     let passwordMessageSpan = document.getElementById(PASSWORD_MESSAGE_ID);
     let errorSymbolSpan = passwordMessageSpan.previousElementSibling;
 
     let meetsRequirements = checkPasswordRequirements(input);
 
-    if (markAsStillNeeded && !meetsRequirements) {
+    if (stillNeeded && !meetsRequirements) {
         markAsStillNeeded();
     }
 
