@@ -31,8 +31,8 @@ class Cart
 
         //check if the item already exists in the cart
         for ($count = 0; $count < count($items); $count++) {
-            if ((int)$items[$count][DbConstants::PRODUCT_ITEM_ID_FIELD] === $id) {
-                $items[$count][DbConstants::QUANTITY_FIELD] = (int)$items[$count][DbConstants::QUANTITY_FIELD] + $quantity;
+            if ((int) $items[$count][DbConstants::PRODUCT_ITEM_ID_FIELD] === $id) {
+                $items[$count][DbConstants::QUANTITY_FIELD] = (int) $items[$count][DbConstants::QUANTITY_FIELD] + $quantity;
                 $newItem = false;
                 Utilities::setSessionValue(PageConstants::SESSION_CART_KEY, $items);
             }
@@ -53,8 +53,8 @@ class Cart
         $previousQuantity = 0;
 
         for ($count = 0; $count < count($items); $count++) {
-            if ((int)$items[$count][DbConstants::PRODUCT_ITEM_ID_FIELD] === $id) {
-                $previousQuantity = (int)$items[$count][DbConstants::QUANTITY_FIELD];
+            if ((int) $items[$count][DbConstants::PRODUCT_ITEM_ID_FIELD] === $id) {
+                $previousQuantity = (int) $items[$count][DbConstants::QUANTITY_FIELD];
                 $items[$count][DbConstants::QUANTITY_FIELD] = $newQuantity;
                 Utilities::setSessionValue(PageConstants::SESSION_CART_KEY, $items);
             }
@@ -66,7 +66,7 @@ class Cart
     public function removeItemFromCart(int $id): void {
         $itemsInCart = $this->getItemsInCart();
         for ($count = 0; $count < count($itemsInCart); $count++) {
-            if ((int)$itemsInCart[$count][DbConstants::PRODUCT_ITEM_ID_FIELD] === $id) {
+            if ((int) $itemsInCart[$count][DbConstants::PRODUCT_ITEM_ID_FIELD] === $id) {
                 unset($itemsInCart[$count]);
                 $itemsInCart = array_values($itemsInCart);
             }
@@ -82,7 +82,7 @@ class Cart
         $numItemsInCart = 0;
 
         foreach ($itemsInCart as $item) {
-            $numItemsInCart += (int)$item[DbConstants::QUANTITY_FIELD];
+            $numItemsInCart += (int) $item[DbConstants::QUANTITY_FIELD];
         }
         return $numItemsInCart;
     }
@@ -91,8 +91,8 @@ class Cart
         $itemsInCart = $this->getItemsInCart();
 
         foreach ($itemsInCart as $item) {
-            if ((int)$item[DbConstants::PRODUCT_ITEM_ID_FIELD] === $id) {
-                return (int)$item[DbConstants::QUANTITY_FIELD];
+            if ((int) $item[DbConstants::PRODUCT_ITEM_ID_FIELD] === $id) {
+                return (int) $item[DbConstants::QUANTITY_FIELD];
             }
         }
         return 0;
@@ -103,8 +103,8 @@ class Cart
         $subtotal = 0;
 
         foreach ($itemsInCart as $item) {
-            if ((int)$item[DbConstants::PRODUCT_ITEM_ID_FIELD] === $id) {
-                $subtotal += (float)$item[DbConstants::PRODUCT_ITEM_PRICE_FIELD] * (int)$item[DbConstants::QUANTITY_FIELD];
+            if ((int) $item[DbConstants::PRODUCT_ITEM_ID_FIELD] === $id) {
+                $subtotal += (float) $item[DbConstants::PRODUCT_ITEM_PRICE_FIELD] * (int) $item[DbConstants::QUANTITY_FIELD];
             }
         }
         return $subtotal;
@@ -115,7 +115,7 @@ class Cart
         $total = 0;
 
         foreach ($itemsInCart as $item) {
-            $total += (float)$item[DbConstants::PRODUCT_ITEM_PRICE_FIELD] * (int)$item[DbConstants::QUANTITY_FIELD];
+            $total += (float) $item[DbConstants::PRODUCT_ITEM_PRICE_FIELD] * (int) $item[DbConstants::QUANTITY_FIELD];
         }
         return $total;
     }

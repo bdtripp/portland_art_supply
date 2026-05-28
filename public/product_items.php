@@ -34,7 +34,7 @@ if (!empty($id)) {
 $categoryName = urldecode($_GET[DbConstants::PRODUCT_CATEGORY_NAME_FIELD]);
 $subcategoryName = urldecode($_GET[DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD]);
 $groupCode = urldecode($_GET[DbConstants::PRODUCT_GROUP_CODE_FIELD]);
-$groupID = urldecode($_GET[DbConstants::PRODUCT_GROUP_ID_FIELD]);
+$groupID = (int) urldecode($_GET[DbConstants::PRODUCT_GROUP_ID_FIELD]);
 $productGroup = $db->lookupGroup($groupID);
 $productItems = $db->lookupItems($groupID);
 
