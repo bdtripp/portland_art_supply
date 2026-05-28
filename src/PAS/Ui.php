@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace PAS;
 
 class Ui
@@ -16,7 +16,7 @@ class Ui
          $this->cart = new Cart();
     }
 
-    public function showHeaderContent($categoryName) {
+    public function showHeaderContent(string $categoryName): void {
         if (isset($_SESSION[PageConstants::SESSION_USER_ID_KEY])) {
             $loginHref = PageConstants::LOGOUT_PAGE;
             $username = Utilities::getSessionValue(PageConstants::SESSION_USERNAME_KEY);
@@ -61,7 +61,7 @@ class Ui
         echo '</header>' . "\n\n";
     }
 
-    public function generateNavList($activePage) {
+    public function generateNavList(string $activePage): void {
         $categories = $this->db->lookupCategories();
 
         echo '            <li><a ' . Utilities::checkCurrentPage(PageConstants::HOME_PAGE) . 'Home</a></li>' . "\n";
@@ -87,7 +87,7 @@ class Ui
         echo '            <li><a ' . Utilities::checkCurrentPage(PageConstants::ABOUT_PAGE) . 'About</a></li>' . "\n";
     }
 
-    public function showSubcategoryDropdown($category) {
+    public function showSubcategoryDropdown(array $category): void {
         $categoryID = $category[DbConstants::PRODUCT_CATEGORY_ID_FIELD];
         $categoryName = $category[DbConstants::PRODUCT_CATEGORY_NAME_FIELD];
         $subcategories = $this->db->lookupSubcategories($categoryID);
@@ -108,7 +108,7 @@ class Ui
         echo '                </ul>' . "\n";
     }
 
-    public function showGroupContent($products) {
+    public function showGroupContent(array $products): void {
         echo '<main>' . "\n";
         echo '    <h2 class="' . PageConstants::LARGE_H2 . '">' . $products[0][DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD] . '</h2>' . "\n\n";
         echo '    <section id="' . PageConstants::PRODUCT_GROUPS_ID . '">' . "\n";
@@ -119,8 +119,8 @@ class Ui
         echo '</main>' . "\n\n";
     }
 
-    public function showProductGroups($product) {
-        $hrefString = 'href="' . PageConstants::PRODUCT_ITEMS_PAGE . '?' . DbConstants::PRODUCT_GROUP_ID_FIELD . '=' . urlencode($product[DbConstants::PRODUCT_GROUP_ID_FIELD]);
+    public function showProductGroups(array $product): void {
+        $hrefString = 'href="' . PageConstants::PRODUCT_ITEMS_PAGE . '?' . DbConstants::PRODUCT_GROUP_ID_FIELD . '=' . urlencode((string) $product[DbConstants::PRODUCT_GROUP_ID_FIELD]);
         $hrefString .= '&' . DbConstants::PRODUCT_CATEGORY_NAME_FIELD . '=' . urlencode($product[DbConstants::PRODUCT_CATEGORY_NAME_FIELD]);
         $hrefString .= '&' . DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD . '=' . urlencode($product[DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD]);
         $hrefString .= '&' . DbConstants::PRODUCT_GROUP_CODE_FIELD . '=' . urlencode($product[DbConstants::PRODUCT_GROUP_CODE_FIELD]) . '"';
@@ -136,7 +136,7 @@ class Ui
         echo '            </div>' . "\n\n";
     }
 
-    public function showItemContent($productGroup, $categoryName, $subCategoryName) {
+    public function showItemContent(array $productGroup, string $categoryName, string $subCategoryName): void {
         echo '<main>' . "\n";
         echo '    <h2>' . $productGroup[DbConstants::PRODUCT_GROUP_DESCRIPTION_FIELD] . '</h2>' . "\n";
         echo '    <section id="' . PageConstants::ITEM_WRAPPER_ID . '">' . "\n";
@@ -157,7 +157,7 @@ class Ui
         echo '</main>' . "\n\n";
     }
 
-    public function showShoppingCartContent() {
+    public function showShoppingCartContent(): void {
         $itemsInCart = Utilities::getSessionValue(PageConstants::SESSION_CART_KEY);
 
         echo '<main>' . "\n";
@@ -176,7 +176,7 @@ class Ui
         echo '</main>' . "\n\n";
     }
 
-    public function showItemsInCart($itemsInCart) {
+    public function showItemsInCart(array $itemsInCart): void {
         foreach ($itemsInCart as $item) {
             $id = $item[DbConstants::PRODUCT_ITEM_ID_FIELD];
             $groupDescription = $item[DbConstants::PRODUCT_GROUP_DESCRIPTION_FIELD];
@@ -225,7 +225,7 @@ class Ui
         }
     }
 
-    public function displayItemImage($category, $subcategory, $groupCode, $color, $size) {
+    public function displayItemImage(string $category, string $subcategory, string $groupCode, string $color, string $size): void {
         if ($size != 'null' || $color != 'null') {
             $groupCode .= '-';
         }
@@ -250,7 +250,7 @@ class Ui
             $groupCode . $color . $size . '.jpg">' . "\n";
     }
 
-    public function showFooterContent() {
+    public function showFooterContent(): void {
         echo '<footer class="' . PageConstants::CLEAR_FLOAT_CLASS . '">' . "\n";
         echo '    <div class="' . PageConstants::DARK_BACKGROUND_CLASS . '">' . "\n";
         echo '        <section class="' . PageConstants::HOURS_CLASS . ' ' . PageConstants::FOUR_COLUMNS_CLASS . '">' . "\n\n";
