@@ -6,10 +6,23 @@ use PAS\DbConstants;
 use PAS\Utilities;
 use PAS\PageConstants;
 
+/**
+ * @phpstan-type CartItem array{
+ *     product_item_id: int,
+ *     category_name: string,
+ *     subcategory_name: string,
+ *     group_code: string,
+ *     color_name: string,
+ *     size_description: string,
+ *     price: float,
+ *     Quantity: int,
+ *     group_description: string
+ * }
+ */
 class Cart
 {
     /**
-     * @return array<int, array<string, int|string|float>>
+     * @return array<int, CartItem>
      */
     public function getItemsInCart(): array {
         return Utilities::getSessionValue(PageConstants::SESSION_CART_KEY) ?? [];
@@ -26,6 +39,7 @@ class Cart
         int $quantity, 
         string $groupDescription
         ): void {
+        /** @var array<int, CartItem> $items */
         $items = $this->getItemsInCart();
         $newItem = true;
 
@@ -49,6 +63,7 @@ class Cart
     }
 
     public function updateQuantityInSession(int $newQuantity, int $id): int {
+        /** @var array<int, CartItem> $items */
         $items = $this->getItemsInCart();
         $previousQuantity = 0;
 
@@ -64,6 +79,7 @@ class Cart
     }
 
     public function removeItemFromCart(int $id): void {
+        /** @var array<int, CartItem> $itemsInCart */
         $itemsInCart = $this->getItemsInCart();
         for ($count = 0; $count < count($itemsInCart); $count++) {
             if ((int) $itemsInCart[$count][DbConstants::PRODUCT_ITEM_ID_FIELD] === $id) {

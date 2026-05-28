@@ -34,7 +34,11 @@ class Database
     }
 
     /**
-     * @return array{user_id: int, username: string, password_hash: string}|false
+     * @return array{
+     *     user_id: int,
+     *     username: string,
+     *     password_hash: string
+     * }|false
      */
     public function lookupUser(string $username): array|false {
         $conn = $this->conn;
@@ -58,6 +62,12 @@ class Database
         $stmt->execute();
     }
 
+     /**
+     * @return array{
+     *     user_id: int,
+     *     session_data: string,
+     * }|false
+     */
     public function lookupSession(int $userID): array|false {
         $conn = $this->conn;
         $stmt = $conn->prepare("
@@ -83,13 +93,19 @@ class Database
                 $stmt->bindParam(':session', $session, PDO::PARAM_STR);
                 $stmt->bindParam(':sessionDup', $session, PDO::PARAM_STR);
                 $stmt->execute();
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 http_response_code(500); 
                 echo $e;
             }
         }
     }
-
+    
+    /**
+     * @return array<int, array{
+     *     category_id: int,
+     *     category_name: string
+     * }>
+     */
     public function lookupCategories(): array {
         $conn = $this->conn;
         $stmt = $conn->query("
@@ -99,6 +115,11 @@ class Database
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * @return array<int, array{
+     *      subcategory_name: string
+     * }>
+     */
     public function lookupSubcategories(int $categoryID): array {
         $conn = $this->conn;
         $stmt = $conn->prepare("
@@ -111,6 +132,15 @@ class Database
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * @return array<int, array{
+     *      product_group_id: int,
+     *      group_code: string,
+     *      group_description: string,
+     *      category_name: string,
+     *      subcategory_name: string
+     * }>
+     */
     public function lookupProductGroups(string $category, string $subcategory): array {
         $conn = $this->conn;
         $stmt = $conn->prepare("
@@ -134,6 +164,13 @@ class Database
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * @return array{
+     *      group_code: string,
+     *      group_description: string,
+     *      group_information: string
+     * }|false
+     */
     public function lookupGroup(int $groupID): array|false {
         $conn = $this->conn;
         $stmt = $conn->prepare(
@@ -146,6 +183,14 @@ class Database
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * @return array<int, array{
+     *      product_item_id: int,
+     *      color_name: ?string,
+     *      size_description: ?string,
+     *      price: string
+     * }>
+     */
     public function lookupItems(int $groupID): array {
         $conn = $this->conn;
         $stmt = $conn->prepare("
