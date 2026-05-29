@@ -178,15 +178,15 @@ class Ui
 
     public function showItemsInCart(array $itemsInCart): void {
         foreach ($itemsInCart as $item) {
-            $id = $item[DbConstants::PRODUCT_ITEM_ID_FIELD];
-            $groupDescription = $item[DbConstants::PRODUCT_GROUP_DESCRIPTION_FIELD];
-            $categoryName = $item[DbConstants::PRODUCT_CATEGORY_NAME_FIELD];
-            $subcategoryName = $item[DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD];
-            $groupCode = $item[DbConstants::PRODUCT_GROUP_CODE_FIELD];
-            $color = $item[DbConstants::PRODUCT_COLOR_NAME_FIELD];
-            $size = $item[DbConstants::PRODUCT_SIZE_DESCRIPTION_FIELD];
-            $price = $item[DbConstants::PRODUCT_ITEM_PRICE_FIELD];
-            $quantity = $item[DbConstants::QUANTITY_FIELD];
+            $id = $item->productItemId;
+            $groupDescription = $item->groupDescription;
+            $categoryName = $item->categoryName;
+            $subcategoryName = $item->subcategoryName;
+            $groupCode = $item->groupCode;
+            $color = $item->colorName;
+            $size = $item->sizeDescription;
+            $price = $item->price;
+            $quantity = $item->quantity;
 
             echo '        <div id="product_id_' . $id . '_div" class="' . PageConstants::CART_ITEM_CLASS . ' ' . PageConstants::CARD_CLASS . '">' . "\n";
             $this->displayItemImage($categoryName, $subcategoryName,
@@ -219,7 +219,7 @@ class Ui
             echo '                    <p id="' . "subtotal_product_" . $id . '" class="' . PageConstants::SUBTOTAL_CLASS . '">Subtotal:' .
                 '<span class="' . PageConstants::PRICE_DISPLAY_CLASS . '">$' . number_format($price * $quantity, 2) . '</span></p>' . "\n";
             echo '            </div>' ."\n";
-            echo '            <input id="' . $item[DbConstants::PRODUCT_ITEM_ID_FIELD] . '" class="' . PageConstants::REMOVE_BUTTON_CLASS . '" type="button" value="Remove"' .
+            echo '            <input id="' . $id . '" class="' . PageConstants::REMOVE_BUTTON_CLASS . '" type="button" value="Remove"' .
                 ' onclick="onRemoveClicked(this.id,\'shopping_cart.php\')">' . "\n";
             echo '        </div>' . "\n";
         }
