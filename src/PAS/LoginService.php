@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace PAS;
 
 class LoginService
@@ -9,13 +10,13 @@ class LoginService
     {
         $this->db = $db;
     }
-    public function setUser($userID, $username, $returnToUrl) {
+    public function setUser(int $userID, string $username, string $returnToUrl): void {
         Utilities::setSessionValue(PageConstants::SESSION_USER_ID_KEY, $userID);
         Utilities::setSessionValue(PageConstants::SESSION_USERNAME_KEY, $username);
         header('Location: ' . $returnToUrl);
     }
 
-    public function login($username, $password, $returnToUrl) {
+    public function login(string $username, string $password, string $returnToUrl): \stdClass|string {
         $errorStatus = new \stdClass();
 
         $user = $this->db->lookupUser($username);
@@ -42,7 +43,7 @@ class LoginService
         return '';
     }
 
-    public function register($username, $password, $confirm, $returnToUrl) {
+    public function register(string $username, string $password, string $confirm, string $returnToUrl): ?\stdClass {
         $errorStatus = new \stdClass();
 
         if (empty($username)) {
@@ -76,9 +77,10 @@ class LoginService
         $this->db->addUser($username, password_hash($password, PASSWORD_DEFAULT));
         $user = $this->db->lookupUser($username);
         $this->setUser($user[DbConstants::USER_ID_FIELD], $username, $returnToUrl);
+        return null;
     }
 
-    public function showErrorSymbol() {
+    public function showErrorSymbol(): string {
         return "⚠ ";
     }
 }

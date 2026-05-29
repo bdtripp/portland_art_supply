@@ -2,121 +2,154 @@
 declare(strict_types=1);
 namespace PAS;
 
-use PAS\DbConstants;
 use PAS\Utilities;
 use PAS\PageConstants;
 
 class Cart
 {
-    /**
-     * @return array<int, array<string, int|string|float>>
-     */
-    public function getItemsInCart(): array {
-        return Utilities::getSessionValue(PageConstants::SESSION_CART_KEY) ?? [];
-    }
-
     public function addItemToCart(
-        int $id, 
-        string $category, 
-        string $subcategory, 
-        string $groupCode, 
-        string $color, 
-        string $size, 
-        float $price, 
-        int $quantity, 
+        int $id,
+        string $category,
+        string $subcategory,
+        string $groupCode,
+        string $color,
+        string $size,
+        float $price,
+        int $quantity,
         string $groupDescription
-        ): void {
-        $items = $this->getItemsInCart();
+    ): void {
+        /** @var array<int, CartItem> $items */
+        $itemsInCart = Utilities::getCartItems();
         $newItem = true;
 
-        //check if the item already exists in the cart
-        for ($count = 0; $count < count($items); $count++) {
-            if ((int) $items[$count][DbConstants::PRODUCT_ITEM_ID_FIELD] === $id) {
-                $items[$count][DbConstants::QUANTITY_FIELD] = (int) $items[$count][DbConstants::QUANTITY_FIELD] + $quantity;
+        // Check if the item already exists in the cart
+        foreach ($itemsInCart as $index => $item) {
+            if ($item->productItemId === $id) {
+                // Replace the existing CartItem with a new one (immutability)
+                $itemsInCart[$index] = new CartItem(
+                    productItemId: $item->productItemId,
+                    categoryName: $item->categoryName,
+                    subcategoryName: $item->subcategoryName,
+                    groupCode: $item->groupCode,
+                    colorName: $item->colorName,
+                    sizeDescription: $item->sizeDescription,
+                    price: $item->price,
+                    quantity: $item->quantity + $quantity,
+                    groupDescription: $item->groupDescription
+                );
+
                 $newItem = false;
-                Utilities::setSessionValue(PageConstants::SESSION_CART_KEY, $items);
+                break;
             }
         }
-        
+
         if ($newItem) {
-            $items[] = array(DbConstants::PRODUCT_ITEM_ID_FIELD => $id, DbConstants::PRODUCT_CATEGORY_NAME_FIELD => $category,
-                DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD => $subcategory, DbConstants::PRODUCT_GROUP_CODE_FIELD => $groupCode,
-                DbConstants::PRODUCT_COLOR_NAME_FIELD => $color, DbConstants::PRODUCT_SIZE_DESCRIPTION_FIELD => $size,
-                DbConstants::PRODUCT_ITEM_PRICE_FIELD => $price, DbConstants::QUANTITY_FIELD => $quantity, DbConstants::PRODUCT_GROUP_DESCRIPTION_FIELD => $groupDescription);
-            Utilities::setSessionValue(PageConstants::SESSION_CART_KEY, $items);
+            $itemsInCart[] = new CartItem(
+                productItemId: $id,
+                categoryName: $category,
+                subcategoryName: $subcategory,
+                groupCode: $groupCode,
+                colorName: $color,
+                sizeDescription: $size,
+                price: $price,
+                quantity: $quantity,
+                groupDescription: $groupDescription
+            );
         }
-        Utilities::saveSession();
+
+        Utilities::setCartItems($itemsInCart);
     }
 
     public function updateQuantityInSession(int $newQuantity, int $id): int {
-        $items = $this->getItemsInCart();
+        /** @var array<int, CartItem> $itemsInCart */
+        $itemsInCart = Utilities::getCartItems();
         $previousQuantity = 0;
 
-        for ($count = 0; $count < count($items); $count++) {
-            if ((int) $items[$count][DbConstants::PRODUCT_ITEM_ID_FIELD] === $id) {
-                $previousQuantity = (int) $items[$count][DbConstants::QUANTITY_FIELD];
-                $items[$count][DbConstants::QUANTITY_FIELD] = $newQuantity;
-                Utilities::setSessionValue(PageConstants::SESSION_CART_KEY, $items);
+        foreach ($itemsInCart as $index => $item) {
+            if ($item->productItemId === $id) {
+                $previousQuantity = $item->quantity;
+                $itemsInCart[$index] = new CartItem(
+                    productItemId: $item->productItemId,
+                    categoryName: $item->categoryName,
+                    subcategoryName: $item->subcategoryName,
+                    groupCode: $item->groupCode,
+                    colorName: $item->colorName,
+                    sizeDescription: $item->sizeDescription,
+                    price: $item->price,
+                    quantity: $newQuantity,
+                    groupDescription: $item->groupDescription
+                );
             }
         }
-        Utilities::saveSession();
+
+        Utilities::setCartItems($itemsInCart);
+
         return $previousQuantity;
     }
 
     public function removeItemFromCart(int $id): void {
-        $itemsInCart = $this->getItemsInCart();
-        for ($count = 0; $count < count($itemsInCart); $count++) {
-            if ((int) $itemsInCart[$count][DbConstants::PRODUCT_ITEM_ID_FIELD] === $id) {
-                unset($itemsInCart[$count]);
-                $itemsInCart = array_values($itemsInCart);
+        /** @var array<int, CartItem> $itemsInCart */
+        $itemsInCart = Utilities::getCartItems();
+
+        foreach ($itemsInCart as $index => $item) {
+            if ($item->productItemId === $id) {
+                unset($itemsInCart[$index]);
+                break; // stop after removing the item
             }
         }
-        Utilities::setSessionValue(PageConstants::SESSION_CART_KEY, $itemsInCart);
-        Utilities::saveSession();
+
+        $itemsInCart = array_values($itemsInCart);
+
+        Utilities::setCartItems($itemsInCart);
+
         header("Refresh:0");
         exit();
     }
 
     public function getNumItemsInCart(): int {
-        $itemsInCart = $this->getItemsInCart();
+        $itemsInCart = Utilities::getCartItems();
         $numItemsInCart = 0;
 
         foreach ($itemsInCart as $item) {
-            $numItemsInCart += (int) $item[DbConstants::QUANTITY_FIELD];
+            $numItemsInCart += $item->quantity;
         }
+
         return $numItemsInCart;
     }
 
     public function getQuantityOfItem(int $id): int {
-        $itemsInCart = $this->getItemsInCart();
+        $itemsInCart = Utilities::getCartItems();
 
         foreach ($itemsInCart as $item) {
-            if ((int) $item[DbConstants::PRODUCT_ITEM_ID_FIELD] === $id) {
-                return (int) $item[DbConstants::QUANTITY_FIELD];
+            if ($item->productItemId === $id) {
+                return $item->quantity;
             }
         }
+
         return 0;
     }
 
     public function getItemSubtotal(int $id): float {
-        $itemsInCart = $this->getItemsInCart();
+        $itemsInCart = Utilities::getCartItems();
         $subtotal = 0;
 
         foreach ($itemsInCart as $item) {
-            if ((int) $item[DbConstants::PRODUCT_ITEM_ID_FIELD] === $id) {
-                $subtotal += (float) $item[DbConstants::PRODUCT_ITEM_PRICE_FIELD] * (int) $item[DbConstants::QUANTITY_FIELD];
+            if ($item->productItemId === $id) {
+                $subtotal += $item->price * $item->quantity;
             }
         }
+
         return $subtotal;
     }
 
     public function getCartTotal(): float {
-        $itemsInCart = $this->getItemsInCart();
+        $itemsInCart = Utilities::getCartItems();
         $total = 0;
 
         foreach ($itemsInCart as $item) {
-            $total += (float) $item[DbConstants::PRODUCT_ITEM_PRICE_FIELD] * (int) $item[DbConstants::QUANTITY_FIELD];
+            $total += $item->price * $item->quantity;
         }
+
         return $total;
     }
 }
