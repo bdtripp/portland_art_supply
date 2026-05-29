@@ -71,4 +71,27 @@ class Utilities
         }
         return 'href="' . $url . '">';
     }
+
+    /**
+     * @return array<int, CartItem>
+     */
+    public static function getCartItems(): array {
+        $items = self::getSessionValue(PageConstants::SESSION_CART_KEY);
+
+        if (!is_array($items)) {
+            return [];
+        }
+
+        return array_values(
+            array_filter($items, fn($i) => $i instanceof CartItem)
+        );
+    }
+
+    /**
+     * @param array<int, CartItem> $items
+     */
+    public static function setCartItems(array $items): void {
+        self::setSessionValue(PageConstants::SESSION_CART_KEY, $items);
+        self::saveSession();
+    }
 }
