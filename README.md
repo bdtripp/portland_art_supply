@@ -6,6 +6,22 @@ Note: This is a demo site for a fictional company. A production version would in
 
 ---
 
+## Project Evolution & Modernization
+
+This project began as a procedural PHP application that I built early in my development journey. I am actively modernizing the codebase to align with modern PHP standards and clean architecture practices.
+
+My current refactoring goals:
+- [x] Implemented PSR-4 autoloading
+- [x] Introduced strict typing across the codebase
+- [x] Refactored the cart to utilize `CartItem` objects instead of associative arrays
+- [ ] Introduce a Router and Central Entry Point
+- [ ] Create model classes
+- [ ] Create repository classes
+
+All refactoring is being done incrementally while preserving functionality. My goal is to migrate the site to a full MVC architecture. 
+
+---
+
 ## Visit the site
 [**▶ Live Demo**](https://portland-art-supply.bdtripp.com/)
 
