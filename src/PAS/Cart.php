@@ -2,7 +2,6 @@
 declare(strict_types=1);
 namespace PAS;
 
-use PAS\DbConstants;
 use PAS\Utilities;
 use PAS\PageConstants;
 
@@ -11,26 +10,19 @@ class Cart
     /**
      * @return array<int, CartItem>
      */
+/**
+ * @return array<int, CartItem>
+ */
     public function getItemsInCart(): array {
-        $rawItems = Utilities::getSessionValue(PageConstants::SESSION_CART_KEY) ?? [];
+        $items = Utilities::getSessionValue(PageConstants::SESSION_CART_KEY);
 
-        $itemsInCart = [];
-
-        foreach ($rawItems as $item) {
-            $itemsInCart[] = new CartItem(
-                productItemId: (int) $item[DbConstants::PRODUCT_ITEM_ID_FIELD],
-                categoryName: (string) $item[DbConstants::PRODUCT_CATEGORY_NAME_FIELD],
-                subcategoryName: (string) $item[DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD],
-                groupCode: (string) $item[DbConstants::PRODUCT_GROUP_CODE_FIELD],
-                colorName: (string) $item[DbConstants::PRODUCT_COLOR_NAME_FIELD],
-                sizeDescription: (string) $item[DbConstants::PRODUCT_SIZE_DESCRIPTION_FIELD],
-                price: (float) $item[DbConstants::PRODUCT_ITEM_PRICE_FIELD],
-                quantity: (int) $item[DbConstants::QUANTITY_FIELD],
-                groupDescription: (string) $item[DbConstants::PRODUCT_GROUP_DESCRIPTION_FIELD]
-            );
+        if (!is_array($items)) {
+            return [];
         }
 
-        return $itemsInCart;
+        return array_values(
+            array_filter($items, fn($i) => $i instanceof CartItem)
+        );
     }
 
     public function addItemToCart(
