@@ -22,11 +22,17 @@ $cart = new Cart();
 $ui = new Ui();
 
 if (!empty($id)) {
-    $cart->addItemToCart(html_entity_decode(urldecode($id)), html_entity_decode(urldecode($category)),
-        html_entity_decode(urldecode($subcategory)), html_entity_decode(urldecode($groupCode)),
-        html_entity_decode(urldecode($color)), html_entity_decode(urldecode($size)),
-        html_entity_decode(urldecode($price)), html_entity_decode(urldecode($quantity)),
-        html_entity_decode(urldecode($groupDescription)));
+    $cart->addItemToCart(
+        (int) html_entity_decode(urldecode($id)), 
+        html_entity_decode(urldecode($category)),
+        html_entity_decode(urldecode($subcategory)), 
+        html_entity_decode(urldecode($groupCode)), 
+        html_entity_decode(urldecode($groupDescription)),
+        html_entity_decode(urldecode($color)), 
+        html_entity_decode(urldecode($size)),
+        (float) html_entity_decode(urldecode($price)), 
+        (int) html_entity_decode(urldecode($quantity))
+    );
     exit();
 }
 

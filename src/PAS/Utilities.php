@@ -2,6 +2,8 @@
 declare(strict_types=1);
 namespace PAS;
 
+use JsonException;
+
 class Utilities
 {
     public static function getSessionValue(string $key): mixed {
@@ -13,17 +15,41 @@ class Utilities
 
     public static function saveSession(): void {
         $db = new Database();
-        $userID = self::getSessionValue(PageConstants::SESSION_USER_ID_KEY);
-        $db->addSession($userID, serialize($_SESSION));
+        $userId = self::getSessionValue(PageConstants::SESSION_USER_ID_KEY);
+        $items = Utilities::getCartItems();
+
+        $payload = [
+            'cart' => array_map(fn($item) => $item->toArray(), $items),
+        ];
+
+        $json = json_encode($payload, JSON_THROW_ON_ERROR);
+        $db->addSession($userId, $json);
     }
 
     public static function restoreSession(): void {
         $db = new Database();
         $userID = self::getSessionValue(PageConstants::SESSION_USER_ID_KEY);
-        $session_data = $db->lookupSession($userID);
+        $sessionRow = $db->lookupSession($userID);
+        $sessionBlob = $sessionRow[DbConstants::ACCOUNT_DATA_SESSION_DATA_FIELD] ?? null;
+        
+         if (!$sessionBlob) {
+            return;
+        }
 
-        if (!empty($session_data)) {
-            $_SESSION = unserialize($session_data[DbConstants::ACCOUNT_DATA_SESSION_DATA_FIELD]);
+        try {
+            $data = json_decode($sessionBlob, true, 512, JSON_THROW_ON_ERROR);
+        } catch (JsonException $e) {
+            error_log("Failed to decode session JSON for user {$userID}: " . $e->getMessage());
+            return;
+        }
+
+        if (isset($data['cart'])) {
+            $cartItems = array_map(
+                fn($arr) => CartItem::fromArray($arr),
+                $data['cart']
+            );
+
+            Utilities::setCartItems($cartItems);
         }
     }
 
