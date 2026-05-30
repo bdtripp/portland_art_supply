@@ -11,3 +11,5 @@ secrets/
 .~lock.*#
 info.php
 *:Zone.Identifier
+backup.sql
+/vendor/
