@@ -68,14 +68,18 @@ class Database
      *     session_data: string,
      * }|false
      */
-    public function lookupSession(int $userID): array|false {
+    public function lookupSession(?int $userID): array|false {
         $conn = $this->conn;
         $stmt = $conn->prepare("
         SELECT *
         FROM " . DbConstants::ACCOUNT_DATA_TABLE .
         " WHERE " . DbConstants::ACCOUNT_DATA_USER_ID_FIELD . " = :userID;
         ");
-        $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+        $stmt->bindValue(
+            ':userID',
+            $userID,
+            $userID === null ? PDO::PARAM_NULL : PDO::PARAM_INT
+        );
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
