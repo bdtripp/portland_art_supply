@@ -158,7 +158,7 @@ class Ui
     }
 
     public function showShoppingCartContent(): void {
-        $itemsInCart = Utilities::getSessionValue(PageConstants::SESSION_CART_KEY);
+        $itemsInCart = Utilities::getCartItems();
 
         echo '<main>' . "\n";
         echo '    <section id="cart_items">' . "\n";

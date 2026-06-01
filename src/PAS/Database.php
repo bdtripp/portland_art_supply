@@ -66,7 +66,7 @@ class Database
      * @return array{
      *     user_id: int,
      *     session_data: string,
-     * }|false
+     * }|null
      */
     public function lookupSession(?int $userID): array|false {
         $conn = $this->conn;
@@ -81,7 +81,8 @@ class Database
             $userID === null ? PDO::PARAM_NULL : PDO::PARAM_INT
         );
         $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row === false ? null : $row;
     }
 
     public function addSession(?int $userID, string $session): void {
@@ -99,7 +100,7 @@ class Database
                 $stmt->execute();
             } catch (\Exception $e) {
                 http_response_code(500); 
-                echo $e;
+                error_log("DB error in addSession: " . $e->getMessage());
             }
         }
     }
