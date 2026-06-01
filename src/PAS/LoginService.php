@@ -68,7 +68,7 @@ class LoginService
             $errorStatus->usernameError = LoginConstants::E_ACCOUNT_EXISTS;
         }
 
-        // if there are any errors, return without loggin in
+        // if there are any errors, return without logging in
         if (!empty((array)$errorStatus)) {
             return $errorStatus;
         }
@@ -77,6 +77,7 @@ class LoginService
         $this->db->addUser($username, password_hash($password, PASSWORD_DEFAULT));
         $user = $this->db->lookupUser($username);
         $this->setUser($user[DbConstants::USER_ID_FIELD], $username, $returnToUrl);
+        Utilities::saveSession();
         return null;
     }
 

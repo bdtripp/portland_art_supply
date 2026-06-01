@@ -12,11 +12,11 @@ class Cart
         string $category,
         string $subcategory,
         string $groupCode,
+        string $groupDescription,
         string $color,
         string $size,
         float $price,
-        int $quantity,
-        string $groupDescription
+        int $quantity
     ): void {
         /** @var array<int, CartItem> $items */
         $itemsInCart = Utilities::getCartItems();
@@ -31,11 +31,11 @@ class Cart
                     categoryName: $item->categoryName,
                     subcategoryName: $item->subcategoryName,
                     groupCode: $item->groupCode,
+                    groupDescription: $item->groupDescription,
                     colorName: $item->colorName,
                     sizeDescription: $item->sizeDescription,
                     price: $item->price,
-                    quantity: $item->quantity + $quantity,
-                    groupDescription: $item->groupDescription
+                    quantity: $item->quantity + $quantity
                 );
 
                 $newItem = false;
@@ -49,11 +49,11 @@ class Cart
                 categoryName: $category,
                 subcategoryName: $subcategory,
                 groupCode: $groupCode,
+                groupDescription: $groupDescription,
                 colorName: $color,
                 sizeDescription: $size,
                 price: $price,
-                quantity: $quantity,
-                groupDescription: $groupDescription
+                quantity: $quantity
             );
         }
 
@@ -73,11 +73,11 @@ class Cart
                     categoryName: $item->categoryName,
                     subcategoryName: $item->subcategoryName,
                     groupCode: $item->groupCode,
+                    groupDescription: $item->groupDescription,
                     colorName: $item->colorName,
                     sizeDescription: $item->sizeDescription,
                     price: $item->price,
-                    quantity: $newQuantity,
-                    groupDescription: $item->groupDescription
+                    quantity: $newQuantity
                 );
             }
         }
