@@ -9,6 +9,6 @@ final class ProductGroup
         public readonly int $id,
         public readonly string $groupCode,
         public readonly string $description,
-        public readonly string $information
+        public readonly ?string $information
     ) {}
 }
