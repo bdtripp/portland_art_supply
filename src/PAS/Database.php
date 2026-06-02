@@ -4,6 +4,8 @@ namespace PAS;
 
 use PDO;
 use PDOException;
+use PAS\Models\ProductItem;
+use PAS\Models\ProductGroup;
 
 class Database
 {
@@ -139,79 +141,127 @@ class Database
 
     /**
      * @return array<int, array{
-     *      product_group_id: int,
-     *      group_code: string,
-     *      group_description: string,
-     *      category_name: string,
-     *      subcategory_name: string
+     *     group: ProductGroup,
+     *     category_name: string,
+     *     subcategory_name: string
      * }>
      */
     public function lookupProductGroups(string $category, string $subcategory): array {
         $conn = $this->conn;
+
         $stmt = $conn->prepare("
-        SELECT " . DbConstants::PRODUCT_GROUP_ID_FIELD . ", " . DbConstants::PRODUCT_GROUP_CODE_FIELD . ", " . DbConstants::PRODUCT_GROUP_DESCRIPTION_FIELD . ", " .
-        DbConstants::PRODUCT_CATEGORY_NAME_FIELD . ", " . DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD . 
-        " FROM " . DbConstants::PRODUCT_GROUP_TABLE . 
-        " JOIN " . DbConstants::PRODUCT_CATEGORY_TABLE . 
-        " ON " . DbConstants::PRODUCT_GROUP_TABLE . "." . DbConstants::PRODUCT_GROUP_CATEGORY_ID_FIELD . 
-        " = " . DbConstants::PRODUCT_CATEGORY_TABLE . "." . DbConstants::PRODUCT_CATEGORY_ID_FIELD .
-        " JOIN " . DbConstants::PRODUCT_SUBCATEGORY_TABLE . " 
-        ON " . DbConstants::PRODUCT_GROUP_TABLE . "." . DbConstants::PRODUCT_GROUP_SUBCATEGORY_ID_FIELD . 
-        " = " .  DbConstants::PRODUCT_SUBCATEGORY_TABLE . "." . DbConstants::PRODUCT_SUBCATEGORY_ID_FIELD .
-        " WHERE " . DbConstants::PRODUCT_CATEGORY_NAME_FIELD. " = :category" .
-        " AND " . DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD . " = :subcategory;
+            SELECT 
+                " . DbConstants::PRODUCT_GROUP_ID_FIELD . ",
+                " . DbConstants::PRODUCT_GROUP_CODE_FIELD . ",
+                " . DbConstants::PRODUCT_GROUP_DESCRIPTION_FIELD . ",
+                " . DbConstants::PRODUCT_CATEGORY_NAME_FIELD . ",
+                " . DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD . "
+            FROM " . DbConstants::PRODUCT_GROUP_TABLE . "
+            JOIN " . DbConstants::PRODUCT_CATEGORY_TABLE . "
+                ON " . DbConstants::PRODUCT_GROUP_TABLE . "." . DbConstants::PRODUCT_GROUP_CATEGORY_ID_FIELD . "
+                = " . DbConstants::PRODUCT_CATEGORY_TABLE . "." . DbConstants::PRODUCT_CATEGORY_ID_FIELD . "
+            JOIN " . DbConstants::PRODUCT_SUBCATEGORY_TABLE . "
+                ON " . DbConstants::PRODUCT_GROUP_TABLE . "." . DbConstants::PRODUCT_GROUP_SUBCATEGORY_ID_FIELD . "
+                = " . DbConstants::PRODUCT_SUBCATEGORY_TABLE . "." . DbConstants::PRODUCT_SUBCATEGORY_ID_FIELD . "
+            WHERE " . DbConstants::PRODUCT_CATEGORY_NAME_FIELD . " = :category
+            AND " . DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD . " = :subcategory;
         ");
+
         $ucCategory = ucfirst($category);
         $ucSubcategory = ucfirst($subcategory);
+
         $stmt->bindParam(':category', $ucCategory, PDO::PARAM_STR);
         $stmt->bindParam(':subcategory', $ucSubcategory, PDO::PARAM_STR);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $groups = [];
+        foreach ($rows as $row) {
+            $groups[] = [
+                'group' => new ProductGroup(
+                    id: (int)$row[DbConstants::PRODUCT_GROUP_ID_FIELD],
+                    groupCode: $row[DbConstants::PRODUCT_GROUP_CODE_FIELD],
+                    description: $row[DbConstants::PRODUCT_GROUP_DESCRIPTION_FIELD],
+                    information: null
+                ),
+                'category_name' => $row[DbConstants::PRODUCT_CATEGORY_NAME_FIELD],
+                'subcategory_name' => $row[DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD]
+            ];
+        }
+
+        return $groups;
     }
 
     /**
-     * @return array{
-     *      group_code: string,
-     *      group_description: string,
-     *      group_information: string
-     * }|false
+     * @return ProductGroup|null
      */
-    public function lookupGroup(int $groupID): array|false {
+    public function lookupGroup(int $groupID): ?ProductGroup {
         $conn = $this->conn;
-        $stmt = $conn->prepare(
-        "SELECT " . DbConstants::PRODUCT_GROUP_CODE_FIELD . ", " . DbConstants::PRODUCT_GROUP_DESCRIPTION_FIELD . ", " . DbConstants::PRODUCT_GROUP_INFORMATION_FIELD . 
-        " FROM " . DbConstants::PRODUCT_GROUP_TABLE .
-        " WHERE " . DbConstants::PRODUCT_ITEM_GROUP_ID_FIELD . " = :groupID;
+
+        $stmt = $conn->prepare("
+            SELECT 
+                " . DbConstants::PRODUCT_GROUP_ID_FIELD . ",
+                " . DbConstants::PRODUCT_GROUP_CODE_FIELD . ",
+                " . DbConstants::PRODUCT_GROUP_DESCRIPTION_FIELD . ",
+                " . DbConstants::PRODUCT_GROUP_INFORMATION_FIELD . "
+            FROM " . DbConstants::PRODUCT_GROUP_TABLE . "
+            WHERE " . DbConstants::PRODUCT_GROUP_ID_FIELD . " = :groupID;
         ");
+
         $stmt->bindParam(':groupID', $groupID, PDO::PARAM_INT);
         $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row === false) {
+            return null;
+        }
+
+        return new ProductGroup(
+            id: (int)$row[DbConstants::PRODUCT_GROUP_ID_FIELD],
+            groupCode: $row[DbConstants::PRODUCT_GROUP_CODE_FIELD],
+            description: $row[DbConstants::PRODUCT_GROUP_DESCRIPTION_FIELD],
+            information: $row[DbConstants::PRODUCT_GROUP_INFORMATION_FIELD]
+        );
     }
 
     /**
-     * @return array<int, array{
-     *      product_item_id: int,
-     *      color_name: ?string,
-     *      size_description: ?string,
-     *      price: string
-     * }>
+     * @return ProductItem[]
      */
     public function lookupItems(int $groupID): array {
         $conn = $this->conn;
+
         $stmt = $conn->prepare("
-        SELECT " . DbConstants::PRODUCT_ITEM_ID_FIELD . ', ' . DbConstants::PRODUCT_COLOR_NAME_FIELD . 
-        ", " . DbConstants::PRODUCT_SIZE_DESCRIPTION_FIELD . ", " . DbConstants::PRODUCT_ITEM_PRICE_FIELD . 
-        " FROM " . DbConstants::PRODUCT_ITEM_TABLE . 
-        " LEFT JOIN " . DbConstants::PRODUCT_COLOR_TABLE . 
-        " ON " . DbConstants::PRODUCT_ITEM_TABLE . "." . DbConstants::PRODUCT_ITEM_COLOR_ID_FIELD . 
-        " = " . DbConstants::PRODUCT_COLOR_TABLE . "." . DbConstants::PRODUCT_COLOR_ID_FIELD . 
-        " LEFT JOIN " . DbConstants::PRODUCT_SIZE_TABLE . 
-        " ON " . DbConstants::PRODUCT_ITEM_TABLE . "." . DbConstants::PRODUCT_ITEM_SIZE_ID_FIELD . 
-        " = " . DbConstants::PRODUCT_SIZE_TABLE . "." . DbConstants::PRODUCT_SIZE_ID_FIELD . 
-        " WHERE " . DbConstants::PRODUCT_ITEM_GROUP_ID_FIELD . " = :groupID;
+            SELECT 
+                " . DbConstants::PRODUCT_ITEM_ID_FIELD . ",
+                " . DbConstants::PRODUCT_COLOR_NAME_FIELD . ",
+                " . DbConstants::PRODUCT_SIZE_DESCRIPTION_FIELD . ",
+                " . DbConstants::PRODUCT_ITEM_PRICE_FIELD . "
+            FROM " . DbConstants::PRODUCT_ITEM_TABLE . "
+            LEFT JOIN " . DbConstants::PRODUCT_COLOR_TABLE . "
+                ON " . DbConstants::PRODUCT_ITEM_TABLE . "." . DbConstants::PRODUCT_ITEM_COLOR_ID_FIELD . "
+                = " . DbConstants::PRODUCT_COLOR_TABLE . "." . DbConstants::PRODUCT_COLOR_ID_FIELD . "
+            LEFT JOIN " . DbConstants::PRODUCT_SIZE_TABLE . "
+                ON " . DbConstants::PRODUCT_ITEM_TABLE . "." . DbConstants::PRODUCT_ITEM_SIZE_ID_FIELD . "
+                = " . DbConstants::PRODUCT_SIZE_TABLE . "." . DbConstants::PRODUCT_SIZE_ID_FIELD . "
+            WHERE " . DbConstants::PRODUCT_ITEM_GROUP_ID_FIELD . " = :groupID;
         ");
+
         $stmt->bindParam(':groupID', $groupID, PDO::PARAM_INT);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $items = [];
+        foreach ($rows as $row) {
+            $items[] = new ProductItem(
+                id: (int)$row[DbConstants::PRODUCT_ITEM_ID_FIELD],
+                colorName: $row[DbConstants::PRODUCT_COLOR_NAME_FIELD],
+                sizeDescription: $row[DbConstants::PRODUCT_SIZE_DESCRIPTION_FIELD],
+                price: (float)$row[DbConstants::PRODUCT_ITEM_PRICE_FIELD]
+            );
+        }
+
+        return $items;
     }
 }

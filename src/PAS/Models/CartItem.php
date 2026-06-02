@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace PAS;
+namespace PAS\Models;
 
 class CartItem
 {
