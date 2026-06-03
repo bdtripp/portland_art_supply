@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace PAS;
 
 use JsonException;
+use PAS\Models\CartItem;
 
 class Utilities
 {

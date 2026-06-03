@@ -2,6 +2,8 @@
 declare(strict_types=1);
 namespace PAS;
 
+use PAS\Models\ProductGroup;
+
 class Ui
 {
     private const ROWS_PER_COLUMN = 3;
@@ -110,40 +112,46 @@ class Ui
 
     public function showGroupContent(array $products): void {
         echo '<main>' . "\n";
-        echo '    <h2 class="' . PageConstants::LARGE_H2 . '">' . $products[0][DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD] . '</h2>' . "\n\n";
+        echo '    <h2 class="' . PageConstants::LARGE_H2 . '">' . $products[0]['subcategory_name'] . '</h2>' . "\n\n";
         echo '    <section id="' . PageConstants::PRODUCT_GROUPS_ID . '">' . "\n";
-        for ($i = 0; $i < count($products); $i++) {
-            $this->showProductGroups($products[$i]);
+
+        foreach ($products as $product) {
+            $this->showProductGroups($product);
         }
+
         echo '    </section>' . "\n";
         echo '</main>' . "\n\n";
     }
 
     public function showProductGroups(array $product): void {
-        $hrefString = 'href="' . PageConstants::PRODUCT_ITEMS_PAGE . '?' . DbConstants::PRODUCT_GROUP_ID_FIELD . '=' . urlencode((string) $product[DbConstants::PRODUCT_GROUP_ID_FIELD]);
-        $hrefString .= '&' . DbConstants::PRODUCT_CATEGORY_NAME_FIELD . '=' . urlencode($product[DbConstants::PRODUCT_CATEGORY_NAME_FIELD]);
-        $hrefString .= '&' . DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD . '=' . urlencode($product[DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD]);
-        $hrefString .= '&' . DbConstants::PRODUCT_GROUP_CODE_FIELD . '=' . urlencode($product[DbConstants::PRODUCT_GROUP_CODE_FIELD]) . '"';
+        $group = $product['group'];
+        $category = $product['category_name'];
+        $subcategory = $product['subcategory_name'];
+
+        $hrefString = 'href="' . PageConstants::PRODUCT_ITEMS_PAGE . '?' .
+            DbConstants::PRODUCT_GROUP_ID_FIELD . '=' . urlencode((string)$group->id) .
+            '&' . DbConstants::PRODUCT_CATEGORY_NAME_FIELD . '=' . urlencode($category) .
+            '&' . DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD . '=' . urlencode($subcategory) .
+            '&' . DbConstants::PRODUCT_GROUP_CODE_FIELD . '=' . urlencode($group->groupCode) . '"';
+
         echo '            <div class="' . PageConstants::PRODUCT_GROUP_CLASS . ' ' . PageConstants::CARD_CLASS . '">' . "\n";
-        echo '                <a class="' . PageConstants::GROUP_DESCRIPTION_TEXT_CLASS . '" ' . "\n";
-        echo '                     ' . $hrefString . '>' . "\n";
-        echo '                     ' . $product[DbConstants::PRODUCT_GROUP_DESCRIPTION_FIELD] . '</a>' . "\n";
+        echo '                <a class="' . PageConstants::GROUP_DESCRIPTION_TEXT_CLASS . '" ' . $hrefString . '>' . "\n";
+        echo '                     ' . $group->description . '</a>' . "\n";
         echo '                <a ' . $hrefString . '>' . "\n";
-        echo '                    <img src="' . PageConstants::IMAGE_FOLDER . $product[DbConstants::PRODUCT_CATEGORY_NAME_FIELD] . '/' .
-            $product[DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD]
-            . '/' . $product[DbConstants::PRODUCT_GROUP_CODE_FIELD] . '.jpg">' . "\n";
+        echo '                    <img src="' . PageConstants::IMAGE_FOLDER . $category . '/' .
+            $subcategory . '/' . $group->groupCode . '.jpg">' . "\n";
         echo '                </a>' . "\n";
         echo '            </div>' . "\n\n";
     }
 
-    public function showItemContent(array $productGroup, string $categoryName, string $subCategoryName): void {
+    public function showItemContent(ProductGroup $productGroup, string $categoryName, string $subCategoryName): void {
         echo '<main>' . "\n";
-        echo '    <h2>' . $productGroup[DbConstants::PRODUCT_GROUP_DESCRIPTION_FIELD] . '</h2>' . "\n";
+        echo '    <h2>' . $productGroup->description . '</h2>' . "\n";
         echo '    <section id="' . PageConstants::ITEM_WRAPPER_ID . '">' . "\n";
-        echo '        <p id="' . PageConstants::GROUP_INFORMATION_ID . '">' . $productGroup[DbConstants::PRODUCT_GROUP_INFORMATION_FIELD] . '</p>' . "\n";
+        echo '        <p id="' . PageConstants::GROUP_INFORMATION_ID . '">' . $productGroup->information . '</p>' . "\n";
         echo '        <div id="' . PageConstants::IMAGE_WRAPPER_ID . '" class="' . PageConstants::CARD_CLASS . '">' . "\n";
         echo '            <img id=' . PageConstants::PRODUCT_ITEM_IMAGE_ID . ' src="' . PageConstants::IMAGE_FOLDER . $categoryName . '/' .
-            $subCategoryName . '/' . $productGroup[DbConstants::PRODUCT_GROUP_CODE_FIELD] . '.jpg">' . "\n";
+            $subCategoryName . '/' . $productGroup->groupCode . '.jpg">' . "\n";
         echo '        </div>' . "\n";
         echo '        <div id="' . PageConstants::DETAILS_WRAPPER_ID . '" class="' . PageConstants::CARD_CLASS .  '">' . "\n";
         echo '            <div id="' . PageConstants::ITEM_DETAILS_DIV . '">' . "\n";
