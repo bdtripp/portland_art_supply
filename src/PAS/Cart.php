@@ -3,7 +3,7 @@ declare(strict_types=1);
 namespace PAS;
 
 use PAS\Utilities;
-use PAS\PageConstants;
+use PAS\Models\CartItem;
 
 class Cart
 {

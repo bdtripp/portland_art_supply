@@ -74,7 +74,7 @@ $productItems = $db->lookupItems($groupID);
         var productItems = <?php echo json_encode($productItems); ?>;
         var category = '<?php echo $categoryName; ?>';
         var subcategory = '<?php echo $subcategoryName; ?>';
-        var groupDescription = '<?php echo addslashes($productGroup[DbConstants::PRODUCT_GROUP_DESCRIPTION_FIELD]) ?>';
+        var groupDescription = '<?php echo addslashes($productGroup->description) ?>';
     </script>
     <script src="js/pas.js.php" type="text/javascript"></script>
 
