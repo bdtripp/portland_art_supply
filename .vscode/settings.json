@@ -1,0 +1,15 @@
+{
+  // PHPStan
+  "phpstan.enabled": true,
+  "phpstan.binPath": "vendor/bin/phpstan",
+  "phpstan.level": 8,
+
+  // PHP CS Fixer
+  "editor.defaultFormatter": "junstyle.php-cs-fixer",
+  "editor.formatOnSave": true,
+  "php-cs-fixer.executablePath": "vendor/bin/php-cs-fixer",
+  "php-cs-fixer.rules": "@PSR12",
+
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true
+}

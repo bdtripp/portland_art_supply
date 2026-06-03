@@ -32,7 +32,7 @@ class Utilities
         $userID = self::getSessionValue(PageConstants::SESSION_USER_ID_KEY);
         $sessionRow = $db->lookupSession($userID);
         $sessionBlob = $sessionRow[DbConstants::ACCOUNT_DATA_SESSION_DATA_FIELD] ?? null;
-        
+
          if (!$sessionBlob) {
             return;
         }
