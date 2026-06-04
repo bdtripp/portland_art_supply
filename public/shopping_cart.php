@@ -8,10 +8,10 @@ use PAS\DbConstants;
 use PAS\Utilities;
 use PAS\Cart;
 
-$buttonClickedID = Utilities::getPostValue("buttonID");
-$newQuantity = Utilities::getPostValue("quantity");
+$buttonClickedID = (int) Utilities::getPostValue("buttonID");
+$newQuantity = (int) Utilities::getPostValue("quantity");
 // id of the item that the quantity is being changed for
-$idOfItemChanged = Utilities::getPostValue("idOfItemChanged");
+$idOfItemChanged = (int) Utilities::getPostValue("idOfItemChanged");
 $ui = new Ui();
 $cart = new Cart();
 

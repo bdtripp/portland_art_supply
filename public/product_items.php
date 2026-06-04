@@ -23,14 +23,14 @@ $ui = new Ui();
 
 if (!empty($id)) {
     $cart->addItemToCart(
-        (int) html_entity_decode(urldecode($id)), 
+        (int) html_entity_decode(urldecode($id)),
         html_entity_decode(urldecode($category)),
-        html_entity_decode(urldecode($subcategory)), 
-        html_entity_decode(urldecode($groupCode)), 
+        html_entity_decode(urldecode($subcategory)),
+        html_entity_decode(urldecode($groupCode)),
         html_entity_decode(urldecode($groupDescription)),
-        html_entity_decode(urldecode($color)), 
+        html_entity_decode(urldecode($color)),
         html_entity_decode(urldecode($size)),
-        (float) html_entity_decode(urldecode($price)), 
+        (float) html_entity_decode(urldecode($price)),
         (int) html_entity_decode(urldecode($quantity))
     );
     exit();
@@ -41,6 +41,9 @@ $subcategoryName = urldecode($_GET[DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD])
 $groupCode = urldecode($_GET[DbConstants::PRODUCT_GROUP_CODE_FIELD]);
 $groupID = (int) urldecode($_GET[DbConstants::PRODUCT_GROUP_ID_FIELD]);
 $productGroup = $db->lookupGroup($groupID);
+if ($productGroup === null) {
+    die('Invalid product group');
+}
 $productItems = $db->lookupItems($groupID);
 
 ?>

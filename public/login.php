@@ -56,10 +56,10 @@ if (!$login_pressed) {
             <h2>Log In</h2>
             <section>
                 <label for="<?php echo LoginConstants::LOGIN_USERNAME_KEY; ?>">Username:</label>
-                <input 
-                    id ="<?php echo LoginConstants::LOGIN_USERNAME_KEY; ?>" 
-                    type="text" 
-                    name="<?php echo LoginConstants::LOGIN_USERNAME_KEY; ?>" 
+                <input
+                    id ="<?php echo LoginConstants::LOGIN_USERNAME_KEY; ?>"
+                    type="text"
+                    name="<?php echo LoginConstants::LOGIN_USERNAME_KEY; ?>"
                     value="<?php echo $login_username; ?>"
                     required
                 />
@@ -74,10 +74,10 @@ if (!$login_pressed) {
             </section>
             <section>
                 <label for="<?php echo LoginConstants::LOGIN_PASSWORD_KEY; ?>">Password:</label>
-                <input 
-                    id="<?php echo LoginConstants::LOGIN_PASSWORD_KEY; ?>" 
-                    type="password" name="<?php echo LoginConstants::LOGIN_PASSWORD_KEY; ?>" 
-                    value="<?php echo $login_password; ?>" 
+                <input
+                    id="<?php echo LoginConstants::LOGIN_PASSWORD_KEY; ?>"
+                    type="password" name="<?php echo LoginConstants::LOGIN_PASSWORD_KEY; ?>"
+                    value="<?php echo $login_password; ?>"
                     required
                 />
                 <div class="<?php echo PageConstants::MESSAGE_WRAPPER_CLASS; ?>">

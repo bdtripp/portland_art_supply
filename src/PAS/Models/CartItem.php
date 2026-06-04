@@ -17,6 +17,19 @@ class CartItem
         public readonly int $quantity
     ) {}
 
+    /**
+     * @return array{
+     *     productItemId: int,
+     *     categoryName: string,
+     *     subcategoryName: string,
+     *     groupCode: string,
+     *     groupDescription: string,
+     *     colorName: string,
+     *     sizeDescription: string,
+     *     price: float,
+     *     quantity: int
+     * }
+     */
     public function toArray(): array
     {
         return [
@@ -32,6 +45,19 @@ class CartItem
         ];
     }
 
+    /**
+     * @param array{
+     *     productItemId: int,
+     *     categoryName: string,
+     *     subcategoryName: string,
+     *     groupCode: string,
+     *     groupDescription: string,
+     *     colorName: string,
+     *     sizeDescription: string,
+     *     price: float,
+     *     quantity: int
+     * } $data
+     */
     public static function fromArray(array $data): self
     {
         return new self(
