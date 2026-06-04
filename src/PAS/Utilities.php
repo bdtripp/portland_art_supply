@@ -61,7 +61,7 @@ class Utilities
     public static function destroySession(): void {
         $session_info = session_get_cookie_params();
         $_SESSION = [];
-        setcookie(session_name(), '', 0, $session_info['path'], $session_info['domain'],
+        setcookie((string) session_name(), '', 0, $session_info['path'], $session_info['domain'],
             $session_info['secure'], $session_info['httponly']);
         session_destroy();
     }

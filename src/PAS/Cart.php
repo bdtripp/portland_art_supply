@@ -18,7 +18,7 @@ class Cart
         float $price,
         int $quantity
     ): void {
-        /** @var array<int, CartItem> $items */
+        /** @var array<int, CartItem> $itemsInCart */
         $itemsInCart = Utilities::getCartItems();
         $newItem = true;
 

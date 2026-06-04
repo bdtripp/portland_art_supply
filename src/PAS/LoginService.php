@@ -16,25 +16,31 @@ class LoginService
         header('Location: ' . $returnToUrl);
     }
 
-    public function login(string $username, string $password, string $returnToUrl): \stdClass|string {
+    public function login(string $username, string $password, string $returnToUrl): \stdClass|string
+    {
         $errorStatus = new \stdClass();
 
-        $user = $this->db->lookupUser($username);
-
-        if (empty($username)) {
+        if ($username === '') {
             $errorStatus->usernameError = LoginConstants::E_NO_USERNAME;
-        } elseif (!$user) {
-            $errorStatus->usernameError = LoginConstants::E_USERNAME_NOT_FOUND;
-        } elseif (!password_verify($password, $user[DbConstants::USERS_HASH_FIELD])) {
-            $errorStatus->passwordError = LoginConstants::E_PASSWORD_INCORRECT;
         }
 
-        if (empty($password)) {
+        if ($password === '') {
             $errorStatus->passwordError = LoginConstants::E_NO_PASSWORD;
         }
 
-        // if there are any errors, return without loggin in
         if (!empty((array)$errorStatus)) {
+            return $errorStatus;
+        }
+
+        $user = $this->db->lookupUser($username);
+
+        if ($user === false) {
+            $errorStatus->usernameError = LoginConstants::E_USERNAME_NOT_FOUND;
+            return $errorStatus;
+        }
+
+        if (!password_verify($password, $user[DbConstants::USERS_HASH_FIELD])) {
+            $errorStatus->passwordError = LoginConstants::E_PASSWORD_INCORRECT;
             return $errorStatus;
         }
 
@@ -73,9 +79,14 @@ class LoginService
             return $errorStatus;
         }
 
-        
+
         $this->db->addUser($username, password_hash($password, PASSWORD_DEFAULT));
         $user = $this->db->lookupUser($username);
+
+        if ($user === false) {
+            throw new \RuntimeException("User lookup failed after registration");
+        }
+
         $this->setUser($user[DbConstants::USER_ID_FIELD], $username, $returnToUrl);
         Utilities::saveSession();
         return null;
