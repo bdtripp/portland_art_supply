@@ -30,7 +30,7 @@ class Database
         try {
             $conn = new PDO($dsn, $_ENV['DB_USER'], $_ENV['DB_PASSWORD'], $options);
         } catch (PDOException $e) {
-            throw $e; 
+            throw $e;
         }
         return $conn;
     }
@@ -45,7 +45,7 @@ class Database
     public function lookupUser(string $username): array|false {
         $conn = $this->conn;
         $stmt = $conn->prepare("
-        SELECT * FROM " . DbConstants::USERS_TABLE . 
+        SELECT * FROM " . DbConstants::USERS_TABLE .
         " WHERE " . DbConstants::USERS_USERNAME_FIELD . " = :username;
         ");
         $stmt->bindParam(':username', $username, PDO::PARAM_STR);
@@ -70,7 +70,7 @@ class Database
      *     session_data: string,
      * }|null
      */
-    public function lookupSession(?int $userID): array|false {
+    public function lookupSession(?int $userID): ?array {
         $conn = $this->conn;
         $stmt = $conn->prepare("
         SELECT *
@@ -88,7 +88,7 @@ class Database
     }
 
     public function addSession(?int $userID, string $session): void {
-        if ($userID !== null) {   
+        if ($userID !== null) {
             try {
                 $conn = $this->conn;
                 $stmt = $conn->prepare("
@@ -101,12 +101,12 @@ class Database
                 $stmt->bindParam(':sessionDup', $session, PDO::PARAM_STR);
                 $stmt->execute();
             } catch (\Exception $e) {
-                http_response_code(500); 
+                http_response_code(500);
                 error_log("DB error in addSession: " . $e->getMessage());
             }
         }
     }
-    
+
     /**
      * @return array<int, array{
      *     category_id: int,
@@ -116,10 +116,16 @@ class Database
     public function lookupCategories(): array {
         $conn = $this->conn;
         $stmt = $conn->query("
-        SELECT " . DbConstants::PRODUCT_CATEGORY_ID_FIELD . ", " . DbConstants::PRODUCT_CATEGORY_NAME_FIELD . 
+        SELECT " . DbConstants::PRODUCT_CATEGORY_ID_FIELD . ", " . DbConstants::PRODUCT_CATEGORY_NAME_FIELD .
         " FROM " . DbConstants::PRODUCT_CATEGORY_TABLE . ";
         ");
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if ($stmt === false) {
+        return [];
+    }
+
+    /** @var array<int, array{category_id: int, category_name: string}> */
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -130,8 +136,8 @@ class Database
     public function lookupSubcategories(int $categoryID): array {
         $conn = $this->conn;
         $stmt = $conn->prepare("
-        SELECT " . DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD . 
-        " FROM " . DbConstants::PRODUCT_SUBCATEGORY_TABLE . 
+        SELECT " . DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD .
+        " FROM " . DbConstants::PRODUCT_SUBCATEGORY_TABLE .
         " WHERE " . DbConstants::PRODUCT_SUBCATEGORY_CATEGORY_ID_FIELD . " = :categoryID;
         ");
         $stmt->bindParam(':categoryID', $categoryID, PDO::PARAM_INT);
@@ -150,7 +156,7 @@ class Database
         $conn = $this->conn;
 
         $stmt = $conn->prepare("
-            SELECT 
+            SELECT
                 " . DbConstants::PRODUCT_GROUP_ID_FIELD . ",
                 " . DbConstants::PRODUCT_GROUP_CODE_FIELD . ",
                 " . DbConstants::PRODUCT_GROUP_DESCRIPTION_FIELD . ",
@@ -200,7 +206,7 @@ class Database
         $conn = $this->conn;
 
         $stmt = $conn->prepare("
-            SELECT 
+            SELECT
                 " . DbConstants::PRODUCT_GROUP_ID_FIELD . ",
                 " . DbConstants::PRODUCT_GROUP_CODE_FIELD . ",
                 " . DbConstants::PRODUCT_GROUP_DESCRIPTION_FIELD . ",
@@ -232,7 +238,7 @@ class Database
         $conn = $this->conn;
 
         $stmt = $conn->prepare("
-            SELECT 
+            SELECT
                 " . DbConstants::PRODUCT_ITEM_ID_FIELD . ",
                 " . DbConstants::PRODUCT_COLOR_NAME_FIELD . ",
                 " . DbConstants::PRODUCT_SIZE_DESCRIPTION_FIELD . ",

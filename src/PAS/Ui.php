@@ -2,11 +2,11 @@
 declare(strict_types=1);
 namespace PAS;
 
+use PAS\Models\CartItem;
 use PAS\Models\ProductGroup;
 
 class Ui
 {
-    private const ROWS_PER_COLUMN = 3;
     private const QUANTITY_MIN = 1;
     private const QUANTITY_MAX = 50;
     private Database $db;
@@ -75,10 +75,10 @@ class Ui
                 $categoryName;
 
                 echo '            <li>' . "\n";
-                echo '                <button 
+                echo '                <button
                                         class="expand_btn"
-                                        aria-expanded="false" 
-                                        aria-haspopup="true" 
+                                        aria-expanded="false"
+                                        aria-haspopup="true"
                                         aria-controls="' . lcfirst($categoryName) . '_menu"
                                     >' . $categoryName . "\n";
                 echo '                    <span class="arrow" aria-hidden="true">▼</span>' . "\n";
@@ -89,6 +89,12 @@ class Ui
         echo '            <li><a ' . Utilities::checkCurrentPage(PageConstants::ABOUT_PAGE) . 'About</a></li>' . "\n";
     }
 
+    /**
+     * @param array{
+     *     category_id: int,
+     *     category_name: string
+     * } $category
+     */
     public function showSubcategoryDropdown(array $category): void {
         $categoryID = $category[DbConstants::PRODUCT_CATEGORY_ID_FIELD];
         $categoryName = $category[DbConstants::PRODUCT_CATEGORY_NAME_FIELD];
@@ -99,17 +105,24 @@ class Ui
             $subcategoryName = $subcategory[DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD];
 
             echo '                    <li>
-                                        <a href="' . PageConstants::GROUP_PRODUCTS_PAGE . 
-                                            "?" . DbConstants::PRODUCT_CATEGORY_NAME_FIELD . "=" . urlencode($categoryName) . 
-                                            "&" . DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD . "=" . urlencode($subcategoryName) . 
-                                            '" ' . Utilities::checkCurrentSubcat(DbConstants::PRODUCT_CATEGORY_NAME_FIELD, $categoryName, DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD, $subcategoryName) . 
-                                        '>' . ucfirst($subcategoryName) . 
+                                        <a href="' . PageConstants::GROUP_PRODUCTS_PAGE .
+                                            "?" . DbConstants::PRODUCT_CATEGORY_NAME_FIELD . "=" . urlencode($categoryName) .
+                                            "&" . DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD . "=" . urlencode($subcategoryName) .
+                                            '" ' . Utilities::checkCurrentSubcat(DbConstants::PRODUCT_CATEGORY_NAME_FIELD, $categoryName, DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD, $subcategoryName) .
+                                        '>' . ucfirst($subcategoryName) .
                                         '</a>
-                                    </li>'; 
+                                    </li>';
         }
         echo '                </ul>' . "\n";
     }
 
+    /**
+     * @param array<int, array{
+     *     group: ProductGroup,
+     *     category_name: string,
+     *     subcategory_name: string
+     * }> $products
+     */
     public function showGroupContent(array $products): void {
         echo '<main>' . "\n";
         echo '    <h2 class="' . PageConstants::LARGE_H2 . '">' . $products[0]['subcategory_name'] . '</h2>' . "\n\n";
@@ -123,6 +136,13 @@ class Ui
         echo '</main>' . "\n\n";
     }
 
+    /**
+     * @param array{
+     *     group: ProductGroup,
+     *     category_name: string,
+     *     subcategory_name: string
+     * } $product
+     */
     public function showProductGroups(array $product): void {
         $group = $product['group'];
         $category = $product['category_name'];
@@ -184,6 +204,9 @@ class Ui
         echo '</main>' . "\n\n";
     }
 
+    /**
+     * @param array<int, CartItem> $itemsInCart
+     */
     public function showItemsInCart(array $itemsInCart): void {
         foreach ($itemsInCart as $item) {
             $id = $item->productItemId;
@@ -247,15 +270,22 @@ class Ui
             $size = '';
         }
 
-        $color = strtolower(preg_replace('/&quot+;|#+|\.|"+/', '_', $color));
-        $color = preg_replace('/\s+(?=[^()]*(\(|$))/', '-', $color);
+        $colorSanitized = preg_replace('/&quot+;|#+|\.|"+/', '_', $color);
+        $colorSanitized = $colorSanitized ?? '';
+        $colorSanitized = strtolower($colorSanitized);
+        $colorSanitized = preg_replace('/\s+(?=[^()]*(\(|$))/', '-', $colorSanitized);
+        $colorSanitized = $colorSanitized ?? '';
 
-        $size = strtolower(preg_replace('/&quot+;|#+|\.|"+/', '_', $size));
-        $size = preg_replace('/\s+(?=[^()]*(\(|$))/', '-', $size);
-        $size = preg_replace('/\//', '_', $size);
+        $sizeSanitized = preg_replace('/&quot+;|#+|\.|"+/', '_', $size);
+        $sizeSanitized = $sizeSanitized ?? '';
+        $sizeSanitized = strtolower($sizeSanitized);
+        $sizeSanitized = preg_replace('/\s+(?=[^()]*(\(|$))/', '-', $sizeSanitized);
+        $sizeSanitized = $sizeSanitized ?? '';
+        $sizeSanitized = preg_replace('/\//', '_', $sizeSanitized);
+        $sizeSanitized = $sizeSanitized ?? '';
 
         echo '            <img src="' . PageConstants::IMAGE_FOLDER . $category . '/' . $subcategory . '/' .
-            $groupCode . $color . $size . '.jpg">' . "\n";
+            $groupCode . $colorSanitized  . $sizeSanitized . '.jpg">' . "\n";
     }
 
     public function showFooterContent(): void {
