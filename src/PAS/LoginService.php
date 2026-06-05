@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace PAS;
 
+use PAS\Repositories\UserRepository;
+
 class LoginService
 {
-    private Database $db;
-
-    public function __construct(Database $db)
-    {
-        $this->db = $db;
+    public function __construct(
+        private UserRepository $userRepository,
+    ) {
     }
+
     public function setUser(int $userID, string $username, string $returnToUrl): void
     {
         Utilities::setSessionValue(PageConstants::SESSION_USER_ID_KEY, $userID);
@@ -35,7 +36,7 @@ class LoginService
             return $errorStatus;
         }
 
-        $user = $this->db->lookupUser($username);
+        $user = $this->userRepository->findByUsername($username);
 
         if ($user === null) {
             $errorStatus->usernameError = LoginConstants::E_USERNAME_NOT_FOUND;
@@ -72,7 +73,7 @@ class LoginService
             $errorStatus->confirmPassError = LoginConstants::E_CONFIRM_MISMATCH;
         }
 
-        $user = $this->db->lookupUser($username);
+        $user = $this->userRepository->findByUsername($username);
 
         if ($user !== null) {
             $errorStatus->usernameError = LoginConstants::E_ACCOUNT_EXISTS;
@@ -83,13 +84,7 @@ class LoginService
             return $errorStatus;
         }
 
-
-        $this->db->addUser($username, password_hash($password, PASSWORD_DEFAULT));
-        $user = $this->db->lookupUser($username);
-
-        if ($user === null) {
-            throw new \RuntimeException("User lookup failed after registration");
-        }
+        $user = $this->userRepository->createUser($username, password_hash($password, PASSWORD_DEFAULT));
 
         $this->setUser($user->id, $username, $returnToUrl);
         Utilities::saveSession();

@@ -39,32 +39,9 @@ class Database
         return $conn;
     }
 
-    /**
-     * @return ?User
-     */
-    public function lookupUser(string $username): ?User
+    public function getConnection(): PDO
     {
-        $stmt = $this->conn->prepare("
-            SELECT *
-            FROM " . DbConstants::USERS_TABLE . "
-            WHERE " . DbConstants::USERS_USERNAME_FIELD . " = :username
-            LIMIT 1
-        ");
-
-        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
-        $stmt->execute();
-
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($row === false) {
-            return null;
-        }
-
-        return new User(
-            id: (int)$row[DbConstants::USER_ID_FIELD],
-            username: $row[DbConstants::USERS_USERNAME_FIELD],
-            passwordHash: $row[DbConstants::USERS_HASH_FIELD]
-        );
+        return $this->conn;
     }
 
     public function addUser(string $username, string $hash): void

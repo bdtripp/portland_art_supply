@@ -7,12 +7,16 @@ use PAS\LoginConstants;
 use PAS\LoginService;
 use PAS\Database;
 use PAS\PageConstants;
+use PAS\Repositories\UserRepository;
 
 $login_username = Utilities::getPostValue(LoginConstants::LOGIN_USERNAME_KEY);
 $login_password = Utilities::getPostValue(LoginConstants::LOGIN_PASSWORD_KEY);
 $login_pressed = Utilities::getPostValue(LoginConstants::LOGIN_BUTTON_KEY);
 $errorStatus = new stdClass();
-$loginService = new LoginService(new Database());
+$db = new Database();
+$userRepository = new UserRepository($db);
+
+$loginService = new LoginService($userRepository);
 
 if (!$login_pressed) {
     if (isset($_SERVER['HTTP_REFERER'])) {
