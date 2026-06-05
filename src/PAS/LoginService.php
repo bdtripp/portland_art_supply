@@ -37,17 +37,17 @@ class LoginService
 
         $user = $this->db->lookupUser($username);
 
-        if ($user === false) {
+        if ($user === null) {
             $errorStatus->usernameError = LoginConstants::E_USERNAME_NOT_FOUND;
             return $errorStatus;
         }
 
-        if (!password_verify($password, $user[DbConstants::USERS_HASH_FIELD])) {
+        if (!password_verify($password, $user->passwordHash)) {
             $errorStatus->passwordError = LoginConstants::E_PASSWORD_INCORRECT;
             return $errorStatus;
         }
 
-        $this->setUser($user[DbConstants::USER_ID_FIELD], $username, $returnToUrl);
+        $this->setUser($user->id, $username, $returnToUrl);
         Utilities::restoreSession();
         return '';
     }
@@ -74,7 +74,7 @@ class LoginService
 
         $user = $this->db->lookupUser($username);
 
-        if (!empty($user)) {
+        if ($user !== null) {
             $errorStatus->usernameError = LoginConstants::E_ACCOUNT_EXISTS;
         }
 
@@ -87,11 +87,11 @@ class LoginService
         $this->db->addUser($username, password_hash($password, PASSWORD_DEFAULT));
         $user = $this->db->lookupUser($username);
 
-        if ($user === false) {
+        if ($user === null) {
             throw new \RuntimeException("User lookup failed after registration");
         }
 
-        $this->setUser($user[DbConstants::USER_ID_FIELD], $username, $returnToUrl);
+        $this->setUser($user->id, $username, $returnToUrl);
         Utilities::saveSession();
         return null;
     }

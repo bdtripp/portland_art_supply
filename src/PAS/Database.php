@@ -8,6 +8,7 @@ use PDO;
 use PDOException;
 use PAS\Models\ProductItem;
 use PAS\Models\ProductGroup;
+use PAS\Models\User;
 
 class Database
 {
@@ -39,22 +40,31 @@ class Database
     }
 
     /**
-     * @return array{
-     *     user_id: int,
-     *     username: string,
-     *     password_hash: string
-     * }|false
+     * @return ?User
      */
-    public function lookupUser(string $username): array|false
+    public function lookupUser(string $username): ?User
     {
-        $conn = $this->conn;
-        $stmt = $conn->prepare("
-        SELECT * FROM " . DbConstants::USERS_TABLE .
-        " WHERE " . DbConstants::USERS_USERNAME_FIELD . " = :username;
+        $stmt = $this->conn->prepare("
+            SELECT *
+            FROM " . DbConstants::USERS_TABLE . "
+            WHERE " . DbConstants::USERS_USERNAME_FIELD . " = :username
+            LIMIT 1
         ");
+
         $stmt->bindParam(':username', $username, PDO::PARAM_STR);
         $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($row === false) {
+            return null;
+        }
+
+        return new User(
+            id: (int)$row[DbConstants::USER_ID_FIELD],
+            username: $row[DbConstants::USERS_USERNAME_FIELD],
+            passwordHash: $row[DbConstants::USERS_HASH_FIELD]
+        );
     }
 
     public function addUser(string $username, string $hash): void
