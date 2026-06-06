@@ -8,6 +8,7 @@ use PAS\LoginService;
 use PAS\Database;
 use PAS\PageConstants;
 use PAS\Repositories\UserRepository;
+use PAS\Services\SessionService;
 
 $login_username = Utilities::getPostValue(LoginConstants::LOGIN_USERNAME_KEY);
 $login_password = Utilities::getPostValue(LoginConstants::LOGIN_PASSWORD_KEY);
@@ -15,20 +16,15 @@ $login_pressed = Utilities::getPostValue(LoginConstants::LOGIN_BUTTON_KEY);
 $errorStatus = new stdClass();
 $db = new Database();
 $userRepository = new UserRepository($db);
-
-$loginService = new LoginService($userRepository);
+$sessionService = new SessionService();
+$loginService = new LoginService($userRepository, $sessionService);
 
 if (!$login_pressed) {
     if (isset($_SERVER['HTTP_REFERER'])) {
-        Utilities::setSessionValue(PageConstants::SESSION_RETURN_TO_URL, $_SERVER['HTTP_REFERER']);
+        $sessionService->setReturnToUrl($_SERVER['HTTP_REFERER']);
     }
 } else {
-    $returnToUrl = Utilities::getSessionValue(PageConstants::SESSION_RETURN_TO_URL);
-    if ($returnToUrl != PageConstants::DOMAIN_NAME . PageConstants::CREATE_ACCOUNT_PAGE) {
-        $errorStatus = $loginService->login($login_username, $login_password, $returnToUrl);
-    } else {
-        $errorStatus = $loginService->login($login_username, $login_password, PageConstants::HOME_PAGE);
-    }
+    $errorStatus = $loginService->login($login_username, $login_password);
 }
 
 ?>

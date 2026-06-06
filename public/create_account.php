@@ -10,6 +10,7 @@ use PAS\LoginConstants;
 use PAS\LoginService;
 use PAS\Database;
 use PAS\PageConstants;
+use PAS\Services\SessionService;
 
 $createUsername = Utilities::getPostValue(LoginConstants::CREATE_USERNAME_KEY);
 $createPassword = Utilities::getPostValue(LoginConstants::CREATE_PASSWORD_KEY);
@@ -18,16 +19,12 @@ $createPressed = Utilities::getPostValue(LoginConstants::CREATE_ACCOUNT_BUTTON_I
 $errorStatus = new stdClass();
 $db = new Database();
 $userRepository = new UserRepository($db);
+$sessionService = new SessionService();
 
-$loginService = new LoginService($userRepository);
+$loginService = new LoginService($userRepository, $sessionService);
 
 if ($createPressed) {
-    $returnToUrl =  Utilities::getSessionValue(PageConstants::SESSION_RETURN_TO_URL);
-    if ($returnToUrl != PageConstants::DOMAIN_NAME . PageConstants::CREATE_ACCOUNT_PAGE) {
-        $errorStatus = $loginService->register($createUsername, $createPassword, $createConfirmPassword, $returnToUrl);
-    } else {
-        $errorStatus = $loginService->register($createUsername, $createPassword, $createConfirmPassword, PageConstants::HOME_PAGE);
-    }
+    $errorStatus = $loginService->register($createUsername, $createPassword, $createConfirmPassword);
 }
 
 ?>

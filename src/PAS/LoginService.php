@@ -5,22 +5,22 @@ declare(strict_types=1);
 namespace PAS;
 
 use PAS\Repositories\UserRepository;
+use PAS\Services\SessionService;
 
 class LoginService
 {
     public function __construct(
         private UserRepository $userRepository,
+        private SessionService $sessionService
     ) {
     }
 
-    public function setUser(int $userID, string $username, string $returnToUrl): void
+    public function setUser(int $userID, string $username): void
     {
-        Utilities::setSessionValue(PageConstants::SESSION_USER_ID_KEY, $userID);
-        Utilities::setSessionValue(PageConstants::SESSION_USERNAME_KEY, $username);
-        header('Location: ' . $returnToUrl);
+        $this->sessionService->setUser($userID, $username);
     }
 
-    public function login(string $username, string $password, string $returnToUrl): \stdClass|string
+    public function login(string $username, string $password): \stdClass|string
     {
         $errorStatus = new \stdClass();
 
@@ -48,12 +48,19 @@ class LoginService
             return $errorStatus;
         }
 
-        $this->setUser($user->id, $username, $returnToUrl);
-        Utilities::restoreSession();
+        $returnToUrl = $this->sessionService->getReturnToUrl();
+
+        if ($returnToUrl === PageConstants::DOMAIN_NAME . PageConstants::CREATE_ACCOUNT_PAGE) {
+            $returnToUrl = PageConstants::HOME_PAGE;
+        }
+
+        $this->sessionService->setUser($user->id, $username);
+        $this->sessionService->restore();
+        $this->sessionService->redirect($returnToUrl);
         return '';
     }
 
-    public function register(string $username, string $password, string $confirm, string $returnToUrl): ?\stdClass
+    public function register(string $username, string $password, string $confirm): ?\stdClass
     {
         $errorStatus = new \stdClass();
 
@@ -86,8 +93,15 @@ class LoginService
 
         $user = $this->userRepository->createUser($username, password_hash($password, PASSWORD_DEFAULT));
 
-        $this->setUser($user->id, $username, $returnToUrl);
-        Utilities::saveSession();
+        $returnToUrl = $this->sessionService->getReturnToUrl();
+
+        if ($returnToUrl === PageConstants::DOMAIN_NAME . PageConstants::CREATE_ACCOUNT_PAGE) {
+            $returnToUrl = PageConstants::HOME_PAGE;
+        }
+
+        $this->sessionService->setUser($user->id, $username);
+        $this->sessionService->save();
+        $this->sessionService->redirect($returnToUrl);
         return null;
     }
 
