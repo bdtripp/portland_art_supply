@@ -4,6 +4,7 @@ header('Content-Type: text/javascript');
 require_once __DIR__ . '/../../config.php';
 use PAS\DbConstants;
 use PAS\PageConstants;
+
 ?>
 
 var PRODUCT_COLOR_NAME_FIELD = '<?php echo DbConstants::PRODUCT_COLOR_NAME_FIELD; ?>';

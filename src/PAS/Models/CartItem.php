@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace PAS\Models;
@@ -15,7 +16,8 @@ class CartItem
         public readonly string $sizeDescription,
         public readonly float $price,
         public readonly int $quantity
-    ) {}
+    ) {
+    }
 
     /**
      * @return array{
@@ -37,7 +39,7 @@ class CartItem
             'categoryName'    => $this->categoryName,
             'subcategoryName' => $this->subcategoryName,
             'groupCode'       => $this->groupCode,
-            'groupDescription'=> $this->groupDescription,
+            'groupDescription' => $this->groupDescription,
             'colorName'       => $this->colorName,
             'sizeDescription' => $this->sizeDescription,
             'price'           => $this->price,

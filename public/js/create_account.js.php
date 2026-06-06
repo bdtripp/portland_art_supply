@@ -4,6 +4,7 @@ header('Content-Type: text/javascript');
 require_once __DIR__ . '/../../config.php';
 use PAS\LoginConstants;
 use PAS\PageConstants;
+
 ?>
 
 const REQUIRED_SPECIAL_CHARACTERS = '<?php echo LoginConstants::REQUIRED_SPECIAL_CHARACTERS; ?>';

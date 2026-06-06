@@ -1,11 +1,14 @@
 <?php
+
 declare(strict_types=1);
+
 namespace PAS;
 
 use PDO;
 use PDOException;
 use PAS\Models\ProductItem;
 use PAS\Models\ProductGroup;
+use PAS\Models\User;
 
 class Database
 {
@@ -16,7 +19,8 @@ class Database
         $this->conn = $this->connectToDB();
     }
 
-    public function connectToDB(): PDO {
+    public function connectToDB(): PDO
+    {
         $dsn = "mysql:host=" . $_ENV['DB_HOST'] .
         ";port=" . $_ENV['DB_PORT'] .
         ";dbname=" . $_ENV['DB_NAME'] .
@@ -35,25 +39,13 @@ class Database
         return $conn;
     }
 
-    /**
-     * @return array{
-     *     user_id: int,
-     *     username: string,
-     *     password_hash: string
-     * }|false
-     */
-    public function lookupUser(string $username): array|false {
-        $conn = $this->conn;
-        $stmt = $conn->prepare("
-        SELECT * FROM " . DbConstants::USERS_TABLE .
-        " WHERE " . DbConstants::USERS_USERNAME_FIELD . " = :username;
-        ");
-        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+    public function getConnection(): PDO
+    {
+        return $this->conn;
     }
 
-    public function addUser(string $username, string $hash): void {
+    public function addUser(string $username, string $hash): void
+    {
         $conn = $this->conn;
         $stmt = $conn->prepare("
         INSERT INTO " . DbConstants::USERS_TABLE . " (" . DbConstants::USERS_USERNAME_FIELD . ", " . DbConstants::USERS_HASH_FIELD . ")
@@ -64,13 +56,14 @@ class Database
         $stmt->execute();
     }
 
-     /**
-     * @return array{
-     *     user_id: int,
-     *     session_data: string,
-     * }|null
-     */
-    public function lookupSession(?int $userID): ?array {
+    /**
+    * @return array{
+    *     user_id: int,
+    *     session_data: string,
+    * }|null
+    */
+    public function lookupSession(?int $userID): ?array
+    {
         $conn = $this->conn;
         $stmt = $conn->prepare("
         SELECT *
@@ -87,7 +80,8 @@ class Database
         return $row === false ? null : $row;
     }
 
-    public function addSession(?int $userID, string $session): void {
+    public function addSession(?int $userID, string $session): void
+    {
         if ($userID !== null) {
             try {
                 $conn = $this->conn;
@@ -113,19 +107,20 @@ class Database
      *     category_name: string
      * }>
      */
-    public function lookupCategories(): array {
+    public function lookupCategories(): array
+    {
         $conn = $this->conn;
         $stmt = $conn->query("
         SELECT " . DbConstants::PRODUCT_CATEGORY_ID_FIELD . ", " . DbConstants::PRODUCT_CATEGORY_NAME_FIELD .
         " FROM " . DbConstants::PRODUCT_CATEGORY_TABLE . ";
         ");
 
-    if ($stmt === false) {
-        return [];
-    }
+        if ($stmt === false) {
+            return [];
+        }
 
-    /** @var array<int, array{category_id: int, category_name: string}> */
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        /** @var array<int, array{category_id: int, category_name: string}> */
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -133,7 +128,8 @@ class Database
      *      subcategory_name: string
      * }>
      */
-    public function lookupSubcategories(int $categoryID): array {
+    public function lookupSubcategories(int $categoryID): array
+    {
         $conn = $this->conn;
         $stmt = $conn->prepare("
         SELECT " . DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD .
@@ -152,7 +148,8 @@ class Database
      *     subcategory_name: string
      * }>
      */
-    public function lookupProductGroups(string $category, string $subcategory): array {
+    public function lookupProductGroups(string $category, string $subcategory): array
+    {
         $conn = $this->conn;
 
         $stmt = $conn->prepare("
@@ -202,7 +199,8 @@ class Database
     /**
      * @return ProductGroup|null
      */
-    public function lookupGroup(int $groupID): ?ProductGroup {
+    public function lookupGroup(int $groupID): ?ProductGroup
+    {
         $conn = $this->conn;
 
         $stmt = $conn->prepare("
@@ -234,7 +232,8 @@ class Database
     /**
      * @return ProductItem[]
      */
-    public function lookupItems(int $groupID): array {
+    public function lookupItems(int $groupID): array
+    {
         $conn = $this->conn;
 
         $stmt = $conn->prepare("

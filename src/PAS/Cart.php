@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace PAS;
 
 use PAS\Utilities;
@@ -60,7 +62,8 @@ class Cart
         Utilities::setCartItems($itemsInCart);
     }
 
-    public function updateQuantityInSession(int $newQuantity, int $id): int {
+    public function updateQuantityInSession(int $newQuantity, int $id): int
+    {
         /** @var array<int, CartItem> $itemsInCart */
         $itemsInCart = Utilities::getCartItems();
         $previousQuantity = 0;
@@ -87,7 +90,8 @@ class Cart
         return $previousQuantity;
     }
 
-    public function removeItemFromCart(int $id): void {
+    public function removeItemFromCart(int $id): void
+    {
         /** @var array<int, CartItem> $itemsInCart */
         $itemsInCart = Utilities::getCartItems();
 
@@ -106,7 +110,8 @@ class Cart
         exit();
     }
 
-    public function getNumItemsInCart(): int {
+    public function getNumItemsInCart(): int
+    {
         $itemsInCart = Utilities::getCartItems();
         $numItemsInCart = 0;
 
@@ -117,7 +122,8 @@ class Cart
         return $numItemsInCart;
     }
 
-    public function getQuantityOfItem(int $id): int {
+    public function getQuantityOfItem(int $id): int
+    {
         $itemsInCart = Utilities::getCartItems();
 
         foreach ($itemsInCart as $item) {
@@ -129,7 +135,8 @@ class Cart
         return 0;
     }
 
-    public function getItemSubtotal(int $id): float {
+    public function getItemSubtotal(int $id): float
+    {
         $itemsInCart = Utilities::getCartItems();
         $subtotal = 0;
 
@@ -142,7 +149,8 @@ class Cart
         return $subtotal;
     }
 
-    public function getCartTotal(): float {
+    public function getCartTotal(): float
+    {
         $itemsInCart = Utilities::getCartItems();
         $total = 0;
 
