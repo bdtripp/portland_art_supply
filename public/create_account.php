@@ -1,4 +1,7 @@
 <?php
+
+use PAS\Repositories\UserRepository;
+
 require_once __DIR__ . '/../config.php';
 session_start();
 
@@ -7,21 +10,21 @@ use PAS\LoginConstants;
 use PAS\LoginService;
 use PAS\Database;
 use PAS\PageConstants;
+use PAS\Services\SessionService;
 
 $createUsername = Utilities::getPostValue(LoginConstants::CREATE_USERNAME_KEY);
 $createPassword = Utilities::getPostValue(LoginConstants::CREATE_PASSWORD_KEY);
 $createConfirmPassword = Utilities::getPostValue(LoginConstants::CREATE_CONFIRM_PASSWORD_KEY);
 $createPressed = Utilities::getPostValue(LoginConstants::CREATE_ACCOUNT_BUTTON_ID);
 $errorStatus = new stdClass();
-$loginService = new LoginService(new Database());
+$db = new Database();
+$userRepository = new UserRepository($db);
+$sessionService = new SessionService();
+
+$loginService = new LoginService($userRepository, $sessionService);
 
 if ($createPressed) {
-    $returnToUrl =  Utilities::getSessionValue(PageConstants::SESSION_RETURN_TO_URL);
-    if ($returnToUrl != PageConstants::DOMAIN_NAME . PageConstants::CREATE_ACCOUNT_PAGE) {
-        $errorStatus = $loginService->register($createUsername, $createPassword, $createConfirmPassword, $returnToUrl);
-    } else {
-        $errorStatus = $loginService->register($createUsername, $createPassword, $createConfirmPassword, PageConstants::HOME_PAGE);
-    }
+    $errorStatus = $loginService->register($createUsername, $createPassword, $createConfirmPassword);
 }
 
 ?>
@@ -55,10 +58,10 @@ if ($createPressed) {
             <h2>Create an Account</h2>
             <section>
                 <label for="<?php echo PageConstants::USERNAME_INPUT_ID; ?>">Username:</label>
-                <input 
-                    id="<?php echo PageConstants::USERNAME_INPUT_ID; ?>" 
-                    type="text" 
-                    name="<?php echo LoginConstants::CREATE_USERNAME_KEY; ?>" 
+                <input
+                    id="<?php echo PageConstants::USERNAME_INPUT_ID; ?>"
+                    type="text"
+                    name="<?php echo LoginConstants::CREATE_USERNAME_KEY; ?>"
                     value="<?php echo $createUsername; ?>"
                     required
                 />
@@ -74,10 +77,10 @@ if ($createPressed) {
             <section id="<?php echo PageConstants::PASSWORD_SECTION_CLASS ?>">
                 <div class="<?php echo PageConstants::WRAPPER_CLASS; ?>">
                     <label for="<?php echo PageConstants::PASSWORD_INPUT_ID; ?>">Password:</label>
-                    <input 
-                        id="<?php echo PageConstants::PASSWORD_INPUT_ID; ?>" 
-                        type="password" name="<?php echo LoginConstants::CREATE_PASSWORD_KEY; ?>" 
-                        value="<?php echo $createPassword; ?>" 
+                    <input
+                        id="<?php echo PageConstants::PASSWORD_INPUT_ID; ?>"
+                        type="password" name="<?php echo LoginConstants::CREATE_PASSWORD_KEY; ?>"
+                        value="<?php echo $createPassword; ?>"
                         required
                     />
                     <div class="<?php echo PageConstants::MESSAGE_WRAPPER_CLASS; ?>">
@@ -102,10 +105,10 @@ if ($createPressed) {
             </section>
             <section>
                 <label for="<?php echo PageConstants::CONFIRM_PASSWORD_INPUT_ID; ?>">Confirm Password:</label>
-                <input 
-                    id="<?php echo PageConstants::CONFIRM_PASSWORD_INPUT_ID; ?>" 
-                    type="password" name="<?php echo LoginConstants::CREATE_CONFIRM_PASSWORD_KEY; ?>" 
-                    value="<?php echo $createConfirmPassword; ?>" 
+                <input
+                    id="<?php echo PageConstants::CONFIRM_PASSWORD_INPUT_ID; ?>"
+                    type="password" name="<?php echo LoginConstants::CREATE_CONFIRM_PASSWORD_KEY; ?>"
+                    value="<?php echo $createConfirmPassword; ?>"
                     required
                 />
                 <div class="<?php echo PageConstants::MESSAGE_WRAPPER_CLASS; ?>">
@@ -117,11 +120,11 @@ if ($createPressed) {
                     </span>
                 </div>
            </section>
-            <input 
-                id="<?php echo LoginConstants::CREATE_ACCOUNT_BUTTON_ID; ?>" 
-                type="submit" 
-                name="<?php echo LoginConstants::CREATE_ACCOUNT_BUTTON_ID; ?>" 
-                value="Create Account" 
+            <input
+                id="<?php echo LoginConstants::CREATE_ACCOUNT_BUTTON_ID; ?>"
+                type="submit"
+                name="<?php echo LoginConstants::CREATE_ACCOUNT_BUTTON_ID; ?>"
+                value="Create Account"
             />
             <p>- or -</p>
             <div class="<?php echo PageConstants::LINKS_CLASS; ?>">

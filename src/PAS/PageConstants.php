@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace PAS;
 
 class PageConstants
@@ -63,7 +65,7 @@ class PageConstants
     public const string ITEM_OPTIONS_DIV = 'item_options';
     public const string ITEM_OPTIONS_RIGHT_COL = 'item_options_right_col';
     public const string GROUP_INFORMATION_ID = 'group_info';
-    public const string PRODUCT_GROUPS_ID ='product_groups';
+    public const string PRODUCT_GROUPS_ID = 'product_groups';
     public const string CHECKOUT_BUTTON_ID = 'checkout_button';
     public const string LOGIN_ICON_ID = 'login_icon';
     public const string LOGOUT_ICON_ID = 'logout_icon';

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace PAS\Models;
@@ -10,5 +11,6 @@ final class ProductItem
         public readonly ?string $colorName,
         public readonly ?string $sizeDescription,
         public readonly float $price
-    ) {}
+    ) {
+    }
 }

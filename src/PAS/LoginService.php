@@ -1,22 +1,26 @@
 <?php
+
 declare(strict_types=1);
+
 namespace PAS;
+
+use PAS\Repositories\UserRepository;
+use PAS\Services\SessionService;
 
 class LoginService
 {
-    private Database $db;
+    public function __construct(
+        private UserRepository $userRepository,
+        private SessionService $sessionService
+    ) {
+    }
 
-    public function __construct(Database $db)
+    public function setUser(int $userID, string $username): void
     {
-        $this->db = $db;
-    }
-    public function setUser(int $userID, string $username, string $returnToUrl): void {
-        Utilities::setSessionValue(PageConstants::SESSION_USER_ID_KEY, $userID);
-        Utilities::setSessionValue(PageConstants::SESSION_USERNAME_KEY, $username);
-        header('Location: ' . $returnToUrl);
+        $this->sessionService->setUser($userID, $username);
     }
 
-    public function login(string $username, string $password, string $returnToUrl): \stdClass|string
+    public function login(string $username, string $password): \stdClass|string
     {
         $errorStatus = new \stdClass();
 
@@ -32,24 +36,32 @@ class LoginService
             return $errorStatus;
         }
 
-        $user = $this->db->lookupUser($username);
+        $user = $this->userRepository->findByUsername($username);
 
-        if ($user === false) {
+        if ($user === null) {
             $errorStatus->usernameError = LoginConstants::E_USERNAME_NOT_FOUND;
             return $errorStatus;
         }
 
-        if (!password_verify($password, $user[DbConstants::USERS_HASH_FIELD])) {
+        if (!password_verify($password, $user->passwordHash)) {
             $errorStatus->passwordError = LoginConstants::E_PASSWORD_INCORRECT;
             return $errorStatus;
         }
 
-        $this->setUser($user[DbConstants::USER_ID_FIELD], $username, $returnToUrl);
-        Utilities::restoreSession();
+        $returnToUrl = $this->sessionService->getReturnToUrl();
+
+        if ($returnToUrl === PageConstants::DOMAIN_NAME . PageConstants::CREATE_ACCOUNT_PAGE) {
+            $returnToUrl = PageConstants::HOME_PAGE;
+        }
+
+        $this->sessionService->setUser($user->id, $username);
+        $this->sessionService->restore();
+        $this->sessionService->redirect($returnToUrl);
         return '';
     }
 
-    public function register(string $username, string $password, string $confirm, string $returnToUrl): ?\stdClass {
+    public function register(string $username, string $password, string $confirm): ?\stdClass
+    {
         $errorStatus = new \stdClass();
 
         if (empty($username)) {
@@ -68,9 +80,9 @@ class LoginService
             $errorStatus->confirmPassError = LoginConstants::E_CONFIRM_MISMATCH;
         }
 
-        $user = $this->db->lookupUser($username);
+        $user = $this->userRepository->findByUsername($username);
 
-        if (!empty($user)) {
+        if ($user !== null) {
             $errorStatus->usernameError = LoginConstants::E_ACCOUNT_EXISTS;
         }
 
@@ -79,20 +91,22 @@ class LoginService
             return $errorStatus;
         }
 
+        $user = $this->userRepository->createUser($username, password_hash($password, PASSWORD_DEFAULT));
 
-        $this->db->addUser($username, password_hash($password, PASSWORD_DEFAULT));
-        $user = $this->db->lookupUser($username);
+        $returnToUrl = $this->sessionService->getReturnToUrl();
 
-        if ($user === false) {
-            throw new \RuntimeException("User lookup failed after registration");
+        if ($returnToUrl === PageConstants::DOMAIN_NAME . PageConstants::CREATE_ACCOUNT_PAGE) {
+            $returnToUrl = PageConstants::HOME_PAGE;
         }
 
-        $this->setUser($user[DbConstants::USER_ID_FIELD], $username, $returnToUrl);
-        Utilities::saveSession();
+        $this->sessionService->setUser($user->id, $username);
+        $this->sessionService->save();
+        $this->sessionService->redirect($returnToUrl);
         return null;
     }
 
-    public function showErrorSymbol(): string {
+    public function showErrorSymbol(): string
+    {
         return "⚠ ";
     }
 }
