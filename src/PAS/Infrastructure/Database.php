@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace PAS;
+namespace PAS\Infrastructure;
 
 use PDO;
 use PDOException;
 use PAS\Models\ProductItem;
 use PAS\Models\ProductGroup;
-use PAS\Models\User;
+use PAS\Config\DbConstants;
 
 class Database
 {

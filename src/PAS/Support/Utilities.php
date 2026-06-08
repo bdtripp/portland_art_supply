@@ -2,10 +2,13 @@
 
 declare(strict_types=1);
 
-namespace PAS;
+namespace PAS\Support;
 
 use JsonException;
 use PAS\Models\CartItem;
+use PAS\Config\PageConstants;
+use PAS\Config\DbConstants;
+use PAS\Infrastructure\Database;
 
 class Utilities
 {

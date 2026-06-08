@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace PAS\Services;
 
-use PAS\PageConstants;
-use PAS\Utilities;
+use PAS\Config\PageConstants;
+use PAS\Support\Utilities;
 
 final class SessionService
 {
