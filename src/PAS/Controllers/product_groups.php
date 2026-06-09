@@ -4,12 +4,14 @@ require_once __DIR__ . '/../../../config.php';
 use PAS\Infrastructure\Database;
 use PAS\Config\DbConstants;
 use PAS\View\Ui;
+use PAS\Repositories\ProductRepository;
 
 $categoryName = urldecode($_GET[DbConstants::PRODUCT_CATEGORY_NAME_FIELD]);
 $subcategoryName = urldecode($_GET[DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD]);
 $ui = new Ui();
 $db = new Database();
-$products = $db->lookupProductGroups($categoryName, $subcategoryName);
+$productRepository = new ProductRepository($db);
+$products = $productRepository->getProductGroups($categoryName, $subcategoryName);
 
 ?>
 

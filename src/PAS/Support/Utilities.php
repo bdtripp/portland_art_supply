@@ -9,6 +9,7 @@ use PAS\Models\CartItem;
 use PAS\Config\PageConstants;
 use PAS\Config\DbConstants;
 use PAS\Infrastructure\Database;
+use PAS\Repositories\AccountDataRepository;
 
 class Utilities
 {
@@ -22,7 +23,7 @@ class Utilities
 
     public static function saveSession(): void
     {
-        $db = new Database();
+        $repo = new AccountDataRepository(new Database());
         $userId = self::getSessionValue(PageConstants::SESSION_USER_ID_KEY);
         $items = Utilities::getCartItems();
 
@@ -31,14 +32,14 @@ class Utilities
         ];
 
         $json = json_encode($payload, JSON_THROW_ON_ERROR);
-        $db->addSession($userId, $json);
+        $repo->saveSession($userId, $json);
     }
 
     public static function restoreSession(): void
     {
-        $db = new Database();
-        $userID = self::getSessionValue(PageConstants::SESSION_USER_ID_KEY);
-        $sessionRow = $db->lookupSession($userID);
+        $repo = new AccountDataRepository(new Database());
+        $userId = self::getSessionValue(PageConstants::SESSION_USER_ID_KEY);
+        $sessionRow = $repo->findSessionByUserId($userId);
         $sessionBlob = $sessionRow[DbConstants::ACCOUNT_DATA_SESSION_DATA_FIELD] ?? null;
 
         if (!$sessionBlob) {
@@ -48,7 +49,7 @@ class Utilities
         try {
             $data = json_decode($sessionBlob, true, 512, JSON_THROW_ON_ERROR);
         } catch (JsonException $e) {
-            error_log("Failed to decode session JSON for user {$userID}: " . $e->getMessage());
+            error_log("Failed to decode session JSON for user {$userId}: " . $e->getMessage());
             return;
         }
 
