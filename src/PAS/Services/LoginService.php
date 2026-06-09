@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
-namespace PAS;
+namespace PAS\Services;
 
 use PAS\Repositories\UserRepository;
 use PAS\Services\SessionService;
+use PAS\Config\LoginConstants;
+use PAS\Config\PageConstants;
 
 class LoginService
 {

@@ -1,12 +1,11 @@
 <?php
-require_once __DIR__ . '/../config.php';
-session_start();
+require_once __DIR__ . '/../../../config.php';
 
-use PAS\Utilities;
-use PAS\LoginConstants;
-use PAS\LoginService;
-use PAS\Database;
-use PAS\PageConstants;
+use PAS\Support\Utilities;
+use PAS\Config\LoginConstants;
+use PAS\Services\LoginService;
+use PAS\Infrastructure\Database;
+use PAS\Config\PageConstants;
 use PAS\Repositories\UserRepository;
 use PAS\Services\SessionService;
 

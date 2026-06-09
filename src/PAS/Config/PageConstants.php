@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PAS;
+namespace PAS\Config;
 
 class PageConstants
 {

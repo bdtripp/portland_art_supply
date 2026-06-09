@@ -2,8 +2,8 @@
 header('Content-Type: text/javascript');
 
 require_once __DIR__ . '/../../config.php';
-use PAS\DbConstants;
-use PAS\PageConstants;
+use PAS\Config\DbConstants;
+use PAS\Config\PageConstants;
 
 ?>
 
@@ -102,7 +102,7 @@ function initializeProductItemsPage() {
 
     if (document.getElementById(COLOR_DROP_DOWN_ID) === null && document.getElementById(SIZE_DROP_DOWN_ID) === null) {
         showAddToCartButton();
-    } 
+    }
 }
 
 // functions for product_items.php
@@ -562,7 +562,7 @@ function updateTotalDisplay(total) {
 // functions for every page
 
 function initDropdowns() {
-    document.querySelectorAll(".expand_btn").forEach(button => { 
+    document.querySelectorAll(".expand_btn").forEach(button => {
         button.addEventListener("click", (e) => {
             const isExpanded = button.ariaExpanded === "true";
 
