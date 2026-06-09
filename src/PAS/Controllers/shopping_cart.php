@@ -1,27 +1,26 @@
 <?php
-require_once __DIR__ . '/../config.php';
-session_start();
+require_once __DIR__ . '/../../../config.php';
 
-use PAS\Ui;
-use PAS\PageConstants;
-use PAS\DbConstants;
-use PAS\Utilities;
-use PAS\Cart;
+use PAS\View\Ui;
+use PAS\Config\PageConstants;
+use PAS\Config\DbConstants;
+use PAS\Support\Utilities;
+use PAS\Services\CartService;
 
 $buttonClickedID = (int) Utilities::getPostValue("buttonID");
 $newQuantity = (int) Utilities::getPostValue("quantity");
 // id of the item that the quantity is being changed for
 $idOfItemChanged = (int) Utilities::getPostValue("idOfItemChanged");
 $ui = new Ui();
-$cart = new Cart();
+$cartService = new CartService();
 
 if (!empty($buttonClickedID)) {
-    $cart->removeItemFromCart($buttonClickedID);
+    $cartService->removeItemFromCart($buttonClickedID);
     exit();
 }
 if (!empty($newQuantity)) {
-    $responseData = array(DbConstants::QUANTITY_FIELD => $cart->updateQuantityInSession($newQuantity, $idOfItemChanged),
-        DbConstants::SUBTOTAL_FIELD => $cart->getItemSubtotal($idOfItemChanged), DbConstants::TOTAL_FIELD => $cart->getCartTotal()) ;
+    $responseData = array(DbConstants::QUANTITY_FIELD => $cartService->updateQuantityInSession($newQuantity, $idOfItemChanged),
+        DbConstants::SUBTOTAL_FIELD => $cartService->getItemSubtotal($idOfItemChanged), DbConstants::TOTAL_FIELD => $cartService->getCartTotal()) ;
     echo json_encode($responseData);
     exit();
 }

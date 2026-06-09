@@ -1,12 +1,12 @@
 <?php
-require_once __DIR__ . '/../config.php';
-session_start();
+require_once __DIR__ . '/../../../config.php';
 
-use PAS\Database;
-use PAS\DbConstants;
-use PAS\Ui;
-use PAS\Cart;
-use PAS\Utilities;
+use PAS\Infrastructure\Database;
+use PAS\Config\DbConstants;
+use PAS\View\Ui;
+use PAS\Services\CartService;
+use PAS\Support\Utilities;
+use PAS\Repositories\ProductRepository;
 
 $id = Utilities::getPostValue(DbConstants::PRODUCT_ITEM_ID_FIELD);
 $groupDescription = Utilities::getPostValue(DbConstants::PRODUCT_GROUP_DESCRIPTION_FIELD);
@@ -18,11 +18,12 @@ $size = Utilities::getPostValue(DbConstants::PRODUCT_SIZE_DESCRIPTION_FIELD);
 $price = Utilities::getPostValue(DbConstants::PRODUCT_ITEM_PRICE_FIELD);
 $quantity = Utilities::getPostValue(DbConstants::QUANTITY_FIELD);
 $db = new Database();
-$cart = new Cart();
+$productRepository = new ProductRepository($db);
+$cartService = new CartService();
 $ui = new Ui();
 
 if (!empty($id)) {
-    $cart->addItemToCart(
+    $cartService->addItemToCart(
         (int) html_entity_decode(urldecode($id)),
         html_entity_decode(urldecode($category)),
         html_entity_decode(urldecode($subcategory)),
@@ -39,12 +40,12 @@ if (!empty($id)) {
 $categoryName = urldecode($_GET[DbConstants::PRODUCT_CATEGORY_NAME_FIELD]);
 $subcategoryName = urldecode($_GET[DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD]);
 $groupCode = urldecode($_GET[DbConstants::PRODUCT_GROUP_CODE_FIELD]);
-$groupID = (int) urldecode($_GET[DbConstants::PRODUCT_GROUP_ID_FIELD]);
-$productGroup = $db->lookupGroup($groupID);
+$groupId = (int) urldecode($_GET[DbConstants::PRODUCT_GROUP_ID_FIELD]);
+$productGroup = $productRepository->getGroupById($groupId);
 if ($productGroup === null) {
     die('Invalid product group');
 }
-$productItems = $db->lookupItems($groupID);
+$productItems = $productRepository->getItemsByGroupId($groupId);
 
 ?>
 

@@ -2,8 +2,8 @@
 header('Content-Type: text/javascript');
 
 require_once __DIR__ . '/../../config.php';
-use PAS\LoginConstants;
-use PAS\PageConstants;
+use PAS\Config\LoginConstants;
+use PAS\Config\PageConstants;
 
 ?>
 

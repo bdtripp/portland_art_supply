@@ -1,9 +1,8 @@
 <?php
-require_once __DIR__ . '/../config.php';
-session_start();
+require_once __DIR__ . '/../../../config.php';
 
-use PAS\Ui;
-use PAS\PageConstants;
+use PAS\View\Ui;
+use PAS\Config\PageConstants;
 
 $activePage = PageConstants::ABOUT_PAGE_TITLE;
 
@@ -69,11 +68,11 @@ $ui = new Ui();
             <p>
                 As e-commerce began to grow in popularity, PAS expanded its sales to the vast opportunities that
                 are to be found online. Now selling to as many as 64 countries, PAS has far outgrown the expectations
-                that Henry had ever foreseen for the humble store. 
+                that Henry had ever foreseen for the humble store.
             </p><br>
 
             <p>
-                PAS continues to seek ways that it can continue to meet the demands and interests of an increasingly 
+                PAS continues to seek ways that it can continue to meet the demands and interests of an increasingly
                 diversified customer base, staying true to its roots while at the same time allowing for expansion
                 when it proves to be beneficial to it's customers.
             </p><br>

@@ -1,16 +1,13 @@
 <?php
+require_once __DIR__ . '/../../../config.php';
 
-use PAS\Repositories\UserRepository;
-
-require_once __DIR__ . '/../config.php';
-session_start();
-
-use PAS\Utilities;
-use PAS\LoginConstants;
-use PAS\LoginService;
-use PAS\Database;
-use PAS\PageConstants;
+use PAS\Support\Utilities;
+use PAS\Config\LoginConstants;
+use PAS\Services\LoginService;
+use PAS\Infrastructure\Database;
+use PAS\Config\PageConstants;
 use PAS\Services\SessionService;
+use PAS\Repositories\UserRepository;
 
 $createUsername = Utilities::getPostValue(LoginConstants::CREATE_USERNAME_KEY);
 $createPassword = Utilities::getPostValue(LoginConstants::CREATE_PASSWORD_KEY);

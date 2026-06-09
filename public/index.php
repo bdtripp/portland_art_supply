@@ -1,55 +1,46 @@
 <?php
+
 require_once __DIR__ . '/../config.php';
 session_start();
 
-use PAS\Ui;
-use PAS\PageConstants;
+use PAS\Config\PageConstants;
 
-$activePage = PageConstants::HOME_PAGE_TITLE;
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-$ui = new Ui();
-?>
+switch ($uri) {
+    case PageConstants::HOME_PAGE:
+        require __DIR__ . '/../src/PAS/Controllers/home.php';
+        break;
 
-<!doctype html>
-<html lang="en">
+    case PageConstants::ABOUT_PAGE:
+        require __DIR__ . '/../src/PAS/Controllers/about.php';
+        break;
 
-<head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135450898-2"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+    case PageConstants::CREATE_ACCOUNT_PAGE:
+        require __DIR__ . '/../src/PAS/Controllers/create_account.php';
+        break;
 
-        gtag('config', 'UA-135450898-2');
-    </script> 
-    <script src="js/pas.js.php" type="text/javascript"></script>
+    case PageConstants::LOGIN_PAGE:
+        require __DIR__ . '/../src/PAS/Controllers/login.php';
+        break;
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    case PageConstants::LOGOUT_PAGE:
+        require __DIR__ . '/../src/PAS/Controllers/logout.php';
+        break;
 
-    <title>PAS | Home</title>
+    case PageConstants::GROUP_PRODUCTS_PAGE:
+        require __DIR__ . '/../src/PAS/Controllers/product_groups.php';
+        break;
 
-    <link href="css/reset.css.php" rel="stylesheet">
-    <link href="css/grid.css.php" rel="stylesheet">
-    <link href="css/collapsable_menu.css.php" rel="stylesheet">
-    <link href="css/main.css.php" rel="stylesheet">
-    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
-</head>
+    case PageConstants::PRODUCT_ITEMS_PAGE:
+        require __DIR__ . '/../src/PAS/Controllers/product_items.php';
+        break;
 
-<body onload="init();">
+    case PageConstants::SHOPPING_CART_PAGE:
+        require __DIR__ . '/../src/PAS/Controllers/shopping_cart.php';
+        break;
 
-<?php $ui->showHeaderContent($activePage); ?>
-  
-  <main id="home">
-    <img src="images/large_paint.png"></img>
-    <div class="image_overlay"></div>
-    <h2>Finest<br>selection<br> in Portland.</h2>
-
-  </main>
-
-<?php $ui->showFooterContent(); ?>
-
-</body>
-
-</html>
+    default:
+        http_response_code(404);
+        echo "Page not found";
+}

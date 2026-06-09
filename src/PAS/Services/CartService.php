@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace PAS;
+namespace PAS\Services;
 
-use PAS\Utilities;
+use PAS\Support\Utilities;
 use PAS\Models\CartItem;
 
-class Cart
+class CartService
 {
     public function addItemToCart(
         int $id,

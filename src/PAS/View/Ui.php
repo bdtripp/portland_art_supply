@@ -2,22 +2,27 @@
 
 declare(strict_types=1);
 
-namespace PAS;
+namespace PAS\View;
 
 use PAS\Models\CartItem;
 use PAS\Models\ProductGroup;
+use PAS\Services\CartService;
+use PAS\Infrastructure\Database;
+use PAS\Config\PageConstants;
+use PAS\Config\DbConstants;
+use PAS\Support\Utilities;
 
 class Ui
 {
     private const QUANTITY_MIN = 1;
     private const QUANTITY_MAX = 50;
     private Database $db;
-    private Cart $cart;
+    private CartService $cartService;
 
     public function __construct()
     {
         $this->db = new Database();
-        $this->cart = new Cart();
+        $this->cartService = new CartService();
     }
 
     public function showHeaderContent(string $categoryName): void
@@ -45,7 +50,7 @@ class Ui
         echo '        <li>' . "\n";
         echo '            <a class="' . PageConstants::SHOPPING_CART_ICON_CLASS . '" href="' . PageConstants::SHOPPING_CART_PAGE . '">' . "\n";
         echo '                <img src="' . PageConstants::IMAGE_FOLDER . PageConstants::SHOPPING_CART_IMAGE . '" alt="' . PageConstants::SHOPPING_CART_IMAGE_ALT . '">' . "\n";
-        echo '                <p id="' . PageConstants::CART_COUNT_DISPLAY_ID . '">' . $this->cart->getNumItemsInCart() . '</p>' . "\n";
+        echo '                <p id="' . PageConstants::CART_COUNT_DISPLAY_ID . '">' . $this->cartService->getNumItemsInCart() . '</p>' . "\n";
         echo '            </a>' . "\n";
         echo '        </li>' . "\n";
         echo '        <li>' . "\n";
@@ -204,7 +209,7 @@ class Ui
         if (!empty($itemsInCart)) {
             $this->showItemsInCart($itemsInCart);
             echo '        </div>' . "\n";
-            echo '        <p id="' . PageConstants::TOTAL_DISPLAY_ID . '">Total: <span class="' . PageConstants::PRICE_DISPLAY_CLASS . '">$' . number_format($this->cart->getCartTotal(), 2) . '</span></p>' . "\n";
+            echo '        <p id="' . PageConstants::TOTAL_DISPLAY_ID . '">Total: <span class="' . PageConstants::PRICE_DISPLAY_CLASS . '">$' . number_format($this->cartService->getCartTotal(), 2) . '</span></p>' . "\n";
             echo '        <input id="' . PageConstants::CHECKOUT_BUTTON_ID . '" type="button" value="Checkout">' . "\n";
         } else {
             echo '        <p id="' . PageConstants::EMPTY_CART_MESSAGE . '">There are no items currently in the cart</p>' . "\n";

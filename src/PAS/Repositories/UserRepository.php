@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace PAS\Repositories;
 
 use PDO;
-use PAS\DbConstants;
-use PAS\Database;
+use PAS\Config\DbConstants;
+use PAS\Infrastructure\Database;
 use PAS\Models\User;
 
 final class UserRepository
