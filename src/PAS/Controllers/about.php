@@ -1,12 +1,19 @@
 <?php
 require_once __DIR__ . '/../../../config.php';
 
-use PAS\View\Ui;
 use PAS\Config\PageConstants;
+use PAS\Repositories\AccountDataRepository;
+use PAS\View\Ui;
+use PAS\Infrastructure\Database;
+use PAS\Services\CartService;
+use PAS\Services\SessionService;
 
 $activePage = PageConstants::ABOUT_PAGE_TITLE;
-
-$ui = new Ui();
+$db = new Database();
+$accountRepo = new AccountDataRepository($db);
+$sessionService = new SessionService($accountRepo);
+$cartService = new CartService($sessionService);
+$ui = new Ui($db, $cartService);
 ?>
 
 <!doctype html>

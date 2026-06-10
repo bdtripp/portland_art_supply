@@ -8,6 +8,7 @@ use PAS\Infrastructure\Database;
 use PAS\Config\PageConstants;
 use PAS\Services\SessionService;
 use PAS\Repositories\UserRepository;
+use PAS\Repositories\AccountDataRepository;
 
 $createUsername = Utilities::getPostValue(LoginConstants::CREATE_USERNAME_KEY);
 $createPassword = Utilities::getPostValue(LoginConstants::CREATE_PASSWORD_KEY);
@@ -15,10 +16,11 @@ $createConfirmPassword = Utilities::getPostValue(LoginConstants::CREATE_CONFIRM_
 $createPressed = Utilities::getPostValue(LoginConstants::CREATE_ACCOUNT_BUTTON_ID);
 $errorStatus = new stdClass();
 $db = new Database();
-$userRepository = new UserRepository($db);
-$sessionService = new SessionService();
+$userRepo = new UserRepository($db);
+$accountDataRepo = new AccountDataRepository($db);
+$sessionService = new SessionService($accountDataRepo);
 
-$loginService = new LoginService($userRepository, $sessionService);
+$loginService = new LoginService($userRepo, $sessionService);
 
 if ($createPressed) {
     $errorStatus = $loginService->register($createUsername, $createPassword, $createConfirmPassword);

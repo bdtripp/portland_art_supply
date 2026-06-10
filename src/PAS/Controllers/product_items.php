@@ -7,6 +7,8 @@ use PAS\View\Ui;
 use PAS\Services\CartService;
 use PAS\Support\Utilities;
 use PAS\Repositories\ProductRepository;
+use PAS\Repositories\AccountDataRepository;
+use PAS\Services\SessionService;
 
 $id = Utilities::getPostValue(DbConstants::PRODUCT_ITEM_ID_FIELD);
 $groupDescription = Utilities::getPostValue(DbConstants::PRODUCT_GROUP_DESCRIPTION_FIELD);
@@ -18,9 +20,11 @@ $size = Utilities::getPostValue(DbConstants::PRODUCT_SIZE_DESCRIPTION_FIELD);
 $price = Utilities::getPostValue(DbConstants::PRODUCT_ITEM_PRICE_FIELD);
 $quantity = Utilities::getPostValue(DbConstants::QUANTITY_FIELD);
 $db = new Database();
+$accountRepo = new AccountDataRepository($db);
+$sessionService = new SessionService($accountRepo);
+$cartService = new CartService($sessionService);
+$ui = new Ui($db, $cartService);
 $productRepository = new ProductRepository($db);
-$cartService = new CartService();
-$ui = new Ui();
 
 if (!empty($id)) {
     $cartService->addItemToCart(

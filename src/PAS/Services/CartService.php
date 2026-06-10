@@ -9,6 +9,11 @@ use PAS\Models\CartItem;
 
 class CartService
 {
+    public function __construct(
+        private SessionService $sessionService
+    ) {
+    }
+
     public function addItemToCart(
         int $id,
         string $category,
@@ -60,6 +65,7 @@ class CartService
         }
 
         Utilities::setCartItems($itemsInCart);
+        $this->sessionService->save();
     }
 
     public function updateQuantityInSession(int $newQuantity, int $id): int
@@ -86,6 +92,7 @@ class CartService
         }
 
         Utilities::setCartItems($itemsInCart);
+        $this->sessionService->save();
 
         return $previousQuantity;
     }

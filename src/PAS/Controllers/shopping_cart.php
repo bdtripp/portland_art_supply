@@ -6,13 +6,19 @@ use PAS\Config\PageConstants;
 use PAS\Config\DbConstants;
 use PAS\Support\Utilities;
 use PAS\Services\CartService;
+use PAS\Infrastructure\Database;
+use PAS\Repositories\AccountDataRepository;
+use PAS\Services\SessionService;
 
 $buttonClickedID = (int) Utilities::getPostValue("buttonID");
 $newQuantity = (int) Utilities::getPostValue("quantity");
 // id of the item that the quantity is being changed for
 $idOfItemChanged = (int) Utilities::getPostValue("idOfItemChanged");
-$ui = new Ui();
-$cartService = new CartService();
+$db = new Database();
+$accountRepo = new AccountDataRepository($db);
+$sessionService = new SessionService($accountRepo);
+$cartService = new CartService($sessionService);
+$ui = new Ui($db, $cartService);
 
 if (!empty($buttonClickedID)) {
     $cartService->removeItemFromCart($buttonClickedID);

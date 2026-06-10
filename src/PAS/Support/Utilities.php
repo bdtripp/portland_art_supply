@@ -4,12 +4,8 @@ declare(strict_types=1);
 
 namespace PAS\Support;
 
-use JsonException;
 use PAS\Models\CartItem;
 use PAS\Config\PageConstants;
-use PAS\Config\DbConstants;
-use PAS\Infrastructure\Database;
-use PAS\Repositories\AccountDataRepository;
 
 class Utilities
 {
@@ -19,48 +15,6 @@ class Utilities
             return $_SESSION[$key];
         }
         return null;
-    }
-
-    public static function saveSession(): void
-    {
-        $repo = new AccountDataRepository(new Database());
-        $userId = self::getSessionValue(PageConstants::SESSION_USER_ID_KEY);
-        $items = Utilities::getCartItems();
-
-        $payload = [
-            'cart' => array_map(fn ($item) => $item->toArray(), $items),
-        ];
-
-        $json = json_encode($payload, JSON_THROW_ON_ERROR);
-        $repo->saveSession($userId, $json);
-    }
-
-    public static function restoreSession(): void
-    {
-        $repo = new AccountDataRepository(new Database());
-        $userId = self::getSessionValue(PageConstants::SESSION_USER_ID_KEY);
-        $sessionRow = $repo->findSessionByUserId($userId);
-        $sessionBlob = $sessionRow[DbConstants::ACCOUNT_DATA_SESSION_DATA_FIELD] ?? null;
-
-        if (!$sessionBlob) {
-            return;
-        }
-
-        try {
-            $data = json_decode($sessionBlob, true, 512, JSON_THROW_ON_ERROR);
-        } catch (JsonException $e) {
-            error_log("Failed to decode session JSON for user {$userId}: " . $e->getMessage());
-            return;
-        }
-
-        if (isset($data['cart'])) {
-            $cartItems = array_map(
-                fn ($arr) => CartItem::fromArray($arr),
-                $data['cart']
-            );
-
-            Utilities::setCartItems($cartItems);
-        }
     }
 
     public static function setSessionValue(string $key, mixed $value): void
@@ -90,15 +44,6 @@ class Utilities
             return htmlentities((string) $_POST[$key]);
         }
         return '';
-    }
-
-    public static function requireLogin(): void
-    {
-        if (!isset($_SESSION[PageConstants::SESSION_USERNAME_KEY]) || empty($_SESSION[PageConstants::SESSION_USERNAME_KEY])) {
-            header('Location: ' . PageConstants::LOGIN_PAGE);
-            exit();
-        }
-        self::restoreSession();
     }
 
     public static function hasMatchingGETValue(string $param, mixed $value): bool
@@ -144,6 +89,5 @@ class Utilities
     public static function setCartItems(array $items): void
     {
         self::setSessionValue(PageConstants::SESSION_CART_KEY, $items);
-        self::saveSession();
     }
 }

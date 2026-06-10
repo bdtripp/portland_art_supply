@@ -16,13 +16,11 @@ class Ui
 {
     private const QUANTITY_MIN = 1;
     private const QUANTITY_MAX = 50;
-    private Database $db;
-    private CartService $cartService;
 
-    public function __construct()
-    {
-        $this->db = new Database();
-        $this->cartService = new CartService();
+    public function __construct(
+        private Database $db,
+        private CartService $cartService
+    ) {
     }
 
     public function showHeaderContent(string $categoryName): void

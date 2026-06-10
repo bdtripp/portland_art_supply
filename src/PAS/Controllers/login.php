@@ -8,6 +8,7 @@ use PAS\Infrastructure\Database;
 use PAS\Config\PageConstants;
 use PAS\Repositories\UserRepository;
 use PAS\Services\SessionService;
+use PAS\Repositories\AccountDataRepository;
 
 $login_username = Utilities::getPostValue(LoginConstants::LOGIN_USERNAME_KEY);
 $login_password = Utilities::getPostValue(LoginConstants::LOGIN_PASSWORD_KEY);
@@ -15,7 +16,8 @@ $login_pressed = Utilities::getPostValue(LoginConstants::LOGIN_BUTTON_KEY);
 $errorStatus = new stdClass();
 $db = new Database();
 $userRepository = new UserRepository($db);
-$sessionService = new SessionService();
+$accountDataRepo = new AccountDataRepository($db);
+$sessionService = new SessionService($accountDataRepo);
 $loginService = new LoginService($userRepository, $sessionService);
 
 if (!$login_pressed) {
