@@ -1,7 +1,8 @@
 <?php
 require_once __DIR__ . '/../../../config.php';
 
-use PAS\View\Ui;
+use PAS\View\LayoutUi;
+use PAS\View\CartUi;
 use PAS\Config\PageConstants;
 use PAS\Config\DbConstants;
 use PAS\Support\Utilities;
@@ -18,7 +19,8 @@ $db = new Database();
 $accountRepo = new AccountDataRepository($db);
 $sessionService = new SessionService($accountRepo);
 $cartService = new CartService($sessionService);
-$ui = new Ui($db, $cartService);
+$layoutUi = new LayoutUi($db, $cartService);
+$cartUi = new CartUi($cartService);
 
 if (!empty($buttonClickedID)) {
     $cartService->removeItemFromCart($buttonClickedID);
@@ -65,9 +67,9 @@ $activePage = PageConstants::SHOPPING_CART_PAGE_TITLE;
 
 <body onload="init();">
 
-<?php $ui->showHeaderContent($activePage); ?>
-<?php $ui->showShoppingCartContent(); ?>
-<?php $ui->showFooterContent(); ?>
+<?php $layoutUi->header($activePage); ?>
+<?php $cartUi->shoppingCart(); ?>
+<?php $layoutUi->footer(); ?>
 
 </body>
 

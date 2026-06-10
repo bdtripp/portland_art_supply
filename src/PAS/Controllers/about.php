@@ -3,17 +3,17 @@ require_once __DIR__ . '/../../../config.php';
 
 use PAS\Config\PageConstants;
 use PAS\Repositories\AccountDataRepository;
-use PAS\View\Ui;
 use PAS\Infrastructure\Database;
 use PAS\Services\CartService;
 use PAS\Services\SessionService;
+use PAS\View\LayoutUi;
 
 $activePage = PageConstants::ABOUT_PAGE_TITLE;
 $db = new Database();
 $accountRepo = new AccountDataRepository($db);
 $sessionService = new SessionService($accountRepo);
 $cartService = new CartService($sessionService);
-$ui = new Ui($db, $cartService);
+$layoutUi = new LayoutUi($db, $cartService);
 ?>
 
 <!doctype html>
@@ -46,7 +46,7 @@ $ui = new Ui($db, $cartService);
 
 <body onload="init();">
 
-<?php $ui->showHeaderContent($activePage); ?>
+<?php $layoutUi->header($activePage); ?>
 
 <main>
     <section id="<?php echo PageConstants::ABOUT_SECTION_ID; ?>">
@@ -93,7 +93,7 @@ $ui = new Ui($db, $cartService);
     </section>
 </main>
 
-<?php $ui->showFooterContent(); ?>
+<?php $layoutUi->footer(); ?>
 
 </body>
 

@@ -3,7 +3,7 @@ require_once __DIR__ . '/../../../config.php';
 
 use PAS\Config\PageConstants;
 use PAS\Repositories\AccountDataRepository;
-use PAS\View\Ui;
+use PAS\View\LayoutUi;
 use PAS\Infrastructure\Database;
 use PAS\Services\CartService;
 use PAS\Services\SessionService;
@@ -13,7 +13,7 @@ $db = new Database();
 $accountRepo = new AccountDataRepository($db);
 $sessionService = new SessionService($accountRepo);
 $cartService = new CartService($sessionService);
-$ui = new Ui($db, $cartService);
+$layoutUi = new LayoutUi($db, $cartService);
 ?>
 
 <!doctype html>
@@ -45,7 +45,7 @@ $ui = new Ui($db, $cartService);
 
 <body onload="init();">
 
-<?php $ui->showHeaderContent($activePage); ?>
+<?php $layoutUi->header($activePage); ?>
 
   <main id="home">
     <img src="images/large_paint.png"></img>
@@ -54,7 +54,7 @@ $ui = new Ui($db, $cartService);
 
   </main>
 
-<?php $ui->showFooterContent(); ?>
+<?php $layoutUi->footer(); ?>
 
 </body>
 

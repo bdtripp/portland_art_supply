@@ -3,7 +3,8 @@ require_once __DIR__ . '/../../../config.php';
 
 use PAS\Infrastructure\Database;
 use PAS\Config\DbConstants;
-use PAS\View\Ui;
+use PAS\View\LayoutUi;
+use PAS\View\ProductUi;
 use PAS\Services\CartService;
 use PAS\Support\Utilities;
 use PAS\Repositories\ProductRepository;
@@ -23,7 +24,8 @@ $db = new Database();
 $accountRepo = new AccountDataRepository($db);
 $sessionService = new SessionService($accountRepo);
 $cartService = new CartService($sessionService);
-$ui = new Ui($db, $cartService);
+$layoutUi = new LayoutUi($db, $cartService);
+$productUi = new ProductUi();
 $productRepository = new ProductRepository($db);
 
 if (!empty($id)) {
@@ -90,9 +92,9 @@ $productItems = $productRepository->getItemsByGroupId($groupId);
 
 <body onload="init();">
 
-<?php $ui->showHeaderContent($categoryName); ?>
-<?php $ui->showItemContent($productGroup, $categoryName, $subcategoryName); ?>
-<?php $ui->showFooterContent(); ?>
+<?php $layoutUi->header($categoryName); ?>
+<?php $productUi->itemDetail($productGroup, $categoryName, $subcategoryName); ?>
+<?php $layoutUi->footer(); ?>
 
 </body>
 
