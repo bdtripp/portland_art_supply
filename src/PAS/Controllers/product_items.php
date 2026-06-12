@@ -3,24 +3,34 @@ require_once __DIR__ . '/../../../config.php';
 
 use PAS\Infrastructure\Database;
 use PAS\Config\DbConstants;
-use PAS\View\Ui;
+use PAS\View\LayoutUi;
+use PAS\View\ProductUi;
 use PAS\Services\CartService;
-use PAS\Support\Utilities;
 use PAS\Repositories\ProductRepository;
+use PAS\Repositories\AccountDataRepository;
+use PAS\Services\SessionService;
+use PAS\Support\RequestHelper;
+use PAS\Support\NavigationHelper;
 
-$id = Utilities::getPostValue(DbConstants::PRODUCT_ITEM_ID_FIELD);
-$groupDescription = Utilities::getPostValue(DbConstants::PRODUCT_GROUP_DESCRIPTION_FIELD);
-$category = Utilities::getPostValue(DbConstants::PRODUCT_CATEGORY_NAME_FIELD);
-$subcategory = Utilities::getPostValue(DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD);
-$groupCode = Utilities::getPostValue(DbConstants::PRODUCT_GROUP_CODE_FIELD);
-$color = Utilities::getPostValue(DbConstants::PRODUCT_COLOR_NAME_FIELD);
-$size = Utilities::getPostValue(DbConstants::PRODUCT_SIZE_DESCRIPTION_FIELD);
-$price = Utilities::getPostValue(DbConstants::PRODUCT_ITEM_PRICE_FIELD);
-$quantity = Utilities::getPostValue(DbConstants::QUANTITY_FIELD);
 $db = new Database();
+$accountRepo = new AccountDataRepository($db);
+$sessionService = new SessionService($accountRepo);
+$cartService = new CartService($sessionService);
+$requestHelper = new RequestHelper();
+$navigationHelper = new NavigationHelper($requestHelper);
+$layoutUi = new LayoutUi($db, $cartService, $sessionService, $navigationHelper);
+$productUi = new ProductUi();
 $productRepository = new ProductRepository($db);
-$cartService = new CartService();
-$ui = new Ui();
+
+$id = $requestHelper->getPost(DbConstants::PRODUCT_ITEM_ID_FIELD);
+$groupDescription = $requestHelper->getPost(DbConstants::PRODUCT_GROUP_DESCRIPTION_FIELD);
+$category = $requestHelper->getPost(DbConstants::PRODUCT_CATEGORY_NAME_FIELD);
+$subcategory = $requestHelper->getPost(DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD);
+$groupCode = $requestHelper->getPost(DbConstants::PRODUCT_GROUP_CODE_FIELD);
+$color = $requestHelper->getPost(DbConstants::PRODUCT_COLOR_NAME_FIELD);
+$size = $requestHelper->getPost(DbConstants::PRODUCT_SIZE_DESCRIPTION_FIELD);
+$price = $requestHelper->getPost(DbConstants::PRODUCT_ITEM_PRICE_FIELD);
+$quantity = $requestHelper->getPost(DbConstants::QUANTITY_FIELD);
 
 if (!empty($id)) {
     $cartService->addItemToCart(
@@ -86,9 +96,9 @@ $productItems = $productRepository->getItemsByGroupId($groupId);
 
 <body onload="init();">
 
-<?php $ui->showHeaderContent($categoryName); ?>
-<?php $ui->showItemContent($productGroup, $categoryName, $subcategoryName); ?>
-<?php $ui->showFooterContent(); ?>
+<?php $layoutUi->header($categoryName); ?>
+<?php $productUi->itemDetail($productGroup, $categoryName, $subcategoryName); ?>
+<?php $layoutUi->footer(); ?>
 
 </body>
 

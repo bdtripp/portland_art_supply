@@ -1,13 +1,23 @@
 <?php
 require_once __DIR__ . '/../../../config.php';
 
-use PAS\View\Ui;
 use PAS\Config\PageConstants;
+use PAS\Repositories\AccountDataRepository;
+use PAS\View\LayoutUi;
+use PAS\Infrastructure\Database;
+use PAS\Services\CartService;
+use PAS\Services\SessionService;
+use PAS\Support\RequestHelper;
+use PAS\Support\NavigationHelper;
 
 $activePage = PageConstants::HOME_PAGE_TITLE;
-
-$ui = new Ui();
-
+$db = new Database();
+$accountRepo = new AccountDataRepository($db);
+$sessionService = new SessionService($accountRepo);
+$cartService = new CartService($sessionService);
+$requestHelper = new RequestHelper();
+$navigationHelper = new NavigationHelper($requestHelper);
+$layoutUi = new LayoutUi($db, $cartService, $sessionService, $navigationHelper);
 ?>
 
 <!doctype html>
@@ -39,7 +49,7 @@ $ui = new Ui();
 
 <body onload="init();">
 
-<?php $ui->showHeaderContent($activePage); ?>
+<?php $layoutUi->header($activePage); ?>
 
   <main id="home">
     <img src="images/large_paint.png"></img>
@@ -48,7 +58,7 @@ $ui = new Ui();
 
   </main>
 
-<?php $ui->showFooterContent(); ?>
+<?php $layoutUi->footer(); ?>
 
 </body>
 

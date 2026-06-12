@@ -1,18 +1,29 @@
 <?php
 require_once __DIR__ . '/../../../config.php';
 
-use PAS\Infrastructure\Database;
 use PAS\Config\DbConstants;
-use PAS\View\Ui;
 use PAS\Repositories\ProductRepository;
+use PAS\Repositories\AccountDataRepository;
+use PAS\View\LayoutUi;
+use PAS\View\ProductUi;
+use PAS\Infrastructure\Database;
+use PAS\Services\CartService;
+use PAS\Services\SessionService;
+use PAS\Support\RequestHelper;
+use PAS\Support\NavigationHelper;
 
 $categoryName = urldecode($_GET[DbConstants::PRODUCT_CATEGORY_NAME_FIELD]);
 $subcategoryName = urldecode($_GET[DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD]);
-$ui = new Ui();
 $db = new Database();
+$accountRepo = new AccountDataRepository($db);
+$sessionService = new SessionService($accountRepo);
+$cartService = new CartService($sessionService);
+$requestHelper = new RequestHelper();
+$navigationHelper = new NavigationHelper($requestHelper);
+$layoutUi = new LayoutUi($db, $cartService, $sessionService, $navigationHelper);
+$productUi = new ProductUi();
 $productRepository = new ProductRepository($db);
 $products = $productRepository->getProductGroups($categoryName, $subcategoryName);
-
 ?>
 
 <!doctype html>
@@ -45,9 +56,9 @@ $products = $productRepository->getProductGroups($categoryName, $subcategoryName
 
 <body onload="init();">
 
-<?php $ui->showHeaderContent($categoryName); ?>
-<?php $ui->showGroupContent($products); ?>
-<?php $ui->showFooterContent(); ?>
+<?php $layoutUi->header($categoryName); ?>
+<?php $productUi->groupGrid($products); ?>
+<?php $layoutUi->footer(); ?>
 
 </body>
 

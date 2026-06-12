@@ -1,21 +1,34 @@
 <?php
 require_once __DIR__ . '/../../../config.php';
 
-use PAS\View\Ui;
+use PAS\View\LayoutUi;
+use PAS\View\CartUi;
 use PAS\Config\PageConstants;
 use PAS\Config\DbConstants;
-use PAS\Support\Utilities;
 use PAS\Services\CartService;
+use PAS\Infrastructure\Database;
+use PAS\Repositories\AccountDataRepository;
+use PAS\Services\SessionService;
+use PAS\Support\RequestHelper;
+use PAS\Support\NavigationHelper;
 
-$buttonClickedID = (int) Utilities::getPostValue("buttonID");
-$newQuantity = (int) Utilities::getPostValue("quantity");
+$db = new Database();
+$accountRepo = new AccountDataRepository($db);
+$sessionService = new SessionService($accountRepo);
+$cartService = new CartService($sessionService);
+$requestHelper = new RequestHelper();
+$navigationHelper = new NavigationHelper($requestHelper);
+$layoutUi = new LayoutUi($db, $cartService, $sessionService, $navigationHelper);
+$cartUi = new CartUi($cartService);
+
+$buttonClickedID = (int) $requestHelper->getPost("buttonID");
+$newQuantity = (int) $requestHelper->getPost("quantity");
 // id of the item that the quantity is being changed for
-$idOfItemChanged = (int) Utilities::getPostValue("idOfItemChanged");
-$ui = new Ui();
-$cartService = new CartService();
+$idOfItemChanged = (int) $requestHelper->getPost("idOfItemChanged");
 
 if (!empty($buttonClickedID)) {
     $cartService->removeItemFromCart($buttonClickedID);
+    header("Location: " . $_SERVER['REQUEST_URI']);
     exit();
 }
 if (!empty($newQuantity)) {
@@ -59,9 +72,9 @@ $activePage = PageConstants::SHOPPING_CART_PAGE_TITLE;
 
 <body onload="init();">
 
-<?php $ui->showHeaderContent($activePage); ?>
-<?php $ui->showShoppingCartContent(); ?>
-<?php $ui->showFooterContent(); ?>
+<?php $layoutUi->header($activePage); ?>
+<?php $cartUi->shoppingCart(); ?>
+<?php $layoutUi->footer(); ?>
 
 </body>
 

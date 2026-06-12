@@ -4,11 +4,77 @@ declare(strict_types=1);
 
 namespace PAS\Services;
 
-use PAS\Support\Utilities;
 use PAS\Models\CartItem;
+use PAS\Config\PageConstants;
 
 class CartService
 {
+    public function __construct(
+        private SessionService $sessionService
+    ) {
+    }
+
+    /**
+     * @return array<int, CartItem>
+     */
+    public function getCart(): array
+    {
+        $items = $this->sessionService->get(PageConstants::SESSION_CART_KEY);
+
+        if (!is_array($items)) {
+            return [];
+        }
+
+        return array_values(
+            array_filter($items, fn ($i) => $i instanceof CartItem)
+        );
+    }
+
+    /**
+     * @param array<int, CartItem> $items
+     */
+    public function setCart(array $items): void
+    {
+        $this->sessionService->set(PageConstants::SESSION_CART_KEY, $items);
+    }
+
+    /**
+     * @param array<int, array{
+     *     productItemId: int,
+     *     categoryName: string,
+     *     subcategoryName: string,
+     *     groupCode: string,
+     *     groupDescription: string,
+     *     colorName: string,
+     *     sizeDescription: string,
+     *     price: float,
+     *     quantity: int
+     * }> $arr
+     */
+    public function setCartFromArray(array $arr): void
+    {
+        $items = array_map(fn ($i) => CartItem::fromArray($i), $arr);
+        $this->setCart($items);
+    }
+
+    /**
+     * @return array<int, array{
+     *     productItemId: int,
+     *     categoryName: string,
+     *     subcategoryName: string,
+     *     groupCode: string,
+     *     groupDescription: string,
+     *     colorName: string,
+     *     sizeDescription: string,
+     *     price: float,
+     *     quantity: int
+     * }>
+     */
+    public function getCartAsArray(): array
+    {
+        return array_map(fn (CartItem $i) => $i->toArray(), $this->getCart());
+    }
+
     public function addItemToCart(
         int $id,
         string $category,
@@ -21,7 +87,7 @@ class CartService
         int $quantity
     ): void {
         /** @var array<int, CartItem> $itemsInCart */
-        $itemsInCart = Utilities::getCartItems();
+        $itemsInCart = $this->getCart();
         $newItem = true;
 
         // Check if the item already exists in the cart
@@ -59,13 +125,16 @@ class CartService
             );
         }
 
-        Utilities::setCartItems($itemsInCart);
+        $this->setCart($itemsInCart);
+        $this->sessionService->save([
+            'cart' => $this->getCartAsArray(),
+        ]);
     }
 
     public function updateQuantityInSession(int $newQuantity, int $id): int
     {
         /** @var array<int, CartItem> $itemsInCart */
-        $itemsInCart = Utilities::getCartItems();
+        $itemsInCart = $this->getCart();
         $previousQuantity = 0;
 
         foreach ($itemsInCart as $index => $item) {
@@ -85,7 +154,10 @@ class CartService
             }
         }
 
-        Utilities::setCartItems($itemsInCart);
+        $this->setCart($itemsInCart);
+        $this->sessionService->save([
+            'cart' => $this->getCartAsArray(),
+        ]);
 
         return $previousQuantity;
     }
@@ -93,18 +165,21 @@ class CartService
     public function removeItemFromCart(int $id): void
     {
         /** @var array<int, CartItem> $itemsInCart */
-        $itemsInCart = Utilities::getCartItems();
+        $itemsInCart = $this->getCart();
 
         foreach ($itemsInCart as $index => $item) {
             if ($item->productItemId === $id) {
                 unset($itemsInCart[$index]);
-                break; // stop after removing the item
+                break;
             }
         }
 
         $itemsInCart = array_values($itemsInCart);
 
-        Utilities::setCartItems($itemsInCart);
+        $this->setCart($itemsInCart);
+        $this->sessionService->save([
+            'cart' => $this->getCartAsArray(),
+        ]);
 
         header("Refresh:0");
         exit();
@@ -112,7 +187,7 @@ class CartService
 
     public function getNumItemsInCart(): int
     {
-        $itemsInCart = Utilities::getCartItems();
+        $itemsInCart = $this->getCart();
         $numItemsInCart = 0;
 
         foreach ($itemsInCart as $item) {
@@ -124,7 +199,7 @@ class CartService
 
     public function getQuantityOfItem(int $id): int
     {
-        $itemsInCart = Utilities::getCartItems();
+        $itemsInCart = $this->getCart();
 
         foreach ($itemsInCart as $item) {
             if ($item->productItemId === $id) {
@@ -137,7 +212,7 @@ class CartService
 
     public function getItemSubtotal(int $id): float
     {
-        $itemsInCart = Utilities::getCartItems();
+        $itemsInCart = $this->getCart();
         $subtotal = 0;
 
         foreach ($itemsInCart as $item) {
@@ -151,7 +226,7 @@ class CartService
 
     public function getCartTotal(): float
     {
-        $itemsInCart = Utilities::getCartItems();
+        $itemsInCart = $this->getCart();
         $total = 0;
 
         foreach ($itemsInCart as $item) {

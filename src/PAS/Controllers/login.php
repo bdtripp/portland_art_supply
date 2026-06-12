@@ -1,22 +1,28 @@
 <?php
 require_once __DIR__ . '/../../../config.php';
 
-use PAS\Support\Utilities;
 use PAS\Config\LoginConstants;
 use PAS\Services\LoginService;
 use PAS\Infrastructure\Database;
 use PAS\Config\PageConstants;
 use PAS\Repositories\UserRepository;
 use PAS\Services\SessionService;
+use PAS\Repositories\AccountDataRepository;
+use PAS\Support\RequestHelper;
+use PAS\Services\CartService;
 
-$login_username = Utilities::getPostValue(LoginConstants::LOGIN_USERNAME_KEY);
-$login_password = Utilities::getPostValue(LoginConstants::LOGIN_PASSWORD_KEY);
-$login_pressed = Utilities::getPostValue(LoginConstants::LOGIN_BUTTON_KEY);
+$requestHelper = new RequestHelper();
 $errorStatus = new stdClass();
 $db = new Database();
-$userRepository = new UserRepository($db);
-$sessionService = new SessionService();
-$loginService = new LoginService($userRepository, $sessionService);
+$userRepo = new UserRepository($db);
+$accountDataRepo = new AccountDataRepository($db);
+$sessionService = new SessionService($accountDataRepo);
+$cartService = new CartService($sessionService);
+$loginService = new LoginService($userRepo, $sessionService, $cartService);
+
+$login_username = $requestHelper->getPost(LoginConstants::LOGIN_USERNAME_KEY);
+$login_password = $requestHelper->getPost(LoginConstants::LOGIN_PASSWORD_KEY);
+$login_pressed = $requestHelper->getPost(LoginConstants::LOGIN_BUTTON_KEY);
 
 if (!$login_pressed) {
     if (isset($_SERVER['HTTP_REFERER'])) {
