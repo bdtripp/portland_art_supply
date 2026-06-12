@@ -8,12 +8,14 @@ use PAS\Repositories\UserRepository;
 use PAS\Services\SessionService;
 use PAS\Config\LoginConstants;
 use PAS\Config\PageConstants;
+use PAS\Services\CartService;
 
 class LoginService
 {
     public function __construct(
         private UserRepository $userRepository,
-        private SessionService $sessionService
+        private SessionService $sessionService,
+        private CartService $cartService
     ) {
     }
 
@@ -57,7 +59,7 @@ class LoginService
         }
 
         $this->sessionService->setUser($user->id, $username);
-        $this->sessionService->restore();
+        $this->sessionService->restore($this->cartService);
         $this->sessionService->redirect($returnToUrl);
         return '';
     }
@@ -102,7 +104,9 @@ class LoginService
         }
 
         $this->sessionService->setUser($user->id, $username);
-        $this->sessionService->save();
+        $this->sessionService->save([
+            'cart' => $this->cartService->getCartAsArray(),
+        ]);
         $this->sessionService->redirect($returnToUrl);
         return null;
     }

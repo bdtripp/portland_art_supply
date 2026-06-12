@@ -1,12 +1,23 @@
 <?php
 require_once __DIR__ . '/../../../config.php';
 
-use PAS\View\Ui;
 use PAS\Config\PageConstants;
+use PAS\Repositories\AccountDataRepository;
+use PAS\Infrastructure\Database;
+use PAS\Services\CartService;
+use PAS\Services\SessionService;
+use PAS\Support\RequestHelper;
+use PAS\Support\NavigationHelper;
+use PAS\View\LayoutUi;
 
 $activePage = PageConstants::ABOUT_PAGE_TITLE;
-
-$ui = new Ui();
+$db = new Database();
+$accountRepo = new AccountDataRepository($db);
+$sessionService = new SessionService($accountRepo);
+$cartService = new CartService($sessionService);
+$requestHelper = new RequestHelper();
+$navigationHelper = new NavigationHelper($requestHelper);
+$layoutUi = new LayoutUi($db, $cartService, $sessionService, $navigationHelper);
 ?>
 
 <!doctype html>
@@ -39,7 +50,7 @@ $ui = new Ui();
 
 <body onload="init();">
 
-<?php $ui->showHeaderContent($activePage); ?>
+<?php $layoutUi->header($activePage); ?>
 
 <main>
     <section id="<?php echo PageConstants::ABOUT_SECTION_ID; ?>">
@@ -86,7 +97,7 @@ $ui = new Ui();
     </section>
 </main>
 
-<?php $ui->showFooterContent(); ?>
+<?php $layoutUi->footer(); ?>
 
 </body>
 
