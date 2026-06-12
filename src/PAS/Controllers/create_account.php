@@ -1,26 +1,29 @@
 <?php
 require_once __DIR__ . '/../../../config.php';
 
-use PAS\Support\Utilities;
 use PAS\Config\LoginConstants;
+use PAS\Services\CartService;
 use PAS\Services\LoginService;
 use PAS\Infrastructure\Database;
 use PAS\Config\PageConstants;
 use PAS\Services\SessionService;
 use PAS\Repositories\UserRepository;
 use PAS\Repositories\AccountDataRepository;
+use PAS\Support\RequestHelper;
 
-$createUsername = Utilities::getPostValue(LoginConstants::CREATE_USERNAME_KEY);
-$createPassword = Utilities::getPostValue(LoginConstants::CREATE_PASSWORD_KEY);
-$createConfirmPassword = Utilities::getPostValue(LoginConstants::CREATE_CONFIRM_PASSWORD_KEY);
-$createPressed = Utilities::getPostValue(LoginConstants::CREATE_ACCOUNT_BUTTON_ID);
+$requestHelper = new RequestHelper();
 $errorStatus = new stdClass();
 $db = new Database();
 $userRepo = new UserRepository($db);
 $accountDataRepo = new AccountDataRepository($db);
 $sessionService = new SessionService($accountDataRepo);
+$cartService = new CartService($sessionService);
+$loginService = new LoginService($userRepo, $sessionService, $cartService);
 
-$loginService = new LoginService($userRepo, $sessionService);
+$createUsername = $requestHelper->getPost(LoginConstants::CREATE_USERNAME_KEY);
+$createPassword = $requestHelper->getPost(LoginConstants::CREATE_PASSWORD_KEY);
+$createConfirmPassword = $requestHelper->getPost(LoginConstants::CREATE_CONFIRM_PASSWORD_KEY);
+$createPressed = $requestHelper->getPost(LoginConstants::CREATE_ACCOUNT_BUTTON_ID);
 
 if ($createPressed) {
     $errorStatus = $loginService->register($createUsername, $createPassword, $createConfirmPassword);

@@ -7,13 +7,17 @@ use PAS\View\LayoutUi;
 use PAS\Infrastructure\Database;
 use PAS\Services\CartService;
 use PAS\Services\SessionService;
+use PAS\Support\RequestHelper;
+use PAS\Support\NavigationHelper;
 
 $activePage = PageConstants::HOME_PAGE_TITLE;
 $db = new Database();
 $accountRepo = new AccountDataRepository($db);
 $sessionService = new SessionService($accountRepo);
 $cartService = new CartService($sessionService);
-$layoutUi = new LayoutUi($db, $cartService);
+$requestHelper = new RequestHelper();
+$navigationHelper = new NavigationHelper($requestHelper);
+$layoutUi = new LayoutUi($db, $cartService, $sessionService, $navigationHelper);
 ?>
 
 <!doctype html>

@@ -5,7 +5,6 @@ namespace PAS\View;
 use PAS\Models\CartItem;
 use PAS\Services\CartService;
 use PAS\Config\PageConstants;
-use PAS\Support\Utilities;
 
 class CartUi
 {
@@ -18,7 +17,7 @@ class CartUi
 
     public function shoppingCart(): void
     {
-        $itemsInCart = Utilities::getCartItems();
+        $itemsInCart = $this->cartService->getCart();
 
         echo '<main>' . "\n";
         echo '    <section id="cart_items">' . "\n";

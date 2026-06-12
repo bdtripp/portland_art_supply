@@ -5,14 +5,17 @@ namespace PAS\View;
 use PAS\Infrastructure\Database;
 use PAS\Services\CartService;
 use PAS\Config\PageConstants;
-use PAS\Support\Utilities;
 use PAS\Config\DbConstants;
+use PAS\Services\SessionService;
+use PAS\Support\NavigationHelper;
 
 class LayoutUi
 {
     public function __construct(
         private Database $db,
-        private CartService $cartService
+        private CartService $cartService,
+        private SessionService $sessionService,
+        private NavigationHelper $navigationHelper
     ) {
     }
 
@@ -20,7 +23,7 @@ class LayoutUi
     {
         if (isset($_SESSION[PageConstants::SESSION_USER_ID_KEY])) {
             $loginHref = PageConstants::LOGOUT_PAGE;
-            $username = Utilities::getSessionValue(PageConstants::SESSION_USERNAME_KEY);
+            $username = $this->sessionService->get(PageConstants::SESSION_USERNAME_KEY);
             $iconID = PageConstants::LOGOUT_ICON_ID;
             $iconSrc = 'logout_icon.png';
         } else {
@@ -66,7 +69,7 @@ class LayoutUi
     {
         $categories = $this->db->lookupCategories();
 
-        echo '            <li><a ' . Utilities::checkCurrentPage(PageConstants::HOME_PAGE) . 'Home</a></li>' . "\n";
+        echo '            <li><a ' . $this->navigationHelper->currentPage(PageConstants::HOME_PAGE) . 'Home</a></li>' . "\n";
         foreach ($categories as $category) {
             $categoryID = $category[DbConstants::PRODUCT_CATEGORY_ID_FIELD];
             $categoryName = $category[DbConstants::PRODUCT_CATEGORY_NAME_FIELD];
@@ -86,7 +89,7 @@ class LayoutUi
             $this->showSubcategoryDropdown($category);
             echo '            </li>' . "\n";
         }
-        echo '            <li><a ' . Utilities::checkCurrentPage(PageConstants::ABOUT_PAGE) . 'About</a></li>' . "\n";
+        echo '            <li><a ' . $this->navigationHelper->currentPage(PageConstants::ABOUT_PAGE) . 'About</a></li>' . "\n";
     }
 
     /**
@@ -109,7 +112,7 @@ class LayoutUi
                                         <a href="' . PageConstants::GROUP_PRODUCTS_PAGE .
                                             "?" . DbConstants::PRODUCT_CATEGORY_NAME_FIELD . "=" . urlencode($categoryName) .
                                             "&" . DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD . "=" . urlencode($subcategoryName) .
-                                            '" ' . Utilities::checkCurrentSubcat(DbConstants::PRODUCT_CATEGORY_NAME_FIELD, $categoryName, DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD, $subcategoryName) .
+                                            '" ' . $this->navigationHelper->currentSubcategory(DbConstants::PRODUCT_CATEGORY_NAME_FIELD, $categoryName, DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD, $subcategoryName) .
                                         '>' . ucfirst($subcategoryName) .
                                         '</a>
                                     </li>';
