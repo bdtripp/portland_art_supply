@@ -3,12 +3,14 @@ require_once __DIR__ . '/../../../config.php';
 
 use PAS\Infrastructure\Database;
 use PAS\Config\DbConstants;
+use PAS\Config\SecurityConstants;
 use PAS\View\LayoutUi;
 use PAS\View\ProductUi;
 use PAS\Services\CartService;
 use PAS\Repositories\ProductRepository;
 use PAS\Repositories\AccountDataRepository;
 use PAS\Services\SessionService;
+use PAS\Services\CsrfService;
 use PAS\Support\RequestHelper;
 use PAS\Support\NavigationHelper;
 
@@ -21,6 +23,7 @@ $navigationHelper = new NavigationHelper($requestHelper);
 $layoutUi = new LayoutUi($db, $cartService, $sessionService, $navigationHelper);
 $productUi = new ProductUi();
 $productRepository = new ProductRepository($db);
+$csrfService = new CsrfService($sessionService);
 
 $id = $requestHelper->getPost(DbConstants::PRODUCT_ITEM_ID_FIELD);
 $groupDescription = $requestHelper->getPost(DbConstants::PRODUCT_GROUP_DESCRIPTION_FIELD);
@@ -33,6 +36,8 @@ $price = $requestHelper->getPost(DbConstants::PRODUCT_ITEM_PRICE_FIELD);
 $quantity = $requestHelper->getPost(DbConstants::QUANTITY_FIELD);
 
 if (!empty($id)) {
+    $csrfService->guard($requestHelper);
+
     $cartService->addItemToCart(
         (int) html_entity_decode(urldecode($id)),
         html_entity_decode(urldecode($category)),
@@ -84,6 +89,7 @@ $productItems = $productRepository->getItemsByGroupId($groupId);
     <link href="css/main.css.php" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
     <script type="text/javascript">
+        const CSRF_TOKEN = "<?php echo $csrfService->getToken(); ?>";
         var groupCode = '<?php echo $groupCode; ?>';
         var productItems = <?php echo json_encode($productItems); ?>;
         var category = '<?php echo $categoryName; ?>';

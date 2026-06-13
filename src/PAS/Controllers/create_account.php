@@ -6,7 +6,9 @@ use PAS\Services\CartService;
 use PAS\Services\LoginService;
 use PAS\Infrastructure\Database;
 use PAS\Config\PageConstants;
+use PAS\Config\SecurityConstants;
 use PAS\Services\SessionService;
+use PAS\Services\CsrfService;
 use PAS\Repositories\UserRepository;
 use PAS\Repositories\AccountDataRepository;
 use PAS\Support\RequestHelper;
@@ -19,6 +21,7 @@ $accountDataRepo = new AccountDataRepository($db);
 $sessionService = new SessionService($accountDataRepo);
 $cartService = new CartService($sessionService);
 $loginService = new LoginService($userRepo, $sessionService, $cartService);
+$csrfService = new CsrfService($sessionService);
 
 $createUsername = $requestHelper->getPost(LoginConstants::CREATE_USERNAME_KEY);
 $createPassword = $requestHelper->getPost(LoginConstants::CREATE_PASSWORD_KEY);
@@ -26,6 +29,7 @@ $createConfirmPassword = $requestHelper->getPost(LoginConstants::CREATE_CONFIRM_
 $createPressed = $requestHelper->getPost(LoginConstants::CREATE_ACCOUNT_BUTTON_ID);
 
 if ($createPressed) {
+    $csrfService->guard($requestHelper);
     $errorStatus = $loginService->register($createUsername, $createPassword, $createConfirmPassword);
 }
 
@@ -57,6 +61,11 @@ if ($createPressed) {
     </head>
     <body>
         <form method="POST" action="create_account.php" onsubmit="return checkIfValid();">
+
+            <input type="hidden"
+                    name="<?php echo SecurityConstants::CSRF_TOKEN_KEY; ?>"
+                    value="<?php echo $csrfService->getToken(); ?>">
+
             <h2>Create an Account</h2>
             <section>
                 <label for="<?php echo PageConstants::USERNAME_INPUT_ID; ?>">Username:</label>
