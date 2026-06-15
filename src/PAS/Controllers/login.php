@@ -5,8 +5,10 @@ use PAS\Config\LoginConstants;
 use PAS\Services\LoginService;
 use PAS\Infrastructure\Database;
 use PAS\Config\PageConstants;
+use PAS\Config\SecurityConstants;
 use PAS\Repositories\UserRepository;
 use PAS\Services\SessionService;
+use PAS\Services\CsrfService;
 use PAS\Repositories\AccountDataRepository;
 use PAS\Support\RequestHelper;
 use PAS\Services\CartService;
@@ -19,16 +21,19 @@ $accountDataRepo = new AccountDataRepository($db);
 $sessionService = new SessionService($accountDataRepo);
 $cartService = new CartService($sessionService);
 $loginService = new LoginService($userRepo, $sessionService, $cartService);
+$csrfService = new CsrfService($sessionService);
 
-$login_username = $requestHelper->getPost(LoginConstants::LOGIN_USERNAME_KEY);
-$login_password = $requestHelper->getPost(LoginConstants::LOGIN_PASSWORD_KEY);
-$login_pressed = $requestHelper->getPost(LoginConstants::LOGIN_BUTTON_KEY);
+$login_username = $requestHelper->getPostString(LoginConstants::LOGIN_USERNAME_KEY);
+$login_password = $requestHelper->getPostString(LoginConstants::LOGIN_PASSWORD_KEY);
+$login_pressed = $requestHelper->isKeySet(LoginConstants::LOGIN_BUTTON_KEY);
 
 if (!$login_pressed) {
     if (isset($_SERVER['HTTP_REFERER'])) {
         $sessionService->setReturnToUrl($_SERVER['HTTP_REFERER']);
     }
 } else {
+    $csrfService->guard($requestHelper);
+
     $errorStatus = $loginService->login($login_username, $login_password);
 }
 
@@ -58,6 +63,11 @@ if (!$login_pressed) {
     </head>
     <body>
         <form method="POST" action="login.php">
+
+            <input type="hidden"
+                name="<?php echo SecurityConstants::CSRF_TOKEN_KEY; ?>"
+                value="<?php echo $csrfService->getToken(); ?>">
+
             <h2>Log In</h2>
             <section>
                 <label for="<?php echo LoginConstants::LOGIN_USERNAME_KEY; ?>">Username:</label>
