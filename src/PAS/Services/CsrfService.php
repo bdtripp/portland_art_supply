@@ -55,7 +55,7 @@ final class CsrfService
 
     public function guard(RequestHelper $requestHelper): void
     {
-        $token = $requestHelper->getPost(SecurityConstants::CSRF_TOKEN_KEY);
+        $token = $requestHelper->getPostString(SecurityConstants::CSRF_TOKEN_KEY);
 
         if (!$this->validate($token)) {
             http_response_code(400);

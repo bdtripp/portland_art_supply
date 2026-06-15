@@ -25,29 +25,29 @@ $productUi = new ProductUi();
 $productRepository = new ProductRepository($db);
 $csrfService = new CsrfService($sessionService);
 
-$id = $requestHelper->getPost(DbConstants::PRODUCT_ITEM_ID_FIELD);
-$groupDescription = $requestHelper->getPost(DbConstants::PRODUCT_GROUP_DESCRIPTION_FIELD);
-$category = $requestHelper->getPost(DbConstants::PRODUCT_CATEGORY_NAME_FIELD);
-$subcategory = $requestHelper->getPost(DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD);
-$groupCode = $requestHelper->getPost(DbConstants::PRODUCT_GROUP_CODE_FIELD);
-$color = $requestHelper->getPost(DbConstants::PRODUCT_COLOR_NAME_FIELD);
-$size = $requestHelper->getPost(DbConstants::PRODUCT_SIZE_DESCRIPTION_FIELD);
-$price = $requestHelper->getPost(DbConstants::PRODUCT_ITEM_PRICE_FIELD);
-$quantity = $requestHelper->getPost(DbConstants::QUANTITY_FIELD);
+$id = $requestHelper->getPostInt(DbConstants::PRODUCT_ITEM_ID_FIELD);
+$groupDescription = $requestHelper->getPostString(DbConstants::PRODUCT_GROUP_DESCRIPTION_FIELD);
+$category = $requestHelper->getPostString(DbConstants::PRODUCT_CATEGORY_NAME_FIELD);
+$subcategory = $requestHelper->getPostString(DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD);
+$groupCode = $requestHelper->getPostString(DbConstants::PRODUCT_GROUP_CODE_FIELD);
+$color = $requestHelper->getPostString(DbConstants::PRODUCT_COLOR_NAME_FIELD);
+$size = $requestHelper->getPostString(DbConstants::PRODUCT_SIZE_DESCRIPTION_FIELD);
+$price = $requestHelper->getPostFloat(DbConstants::PRODUCT_ITEM_PRICE_FIELD);
+$quantity = $requestHelper->getPostInt(DbConstants::QUANTITY_FIELD);
 
 if (!empty($id)) {
     $csrfService->guard($requestHelper);
 
     $cartService->addItemToCart(
-        (int) html_entity_decode(urldecode($id)),
-        html_entity_decode(urldecode($category)),
-        html_entity_decode(urldecode($subcategory)),
-        html_entity_decode(urldecode($groupCode)),
-        html_entity_decode(urldecode($groupDescription)),
-        html_entity_decode(urldecode($color)),
-        html_entity_decode(urldecode($size)),
-        (float) html_entity_decode(urldecode($price)),
-        (int) html_entity_decode(urldecode($quantity))
+        $id,
+        $category ?? '',
+        $subcategory ?? '',
+        $groupCode ?? '',
+        $groupDescription ?? '',
+        $color ?? '',
+        $size ?? '',
+        $price ?? 0.0,
+        $quantity ?? 1
     );
     exit();
 }

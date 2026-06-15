@@ -23,9 +23,9 @@ $cartService = new CartService($sessionService);
 $loginService = new LoginService($userRepo, $sessionService, $cartService);
 $csrfService = new CsrfService($sessionService);
 
-$login_username = $requestHelper->getPost(LoginConstants::LOGIN_USERNAME_KEY);
-$login_password = $requestHelper->getPost(LoginConstants::LOGIN_PASSWORD_KEY);
-$login_pressed = $requestHelper->getPost(LoginConstants::LOGIN_BUTTON_KEY);
+$login_username = $requestHelper->getPostString(LoginConstants::LOGIN_USERNAME_KEY);
+$login_password = $requestHelper->getPostString(LoginConstants::LOGIN_PASSWORD_KEY);
+$login_pressed = $requestHelper->isKeySet(LoginConstants::LOGIN_BUTTON_KEY);
 
 if (!$login_pressed) {
     if (isset($_SERVER['HTTP_REFERER'])) {

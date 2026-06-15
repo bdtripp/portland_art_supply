@@ -24,10 +24,10 @@ $layoutUi = new LayoutUi($db, $cartService, $sessionService, $navigationHelper);
 $cartUi = new CartUi($cartService);
 $csrfService = new CsrfService($sessionService);
 
-$buttonClickedID = (int) $requestHelper->getPost("buttonID");
-$newQuantity = (int) $requestHelper->getPost("quantity");
+$buttonClickedID = $requestHelper->getPostInt("buttonID");
+$newQuantity = $requestHelper->getPostInt("quantity");
 // id of the item that the quantity is being changed for
-$idOfItemChanged = (int) $requestHelper->getPost("idOfItemChanged");
+$idOfItemChanged = $requestHelper->getPostInt("idOfItemChanged");
 
 if (!empty($buttonClickedID) || !empty($newQuantity)) {
     $csrfService->guard($requestHelper);
@@ -38,9 +38,12 @@ if (!empty($buttonClickedID)) {
     header("Location: " . $_SERVER['REQUEST_URI']);
     exit();
 }
-if (!empty($newQuantity)) {
-    $responseData = array(DbConstants::QUANTITY_FIELD => $cartService->updateQuantityInSession($newQuantity, $idOfItemChanged),
-        DbConstants::SUBTOTAL_FIELD => $cartService->getItemSubtotal($idOfItemChanged), DbConstants::TOTAL_FIELD => $cartService->getCartTotal()) ;
+if (!empty($newQuantity) && !empty($idOfItemChanged)) {
+    $responseData = [
+        DbConstants::QUANTITY_FIELD => $cartService->updateQuantityInSession($newQuantity, $idOfItemChanged),
+        DbConstants::SUBTOTAL_FIELD => $cartService->getItemSubtotal($idOfItemChanged),
+        DbConstants::TOTAL_FIELD => $cartService->getCartTotal()
+    ];
     echo json_encode($responseData);
     exit();
 }
