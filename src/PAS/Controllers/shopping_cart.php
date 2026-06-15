@@ -5,10 +5,12 @@ use PAS\View\LayoutUi;
 use PAS\View\CartUi;
 use PAS\Config\PageConstants;
 use PAS\Config\DbConstants;
+use PAS\Config\SecurityConstants;
 use PAS\Services\CartService;
 use PAS\Infrastructure\Database;
 use PAS\Repositories\AccountDataRepository;
 use PAS\Services\SessionService;
+use PAS\Services\CsrfService;
 use PAS\Support\RequestHelper;
 use PAS\Support\NavigationHelper;
 
@@ -20,20 +22,28 @@ $requestHelper = new RequestHelper();
 $navigationHelper = new NavigationHelper($requestHelper);
 $layoutUi = new LayoutUi($db, $cartService, $sessionService, $navigationHelper);
 $cartUi = new CartUi($cartService);
+$csrfService = new CsrfService($sessionService);
 
-$buttonClickedID = (int) $requestHelper->getPost("buttonID");
-$newQuantity = (int) $requestHelper->getPost("quantity");
+$buttonClickedID = $requestHelper->getPostInt("buttonID");
+$newQuantity = $requestHelper->getPostInt("quantity");
 // id of the item that the quantity is being changed for
-$idOfItemChanged = (int) $requestHelper->getPost("idOfItemChanged");
+$idOfItemChanged = $requestHelper->getPostInt("idOfItemChanged");
+
+if (!empty($buttonClickedID) || !empty($newQuantity)) {
+    $csrfService->guard($requestHelper);
+}
 
 if (!empty($buttonClickedID)) {
     $cartService->removeItemFromCart($buttonClickedID);
     header("Location: " . $_SERVER['REQUEST_URI']);
     exit();
 }
-if (!empty($newQuantity)) {
-    $responseData = array(DbConstants::QUANTITY_FIELD => $cartService->updateQuantityInSession($newQuantity, $idOfItemChanged),
-        DbConstants::SUBTOTAL_FIELD => $cartService->getItemSubtotal($idOfItemChanged), DbConstants::TOTAL_FIELD => $cartService->getCartTotal()) ;
+if (!empty($newQuantity) && !empty($idOfItemChanged)) {
+    $responseData = [
+        DbConstants::QUANTITY_FIELD => $cartService->updateQuantityInSession($newQuantity, $idOfItemChanged),
+        DbConstants::SUBTOTAL_FIELD => $cartService->getItemSubtotal($idOfItemChanged),
+        DbConstants::TOTAL_FIELD => $cartService->getCartTotal()
+    ];
     echo json_encode($responseData);
     exit();
 }
@@ -66,6 +76,9 @@ $activePage = PageConstants::SHOPPING_CART_PAGE_TITLE;
     <link href="css/collapsable_menu.css.php" rel="stylesheet">
     <link href="css/main.css.php" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+    <script>
+        const CSRF_TOKEN = "<?php echo $csrfService->getToken(); ?>";
+    </script>
     <script type="text/javascript" src="js/pas.js.php"></script>
 
 </head>

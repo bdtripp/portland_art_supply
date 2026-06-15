@@ -24,7 +24,7 @@ class LoginService
         $this->sessionService->setUser($userID, $username);
     }
 
-    public function login(string $username, string $password): \stdClass|string
+    public function login(?string $username, ?string $password): \stdClass|string
     {
         $errorStatus = new \stdClass();
 
@@ -37,6 +37,10 @@ class LoginService
         }
 
         if (!empty((array)$errorStatus)) {
+            return $errorStatus;
+        }
+
+        if ($username === null || $password === null) {
             return $errorStatus;
         }
 
@@ -64,7 +68,7 @@ class LoginService
         return '';
     }
 
-    public function register(string $username, string $password, string $confirm): ?\stdClass
+    public function register(?string $username, ?string $password, ?string $confirm): ?\stdClass
     {
         $errorStatus = new \stdClass();
 
@@ -82,6 +86,10 @@ class LoginService
 
         if ((!empty($confirm)) && ($password != $confirm)) {
             $errorStatus->confirmPassError = LoginConstants::E_CONFIRM_MISMATCH;
+        }
+
+        if ($username === null || $password === null || $confirm === null) {
+            return $errorStatus;
         }
 
         $user = $this->userRepository->findByUsername($username);

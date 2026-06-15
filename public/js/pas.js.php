@@ -4,6 +4,7 @@ header('Content-Type: text/javascript');
 require_once __DIR__ . '/../../config.php';
 use PAS\Config\DbConstants;
 use PAS\Config\PageConstants;
+use PAS\Config\SecurityConstants;
 
 ?>
 
@@ -33,6 +34,8 @@ var QUANTITY_DIV_ID = '<?php echo PageConstants::QUANTITY_DIV_ID ?>';
 var COLOR_THUMBNAILS_WRAPPER_ID = '<?php echo PageConstants::COLOR_THUMBNAILS_WRAPPER_ID ?>';
 var COLOR_THUMBNAIL_CLASS = '<?php echo PageConstants::COLOR_THUMBNAIL_CLASS ?>';
 var PRODUCT_ITEMS_PAGE = '<?php echo PageConstants::PRODUCT_ITEMS_PAGE ?>';
+var CSRF_TOKEN_KEY = '<?php echo SecurityConstants::CSRF_TOKEN_KEY; ?>';
+
 
 var COLOR_DEFAULT_OPTION = 'Select a Color...';
 var SIZE_DEFAULT_OPTION = 'Select a Size...';
@@ -430,7 +433,8 @@ function createAddToCartButton() {
             '&' + PRODUCT_SIZE_DESCRIPTION_FIELD + '=' + encodeURIComponent(currentSizeSelection) +
             '&' + PRODUCT_ITEM_PRICE_FIELD + '=' + encodeURIComponent(currentPrice) +
             '&' + QUANTITY_FIELD + '=' + encodeURIComponent(quantity) +
-            '&' + PRODUCT_GROUP_DESCRIPTION_FIELD + '=' + encodeURIComponent(groupDescription);
+            '&' + PRODUCT_GROUP_DESCRIPTION_FIELD + '=' + encodeURIComponent(groupDescription) +
+            '&' + CSRF_TOKEN_KEY + '=' + encodeURIComponent(CSRF_TOKEN);
 
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -461,7 +465,9 @@ function updateCartCountDisplay(id, operator) {
 
 function onRemoveClicked(id, file) {
     let xhttp = new XMLHttpRequest();
-    let sendString = "buttonID=" + id;
+    let sendString =
+        "buttonID=" + id +
+        "&" + CSRF_TOKEN_KEY + "=" + encodeURIComponent(CSRF_TOKEN);
     let quantityDropDownID = "quantity_product_id_" + id;
     let subtotalValue = parseFloat(document.getElementById("subtotal_product_" + id).children[0].innerText.replace(/\$|,/g, ''));
     let totalValue = parseFloat(document.getElementById(TOTAL_DISPLAY_ID).children[0].innerText.replace(/\$|,/g, ''));
@@ -525,7 +531,10 @@ function createQuantityDropDown() {
 function onCartPageQuantityChanged(dropDownID, itemID) {
     let selected = findSelectedOption(dropDownID);
     let xhttp = new XMLHttpRequest();
-    let sendString = "quantity=" + selected + "&idOfItemChanged=" + itemID;
+    let sendString =
+        "quantity=" + encodeURIComponent(selected) +
+        "&idOfItemChanged=" + encodeURIComponent(itemID) +
+        "&" + CSRF_TOKEN_KEY + "=" + encodeURIComponent(CSRF_TOKEN);
 
     xhttp.onreadystatechange = function() {
        if (this.readyState == 4 && this.status == 200) {
@@ -547,7 +556,6 @@ function onCartPageQuantityChanged(dropDownID, itemID) {
     xhttp.open("POST", "shopping_cart.php", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(sendString);
-
 }
 
 function updateSubtotalDisplay(subtotal, itemID) {
