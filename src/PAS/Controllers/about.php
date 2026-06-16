@@ -53,10 +53,10 @@ $layoutUi = new LayoutUi($db, $cartService, $sessionService, $navigationHelper);
 <?php $layoutUi->header($activePage); ?>
 
 <main>
-    <section id="<?php echo PageConstants::ABOUT_SECTION_ID; ?>">
+    <section id="<?= e(PageConstants::ABOUT_SECTION_ID) ?>">
         <h2>About Us</h2>
 
-        <div id="<?php echo PageConstants::ABOUT_TEXT_ID; ?>" class="<?php echo PageConstants::SEVEN_COLUMNS_CLASS; ?>">
+        <div id="<?= e(PageConstants::ABOUT_TEXT_ID) ?>" class="<?= e(PageConstants::SEVEN_COLUMNS_CLASS) ?>">
             <p>
                 Portland Art Supply (PAS) was founded in 1975. Having its roots in the Northwest District of downtown
                 Portland as a small retailer of craft supplies, PAS has grown to becoming one of the Northwest'
@@ -90,7 +90,7 @@ $layoutUi = new LayoutUi($db, $cartService, $sessionService, $navigationHelper);
 
             <p>We hope to continue to provide artist's with the products that they love for many years to come!</p>
         </div>
-        <div id="<?php echo PageConstants::ABOUT_IMAGE_DIV_ID; ?>" class="<?php echo PageConstants::FIVE_COLUMNS_CLASS; ?>">
+        <div id="<?= e(PageConstants::ABOUT_IMAGE_DIV_ID) ?>" class="<?= e(PageConstants::FIVE_COLUMNS_CLASS) ?>">
             <img src="images/about1.jpg" alt="An artist drawing plants in a notebook">
             <img src="images/about2.jpg" alt="Artist getting paint from a palette">
         </div>

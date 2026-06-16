@@ -81,7 +81,7 @@ $productItems = $productRepository->getItemsByGroupId($groupId);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>PAS | <?php echo $groupCode; ?></title>
+    <title>PAS | <?= e($groupCode) ?></title>
 
     <link href="css/reset.css.php" rel="stylesheet">
     <link href="css/grid.css.php" rel="stylesheet">
@@ -89,12 +89,12 @@ $productItems = $productRepository->getItemsByGroupId($groupId);
     <link href="css/main.css.php" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
     <script type="text/javascript">
-        const CSRF_TOKEN = "<?php echo $csrfService->getToken(); ?>";
-        var groupCode = '<?php echo $groupCode; ?>';
-        var productItems = <?php echo json_encode($productItems); ?>;
-        var category = '<?php echo $categoryName; ?>';
-        var subcategory = '<?php echo $subcategoryName; ?>';
-        var groupDescription = '<?php echo addslashes($productGroup->description) ?>';
+        const CSRF_TOKEN = <?= json_encode($csrfService->getToken()) ?>;
+        var groupCode = <?= json_encode($groupCode) ?>;
+        var productItems = <?= json_encode($productItems); ?>;
+        var category = <?= json_encode($categoryName) ?>;
+        var subcategory = <?= json_encode($subcategoryName) ?>;
+        var groupDescription = <?= json_encode($productGroup->description) ?>;
     </script>
     <script src="js/pas.js.php" type="text/javascript"></script>
 
