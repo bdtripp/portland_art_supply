@@ -63,84 +63,84 @@ if ($createPressed) {
         <form method="POST" action="create_account.php" onsubmit="return checkIfValid();">
 
             <input type="hidden"
-                    name="<?= e(SecurityConstants::CSRF_TOKEN_KEY) ?>"
+                    name="<?= SecurityConstants::CSRF_TOKEN_KEY ?>"
                     value="<?= e($csrfService->getToken()) ?>">
 
             <h2>Create an Account</h2>
             <section>
-                <label for="<?= e(PageConstants::USERNAME_INPUT_ID) ?>">Username:</label>
+                <label for="<?= PageConstants::USERNAME_INPUT_ID ?>">Username:</label>
                 <input
-                    id="<?= e(PageConstants::USERNAME_INPUT_ID) ?>"
+                    id="<?= PageConstants::USERNAME_INPUT_ID ?>"
                     type="text"
-                    name="<?= e(LoginConstants::CREATE_USERNAME_KEY) ?>"
+                    name="<?= LoginConstants::CREATE_USERNAME_KEY ?>"
                     value="<?= e($createUsername) ?>"
                     required
                 />
-                <div class="<?= e(PageConstants::MESSAGE_WRAPPER_CLASS) ?>">
-                    <span class="<?= e(PageConstants::ERROR_SYMBOL_CLASS) ?>">
-                        <?= isset($errorStatus->usernameError) ? e($loginService->showErrorSymbol()) : '' ?>
+                <div class="<?= PageConstants::MESSAGE_WRAPPER_CLASS ?>">
+                    <span class="<?= PageConstants::ERROR_SYMBOL_CLASS ?>">
+                        <?= isset($errorStatus->usernameError) ? $loginService->showErrorSymbol() : '' ?>
                     </span>
-                    <span id="<?= e(PageConstants::USERNAME_MESSAGE_ID) ?>" class="<?= e(PageConstants::MESSAGE_CLASS) ?>">
+                    <span id="<?= PageConstants::USERNAME_MESSAGE_ID ?>" class="<?= PageConstants::MESSAGE_CLASS ?>">
                         <?= isset($errorStatus->usernameError) ? e($errorStatus->usernameError) : '' ?>
                     </span>
                 </div>
             </section>
-            <section id="<?= e(PageConstants::PASSWORD_SECTION_CLASS) ?>">
-                <div class="<?= e(PageConstants::WRAPPER_CLASS) ?>">
-                    <label for="<?= e(PageConstants::PASSWORD_INPUT_ID) ?>">Password:</label>
+            <section id="<?= PageConstants::PASSWORD_SECTION_CLASS ?>">
+                <div class="<?= PageConstants::WRAPPER_CLASS ?>">
+                    <label for="<?= PageConstants::PASSWORD_INPUT_ID ?>">Password:</label>
                     <input
-                        id="<?= e(PageConstants::PASSWORD_INPUT_ID) ?>"
-                        type="password" name="<?= e(LoginConstants::CREATE_PASSWORD_KEY) ?>"
+                        id="<?= PageConstants::PASSWORD_INPUT_ID ?>"
+                        type="password" name="<?= LoginConstants::CREATE_PASSWORD_KEY ?>"
                         value="<?= e($createPassword) ?>"
                         required
                     />
-                    <div class="<?= e(PageConstants::MESSAGE_WRAPPER_CLASS) ?>">
-                        <span class="<?= e(PageConstants::ERROR_SYMBOL_CLASS) ?>">
-                            <?= isset($errorStatus->passwordError) ? e($loginService->showErrorSymbol()) : '' ?>
+                    <div class="<?= PageConstants::MESSAGE_WRAPPER_CLASS ?>">
+                        <span class="<?= PageConstants::ERROR_SYMBOL_CLASS ?>">
+                            <?= isset($errorStatus->passwordError) ? $loginService->showErrorSymbol() : '' ?>
                         </span>
-                        <span id="<?= e(PageConstants::PASSWORD_MESSAGE_ID) ?>" class="<?= e(PageConstants::MESSAGE_CLASS) ?>">
+                        <span id="<?= PageConstants::PASSWORD_MESSAGE_ID ?>" class="<?= PageConstants::MESSAGE_CLASS ?>">
                             <?= isset($errorStatus->passwordError) ? e($errorStatus->passwordError) : '' ?>
                         </span>
                     </div>
                 </div>
                 <p>Password requirements:</p>
-                <ul class="<?= e(PageConstants::REQUIREMENTS_CLASS) ?>">
-                    <li id="<?= e(PageConstants::UPPERCASE_REQUIREMENT_ID) ?>"><?= e(LoginConstants::PASSWORD_UPPERCASE_REQUIRE) ?></li>
-                    <li id="<?= e(PageConstants::DIGIT_REQUIREMENT_ID) ?>"><?= e(LoginConstants::PASSWORD_DIGIT_REQUIRE) ?></li>
-                    <li id="<?= e(PageConstants::SPECIAL_CHAR_REQUIREMENT_ID) ?>">
-                        <?= e(LoginConstants::PASSWORD_SPECIAL_REQUIRE) ?>
-                        <span><?= e(LoginConstants::REQUIRED_SPECIAL_CHARACTERS) ?></span>
+                <ul class="<?= PageConstants::REQUIREMENTS_CLASS ?>">
+                    <li id="<?= PageConstants::UPPERCASE_REQUIREMENT_ID ?>"><?= LoginConstants::PASSWORD_UPPERCASE_REQUIRE ?></li>
+                    <li id="<?= PageConstants::DIGIT_REQUIREMENT_ID ?>"><?= LoginConstants::PASSWORD_DIGIT_REQUIRE ?></li>
+                    <li id="<?= PageConstants::SPECIAL_CHAR_REQUIREMENT_ID ?>">
+                        <?= LoginConstants::PASSWORD_SPECIAL_REQUIRE ?>
+                        <span><?= LoginConstants::REQUIRED_SPECIAL_CHARACTERS ?></span>
                     </li>
-                    <li id="<?= e(PageConstants::LENGTH_REQUIREMENT_ID) ?>"><?= e(LoginConstants::PASSWORD_LENGTH_REQUIRE) ?></li>
+                    <li id="<?= PageConstants::LENGTH_REQUIREMENT_ID ?>"><?= LoginConstants::PASSWORD_LENGTH_REQUIRE ?></li>
                 </ul>
             </section>
             <section>
-                <label for="<?= e(PageConstants::CONFIRM_PASSWORD_INPUT_ID) ?>">Confirm Password:</label>
+                <label for="<?= PageConstants::CONFIRM_PASSWORD_INPUT_ID ?>">Confirm Password:</label>
                 <input
-                    id="<?= e(PageConstants::CONFIRM_PASSWORD_INPUT_ID) ?>"
-                    type="password" name="<?= e(LoginConstants::CREATE_CONFIRM_PASSWORD_KEY) ?>"
+                    id="<?= PageConstants::CONFIRM_PASSWORD_INPUT_ID ?>"
+                    type="password" name="<?= LoginConstants::CREATE_CONFIRM_PASSWORD_KEY ?>"
                     value="<?= e($createConfirmPassword) ?>"
                     required
                 />
-                <div class="<?= e(PageConstants::MESSAGE_WRAPPER_CLASS) ?>">
-                    <span class="<?= e(PageConstants::ERROR_SYMBOL_CLASS) ?>">
-                        <?= isset($errorStatus->confirmPassError) ? e($loginService->showErrorSymbol()) : '' ?>
+                <div class="<?= PageConstants::MESSAGE_WRAPPER_CLASS ?>">
+                    <span class="<?= PageConstants::ERROR_SYMBOL_CLASS ?>">
+                        <?= isset($errorStatus->confirmPassError) ? $loginService->showErrorSymbol() : '' ?>
                     </span>
-                    <span id="<?= e(PageConstants::CONFIRM_PASSWORD_MESSAGE_ID) ?>" class="<?= e(PageConstants::MESSAGE_CLASS) ?>">
+                    <span id="<?= PageConstants::CONFIRM_PASSWORD_MESSAGE_ID ?>" class="<?= PageConstants::MESSAGE_CLASS ?>">
                         <?= isset($errorStatus->confirmPassError) ? e($errorStatus->confirmPassError) : '' ?>
                     </span>
                 </div>
            </section>
             <input
-                id="<?= e(LoginConstants::CREATE_ACCOUNT_BUTTON_ID) ?>"
+                id="<?= LoginConstants::CREATE_ACCOUNT_BUTTON_ID ?>"
                 type="submit"
-                name="<?= e(LoginConstants::CREATE_ACCOUNT_BUTTON_ID) ?>"
+                name="<?= LoginConstants::CREATE_ACCOUNT_BUTTON_ID ?>"
                 value="Create Account"
             />
             <p>- or -</p>
-            <div class="<?= e(PageConstants::LINKS_CLASS) ?>">
-                <a id="<?= e(PageConstants::LOGIN_LINK_ID) ?>" href="<?= e(PageConstants::LOGIN_PAGE) ?>">Log In</a>
-                <a id="<?= e(PageConstants::HOME_LINK_ID) ?>" href="<?= e(PageConstants::HOME_PAGE) ?>">Home</a>
+            <div class="<?= PageConstants::LINKS_CLASS ?>">
+                <a id="<?= PageConstants::LOGIN_LINK_ID ?>" href="<?= PageConstants::LOGIN_PAGE ?>">Log In</a>
+                <a id="<?= PageConstants::HOME_LINK_ID ?>" href="<?= PageConstants::HOME_PAGE ?>">Home</a>
             </div>
         </form>
     </body>
