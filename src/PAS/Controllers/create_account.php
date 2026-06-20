@@ -91,7 +91,6 @@ if ($createPressed) {
                     <input
                         id="<?= PageConstants::PASSWORD_INPUT_ID ?>"
                         type="password" name="<?= LoginConstants::CREATE_PASSWORD_KEY ?>"
-                        value="<?= e($createPassword) ?>"
                         required
                     />
                     <div class="<?= PageConstants::MESSAGE_WRAPPER_CLASS ?>">
@@ -119,7 +118,6 @@ if ($createPressed) {
                 <input
                     id="<?= PageConstants::CONFIRM_PASSWORD_INPUT_ID ?>"
                     type="password" name="<?= LoginConstants::CREATE_CONFIRM_PASSWORD_KEY ?>"
-                    value="<?= e($createConfirmPassword) ?>"
                     required
                 />
                 <div class="<?= PageConstants::MESSAGE_WRAPPER_CLASS ?>">

@@ -92,7 +92,6 @@ if (!$login_pressed) {
                 <input
                     id="<?= LoginConstants::LOGIN_PASSWORD_KEY ?>"
                     type="password" name="<?= LoginConstants::LOGIN_PASSWORD_KEY ?>"
-                    value="<?= e($login_password) ?>"
                     required
                 />
                 <div class="<?= PageConstants::MESSAGE_WRAPPER_CLASS ?>">
