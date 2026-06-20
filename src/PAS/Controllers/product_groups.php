@@ -44,7 +44,7 @@ $products = $productRepository->getProductGroups($categoryName, $subcategoryName
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>PAS | <?php echo $subcategoryName; ?></title>
+    <title>PAS | <?= e($subcategoryName) ?></title>
 
     <link href="css/reset.css.php" rel="stylesheet">
     <link href="css/grid.css.php" rel="stylesheet">

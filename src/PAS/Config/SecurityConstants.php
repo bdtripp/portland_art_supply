@@ -10,4 +10,10 @@ final class SecurityConstants
      * POST key used for CSRF token
      */
     public const CSRF_TOKEN_KEY = 'csrf_token';
+
+    public const ALLOWED_BASE_URLS = [
+        'http://localhost:8081',
+        'https://dev.bdtripp.com',
+        'https://bdtripp.com',
+    ];
 }

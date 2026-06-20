@@ -5,7 +5,6 @@ use PAS\View\LayoutUi;
 use PAS\View\CartUi;
 use PAS\Config\PageConstants;
 use PAS\Config\DbConstants;
-use PAS\Config\SecurityConstants;
 use PAS\Services\CartService;
 use PAS\Infrastructure\Database;
 use PAS\Repositories\AccountDataRepository;
@@ -35,7 +34,8 @@ if (!empty($buttonClickedID) || !empty($newQuantity)) {
 
 if (!empty($buttonClickedID)) {
     $cartService->removeItemFromCart($buttonClickedID);
-    header("Location: " . $_SERVER['REQUEST_URI']);
+    $uri = str_replace(["\r", "\n"], '', $_SERVER['REQUEST_URI']);
+    header("Location: $uri");
     exit();
 }
 if (!empty($newQuantity) && !empty($idOfItemChanged)) {
@@ -69,7 +69,7 @@ $activePage = PageConstants::SHOPPING_CART_PAGE_TITLE;
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>PAS | <?php echo $activePage; ?></title>
+    <title>PAS | <?= e($activePage) ?></title>
 
     <link href="css/reset.css.php" rel="stylesheet">
     <link href="css/grid.css.php" rel="stylesheet">
@@ -77,7 +77,7 @@ $activePage = PageConstants::SHOPPING_CART_PAGE_TITLE;
     <link href="css/main.css.php" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
     <script>
-        const CSRF_TOKEN = "<?php echo $csrfService->getToken(); ?>";
+        const CSRF_TOKEN = <?= json_encode($csrfService->getToken()) ?>;
     </script>
     <script type="text/javascript" src="js/pas.js.php"></script>
 

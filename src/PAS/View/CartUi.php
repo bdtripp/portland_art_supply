@@ -61,12 +61,12 @@ class CartUi
             );
             echo '            <div class="' . PageConstants::CART_ITEM_INFO_CLASS . '">' . "\n";
             echo '                <div class="' . PageConstants::CART_ITEM_SPECS_CLASS . '">' . "\n";
-            echo '                    <p>' . $groupDescription . '</p>' . "\n";
+            echo '                    <p>' . e($groupDescription) . '</p>' . "\n";
             if ($color != 'null') {
-                echo '                    <p> Color: ' . $color . '</p>' . "\n";
+                echo '                    <p> Color: ' . e($color) . '</p>' . "\n";
             }
             if ($size != 'null') {
-                echo '                    <p> Size: ' . $size . '</p>' . "\n";
+                echo '                    <p> Size: ' . e($size) . '</p>' . "\n";
             }
             echo '                </div>' . "\n";
             echo '                <p class="' . PageConstants::PRICE_DISPLAY_CLASS . '">$' . $price . '</p>' . "\n";
@@ -121,7 +121,12 @@ class CartUi
         $sizeSanitized = preg_replace('/\//', '_', $sizeSanitized);
         $sizeSanitized = $sizeSanitized ?? '';
 
-        echo '            <img src="' . PageConstants::IMAGE_FOLDER . $category . '/' . $subcategory . '/' .
-            $groupCode . $colorSanitized  . $sizeSanitized . '.jpg">' . "\n";
+        echo '            <img src="' . PageConstants::IMAGE_FOLDER
+                            . rawurlencode($category) . '/'
+                            . rawurlencode($subcategory) . '/'
+                            . rawurlencode($groupCode)
+                            . rawurlencode($colorSanitized)
+                            . rawurlencode($sizeSanitized)
+                            . '.jpg">' . "\n";
     }
 }
