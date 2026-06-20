@@ -65,50 +65,50 @@ if (!$login_pressed) {
         <form method="POST" action="login.php">
 
             <input type="hidden"
-                name="<?php echo SecurityConstants::CSRF_TOKEN_KEY; ?>"
-                value="<?php echo $csrfService->getToken(); ?>">
+                name="<?= SecurityConstants::CSRF_TOKEN_KEY ?>"
+                value="<?= e($csrfService->getToken()) ?>">
 
             <h2>Log In</h2>
             <section>
-                <label for="<?php echo LoginConstants::LOGIN_USERNAME_KEY; ?>">Username:</label>
+                <label for="<?= LoginConstants::LOGIN_USERNAME_KEY ?>">Username:</label>
                 <input
-                    id ="<?php echo LoginConstants::LOGIN_USERNAME_KEY; ?>"
+                    id ="<?= LoginConstants::LOGIN_USERNAME_KEY ?>"
                     type="text"
-                    name="<?php echo LoginConstants::LOGIN_USERNAME_KEY; ?>"
-                    value="<?php echo $login_username; ?>"
+                    name="<?= LoginConstants::LOGIN_USERNAME_KEY ?>"
+                    value="<?= e($login_username) ?>"
                     required
                 />
-                <div class="<?php echo PageConstants::MESSAGE_WRAPPER_CLASS; ?>">
-                    <span class="<?php echo PageConstants::ERROR_SYMBOL_CLASS; ?>">
-                        <?php echo isset($errorStatus->usernameError) ? $loginService->showErrorSymbol() : '' ?>
+                <div class="<?= PageConstants::MESSAGE_WRAPPER_CLASS ?>">
+                    <span class="<?= PageConstants::ERROR_SYMBOL_CLASS ?>">
+                        <?= isset($errorStatus->usernameError) ? $loginService->showErrorSymbol() : '' ?>
                     </span>
-                    <span id="<?php echo PageConstants::USERNAME_MESSAGE_ID; ?>" class="<?php echo PageConstants::MESSAGE_CLASS; ?>">
-                        <?php echo isset($errorStatus->usernameError) ? $errorStatus->usernameError : '' ?>
+                    <span id="<?= PageConstants::USERNAME_MESSAGE_ID ?>" class="<?= PageConstants::MESSAGE_CLASS ?>">
+                        <?= isset($errorStatus->usernameError) ? e($errorStatus->usernameError) : '' ?>
                     </span>
                 </div>
             </section>
             <section>
-                <label for="<?php echo LoginConstants::LOGIN_PASSWORD_KEY; ?>">Password:</label>
+                <label for="<?= LoginConstants::LOGIN_PASSWORD_KEY ?>">Password:</label>
                 <input
-                    id="<?php echo LoginConstants::LOGIN_PASSWORD_KEY; ?>"
-                    type="password" name="<?php echo LoginConstants::LOGIN_PASSWORD_KEY; ?>"
-                    value="<?php echo $login_password; ?>"
+                    id="<?= LoginConstants::LOGIN_PASSWORD_KEY ?>"
+                    type="password" name="<?= LoginConstants::LOGIN_PASSWORD_KEY ?>"
+                    value="<?= e($login_password) ?>"
                     required
                 />
-                <div class="<?php echo PageConstants::MESSAGE_WRAPPER_CLASS; ?>">
-                    <span class="<?php echo PageConstants::ERROR_SYMBOL_CLASS; ?>">
-                        <?php echo isset($errorStatus->passwordError) ? $loginService->showErrorSymbol() : '' ?>
+                <div class="<?= PageConstants::MESSAGE_WRAPPER_CLASS ?>">
+                    <span class="<?= PageConstants::ERROR_SYMBOL_CLASS ?>">
+                        <?= isset($errorStatus->passwordError) ? $loginService->showErrorSymbol() : '' ?>
                     </span>
-                    <span id="<?php echo PageConstants::PASSWORD_MESSAGE_ID; ?>" class="<?php echo PageConstants::MESSAGE_CLASS; ?>">
-                        <?php echo isset($errorStatus->passwordError) ? $errorStatus->passwordError : '' ?>
+                    <span id="<?= PageConstants::PASSWORD_MESSAGE_ID ?>" class="<?= PageConstants::MESSAGE_CLASS ?>">
+                        <?= isset($errorStatus->passwordError) ? e($errorStatus->passwordError) : '' ?>
                     </span>
                 </div>
             </section>
-            <input id="<?php echo PageConstants::LOGIN_BUTTON_ID; ?>" type="submit" name="<?php echo LoginConstants::LOGIN_BUTTON_KEY; ?>" value="Log In" />
+            <input id="<?= PageConstants::LOGIN_BUTTON_ID ?>" type="submit" name="<?= LoginConstants::LOGIN_BUTTON_KEY ?>" value="Log In" />
             <p>- or -</p>
-            <div class="<?php echo PageConstants::LINKS_CLASS; ?>">
-                <a id="<?php echo PageConstants::CREATE_ACCOUNT_LINK_ID; ?>" href="<?php echo PageConstants::CREATE_ACCOUNT_PAGE; ?>">Create an Account</a>
-                <a id="<?php echo PageConstants::HOME_LINK_ID; ?>" href="<?php echo PageConstants::HOME_PAGE; ?>">Home</a>
+            <div class="<?= PageConstants::LINKS_CLASS ?>">
+                <a id="<?= PageConstants::CREATE_ACCOUNT_LINK_ID ?>" href="<?= PageConstants::CREATE_ACCOUNT_PAGE ?>">Create an Account</a>
+                <a id="<?= PageConstants::HOME_LINK_ID ?>" href="<?= PageConstants::HOME_PAGE ?>">Home</a>
             </div>
         </form>
     </body>
