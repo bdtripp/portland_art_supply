@@ -22,7 +22,7 @@ class ProductUi
     public function groupGrid(array $products): void
     {
         echo '<main>' . "\n";
-        echo '    <h2 class="' . PageConstants::LARGE_H2 . '">' . $products[0]['subcategory_name'] . '</h2>' . "\n\n";
+        echo '    <h2 class="' . PageConstants::LARGE_H2 . '">' . e($products[0]['subcategory_name']) . '</h2>' . "\n\n";
         echo '    <section id="' . PageConstants::PRODUCT_GROUPS_ID . '">' . "\n";
 
         foreach ($products as $product) {
@@ -54,10 +54,10 @@ class ProductUi
 
         echo '            <div class="' . PageConstants::PRODUCT_GROUP_CLASS . ' ' . PageConstants::CARD_CLASS . '">' . "\n";
         echo '                <a class="' . PageConstants::GROUP_DESCRIPTION_TEXT_CLASS . '" ' . $hrefString . '>' . "\n";
-        echo '                     ' . $group->description . '</a>' . "\n";
+        echo '                     ' . e($group->description) . '</a>' . "\n";
         echo '                <a ' . $hrefString . '>' . "\n";
-        echo '                    <img src="' . PageConstants::IMAGE_FOLDER . $category . '/' .
-            $subcategory . '/' . $group->groupCode . '.jpg">' . "\n";
+        echo '                    <img src="' . PageConstants::IMAGE_FOLDER . rawurlencode($category) . '/' .
+            rawurlencode($subcategory) . '/' . rawurlencode($group->groupCode) . '.jpg">' . "\n";
         echo '                </a>' . "\n";
         echo '            </div>' . "\n\n";
     }
@@ -65,12 +65,12 @@ class ProductUi
     public function itemDetail(ProductGroup $productGroup, string $categoryName, string $subCategoryName): void
     {
         echo '<main>' . "\n";
-        echo '    <h2>' . $productGroup->description . '</h2>' . "\n";
+        echo '    <h2>' . e($productGroup->description) . '</h2>' . "\n";
         echo '    <section id="' . PageConstants::ITEM_WRAPPER_ID . '">' . "\n";
-        echo '        <p id="' . PageConstants::GROUP_INFORMATION_ID . '">' . $productGroup->information . '</p>' . "\n";
+        echo '        <p id="' . PageConstants::GROUP_INFORMATION_ID . '">' . e($productGroup->information) . '</p>' . "\n";
         echo '        <div id="' . PageConstants::IMAGE_WRAPPER_ID . '" class="' . PageConstants::CARD_CLASS . '">' . "\n";
-        echo '            <img id=' . PageConstants::PRODUCT_ITEM_IMAGE_ID . ' src="' . PageConstants::IMAGE_FOLDER . $categoryName . '/' .
-            $subCategoryName . '/' . $productGroup->groupCode . '.jpg">' . "\n";
+        echo '            <img id=' . PageConstants::PRODUCT_ITEM_IMAGE_ID . ' src="' . PageConstants::IMAGE_FOLDER . rawurlencode($categoryName) . '/' .
+            rawurlencode($subCategoryName) . '/' . rawurlencode($productGroup->groupCode) . '.jpg">' . "\n";
         echo '        </div>' . "\n";
         echo '        <div id="' . PageConstants::DETAILS_WRAPPER_ID . '" class="' . PageConstants::CARD_CLASS .  '">' . "\n";
         echo '            <div id="' . PageConstants::ITEM_DETAILS_DIV . '">' . "\n";

@@ -23,7 +23,7 @@ class LayoutUi
     {
         if (isset($_SESSION[PageConstants::SESSION_USER_ID_KEY])) {
             $loginHref = PageConstants::LOGOUT_PAGE;
-            $username = $this->sessionService->get(PageConstants::SESSION_USERNAME_KEY);
+            $username = e($this->sessionService->get(PageConstants::SESSION_USERNAME_KEY));
             $iconID = PageConstants::LOGOUT_ICON_ID;
             $iconSrc = 'logout_icon.png';
         } else {
@@ -71,18 +71,16 @@ class LayoutUi
 
         echo '            <li><a ' . $this->navigationHelper->currentPage(PageConstants::HOME_PAGE) . 'Home</a></li>' . "\n";
         foreach ($categories as $category) {
-            $categoryID = $category[DbConstants::PRODUCT_CATEGORY_ID_FIELD];
-            $categoryName = $category[DbConstants::PRODUCT_CATEGORY_NAME_FIELD];
-            $href = PageConstants::SUBCATEGORIES_PAGE . '?' . DbConstants::PRODUCT_CATEGORY_ID_FIELD . '=' .
-                $categoryID . '&' . DbConstants::PRODUCT_CATEGORY_NAME_FIELD . '=' .
-                $categoryName;
+            $rawCategoryName = $category[DbConstants::PRODUCT_CATEGORY_NAME_FIELD];
+            $categoryName = e($rawCategoryName);
+            $categoryIdSafe = strtolower(preg_replace('/[^a-zA-Z0-9_-]/', '_', $rawCategoryName) ?? '');
 
             echo '            <li>' . "\n";
             echo '                <button
                                         class="expand_btn"
                                         aria-expanded="false"
                                         aria-haspopup="true"
-                                        aria-controls="' . lcfirst($categoryName) . '_menu"
+                                        aria-controls="' . $categoryIdSafe . '_menu"
                                     >' . $categoryName . "\n";
             echo '                    <span class="arrow" aria-hidden="true">▼</span>' . "\n";
             echo '                </button>' . "\n";
@@ -101,18 +99,20 @@ class LayoutUi
     public function showSubcategoryDropdown(array $category): void
     {
         $categoryID = $category[DbConstants::PRODUCT_CATEGORY_ID_FIELD];
-        $categoryName = $category[DbConstants::PRODUCT_CATEGORY_NAME_FIELD];
+        $rawCategoryName = $category[DbConstants::PRODUCT_CATEGORY_NAME_FIELD];
+        $categoryIdSafe = strtolower(preg_replace('/[^a-zA-Z0-9_-]/', '_', $rawCategoryName) ?? '');
         $subcategories = $this->db->lookupSubcategories($categoryID);
 
-        echo '                <ul id="' . lcfirst($categoryName) . '_menu" class="dropdown">' . "\n";
+        echo '                <ul id="' . $categoryIdSafe . '_menu" class="dropdown">' . "\n";
         foreach ($subcategories as $subcategory) {
-            $subcategoryName = $subcategory[DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD];
+            $rawSubCategoryName = $subcategory[DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD];
+            $subcategoryName = e($rawSubCategoryName);
 
             echo '                    <li>
                                         <a href="' . PageConstants::GROUP_PRODUCTS_PAGE .
-                                            "?" . DbConstants::PRODUCT_CATEGORY_NAME_FIELD . "=" . urlencode($categoryName) .
-                                            "&" . DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD . "=" . urlencode($subcategoryName) .
-                                            '" ' . $this->navigationHelper->currentSubcategory(DbConstants::PRODUCT_CATEGORY_NAME_FIELD, $categoryName, DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD, $subcategoryName) .
+                                            "?" . DbConstants::PRODUCT_CATEGORY_NAME_FIELD . "=" . urlencode($rawCategoryName) .
+                                            "&" . DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD . "=" . urlencode($rawSubCategoryName) .
+                                            '" ' . $this->navigationHelper->currentSubcategory(DbConstants::PRODUCT_CATEGORY_NAME_FIELD, $rawCategoryName, DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD, $rawSubCategoryName) .
                                         '>' . ucfirst($subcategoryName) .
                                         '</a>
                                     </li>';

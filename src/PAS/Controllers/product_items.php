@@ -109,4 +109,3 @@ $productItems = $productRepository->getItemsByGroupId($groupId);
 </body>
 
 </html>
-

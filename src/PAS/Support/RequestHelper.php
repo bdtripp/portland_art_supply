@@ -22,7 +22,7 @@ class RequestHelper
             return null;
         }
 
-        $value = filter_var($raw, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $value = trim($raw);
 
         return $value !== '' ? $value : null;
     }
