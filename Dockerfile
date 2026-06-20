@@ -10,4 +10,5 @@ COPY src/ /var/www/src/
 COPY composer.json composer.lock /var/www/
 RUN cd /var/www && composer install --no-dev --optimize-autoloader
 COPY config.php /var/www/config.php
+COPY helpers.php /var/www/helpers.php
 EXPOSE 80
