@@ -3,7 +3,7 @@ require_once __DIR__ . '/../../../config.php';
 
 use PAS\Infrastructure\Database;
 use PAS\Config\DbConstants;
-use PAS\Config\SecurityConstants;
+use PAS\Config\CartConstants;
 use PAS\View\LayoutUi;
 use PAS\View\ProductUi;
 use PAS\Services\CartService;
@@ -33,7 +33,7 @@ $groupCode = $requestHelper->getPostString(DbConstants::PRODUCT_GROUP_CODE_FIELD
 $color = $requestHelper->getPostString(DbConstants::PRODUCT_COLOR_NAME_FIELD);
 $size = $requestHelper->getPostString(DbConstants::PRODUCT_SIZE_DESCRIPTION_FIELD);
 $price = $requestHelper->getPostFloat(DbConstants::PRODUCT_ITEM_PRICE_FIELD);
-$quantity = $requestHelper->getPostInt(DbConstants::QUANTITY_FIELD);
+$quantity = $requestHelper->getPostInt(CartConstants::QUANTITY_FIELD);
 
 if (!empty($id)) {
     $csrfService->guard($requestHelper);

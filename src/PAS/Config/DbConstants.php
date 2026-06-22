@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Centralized database schema constants.
+ *
+ * This class defines the table names and column identifiers used throughout
+ * the application.
+ */
+
 declare(strict_types=1);
 
 namespace PAS\Config;
@@ -81,7 +88,7 @@ class DbConstants
     public const string PRODUCT_GROUP_MANUFACTURER_ID_FIELD = 'manufacturer_id';
     public const string PRODUCT_GROUP_DESCRIPTION_FIELD = 'group_description';
     public const string PRODUCT_GROUP_INFORMATION_FIELD = 'group_information';
-    public const string PRODUCT_GROUP_CODE_FIELD = "group_code";
+    public const string PRODUCT_GROUP_CODE_FIELD = 'group_code';
 
     /*
     * product_item Table
@@ -93,12 +100,4 @@ class DbConstants
     public const string PRODUCT_ITEM_COLOR_ID_FIELD = 'color_id';
     public const string PRODUCT_ITEM_SIZE_ID_FIELD = 'size_id';
     public const string PRODUCT_ITEM_PRICE_FIELD = 'price';
-
-    /*
-    * Misc
-    */
-
-    public const string QUANTITY_FIELD = 'Quantity';
-    public const string SUBTOTAL_FIELD = 'Subtotal';
-    public const string TOTAL_FIELD = "Total";
 }

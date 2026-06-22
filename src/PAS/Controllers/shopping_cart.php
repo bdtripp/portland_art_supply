@@ -5,6 +5,7 @@ use PAS\View\LayoutUi;
 use PAS\View\CartUi;
 use PAS\Config\PageConstants;
 use PAS\Config\DbConstants;
+use PAS\Config\CartConstants;
 use PAS\Services\CartService;
 use PAS\Infrastructure\Database;
 use PAS\Repositories\AccountDataRepository;
@@ -40,9 +41,9 @@ if (!empty($buttonClickedID)) {
 }
 if (!empty($newQuantity) && !empty($idOfItemChanged)) {
     $responseData = [
-        DbConstants::QUANTITY_FIELD => $cartService->updateQuantityInSession($newQuantity, $idOfItemChanged),
-        DbConstants::SUBTOTAL_FIELD => $cartService->getItemSubtotal($idOfItemChanged),
-        DbConstants::TOTAL_FIELD => $cartService->getCartTotal()
+        CartConstants::QUANTITY_FIELD => $cartService->updateQuantityInSession($newQuantity, $idOfItemChanged),
+        CartConstants::SUBTOTAL_FIELD => $cartService->getItemSubtotal($idOfItemChanged),
+        CartConstants::TOTAL_FIELD => $cartService->getCartTotal()
     ];
     echo json_encode($responseData);
     exit();
