@@ -33,7 +33,7 @@ $groupCode = $requestHelper->getPostString(DbConstants::PRODUCT_GROUP_CODE_FIELD
 $color = $requestHelper->getPostString(DbConstants::PRODUCT_COLOR_NAME_FIELD);
 $size = $requestHelper->getPostString(DbConstants::PRODUCT_SIZE_DESCRIPTION_FIELD);
 $price = $requestHelper->getPostFloat(DbConstants::PRODUCT_ITEM_PRICE_FIELD);
-$quantity = $requestHelper->getPostInt(CartConstants::QUANTITY_FIELD);
+$quantity = $requestHelper->getPostInt(CartConstants::QUANTITY_KEY);
 
 if (!empty($id)) {
     $csrfService->guard($requestHelper);

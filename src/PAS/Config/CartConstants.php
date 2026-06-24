@@ -13,7 +13,7 @@ namespace PAS\Config;
 
 class CartConstants
 {
-    public const string QUANTITY_FIELD = 'Quantity';
-    public const string SUBTOTAL_FIELD = 'Subtotal';
-    public const string TOTAL_FIELD = 'Total';
+    public const QUANTITY_KEY = 'Quantity';
+    public const SUBTOTAL_KEY = 'Subtotal';
+    public const TOTAL_KEY = 'Total';
 }

@@ -41,9 +41,9 @@ if (!empty($buttonClickedID)) {
 }
 if (!empty($newQuantity) && !empty($idOfItemChanged)) {
     $responseData = [
-        CartConstants::QUANTITY_FIELD => $cartService->updateQuantityInSession($newQuantity, $idOfItemChanged),
-        CartConstants::SUBTOTAL_FIELD => $cartService->getItemSubtotal($idOfItemChanged),
-        CartConstants::TOTAL_FIELD => $cartService->getCartTotal()
+        CartConstants::QUANTITY_KEY => $cartService->updateQuantityInSession($newQuantity, $idOfItemChanged),
+        CartConstants::SUBTOTAL_KEY => $cartService->getItemSubtotal($idOfItemChanged),
+        CartConstants::TOTAL_KEY => $cartService->getCartTotal()
     ];
     echo json_encode($responseData);
     exit();
