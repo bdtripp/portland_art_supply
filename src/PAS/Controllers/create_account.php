@@ -53,8 +53,8 @@ if ($createPressed) {
             content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>PAS | Create Account</title>
-        <link href="css/reset.css.php" rel="stylesheet">
-        <link href="css/login.css.php" rel="stylesheet">
+        <link href="css/reset.css" rel="stylesheet">
+        <link href="css/login.css" rel="stylesheet">
         <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
         <script src="js/create_account.js.php"></script>
 
@@ -91,7 +91,6 @@ if ($createPressed) {
                     <input
                         id="<?= PageConstants::PASSWORD_INPUT_ID ?>"
                         type="password" name="<?= LoginConstants::CREATE_PASSWORD_KEY ?>"
-                        value="<?= e($createPassword) ?>"
                         required
                     />
                     <div class="<?= PageConstants::MESSAGE_WRAPPER_CLASS ?>">
@@ -119,7 +118,6 @@ if ($createPressed) {
                 <input
                     id="<?= PageConstants::CONFIRM_PASSWORD_INPUT_ID ?>"
                     type="password" name="<?= LoginConstants::CREATE_CONFIRM_PASSWORD_KEY ?>"
-                    value="<?= e($createConfirmPassword) ?>"
                     required
                 />
                 <div class="<?= PageConstants::MESSAGE_WRAPPER_CLASS ?>">

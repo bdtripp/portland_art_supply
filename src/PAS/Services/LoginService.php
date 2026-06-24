@@ -62,6 +62,7 @@ class LoginService
             $returnToUrl = PageConstants::HOME_PAGE;
         }
 
+        $this->sessionService->regenerate();
         $this->sessionService->setUser($user->id, $username);
         $this->sessionService->restore($this->cartService);
         $this->sessionService->redirect($returnToUrl);

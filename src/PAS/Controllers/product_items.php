@@ -83,10 +83,10 @@ $productItems = $productRepository->getItemsByGroupId($groupId);
 
     <title>PAS | <?= e($groupCode) ?></title>
 
-    <link href="css/reset.css.php" rel="stylesheet">
-    <link href="css/grid.css.php" rel="stylesheet">
-    <link href="css/collapsable_menu.css.php" rel="stylesheet">
-    <link href="css/main.css.php" rel="stylesheet">
+    <link href="css/reset.css" rel="stylesheet">
+    <link href="css/grid.css" rel="stylesheet">
+    <link href="css/collapsable_menu.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
     <script type="text/javascript">
         const CSRF_TOKEN = <?= json_encode($csrfService->getToken()) ?>;

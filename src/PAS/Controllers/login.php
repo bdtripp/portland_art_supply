@@ -57,8 +57,8 @@ if (!$login_pressed) {
             content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>PAS | Login</title>
-        <link href="css/reset.css.php" rel="stylesheet">
-        <link href="css/login.css.php" rel="stylesheet">
+        <link href="css/reset.css" rel="stylesheet">
+        <link href="css/login.css" rel="stylesheet">
         <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
     </head>
     <body>
@@ -92,7 +92,6 @@ if (!$login_pressed) {
                 <input
                     id="<?= LoginConstants::LOGIN_PASSWORD_KEY ?>"
                     type="password" name="<?= LoginConstants::LOGIN_PASSWORD_KEY ?>"
-                    value="<?= e($login_password) ?>"
                     required
                 />
                 <div class="<?= PageConstants::MESSAGE_WRAPPER_CLASS ?>">

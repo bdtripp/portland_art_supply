@@ -121,4 +121,9 @@ final class SessionService
         header('Location: ' . $url);
         exit;
     }
+
+    public function regenerate(): void
+    {
+        session_regenerate_id(true);
+    }
 }
