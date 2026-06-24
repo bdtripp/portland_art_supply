@@ -535,6 +535,13 @@ html body main section#cart_items p#total_display {
   margin: 50px 0 20px 0;
   font-size: 1.5rem;
 }
+html body main section#cart_items p.checkout-disabled-note {
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 0.5rem;
+  line-height: 1.4;
+  margin-bottom: 40px;
+}
 html body main section#cart_items input#checkout_button {
   padding: 14px 20px;
   font-size: 1.3em;
