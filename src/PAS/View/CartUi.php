@@ -28,6 +28,7 @@ class CartUi
             echo '        </div>' . "\n";
             echo '        <p id="' . PageConstants::TOTAL_DISPLAY_ID . '">Total: <span class="' . PageConstants::PRICE_DISPLAY_CLASS . '">$' . number_format($this->cartService->getCartTotal(), 2) . '</span></p>' . "\n";
             echo '        <input id="' . PageConstants::CHECKOUT_BUTTON_ID . '" type="button" value="Checkout">' . "\n";
+            echo '        <p class="checkout-disabled-note">Checkout disabled.<br>This is a demo project.</p>' . "\n";
         } else {
             echo '        <p id="' . PageConstants::EMPTY_CART_MESSAGE . '">There are no items currently in the cart</p>' . "\n";
         }
