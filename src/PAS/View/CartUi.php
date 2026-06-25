@@ -30,7 +30,7 @@ class CartUi
             echo '        <input id="' . PageConstants::CHECKOUT_BUTTON_ID . '" type="button" value="Checkout">' . "\n";
             echo '        <p class="checkout-disabled-note">Checkout disabled.<br>This is a demo project.</p>' . "\n";
         } else {
-            echo '        <p id="' . PageConstants::EMPTY_CART_MESSAGE . '">There are no items currently in the cart</p>' . "\n";
+            echo '        <p id="' . PageConstants::EMPTY_CART_MESSAGE_ID . '">There are no items currently in the cart</p>' . "\n";
         }
         echo '    </section>' . "\n";
         echo '</main>' . "\n\n";

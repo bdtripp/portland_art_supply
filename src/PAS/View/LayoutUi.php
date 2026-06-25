@@ -36,8 +36,8 @@ class LayoutUi
 
         echo '<header>' . "\n\n";
         echo '    <!-- collapsable menu -->';
-        echo '    <input class="' . PageConstants::MENU_BUTTON_CLASS . '" type="checkbox"' . ' ' . 'id="' . PageConstants::MENU_BUTTON_CLASS . '" />'  . "\n";
-        echo '    <label class="' . PageConstants::MENU_ICON_CLASS . '" for="' . PageConstants::MENU_BUTTON_CLASS . '"><span class="' .
+        echo '    <input class="' . PageConstants::MENU_BUTTON_CLASS . '" type="checkbox"' . ' ' . 'id="' . PageConstants::MENU_BUTTON_ID . '" />'  . "\n";
+        echo '    <label class="' . PageConstants::MENU_ICON_CLASS . '" for="' . PageConstants::MENU_BUTTON_ID . '"><span class="' .
             PageConstants::NAVIGATION_ICON_CLASS . '"></span></label>' . "\n\n";
         echo '    <h1 id="' . PageConstants::WRAP_PAS . '">Portland<br>Art Supply</h1>' . "\n\n";
         echo '    <h1 id="' . PageConstants::NO_WRAP_PAS . '">Portland Art Supply</h1>' . "\n\n";

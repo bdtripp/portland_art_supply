@@ -7,7 +7,7 @@ namespace PAS\Config;
 /**
  * UI‑related constants used throughout the PAS frontend.
  *
- * Includes page routes, titles, element IDs, CSS classes, image names,
+ * Includes page routes and titles, folders, image names and alt text, HTML IDs, CSS classes,
  * and social media URLs.
  */
 class PageConstants
@@ -58,7 +58,7 @@ class PageConstants
     public const PINTEREST_ICON_ALT = 'Pinterest Icon';
 
     /*
-    * IDs
+    * HTML IDs
     */
 
     public const PRODUCT_ITEM_IMAGE_ID = 'product_item_image';
@@ -90,7 +90,6 @@ class PageConstants
     public const USERNAME_INPUT_ID = 'username_input';
     public const PASSWORD_INPUT_ID = 'password_input';
     public const CONFIRM_PASSWORD_INPUT_ID = 'confirm_password_input';
-    public const LINKS_CLASS = 'links';
     public const ERROR_MESSAGE_CONTAINER = 'error_message_container';
     public const COLOR_THUMBNAILS_WRAPPER_ID = 'color_thumbnails_wrapper';
     public const DROP_DOWN_WRAPPER_ID = 'drop_down_wrapper';
@@ -98,8 +97,7 @@ class PageConstants
     public const ABOUT_IMAGE_DIV_ID = 'about_images';
     public const ABOUT_SECTION_ID = 'about';
     public const COLOR_THUMBNAILS_DIV_ID = 'color_thumbnails';
-    public const EMPTY_CART_MESSAGE = 'empty_cart_message';
-    public const CARD_CLASS = 'card';
+    public const EMPTY_CART_MESSAGE_ID = 'empty_cart_message';
     public const X_ID = 'x';
     public const FACEBOOK_ID = 'facebook';
     public const INSTAGRAM_ID = 'instagram';
@@ -111,29 +109,22 @@ class PageConstants
     public const SPECIAL_CHAR_REQUIREMENT_ID = "special_char_requirement";
     public const LENGTH_REQUIREMENT_ID = "length_requirement";
     public const LOGIN_BUTTON_ID = "login_btn";
+    public const MENU_BUTTON_ID = 'menu_button';
+    public const CART_ITEMS_WRAPPER_ID = "cart_items_wrapper";
 
 
     /*
-    * Classes
+    * CSS Classes
     */
-
-    public const SUB_INTRO_CLASS = 'sub_intro';
-    public const SUBCATEGORIES_CLASS = 'sub_cats';
     public const MENU_CLASS = 'menu';
     public const MENU_BUTTON_CLASS = 'menu-btn';
     public const MENU_ICON_CLASS = 'menu-icon';
     public const NAVIGATION_ICON_CLASS = 'navicon';
     public const ACTIVE_CLASS = 'active';
     public const CLEAR_FLOAT_CLASS = 'clearfloat';
-    public const TWO_COLUMNS_CLASS = 'two columns';
-    public const THREE_COLUMNS_CLASS = 'three columns';
     public const FOUR_COLUMNS_CLASS = 'four columns';
     public const FIVE_COLUMNS_CLASS = 'five columns';
-    public const SIX_COLUMNS_CLASS = 'six columns';
     public const SEVEN_COLUMNS_CLASS = 'seven columns';
-    public const EIGHT_COLUMNS_CLASS = 'eight columns';
-    public const NINE_COLUMNS_CLASS = 'nine columns';
-    public const TEN_COLUMNS_CLASS = "ten columns";
     public const HOURS_CLASS = 'hours';
     public const ADDRESS_CLASS = 'address';
     public const SOCIAL_CLASS = 'social';
@@ -143,7 +134,7 @@ class PageConstants
     public const LARGE_IMAGE_CLASS = 'lg_image';
     public const HEADER_LINKS_CLASS = 'header_links';
     public const DARK_BACKGROUND_CLASS = 'dark_background';
-    public const CART_ITEMS_WRAPPER_ID = "cart_items_wrapper";
+
     public const CART_ITEM_CLASS = 'cart_item';
     public const SUBTOTAL_DISPLAY_CLASS = 'subtotal_display';
     public const GROUP_DESCRIPTION_TEXT_CLASS = "group_description_text";
@@ -169,6 +160,8 @@ class PageConstants
     public const PASSWORD_SECTION_CLASS = "password_section";
     public const ERROR_SYMBOL_CLASS = "error_symbol";
     public const MESSAGE_WRAPPER_CLASS = "message_wrapper";
+    public const LINKS_CLASS = 'links';
+    public const CARD_CLASS = 'card';
 
     /*
     * Social Media Sites
