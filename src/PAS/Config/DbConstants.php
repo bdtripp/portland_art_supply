@@ -1,16 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
+namespace PAS\Config;
+
 /**
  * Centralized database schema constants.
  *
  * This class defines the table names and column identifiers used throughout
  * the application.
  */
-
-declare(strict_types=1);
-
-namespace PAS\Config;
-
 class DbConstants
 {
     /*

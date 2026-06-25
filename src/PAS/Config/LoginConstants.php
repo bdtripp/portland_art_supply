@@ -1,16 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
+namespace PAS\Config;
+
 /**
  * Constants used by the login and account‑creation workflows.
  *
  * These values include request keys, password requirements, and both
  * server‑side and client‑side validation error messages.
  */
-
-declare(strict_types=1);
-
-namespace PAS\Config;
-
 class LoginConstants
 {
     /*

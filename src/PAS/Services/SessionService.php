@@ -6,7 +6,7 @@ namespace PAS\Services;
 
 use JsonException;
 use PAS\Repositories\AccountDataRepository;
-use PAS\Config\PageConstants;
+use PAS\Config\SessionConstants;
 use PAS\Config\DbConstants;
 use PAS\Services\CartService;
 
@@ -47,18 +47,18 @@ final class SessionService
     }
     public function setUser(int $id, string $username): void
     {
-        self::set(PageConstants::SESSION_USER_ID_KEY, $id);
-        self::set(PageConstants::SESSION_USERNAME_KEY, $username);
+        self::set(SessionConstants::USER_ID_KEY, $id);
+        self::set(SessionConstants::USERNAME_KEY, $username);
     }
 
     public function setReturnToUrl(string $url): void
     {
-        self::set(PageConstants::SESSION_RETURN_TO_URL, $url);
+        self::set(SessionConstants::RETURN_TO_URL_KEY, $url);
     }
 
     public function getReturnToUrl(): ?string
     {
-        return self::get(PageConstants::SESSION_RETURN_TO_URL);
+        return self::get(SessionConstants::RETURN_TO_URL_KEY);
     }
 
     /**
@@ -78,7 +78,7 @@ final class SessionService
      */
     public function save(array $payload): void
     {
-        $userId = self::get(PageConstants::SESSION_USER_ID_KEY);
+        $userId = self::get(SessionConstants::USER_ID_KEY);
         if ($userId === null) {
             return;
         }
@@ -93,7 +93,7 @@ final class SessionService
 
     public function restore(CartService $cartService): void
     {
-        $userId = self::get(PageConstants::SESSION_USER_ID_KEY);
+        $userId = self::get(SessionConstants::USER_ID_KEY);
         if ($userId === null) {
             return;
         }
