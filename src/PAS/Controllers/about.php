@@ -59,8 +59,8 @@ $layoutUi = new LayoutUi($db, $cartService, $sessionService, $navigationHelper);
         <div id="<?= PageConstants::ABOUT_TEXT_ID ?>" class="<?= PageConstants::SEVEN_COLUMNS_CLASS ?>">
             <p>
                 Portland Art Supply (PAS) was founded in 1975. Having its roots in the Northwest District of downtown
-                Portland as a small retailer of craft supplies, PAS has grown to becoming one of the Northwest'
-                largets art retailers.
+                Portland as a small retailer of craft supplies, PAS has grown to become one of the Northwest's
+                largest art retailers.
             </p><br>
 
             <p>
@@ -71,7 +71,7 @@ $layoutUi = new LayoutUi($db, $cartService, $sessionService, $navigationHelper);
             </p><br>
 
             <p>
-                In the 1980s PAS saw a huge growth in sells and decided that it was time to make a move to
+                In the 1980s PAS saw a huge growth in sales and decided that it was time to make a move to
                 a larger location. PAS was relocated to the nearby suburb of Beaverton, Oregon. The larger space
                 allowed the store to supply a much larger variety of brands than ever before.
             </p><br>
@@ -85,10 +85,10 @@ $layoutUi = new LayoutUi($db, $cartService, $sessionService, $navigationHelper);
             <p>
                 PAS continues to seek ways that it can continue to meet the demands and interests of an increasingly
                 diversified customer base, staying true to its roots while at the same time allowing for expansion
-                when it proves to be beneficial to it's customers.
+                when it proves to be beneficial to its customers.
             </p><br>
 
-            <p>We hope to continue to provide artist's with the products that they love for many years to come!</p>
+            <p>We hope to continue to provide artists with the products that they love for many years to come!</p>
         </div>
         <div id="<?= PageConstants::ABOUT_IMAGE_DIV_ID ?>" class="<?= PageConstants::FIVE_COLUMNS_CLASS ?>">
             <img src="images/about1.jpg" alt="An artist drawing plants in a notebook">
