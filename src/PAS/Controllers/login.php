@@ -13,15 +13,18 @@ use PAS\Repositories\AccountDataRepository;
 use PAS\Support\RequestHelper;
 use PAS\Services\CartService;
 
-$requestHelper = new RequestHelper();
-$errorStatus = new stdClass();
+$loginErrors = null;
+
 $db = new Database();
-$userRepo = new UserRepository($db);
-$accountDataRepo = new AccountDataRepository($db);
-$sessionService = new SessionService($accountDataRepo);
+$userRepository = new UserRepository($db);
+$accountDataRepository = new AccountDataRepository($db);
+
+$sessionService = new SessionService($accountDataRepository);
 $cartService = new CartService($sessionService);
-$loginService = new LoginService($userRepo, $sessionService, $cartService);
+$loginService = new LoginService($userRepository, $sessionService, $cartService);
 $csrfService = new CsrfService($sessionService);
+
+$requestHelper = new RequestHelper();
 
 $login_username = $requestHelper->getPostString(LoginConstants::LOGIN_USERNAME_KEY);
 $login_password = $requestHelper->getPostString(LoginConstants::LOGIN_PASSWORD_KEY);
@@ -34,9 +37,8 @@ if (!$login_pressed) {
 } else {
     $csrfService->guard($requestHelper);
 
-    $errorStatus = $loginService->login($login_username, $login_password);
+    $loginErrors = $loginService->login($login_username, $login_password);
 }
-
 ?>
 
 <!doctype html>
@@ -80,10 +82,10 @@ if (!$login_pressed) {
                 />
                 <div class="<?= PageConstants::MESSAGE_WRAPPER_CLASS ?>">
                     <span class="<?= PageConstants::ERROR_SYMBOL_CLASS ?>">
-                        <?= isset($errorStatus->usernameError) ? $loginService->showErrorSymbol() : '' ?>
+                        <?= isset($loginErrors->usernameError) ? $loginService->showErrorSymbol() : '' ?>
                     </span>
                     <span id="<?= PageConstants::USERNAME_MESSAGE_ID ?>" class="<?= PageConstants::MESSAGE_CLASS ?>">
-                        <?= isset($errorStatus->usernameError) ? e($errorStatus->usernameError) : '' ?>
+                        <?= isset($loginErrors->usernameError) ? e($loginErrors->usernameError) : '' ?>
                     </span>
                 </div>
             </section>
@@ -96,10 +98,10 @@ if (!$login_pressed) {
                 />
                 <div class="<?= PageConstants::MESSAGE_WRAPPER_CLASS ?>">
                     <span class="<?= PageConstants::ERROR_SYMBOL_CLASS ?>">
-                        <?= isset($errorStatus->passwordError) ? $loginService->showErrorSymbol() : '' ?>
+                        <?= isset($loginErrors->passwordError) ? $loginService->showErrorSymbol() : '' ?>
                     </span>
                     <span id="<?= PageConstants::PASSWORD_MESSAGE_ID ?>" class="<?= PageConstants::MESSAGE_CLASS ?>">
-                        <?= isset($errorStatus->passwordError) ? e($errorStatus->passwordError) : '' ?>
+                        <?= isset($loginErrors->passwordError) ? e($loginErrors->passwordError) : '' ?>
                     </span>
                 </div>
             </section>

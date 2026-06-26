@@ -14,16 +14,20 @@ use PAS\Support\NavigationHelper;
 
 $categoryName = urldecode($_GET[DbConstants::PRODUCT_CATEGORY_NAME_FIELD]);
 $subcategoryName = urldecode($_GET[DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD]);
+
 $db = new Database();
-$accountRepo = new AccountDataRepository($db);
-$sessionService = new SessionService($accountRepo);
-$cartService = new CartService($sessionService);
-$requestHelper = new RequestHelper();
-$navigationHelper = new NavigationHelper($requestHelper);
-$layoutUi = new LayoutUi($db, $cartService, $sessionService, $navigationHelper);
-$productUi = new ProductUi();
+$accountRepository = new AccountDataRepository($db);
 $productRepository = new ProductRepository($db);
 $products = $productRepository->getProductGroups($categoryName, $subcategoryName);
+
+$sessionService = new SessionService($accountRepository);
+$cartService = new CartService($sessionService);
+
+$requestHelper = new RequestHelper();
+$navigationHelper = new NavigationHelper($requestHelper);
+
+$layoutUi = new LayoutUi($db, $cartService, $sessionService, $navigationHelper);
+$productUi = new ProductUi();
 ?>
 
 <!doctype html>

@@ -15,21 +15,24 @@ use PAS\Support\RequestHelper;
 use PAS\Support\NavigationHelper;
 
 $db = new Database();
-$accountRepo = new AccountDataRepository($db);
-$sessionService = new SessionService($accountRepo);
-$cartService = new CartService($sessionService);
-$requestHelper = new RequestHelper();
-$navigationHelper = new NavigationHelper($requestHelper);
-$layoutUi = new LayoutUi($db, $cartService, $sessionService, $navigationHelper);
-$productUi = new ProductUi();
+$accountRepository = new AccountDataRepository($db);
 $productRepository = new ProductRepository($db);
+
+$sessionService = new SessionService($accountRepository);
+$cartService = new CartService($sessionService);
 $csrfService = new CsrfService($sessionService);
 
+$requestHelper = new RequestHelper();
+$navigationHelper = new NavigationHelper($requestHelper);
+
+$layoutUi = new LayoutUi($db, $cartService, $sessionService, $navigationHelper);
+$productUi = new ProductUi();
+
 $id = $requestHelper->getPostInt(DbConstants::PRODUCT_ITEM_ID_FIELD);
-$groupDescription = $requestHelper->getPostString(DbConstants::PRODUCT_GROUP_DESCRIPTION_FIELD);
 $category = $requestHelper->getPostString(DbConstants::PRODUCT_CATEGORY_NAME_FIELD);
 $subcategory = $requestHelper->getPostString(DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD);
 $groupCode = $requestHelper->getPostString(DbConstants::PRODUCT_GROUP_CODE_FIELD);
+$groupDescription = $requestHelper->getPostString(DbConstants::PRODUCT_GROUP_DESCRIPTION_FIELD);
 $color = $requestHelper->getPostString(DbConstants::PRODUCT_COLOR_NAME_FIELD);
 $size = $requestHelper->getPostString(DbConstants::PRODUCT_SIZE_DESCRIPTION_FIELD);
 $price = $requestHelper->getPostFloat(DbConstants::PRODUCT_ITEM_PRICE_FIELD);
@@ -61,7 +64,6 @@ if ($productGroup === null) {
     die('Invalid product group');
 }
 $productItems = $productRepository->getItemsByGroupId($groupId);
-
 ?>
 
 <!doctype html>

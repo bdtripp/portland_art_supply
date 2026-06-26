@@ -11,12 +11,16 @@ use PAS\Support\NavigationHelper;
 use PAS\View\LayoutUi;
 
 $activePage = PageConstants::ABOUT_PAGE_TITLE;
+
 $db = new Database();
 $accountRepo = new AccountDataRepository($db);
+
 $sessionService = new SessionService($accountRepo);
 $cartService = new CartService($sessionService);
+
 $requestHelper = new RequestHelper();
 $navigationHelper = new NavigationHelper($requestHelper);
+
 $layoutUi = new LayoutUi($db, $cartService, $sessionService, $navigationHelper);
 ?>
 

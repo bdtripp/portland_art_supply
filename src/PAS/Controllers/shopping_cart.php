@@ -4,7 +4,6 @@ require_once __DIR__ . '/../../../config.php';
 use PAS\View\LayoutUi;
 use PAS\View\CartUi;
 use PAS\Config\PageConstants;
-use PAS\Config\DbConstants;
 use PAS\Config\CartConstants;
 use PAS\Services\CartService;
 use PAS\Infrastructure\Database;
@@ -16,18 +15,21 @@ use PAS\Support\NavigationHelper;
 
 $db = new Database();
 $accountRepo = new AccountDataRepository($db);
+
 $sessionService = new SessionService($accountRepo);
 $cartService = new CartService($sessionService);
-$requestHelper = new RequestHelper();
-$navigationHelper = new NavigationHelper($requestHelper);
-$layoutUi = new LayoutUi($db, $cartService, $sessionService, $navigationHelper);
-$cartUi = new CartUi($cartService);
 $csrfService = new CsrfService($sessionService);
 
-$buttonClickedID = $requestHelper->getPostInt("buttonID");
-$newQuantity = $requestHelper->getPostInt("quantity");
+$requestHelper = new RequestHelper();
+$navigationHelper = new NavigationHelper($requestHelper);
+
+$layoutUi = new LayoutUi($db, $cartService, $sessionService, $navigationHelper);
+$cartUi = new CartUi($cartService);
+
+$buttonClickedID = $requestHelper->getPostInt(CartConstants::BUTTON_ID_KEY);
+$newQuantity = $requestHelper->getPostInt(CartConstants::QUANTITY_KEY);
 // id of the item that the quantity is being changed for
-$idOfItemChanged = $requestHelper->getPostInt("idOfItemChanged");
+$changedItemID = $requestHelper->getPostInt(CartConstants::CHANGED_ITEM_ID_KEY);
 
 if (!empty($buttonClickedID) || !empty($newQuantity)) {
     $csrfService->guard($requestHelper);
@@ -39,10 +41,11 @@ if (!empty($buttonClickedID)) {
     header("Location: $uri");
     exit();
 }
-if (!empty($newQuantity) && !empty($idOfItemChanged)) {
+
+if (!empty($newQuantity) && !empty($changedItemID)) {
     $responseData = [
-        CartConstants::QUANTITY_KEY => $cartService->updateQuantityInSession($newQuantity, $idOfItemChanged),
-        CartConstants::SUBTOTAL_KEY => $cartService->getItemSubtotal($idOfItemChanged),
+        CartConstants::QUANTITY_KEY => $cartService->updateQuantityInSession($newQuantity, $changedItemID),
+        CartConstants::SUBTOTAL_KEY => $cartService->getItemSubtotal($changedItemID),
         CartConstants::TOTAL_KEY => $cartService->getCartTotal()
     ];
     echo json_encode($responseData);
@@ -50,7 +53,6 @@ if (!empty($newQuantity) && !empty($idOfItemChanged)) {
 }
 
 $activePage = PageConstants::SHOPPING_CART_PAGE_TITLE;
-
 ?>
 
 <!doctype html>

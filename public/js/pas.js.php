@@ -534,7 +534,7 @@ function onCartPageQuantityChanged(dropDownID, itemID) {
     let xhttp = new XMLHttpRequest();
     let sendString =
         "quantity=" + encodeURIComponent(selected) +
-        "&idOfItemChanged=" + encodeURIComponent(itemID) +
+        "&changedItemID=" + encodeURIComponent(itemID) +
         "&" + CSRF_TOKEN_KEY + "=" + encodeURIComponent(CSRF_TOKEN);
 
     xhttp.onreadystatechange = function() {
