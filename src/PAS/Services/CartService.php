@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace PAS\Services;
 
 use PAS\Models\CartItem;
-use PAS\Config\PageConstants;
+use PAS\Config\SessionConstants;
 
 class CartService
 {
@@ -19,7 +19,7 @@ class CartService
      */
     public function getCart(): array
     {
-        $items = $this->sessionService->get(PageConstants::SESSION_CART_KEY);
+        $items = $this->sessionService->get(SessionConstants::CART_KEY);
 
         if (!is_array($items)) {
             return [];
@@ -35,7 +35,7 @@ class CartService
      */
     public function setCart(array $items): void
     {
-        $this->sessionService->set(PageConstants::SESSION_CART_KEY, $items);
+        $this->sessionService->set(SessionConstants::CART_KEY, $items);
     }
 
     /**
