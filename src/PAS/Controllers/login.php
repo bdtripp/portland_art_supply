@@ -16,6 +16,7 @@ use PAS\Services\CartService;
 $loginErrors = null;
 
 $db = new Database();
+
 $userRepository = new UserRepository($db);
 $accountDataRepository = new AccountDataRepository($db);
 
@@ -44,32 +45,26 @@ if (!$login_pressed) {
 <!doctype html>
 <html lang="en">
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PAS | Login</title>
+        <link href="css/reset.css" rel="stylesheet">
+        <link href="css/login.css" rel="stylesheet">
+        <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135450898-2"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-
             gtag('config', 'UA-135450898-2');
         </script>
-
-        <meta charset="UTF-8">
-        <meta name="viewport"
-            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>PAS | Login</title>
-        <link href="css/reset.css" rel="stylesheet">
-        <link href="css/login.css" rel="stylesheet">
-        <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
     </head>
     <body>
         <form method="POST" action="login.php">
-
             <input type="hidden"
                 name="<?= SecurityConstants::CSRF_TOKEN_KEY ?>"
                 value="<?= e($csrfService->getToken()) ?>">
-
             <h2>Log In</h2>
             <section>
                 <label for="<?= LoginConstants::LOGIN_USERNAME_KEY ?>">Username:</label>

@@ -16,6 +16,7 @@ use PAS\Support\RequestHelper;
 $registrationErrors = null;
 
 $db = new Database();
+
 $userRepository = new UserRepository($db);
 $accountDataRepository = new AccountDataRepository($db);
 
@@ -40,34 +41,27 @@ if ($createPressed) {
 <!doctype html>
 <html lang="en">
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PAS | Create Account</title>
+        <link href="css/reset.css" rel="stylesheet">
+        <link href="css/login.css" rel="stylesheet">
+        <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135450898-2"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-
             gtag('config', 'UA-135450898-2');
         </script>
-
-        <meta charset="UTF-8">
-        <meta name="viewport"
-            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>PAS | Create Account</title>
-        <link href="css/reset.css" rel="stylesheet">
-        <link href="css/login.css" rel="stylesheet">
-        <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
         <script src="js/create_account.js.php"></script>
-
     </head>
     <body>
         <form method="POST" action="create_account.php" onsubmit="return checkIfValid();">
-
             <input type="hidden"
                     name="<?= SecurityConstants::CSRF_TOKEN_KEY ?>"
                     value="<?= e($csrfService->getToken()) ?>">
-
             <h2>Create an Account</h2>
             <section>
                 <label for="<?= PageConstants::USERNAME_INPUT_ID ?>">Username:</label>
