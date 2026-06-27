@@ -3,6 +3,7 @@ header('Content-Type: text/javascript');
 
 require_once __DIR__ . '/../../config.php';
 use PAS\Config\DbConstants;
+use PAS\Config\CartConstants;
 use PAS\Config\PageConstants;
 use PAS\Config\SecurityConstants;
 
@@ -22,9 +23,9 @@ var CART_COUNT_DISPLAY_ID = '<?php echo PageConstants::CART_COUNT_DISPLAY_ID; ?>
 var SUBTOTAL_DISPLAY_CLASS = '<?php echo PageConstants::SUBTOTAL_DISPLAY_CLASS; ?>'
 var TOTAL_DISPLAY_ID = '<?php echo PageConstants::TOTAL_DISPLAY_ID; ?>';
 var IMAGE_FOLDER = '<?php echo PageConstants::IMAGE_FOLDER?>';
-var QUANTITY_FIELD = '<?php echo DbConstants::QUANTITY_FIELD; ?>';
-var SUBTOTAL_FIELD = '<?php echo DbConstants::SUBTOTAL_FIELD; ?>';
-var TOTAL_FIELD = '<?php echo DbConstants::TOTAL_FIELD; ?>';
+var QUANTITY_FIELD = '<?php echo CartConstants::QUANTITY_KEY; ?>';
+var SUBTOTAL_FIELD = '<?php echo CartConstants::SUBTOTAL_KEY; ?>';
+var TOTAL_FIELD = '<?php echo CartConstants::TOTAL_KEY; ?>';
 var ITEM_DETAILS_DIV = '<?php echo PageConstants::ITEM_DETAILS_DIV; ?>';
 var ITEM_OPTIONS_DIV = '<?php echo PageConstants::ITEM_OPTIONS_DIV; ?>';
 var PRICE_DISPLAY_CLASS = '<?php echo PageConstants::PRICE_DISPLAY_CLASS; ?>';
@@ -533,7 +534,7 @@ function onCartPageQuantityChanged(dropDownID, itemID) {
     let xhttp = new XMLHttpRequest();
     let sendString =
         "quantity=" + encodeURIComponent(selected) +
-        "&idOfItemChanged=" + encodeURIComponent(itemID) +
+        "&changedItemID=" + encodeURIComponent(itemID) +
         "&" + CSRF_TOKEN_KEY + "=" + encodeURIComponent(CSRF_TOKEN);
 
     xhttp.onreadystatechange = function() {

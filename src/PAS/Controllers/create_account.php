@@ -13,15 +13,19 @@ use PAS\Repositories\UserRepository;
 use PAS\Repositories\AccountDataRepository;
 use PAS\Support\RequestHelper;
 
-$requestHelper = new RequestHelper();
-$errorStatus = new stdClass();
+$registrationErrors = null;
+
 $db = new Database();
-$userRepo = new UserRepository($db);
-$accountDataRepo = new AccountDataRepository($db);
-$sessionService = new SessionService($accountDataRepo);
+
+$userRepository = new UserRepository($db);
+$accountDataRepository = new AccountDataRepository($db);
+
+$sessionService = new SessionService($accountDataRepository);
 $cartService = new CartService($sessionService);
-$loginService = new LoginService($userRepo, $sessionService, $cartService);
+$loginService = new LoginService($userRepository, $sessionService, $cartService);
 $csrfService = new CsrfService($sessionService);
+
+$requestHelper = new RequestHelper();
 
 $createUsername = $requestHelper->getPostString(LoginConstants::CREATE_USERNAME_KEY);
 $createPassword = $requestHelper->getPostString(LoginConstants::CREATE_PASSWORD_KEY);
@@ -30,42 +34,34 @@ $createPressed = $requestHelper->isKeySet(LoginConstants::CREATE_ACCOUNT_BUTTON_
 
 if ($createPressed) {
     $csrfService->guard($requestHelper);
-    $errorStatus = $loginService->register($createUsername, $createPassword, $createConfirmPassword);
+    $registrationErrors = $loginService->register($createUsername, $createPassword, $createConfirmPassword);
 }
-
 ?>
 
 <!doctype html>
 <html lang="en">
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PAS | Create Account</title>
+        <link href="css/reset.css" rel="stylesheet">
+        <link href="css/login.css" rel="stylesheet">
+        <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135450898-2"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-
             gtag('config', 'UA-135450898-2');
         </script>
-
-        <meta charset="UTF-8">
-        <meta name="viewport"
-            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>PAS | Create Account</title>
-        <link href="css/reset.css" rel="stylesheet">
-        <link href="css/login.css" rel="stylesheet">
-        <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
         <script src="js/create_account.js.php"></script>
-
     </head>
     <body>
         <form method="POST" action="create_account.php" onsubmit="return checkIfValid();">
-
             <input type="hidden"
                     name="<?= SecurityConstants::CSRF_TOKEN_KEY ?>"
                     value="<?= e($csrfService->getToken()) ?>">
-
             <h2>Create an Account</h2>
             <section>
                 <label for="<?= PageConstants::USERNAME_INPUT_ID ?>">Username:</label>
@@ -78,10 +74,10 @@ if ($createPressed) {
                 />
                 <div class="<?= PageConstants::MESSAGE_WRAPPER_CLASS ?>">
                     <span class="<?= PageConstants::ERROR_SYMBOL_CLASS ?>">
-                        <?= isset($errorStatus->usernameError) ? $loginService->showErrorSymbol() : '' ?>
+                        <?= isset($registrationErrors->usernameError) ? $loginService->showErrorSymbol() : '' ?>
                     </span>
                     <span id="<?= PageConstants::USERNAME_MESSAGE_ID ?>" class="<?= PageConstants::MESSAGE_CLASS ?>">
-                        <?= isset($errorStatus->usernameError) ? e($errorStatus->usernameError) : '' ?>
+                        <?= isset($registrationErrors->usernameError) ? e($registrationErrors->usernameError) : '' ?>
                     </span>
                 </div>
             </section>
@@ -95,10 +91,10 @@ if ($createPressed) {
                     />
                     <div class="<?= PageConstants::MESSAGE_WRAPPER_CLASS ?>">
                         <span class="<?= PageConstants::ERROR_SYMBOL_CLASS ?>">
-                            <?= isset($errorStatus->passwordError) ? $loginService->showErrorSymbol() : '' ?>
+                            <?= isset($registrationErrors->passwordError) ? $loginService->showErrorSymbol() : '' ?>
                         </span>
                         <span id="<?= PageConstants::PASSWORD_MESSAGE_ID ?>" class="<?= PageConstants::MESSAGE_CLASS ?>">
-                            <?= isset($errorStatus->passwordError) ? e($errorStatus->passwordError) : '' ?>
+                            <?= isset($registrationErrors->passwordError) ? e($registrationErrors->passwordError) : '' ?>
                         </span>
                     </div>
                 </div>
@@ -122,10 +118,10 @@ if ($createPressed) {
                 />
                 <div class="<?= PageConstants::MESSAGE_WRAPPER_CLASS ?>">
                     <span class="<?= PageConstants::ERROR_SYMBOL_CLASS ?>">
-                        <?= isset($errorStatus->confirmPassError) ? $loginService->showErrorSymbol() : '' ?>
+                        <?= isset($registrationErrors->confirmPassError) ? $loginService->showErrorSymbol() : '' ?>
                     </span>
                     <span id="<?= PageConstants::CONFIRM_PASSWORD_MESSAGE_ID ?>" class="<?= PageConstants::MESSAGE_CLASS ?>">
-                        <?= isset($errorStatus->confirmPassError) ? e($errorStatus->confirmPassError) : '' ?>
+                        <?= isset($registrationErrors->confirmPassError) ? e($registrationErrors->confirmPassError) : '' ?>
                     </span>
                 </div>
            </section>

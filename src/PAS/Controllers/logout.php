@@ -9,9 +9,11 @@ use PAS\Config\PageConstants;
 use PAS\Config\SecurityConstants;
 
 $db = new Database();
-$accountDataRepo = new AccountDataRepository($db);
-$sessionService = new SessionService($accountDataRepo);
+$accountDataRepository = new AccountDataRepository($db);
+
+$sessionService = new SessionService($accountDataRepository);
 $sessionService->destroy();
+
 $returnToUrl = $_SERVER['HTTP_REFERER'] ?? PageConstants::HOME_PAGE;
 
 foreach (SecurityConstants::ALLOWED_BASE_URLS as $base) {

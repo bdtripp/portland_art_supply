@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Application entry point and front controller.
+ *
+ * All HTTP requests enter the system through this file. It resolves the
+ * request path and dispatches execution to the appropriate handler. The
+ * routing logic is intentionally simple and will evolve into a dedicated
+ * Router and Controller layer as the architecture matures.
+ */
+
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../helpers.php';
 session_start();
@@ -43,5 +52,5 @@ switch ($uri) {
 
     default:
         http_response_code(404);
-        echo "Page not found";
+        echo 'Page not found';
 }

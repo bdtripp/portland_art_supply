@@ -13,15 +13,19 @@ use PAS\Repositories\AccountDataRepository;
 use PAS\Support\RequestHelper;
 use PAS\Services\CartService;
 
-$requestHelper = new RequestHelper();
-$errorStatus = new stdClass();
+$loginErrors = null;
+
 $db = new Database();
-$userRepo = new UserRepository($db);
-$accountDataRepo = new AccountDataRepository($db);
-$sessionService = new SessionService($accountDataRepo);
+
+$userRepository = new UserRepository($db);
+$accountDataRepository = new AccountDataRepository($db);
+
+$sessionService = new SessionService($accountDataRepository);
 $cartService = new CartService($sessionService);
-$loginService = new LoginService($userRepo, $sessionService, $cartService);
+$loginService = new LoginService($userRepository, $sessionService, $cartService);
 $csrfService = new CsrfService($sessionService);
+
+$requestHelper = new RequestHelper();
 
 $login_username = $requestHelper->getPostString(LoginConstants::LOGIN_USERNAME_KEY);
 $login_password = $requestHelper->getPostString(LoginConstants::LOGIN_PASSWORD_KEY);
@@ -34,40 +38,33 @@ if (!$login_pressed) {
 } else {
     $csrfService->guard($requestHelper);
 
-    $errorStatus = $loginService->login($login_username, $login_password);
+    $loginErrors = $loginService->login($login_username, $login_password);
 }
-
 ?>
 
 <!doctype html>
 <html lang="en">
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PAS | Login</title>
+        <link href="css/reset.css" rel="stylesheet">
+        <link href="css/login.css" rel="stylesheet">
+        <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135450898-2"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-
             gtag('config', 'UA-135450898-2');
         </script>
-
-        <meta charset="UTF-8">
-        <meta name="viewport"
-            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>PAS | Login</title>
-        <link href="css/reset.css" rel="stylesheet">
-        <link href="css/login.css" rel="stylesheet">
-        <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
     </head>
     <body>
         <form method="POST" action="login.php">
-
             <input type="hidden"
                 name="<?= SecurityConstants::CSRF_TOKEN_KEY ?>"
                 value="<?= e($csrfService->getToken()) ?>">
-
             <h2>Log In</h2>
             <section>
                 <label for="<?= LoginConstants::LOGIN_USERNAME_KEY ?>">Username:</label>
@@ -80,10 +77,10 @@ if (!$login_pressed) {
                 />
                 <div class="<?= PageConstants::MESSAGE_WRAPPER_CLASS ?>">
                     <span class="<?= PageConstants::ERROR_SYMBOL_CLASS ?>">
-                        <?= isset($errorStatus->usernameError) ? $loginService->showErrorSymbol() : '' ?>
+                        <?= isset($loginErrors->usernameError) ? $loginService->showErrorSymbol() : '' ?>
                     </span>
                     <span id="<?= PageConstants::USERNAME_MESSAGE_ID ?>" class="<?= PageConstants::MESSAGE_CLASS ?>">
-                        <?= isset($errorStatus->usernameError) ? e($errorStatus->usernameError) : '' ?>
+                        <?= isset($loginErrors->usernameError) ? e($loginErrors->usernameError) : '' ?>
                     </span>
                 </div>
             </section>
@@ -96,10 +93,10 @@ if (!$login_pressed) {
                 />
                 <div class="<?= PageConstants::MESSAGE_WRAPPER_CLASS ?>">
                     <span class="<?= PageConstants::ERROR_SYMBOL_CLASS ?>">
-                        <?= isset($errorStatus->passwordError) ? $loginService->showErrorSymbol() : '' ?>
+                        <?= isset($loginErrors->passwordError) ? $loginService->showErrorSymbol() : '' ?>
                     </span>
                     <span id="<?= PageConstants::PASSWORD_MESSAGE_ID ?>" class="<?= PageConstants::MESSAGE_CLASS ?>">
-                        <?= isset($errorStatus->passwordError) ? e($errorStatus->passwordError) : '' ?>
+                        <?= isset($loginErrors->passwordError) ? e($loginErrors->passwordError) : '' ?>
                     </span>
                 </div>
             </section>
