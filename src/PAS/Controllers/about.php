@@ -14,9 +14,9 @@ $activePage = PageConstants::ABOUT_PAGE_TITLE;
 
 $db = new Database();
 
-$accountRepo = new AccountDataRepository($db);
+$accountRepository = new AccountDataRepository($db);
 
-$sessionService = new SessionService($accountRepo);
+$sessionService = new SessionService($accountRepository);
 $cartService = new CartService($sessionService);
 
 $requestHelper = new RequestHelper();
@@ -46,7 +46,7 @@ $layoutUi = new LayoutUi($db, $cartService, $sessionService, $navigationHelper);
         </script>
         <script src="js/pas.js.php" type="text/javascript"></script>
     </head>
-    <body onload="init();">
+    <body>
         <?php $layoutUi->header($activePage); ?>
         <main>
             <section id="<?= PageConstants::ABOUT_SECTION_ID ?>">

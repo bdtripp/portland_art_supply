@@ -46,7 +46,7 @@ $layoutUi = new LayoutUi($db, $cartService, $sessionService, $navigationHelper);
       </script>
       <script src="js/pas.js.php" type="text/javascript"></script>
   </head>
-  <body onload="init();">
+  <body>
     <?php $layoutUi->header($activePage); ?>
       <main id="home">
         <img src="images/large_paint.png"/>

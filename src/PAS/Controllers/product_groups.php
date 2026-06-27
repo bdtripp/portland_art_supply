@@ -52,7 +52,7 @@ $productUi = new ProductUi();
         </script>
         <script src="js/pas.js.php" type="text/javascript"></script>
     </head>
-    <body onload="init();">
+    <body>
         <?php $layoutUi->header($categoryName); ?>
         <?php $productUi->groupGrid($products); ?>
         <?php $layoutUi->footer(); ?>

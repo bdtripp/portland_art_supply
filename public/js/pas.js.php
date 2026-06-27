@@ -604,3 +604,6 @@ function initDropdowns() {
         }
     });
 }
+
+window.addEventListener("DOMContentLoaded", init);
+

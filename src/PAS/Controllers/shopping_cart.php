@@ -80,7 +80,7 @@ $activePage = PageConstants::SHOPPING_CART_PAGE_TITLE;
         </script>
         <script type="text/javascript" src="js/pas.js.php"></script>
     </head>
-    <body onload="init();">
+    <body>
         <?php $layoutUi->header($activePage); ?>
         <?php $cartUi->shoppingCart(); ?>
         <?php $layoutUi->footer(); ?>
