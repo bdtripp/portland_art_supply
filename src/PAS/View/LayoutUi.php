@@ -2,18 +2,18 @@
 
 namespace PAS\View;
 
-use PAS\Infrastructure\Database;
 use PAS\Services\CartService;
 use PAS\Config\SessionConstants;
 use PAS\Config\PageConstants;
 use PAS\Config\DbConstants;
 use PAS\Services\SessionService;
 use PAS\Support\NavigationHelper;
+use PAS\Repositories\CategoryRepository;
 
 class LayoutUi
 {
     public function __construct(
-        private Database $db,
+        private CategoryRepository $categoryRepository,
         private CartService $cartService,
         private SessionService $sessionService,
         private NavigationHelper $navigationHelper
@@ -68,7 +68,7 @@ class LayoutUi
 
     public function generateNavList(string $activePage): void
     {
-        $categories = $this->db->lookupCategories();
+        $categories = $this->categoryRepository->lookupCategories();
 
         echo '            <li><a ' . $this->navigationHelper->currentPage(PageConstants::HOME_PAGE) . 'Home</a></li>' . "\n";
         foreach ($categories as $category) {
@@ -102,7 +102,7 @@ class LayoutUi
         $categoryID = $category[DbConstants::PRODUCT_CATEGORY_ID_FIELD];
         $rawCategoryName = $category[DbConstants::PRODUCT_CATEGORY_NAME_FIELD];
         $categoryIdSafe = strtolower(preg_replace('/[^a-zA-Z0-9_-]/', '_', $rawCategoryName) ?? '');
-        $subcategories = $this->db->lookupSubcategories($categoryID);
+        $subcategories = $this->categoryRepository->lookupSubcategories($categoryID);
 
         echo '                <ul id="' . $categoryIdSafe . '_menu" class="dropdown">' . "\n";
         foreach ($subcategories as $subcategory) {

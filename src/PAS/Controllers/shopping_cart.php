@@ -7,6 +7,7 @@ use PAS\Config\PageConstants;
 use PAS\Config\CartConstants;
 use PAS\Services\CartService;
 use PAS\Infrastructure\Database;
+use PAS\Repositories\CategoryRepository;
 use PAS\Repositories\AccountDataRepository;
 use PAS\Services\SessionService;
 use PAS\Services\CsrfService;
@@ -16,6 +17,7 @@ use PAS\Support\NavigationHelper;
 $db = new Database();
 
 $accountRepository = new AccountDataRepository($db);
+$categoryRepository = new CategoryRepository($db);
 
 $sessionService = new SessionService($accountRepository);
 $cartService = new CartService($sessionService);
@@ -24,7 +26,7 @@ $csrfService = new CsrfService($sessionService);
 $requestHelper = new RequestHelper();
 $navigationHelper = new NavigationHelper($requestHelper);
 
-$layoutUi = new LayoutUi($db, $cartService, $sessionService, $navigationHelper);
+$layoutUi = new LayoutUi($categoryRepository, $cartService, $sessionService, $navigationHelper);
 $cartUi = new CartUi($cartService);
 
 $buttonClickedID = $requestHelper->getPostInt(CartConstants::BUTTON_ID_KEY);

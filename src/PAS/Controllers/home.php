@@ -3,6 +3,7 @@ require_once __DIR__ . '/../../../config.php';
 
 use PAS\Config\PageConstants;
 use PAS\Repositories\AccountDataRepository;
+use PAS\Repositories\CategoryRepository;
 use PAS\View\LayoutUi;
 use PAS\Infrastructure\Database;
 use PAS\Services\CartService;
@@ -15,6 +16,7 @@ $activePage = PageConstants::HOME_PAGE_TITLE;
 $db = new Database();
 
 $accountRepository = new AccountDataRepository($db);
+$categoryRepository = new CategoryRepository($db);
 
 $sessionService = new SessionService($accountRepository);
 $cartService = new CartService($sessionService);
@@ -22,7 +24,7 @@ $cartService = new CartService($sessionService);
 $requestHelper = new RequestHelper();
 $navigationHelper = new NavigationHelper($requestHelper);
 
-$layoutUi = new LayoutUi($db, $cartService, $sessionService, $navigationHelper);
+$layoutUi = new LayoutUi($categoryRepository, $cartService, $sessionService, $navigationHelper);
 ?>
 
 <!doctype html>

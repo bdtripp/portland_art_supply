@@ -7,6 +7,7 @@ use PAS\Config\CartConstants;
 use PAS\View\LayoutUi;
 use PAS\View\ProductUi;
 use PAS\Services\CartService;
+use PAS\Repositories\CategoryRepository;
 use PAS\Repositories\ProductRepository;
 use PAS\Repositories\AccountDataRepository;
 use PAS\Services\SessionService;
@@ -18,6 +19,7 @@ $db = new Database();
 
 $accountRepository = new AccountDataRepository($db);
 $productRepository = new ProductRepository($db);
+$categoryRepository = new CategoryRepository($db);
 
 $sessionService = new SessionService($accountRepository);
 $cartService = new CartService($sessionService);
@@ -26,7 +28,7 @@ $csrfService = new CsrfService($sessionService);
 $requestHelper = new RequestHelper();
 $navigationHelper = new NavigationHelper($requestHelper);
 
-$layoutUi = new LayoutUi($db, $cartService, $sessionService, $navigationHelper);
+$layoutUi = new LayoutUi($categoryRepository, $cartService, $sessionService, $navigationHelper);
 $productUi = new ProductUi();
 
 $id = $requestHelper->getPostInt(DbConstants::PRODUCT_ITEM_ID_FIELD);

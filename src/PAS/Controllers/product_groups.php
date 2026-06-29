@@ -4,6 +4,7 @@ require_once __DIR__ . '/../../../config.php';
 use PAS\Config\DbConstants;
 use PAS\Repositories\ProductRepository;
 use PAS\Repositories\AccountDataRepository;
+use PAS\Repositories\CategoryRepository;
 use PAS\View\LayoutUi;
 use PAS\View\ProductUi;
 use PAS\Infrastructure\Database;
@@ -19,7 +20,7 @@ $db = new Database();
 
 $accountRepository = new AccountDataRepository($db);
 $productRepository = new ProductRepository($db);
-$products = $productRepository->getProductGroups($categoryName, $subcategoryName);
+$categoryRepository = new CategoryRepository($db);
 
 $sessionService = new SessionService($accountRepository);
 $cartService = new CartService($sessionService);
@@ -27,8 +28,10 @@ $cartService = new CartService($sessionService);
 $requestHelper = new RequestHelper();
 $navigationHelper = new NavigationHelper($requestHelper);
 
-$layoutUi = new LayoutUi($db, $cartService, $sessionService, $navigationHelper);
+$layoutUi = new LayoutUi($categoryRepository, $cartService, $sessionService, $navigationHelper);
 $productUi = new ProductUi();
+
+$products = $productRepository->getProductGroups($categoryName, $subcategoryName);
 ?>
 
 <!doctype html>
