@@ -29,26 +29,26 @@ $navigationHelper = new NavigationHelper($requestHelper);
 $layoutUi = new LayoutUi($categoryRepository, $cartService, $sessionService, $navigationHelper);
 $cartUi = new CartUi($cartService);
 
-$buttonClickedID = $requestHelper->getPostInt(CartConstants::BUTTON_ID_KEY);
+$buttonClickedId = $requestHelper->getPostInt(CartConstants::BUTTON_ID_KEY);
 $newQuantity = $requestHelper->getPostInt(CartConstants::QUANTITY_KEY);
 // id of the item that the quantity is being changed for
-$changedItemID = $requestHelper->getPostInt(CartConstants::CHANGED_ITEM_ID_KEY);
+$changedItemId = $requestHelper->getPostInt(CartConstants::CHANGED_ITEM_ID_KEY);
 
-if (!empty($buttonClickedID) || !empty($newQuantity)) {
+if (!empty($buttonClickedId) || !empty($newQuantity)) {
     $csrfService->guard($requestHelper);
 }
 
-if (!empty($buttonClickedID)) {
-    $cartService->removeItemFromCart($buttonClickedID);
+if (!empty($buttonClickedId)) {
+    $cartService->removeItemFromCart($buttonClickedId);
     $uri = str_replace(["\r", "\n"], '', $_SERVER['REQUEST_URI']);
     header("Location: $uri");
     exit();
 }
 
-if (!empty($newQuantity) && !empty($changedItemID)) {
+if (!empty($newQuantity) && !empty($changedItemId)) {
     $responseData = [
-        CartConstants::QUANTITY_KEY => $cartService->updateQuantityInSession($newQuantity, $changedItemID),
-        CartConstants::SUBTOTAL_KEY => $cartService->getItemSubtotal($changedItemID),
+        CartConstants::QUANTITY_KEY => $cartService->updateQuantityInSession($newQuantity, $changedItemId),
+        CartConstants::SUBTOTAL_KEY => $cartService->getItemSubtotal($changedItemId),
         CartConstants::TOTAL_KEY => $cartService->getCartTotal()
     ];
     echo json_encode($responseData);

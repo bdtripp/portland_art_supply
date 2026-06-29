@@ -43,15 +43,15 @@ final class CategoryRepository
      *      subcategory_name: string
      * }>
      */
-    public function lookupSubcategories(int $categoryID): array
+    public function lookupSubcategories(int $categoryId): array
     {
         $stmt = $this->db->getConnection()->prepare("
             SELECT
                 " . DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD . "
             FROM " . DbConstants::PRODUCT_SUBCATEGORY_TABLE . "
-            WHERE " . DbConstants::PRODUCT_SUBCATEGORY_CATEGORY_ID_FIELD . " = :categoryID;
+            WHERE " . DbConstants::PRODUCT_SUBCATEGORY_CATEGORY_ID_FIELD . " = :categoryId;
         ");
-        $stmt->bindParam(':categoryID', $categoryID, PDO::PARAM_INT);
+        $stmt->bindParam(':categoryId', $categoryId, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

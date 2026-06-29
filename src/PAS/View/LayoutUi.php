@@ -25,12 +25,12 @@ class LayoutUi
         if (isset($_SESSION[SessionConstants::USER_ID_KEY])) {
             $loginHref = PageConstants::LOGOUT_PAGE;
             $username = e($this->sessionService->get(SessionConstants::USERNAME_KEY));
-            $iconID = PageConstants::LOGOUT_ICON_ID;
+            $iconId = PageConstants::LOGOUT_ICON_ID;
             $iconSrc = 'logout_icon.png';
         } else {
             $loginHref = PageConstants::LOGIN_PAGE;
             $username = '';
-            $iconID = PageConstants::LOGIN_ICON_ID;
+            $iconId = PageConstants::LOGIN_ICON_ID;
             $iconSrc = 'login_icon.png';
         }
 
@@ -53,7 +53,7 @@ class LayoutUi
         echo '        </li>' . "\n";
         echo '        <li>' . "\n";
         echo '            <a id="' . PageConstants::LOGIN_LINK_ID . '" href="' . $loginHref . '">' . "\n";
-        echo '                <img id="' . $iconID . '" src="' . PageConstants::IMAGE_FOLDER . $iconSrc . '">' . "\n";
+        echo '                <img id="' . $iconId . '" src="' . PageConstants::IMAGE_FOLDER . $iconSrc . '">' . "\n";
         echo '            </a>' . "\n";
         echo '        </li>' . "\n";
         echo '    </ul>' . "\n\n";
@@ -99,10 +99,10 @@ class LayoutUi
      */
     public function showSubcategoryDropdown(array $category): void
     {
-        $categoryID = $category[DbConstants::PRODUCT_CATEGORY_ID_FIELD];
+        $categoryId = $category[DbConstants::PRODUCT_CATEGORY_ID_FIELD];
         $rawCategoryName = $category[DbConstants::PRODUCT_CATEGORY_NAME_FIELD];
         $categoryIdSafe = strtolower(preg_replace('/[^a-zA-Z0-9_-]/', '_', $rawCategoryName) ?? '');
-        $subcategories = $this->categoryRepository->lookupSubcategories($categoryID);
+        $subcategories = $this->categoryRepository->lookupSubcategories($categoryId);
 
         echo '                <ul id="' . $categoryIdSafe . '_menu" class="dropdown">' . "\n";
         foreach ($subcategories as $subcategory) {

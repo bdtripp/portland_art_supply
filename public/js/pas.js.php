@@ -294,7 +294,7 @@ function findSelectedOption(id) {
 function filterDropDownSet(id) {
     let selected = findSelectedOption(id);
     let dropDownSet = new Set();
-    let dropDownToChangeID = '';
+    let dropDownToChangeId = '';
     let colorDropDown = document.getElementById(COLOR_DROP_DOWN_ID);
 
     if (selected === '') {
@@ -303,11 +303,11 @@ function filterDropDownSet(id) {
     productItems.forEach(function(item) {
         if (item.sizeDescription === selected && (id === SIZE_DROP_DOWN_ID)) {
             dropDownSet.add(item.colorName);
-            dropDownToChangeID = COLOR_DROP_DOWN_ID;
+            dropDownToChangeId = COLOR_DROP_DOWN_ID;
         }
         if (item.colorName === selected && (id === COLOR_DROP_DOWN_ID)) {
             dropDownSet.add(item.sizeDescription);
-            dropDownToChangeID = SIZE_DROP_DOWN_ID;
+            dropDownToChangeId = SIZE_DROP_DOWN_ID;
         }
     });
 
@@ -316,7 +316,7 @@ function filterDropDownSet(id) {
     if (id === SIZE_DROP_DOWN_ID && colorDropDown !== null) {
         showColorThumbnails(dropDownSet);
     }
-    repopulateWithFilteredSet(dropDownSet, dropDownToChangeID, selected);
+    repopulateWithFilteredSet(dropDownSet, dropDownToChangeId, selected);
 }
 
 function repopulateWithFilteredSet(dropDownSet, id, selected) {
@@ -413,20 +413,20 @@ function createAddToCartButton() {
     addToCartButton.hidden = true;
     document.getElementById(DROP_DOWN_WRAPPER_DIV_ID).appendChild(addToCartButton);
     addToCartButton.addEventListener("click", function() {
-        let itemID;
+        let itemId;
         let quantity = findSelectedOption(QUANTITY_DROP_DOWN_ID);
 
         productItems.forEach(function(item) {
             if ((currentColorSelection === item.colorName || item.colorName === null) &&
                 (currentSizeSelection === item.sizeDescription || item.sizeDescription === null)) {
-                itemID = item.id;
+                itemId = item.id;
             }
         });
 
         let xhttp = new XMLHttpRequest();
 
         let sendString =
-            PRODUCT_ITEM_ID_FIELD + '=' + encodeURIComponent(itemID) +
+            PRODUCT_ITEM_ID_FIELD + '=' + encodeURIComponent(itemId) +
             '&' + PRODUCT_CATEGORY_NAME_FIELD + '=' + encodeURIComponent(category) +
             '&' + PRODUCT_SUBCATEGORY_NAME_FIELD + '=' + encodeURIComponent(subcategory) +
             '&' + PRODUCT_GROUP_CODE_FIELD + '=' + encodeURIComponent(groupCode) +
@@ -467,16 +467,16 @@ function updateCartCountDisplay(id, operator) {
 function onRemoveClicked(id, file) {
     let xhttp = new XMLHttpRequest();
     let sendString =
-        "buttonID=" + id +
+        "buttonId=" + id +
         "&" + CSRF_TOKEN_KEY + "=" + encodeURIComponent(CSRF_TOKEN);
-    let quantityDropDownID = "quantity_product_id_" + id;
+    let quantityDropDownId = "quantity_product_id_" + id;
     let subtotalValue = parseFloat(document.getElementById("subtotal_product_" + id).children[0].innerText.replace(/\$|,/g, ''));
     let totalValue = parseFloat(document.getElementById(TOTAL_DISPLAY_ID).children[0].innerText.replace(/\$|,/g, ''));
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             let idToFind = "product_id_" + id + "_div";
-            updateCartCountDisplay(quantityDropDownID, "-");
+            updateCartCountDisplay(quantityDropDownId, "-");
             document.getElementById(idToFind).remove();
         } else if (this.readyState == 4 && this.status !== 200) {
             console.error("PHP Error:", this.responseText);
@@ -529,12 +529,12 @@ function createQuantityDropDown() {
 }
 
 // quantity drop down on shopping_cart page
-function onCartPageQuantityChanged(dropDownID, itemID) {
-    let selected = findSelectedOption(dropDownID);
+function onCartPageQuantityChanged(dropDownId, itemId) {
+    let selected = findSelectedOption(dropDownId);
     let xhttp = new XMLHttpRequest();
     let sendString =
         "quantity=" + encodeURIComponent(selected) +
-        "&changedItemID=" + encodeURIComponent(itemID) +
+        "&changedItemId=" + encodeURIComponent(itemId) +
         "&" + CSRF_TOKEN_KEY + "=" + encodeURIComponent(CSRF_TOKEN);
 
     xhttp.onreadystatechange = function() {
@@ -548,7 +548,7 @@ function onCartPageQuantityChanged(dropDownID, itemID) {
            let difference = parseInt(previousQuantity) - parseInt(selected);
 
            cartCountDisplay.innerText = parseInt(currentCartCount) - difference;
-           updateSubtotalDisplay(subtotal, itemID);
+           updateSubtotalDisplay(subtotal, itemId);
            updateTotalDisplay(total);
        } else if (this.readyState == 4 && this.status !== 200) {
            console.error("PHP Error:", this.responseText);
@@ -559,8 +559,8 @@ function onCartPageQuantityChanged(dropDownID, itemID) {
     xhttp.send(sendString);
 }
 
-function updateSubtotalDisplay(subtotal, itemID) {
-    document.getElementById("subtotal_product_" + itemID).children[0].innerText = "$" + parseFloat(Math.round(subtotal * 100) / 100).toFixed(2);
+function updateSubtotalDisplay(subtotal, itemId) {
+    document.getElementById("subtotal_product_" + itemId).children[0].innerText = "$" + parseFloat(Math.round(subtotal * 100) / 100).toFixed(2);
 }
 
 function updateTotalDisplay(total) {
