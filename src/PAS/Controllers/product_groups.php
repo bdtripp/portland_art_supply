@@ -3,7 +3,7 @@ require_once __DIR__ . '/../../../config.php';
 
 use PAS\Config\DbConstants;
 use PAS\Repositories\ProductRepository;
-use PAS\Repositories\AccountDataRepository;
+use PAS\Repositories\AccountRepository;
 use PAS\Repositories\CategoryRepository;
 use PAS\View\LayoutUi;
 use PAS\View\ProductUi;
@@ -18,7 +18,7 @@ $subcategoryName = urldecode($_GET[DbConstants::PRODUCT_SUBCATEGORY_NAME_FIELD])
 
 $db = new Database();
 
-$accountRepository = new AccountDataRepository($db);
+$accountRepository = new AccountRepository($db);
 $productRepository = new ProductRepository($db);
 $categoryRepository = new CategoryRepository($db);
 

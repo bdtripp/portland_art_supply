@@ -8,7 +8,7 @@ use PAS\Config\CartConstants;
 use PAS\Services\CartService;
 use PAS\Infrastructure\Database;
 use PAS\Repositories\CategoryRepository;
-use PAS\Repositories\AccountDataRepository;
+use PAS\Repositories\AccountRepository;
 use PAS\Services\SessionService;
 use PAS\Services\CsrfService;
 use PAS\Support\RequestHelper;
@@ -16,7 +16,7 @@ use PAS\Support\NavigationHelper;
 
 $db = new Database();
 
-$accountRepository = new AccountDataRepository($db);
+$accountRepository = new AccountRepository($db);
 $categoryRepository = new CategoryRepository($db);
 
 $sessionService = new SessionService($accountRepository);

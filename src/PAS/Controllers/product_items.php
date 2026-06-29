@@ -9,7 +9,7 @@ use PAS\View\ProductUi;
 use PAS\Services\CartService;
 use PAS\Repositories\CategoryRepository;
 use PAS\Repositories\ProductRepository;
-use PAS\Repositories\AccountDataRepository;
+use PAS\Repositories\AccountRepository;
 use PAS\Services\SessionService;
 use PAS\Services\CsrfService;
 use PAS\Support\RequestHelper;
@@ -17,7 +17,7 @@ use PAS\Support\NavigationHelper;
 
 $db = new Database();
 
-$accountRepository = new AccountDataRepository($db);
+$accountRepository = new AccountRepository($db);
 $productRepository = new ProductRepository($db);
 $categoryRepository = new CategoryRepository($db);
 

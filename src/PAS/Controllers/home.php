@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../../../config.php';
 
 use PAS\Config\PageConstants;
-use PAS\Repositories\AccountDataRepository;
+use PAS\Repositories\AccountRepository;
 use PAS\Repositories\CategoryRepository;
 use PAS\View\LayoutUi;
 use PAS\Infrastructure\Database;
@@ -15,7 +15,7 @@ $activePage = PageConstants::HOME_PAGE_TITLE;
 
 $db = new Database();
 
-$accountRepository = new AccountDataRepository($db);
+$accountRepository = new AccountRepository($db);
 $categoryRepository = new CategoryRepository($db);
 
 $sessionService = new SessionService($accountRepository);
