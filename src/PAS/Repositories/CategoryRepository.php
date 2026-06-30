@@ -21,7 +21,7 @@ final class CategoryRepository
      *     category_name: string
      * }>
      */
-    public function lookupCategories(): array
+    public function getCategories(): array
     {
         $stmt = $this->db->getConnection()->query("
             SELECT
@@ -34,7 +34,6 @@ final class CategoryRepository
             return [];
         }
 
-        /** @var array<int, array{category_id: int, category_name: string}> */
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -43,7 +42,7 @@ final class CategoryRepository
      *      subcategory_name: string
      * }>
      */
-    public function lookupSubcategories(int $categoryId): array
+    public function getSubcategories(int $categoryId): array
     {
         $stmt = $this->db->getConnection()->prepare("
             SELECT

@@ -20,7 +20,7 @@ class LayoutUi
     ) {
     }
 
-    public function header(string $categoryName): void
+    public function header(): void
     {
         if (isset($_SESSION[SessionConstants::USER_ID_KEY])) {
             $loginHref = PageConstants::LOGOUT_PAGE;
@@ -59,16 +59,16 @@ class LayoutUi
         echo '    </ul>' . "\n\n";
         echo '    <nav>' . "\n\n";
         echo '        <ul class="' . PageConstants::MENU_CLASS . '">' . "\n";
-        $this->generateNavList($categoryName);
+        $this->generateNavList();
         echo '        </ul>' . "\n\n";
         echo '    </nav>' . "\n\n";
 
         echo '</header>' . "\n\n";
     }
 
-    public function generateNavList(string $activePage): void
+    public function generateNavList(): void
     {
-        $categories = $this->categoryRepository->lookupCategories();
+        $categories = $this->categoryRepository->getCategories();
 
         echo '            <li><a ' . $this->navigationHelper->currentPage(PageConstants::HOME_PAGE) . 'Home</a></li>' . "\n";
         foreach ($categories as $category) {
@@ -102,7 +102,7 @@ class LayoutUi
         $categoryId = $category[DbConstants::PRODUCT_CATEGORY_ID_FIELD];
         $rawCategoryName = $category[DbConstants::PRODUCT_CATEGORY_NAME_FIELD];
         $categoryIdSafe = strtolower(preg_replace('/[^a-zA-Z0-9_-]/', '_', $rawCategoryName) ?? '');
-        $subcategories = $this->categoryRepository->lookupSubcategories($categoryId);
+        $subcategories = $this->categoryRepository->getSubcategories($categoryId);
 
         echo '                <ul id="' . $categoryIdSafe . '_menu" class="dropdown">' . "\n";
         foreach ($subcategories as $subcategory) {

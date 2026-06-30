@@ -11,8 +11,6 @@ use PAS\Services\SessionService;
 use PAS\Support\RequestHelper;
 use PAS\Support\NavigationHelper;
 
-$activePage = PageConstants::HOME_PAGE_TITLE;
-
 $db = new Database();
 
 $accountRepository = new AccountRepository($db);
@@ -49,7 +47,7 @@ $layoutUi = new LayoutUi($categoryRepository, $cartService, $sessionService, $na
       <script src="js/pas.js.php" type="text/javascript"></script>
   </head>
   <body>
-    <?php $layoutUi->header($activePage); ?>
+    <?php $layoutUi->header(); ?>
       <main id="home">
         <img src="images/large_paint.png"/>
         <div class="image_overlay"></div>

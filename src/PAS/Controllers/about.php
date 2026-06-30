@@ -11,8 +11,6 @@ use PAS\Support\RequestHelper;
 use PAS\Support\NavigationHelper;
 use PAS\View\LayoutUi;
 
-$activePage = PageConstants::ABOUT_PAGE_TITLE;
-
 $db = new Database();
 
 $accountRepository = new AccountRepository($db);
@@ -49,7 +47,7 @@ $layoutUi = new LayoutUi($categoryRepository, $cartService, $sessionService, $na
         <script src="js/pas.js.php" type="text/javascript"></script>
     </head>
     <body>
-        <?php $layoutUi->header($activePage); ?>
+        <?php $layoutUi->header(); ?>
         <main>
             <section id="<?= PageConstants::ABOUT_SECTION_ID ?>">
                 <h2>About Us</h2>

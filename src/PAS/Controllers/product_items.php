@@ -101,7 +101,7 @@ $productItems = $productRepository->getItemsByGroupId($groupId);
         <script src="js/pas.js.php" type="text/javascript"></script>
     </head>
     <body>
-        <?php $layoutUi->header($categoryName); ?>
+        <?php $layoutUi->header(); ?>
         <?php $productUi->itemDetail($productGroup, $categoryName, $subcategoryName); ?>
         <?php $layoutUi->footer(); ?>
     </body>

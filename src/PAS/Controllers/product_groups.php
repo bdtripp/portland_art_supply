@@ -56,7 +56,7 @@ $products = $productRepository->getProductGroups($categoryName, $subcategoryName
         <script src="js/pas.js.php" type="text/javascript"></script>
     </head>
     <body>
-        <?php $layoutUi->header($categoryName); ?>
+        <?php $layoutUi->header(); ?>
         <?php $productUi->groupGrid($products); ?>
         <?php $layoutUi->footer(); ?>
     </body>

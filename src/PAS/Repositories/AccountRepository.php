@@ -43,6 +43,7 @@ final class AccountRepository
         return $row === false ? null : $row;
     }
 
+
     public function saveSession(?int $userId, string $sessionData): void
     {
         if ($userId === null) {

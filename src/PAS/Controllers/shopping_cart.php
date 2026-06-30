@@ -14,6 +14,8 @@ use PAS\Services\CsrfService;
 use PAS\Support\RequestHelper;
 use PAS\Support\NavigationHelper;
 
+$activePage = PageConstants::SHOPPING_CART_PAGE_TITLE;
+
 $db = new Database();
 
 $accountRepository = new AccountRepository($db);
@@ -54,8 +56,6 @@ if (!empty($newQuantity) && !empty($changedItemId)) {
     echo json_encode($responseData);
     exit();
 }
-
-$activePage = PageConstants::SHOPPING_CART_PAGE_TITLE;
 ?>
 
 <!doctype html>
@@ -83,7 +83,7 @@ $activePage = PageConstants::SHOPPING_CART_PAGE_TITLE;
         <script type="text/javascript" src="js/pas.js.php"></script>
     </head>
     <body>
-        <?php $layoutUi->header($activePage); ?>
+        <?php $layoutUi->header(); ?>
         <?php $cartUi->shoppingCart(); ?>
         <?php $layoutUi->footer(); ?>
     </body>
