@@ -47,15 +47,7 @@ if ($createPressed) {
         <link href="css/reset.css" rel="stylesheet">
         <link href="css/login.css" rel="stylesheet">
         <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135450898-2"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'UA-135450898-2');
-        </script>
-        <script src="js/create_account.js.php"></script>
+        <script src="js/create_account.js.php" defer></script>
     </head>
     <body>
         <form method="POST" action="create_account.php" onsubmit="return checkIfValid();">

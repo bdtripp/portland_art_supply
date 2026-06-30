@@ -568,7 +568,10 @@ html body main section#about div#about_text {
 }
 html body main section#about div#about_text p {
   width: 90%;
-  margin: 0 auto;
+  margin: 16px auto;
+}
+html body main section#about div#about_text p:first-of-type {
+  margin-top: 0;
 }
 html body main section#about div#about_images img {
   margin-bottom: 20px;

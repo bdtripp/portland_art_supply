@@ -36,15 +36,7 @@ $layoutUi = new LayoutUi($categoryRepository, $cartService, $sessionService, $na
       <link href="css/collapsable_menu.css" rel="stylesheet">
       <link href="css/main.css" rel="stylesheet">
       <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
-      <!-- Global site tag (gtag.js) - Google Analytics -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135450898-2"></script>
-      <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'UA-135450898-2');
-      </script>
-      <script src="js/pas.js.php" type="text/javascript"></script>
+      <script src="js/pas.js.php" defer></script>
   </head>
   <body>
     <?php $layoutUi->header(); ?>
