@@ -76,8 +76,8 @@ $layoutUi = new LayoutUi($categoryRepository, $cartService, $sessionService, $na
                     </p>
                 </div>
                 <div id="<?= PageConstants::ABOUT_IMAGE_DIV_ID ?>" class="<?= PageConstants::FIVE_COLUMNS_CLASS ?>">
-                    <img src="images/about1.jpg" alt="An artist drawing plants in a notebook">
-                    <img src="images/about2.jpg" alt="Artist getting paint from a palette">
+                    <img src="images/about1.jpg" alt="An artist drawing plants in a notebook" loading="lazy">
+                    <img src="images/about2.jpg" alt="Artist getting paint from a palette" loading="lazy">
                 </div>
             </section>
         </main>

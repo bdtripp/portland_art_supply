@@ -43,7 +43,7 @@ $layoutUi = new LayoutUi($categoryRepository, $cartService, $sessionService, $na
   <body>
     <?php $layoutUi->header(); ?>
       <main id="home">
-        <img src="images/large_paint.png"/>
+        <img src="images/large_paint.png" alt="Paint flowing through the air displayed artistically" loading="lazy"/>
         <div class="image_overlay"></div>
         <h2>Finest<br>selection<br> in Portland.</h2>
       </main>
