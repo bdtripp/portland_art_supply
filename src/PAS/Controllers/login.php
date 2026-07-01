@@ -31,13 +31,15 @@ $login_username = $requestHelper->getPostString(LoginConstants::LOGIN_USERNAME_K
 $login_password = $requestHelper->getPostString(LoginConstants::LOGIN_PASSWORD_KEY);
 $login_pressed = $requestHelper->isKeySet(LoginConstants::LOGIN_BUTTON_KEY);
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $csrfService->guard($requestHelper);
+}
+
 if (!$login_pressed) {
     if (isset($_SERVER['HTTP_REFERER'])) {
         $sessionService->setReturnToUrl($_SERVER['HTTP_REFERER']);
     }
 } else {
-    $csrfService->guard($requestHelper);
-
     $loginErrors = $loginService->login($login_username, $login_password);
 }
 ?>

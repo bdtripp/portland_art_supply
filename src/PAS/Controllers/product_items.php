@@ -41,9 +41,11 @@ $size = $requestHelper->getPostString(DbConstants::PRODUCT_SIZE_DESCRIPTION_FIEL
 $price = $requestHelper->getPostFloat(DbConstants::PRODUCT_ITEM_PRICE_FIELD);
 $quantity = $requestHelper->getPostInt(CartConstants::QUANTITY_KEY);
 
-if (!empty($id)) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $csrfService->guard($requestHelper);
+}
 
+if (!empty($id)) {
     $cartService->addItemToCart(
         $id,
         $category ?? '',

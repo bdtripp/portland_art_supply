@@ -34,7 +34,7 @@ $newQuantity = $requestHelper->getPostInt(CartConstants::QUANTITY_KEY);
 // id of the item that the quantity is being changed for
 $changedItemId = $requestHelper->getPostInt(CartConstants::CHANGED_ITEM_ID_KEY);
 
-if (!empty($buttonClickedId) || !empty($newQuantity)) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $csrfService->guard($requestHelper);
 }
 

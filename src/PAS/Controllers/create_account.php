@@ -32,8 +32,11 @@ $createPassword = $requestHelper->getPostString(LoginConstants::CREATE_PASSWORD_
 $createConfirmPassword = $requestHelper->getPostString(LoginConstants::CREATE_CONFIRM_PASSWORD_KEY);
 $createPressed = $requestHelper->isKeySet(LoginConstants::CREATE_ACCOUNT_BUTTON_ID);
 
-if ($createPressed) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $csrfService->guard($requestHelper);
+}
+
+if ($createPressed) {
     $registrationErrors = $loginService->register($createUsername, $createPassword, $createConfirmPassword);
 }
 ?>
