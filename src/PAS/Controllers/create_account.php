@@ -43,10 +43,11 @@ if ($createPressed) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Create your Portland Art Supply (PAS) account to log in and shop securely. Register with a username and password to get started.">
         <title>PAS | Create Account</title>
         <link href="css/reset.css" rel="stylesheet">
         <link href="css/login.css" rel="stylesheet">
-        <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+        <link rel="icon" href="images/favicon.ico">
         <script src="js/create_account.js.php" defer></script>
     </head>
     <body>

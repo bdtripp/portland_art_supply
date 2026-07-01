@@ -76,12 +76,14 @@ $productItems = $productRepository->getItemsByGroupId($groupId);
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description"
+              content="View details for <?= e($productGroup->description) ?> at Portland Art Supply. See current pricing and photos of products.">
         <title>PAS | <?= e($groupCode) ?></title>
         <link href="css/reset.css" rel="stylesheet">
         <link href="css/grid.css" rel="stylesheet">
         <link href="css/collapsable_menu.css" rel="stylesheet">
         <link href="css/main.css" rel="stylesheet">
-        <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+        <link rel="icon" href="images/favicon.ico">
         <script>
             const CSRF_TOKEN = <?= json_encode($csrfService->getToken()) ?>;
             var category = <?= json_encode($categoryName) ?>;

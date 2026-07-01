@@ -39,12 +39,14 @@ $products = $productRepository->getProductGroups($categoryName, $subcategoryName
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description"
+              content="Browse top product lines in <?= e($categoryName) ?> › <?= e($subcategoryName) ?> at Portland Art Supply to find exactly what you need.">
         <title>PAS | <?= e($subcategoryName) ?></title>
         <link href="css/reset.css" rel="stylesheet">
         <link href="css/grid.css" rel="stylesheet">
         <link href="css/collapsable_menu.css" rel="stylesheet">
         <link href="css/main.css" rel="stylesheet">
-        <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+        <link rel="icon" href="images/favicon.ico">
         <script src="js/pas.js.php" defer></script>
     </head>
     <body>

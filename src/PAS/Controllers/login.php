@@ -47,10 +47,12 @@ if (!$login_pressed) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="robots" content="noindex, nofollow">
+        <meta name="description" content="Secure login page for PAS. Sign in to access your account, manage your cart, and continue where you left off.">
         <title>PAS | Login</title>
         <link href="css/reset.css" rel="stylesheet">
         <link href="css/login.css" rel="stylesheet">
-        <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+        <link rel="icon" href="images/favicon.ico">
     </head>
     <body>
         <form method="POST" action="login.php">

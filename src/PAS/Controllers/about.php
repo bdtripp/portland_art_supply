@@ -30,12 +30,13 @@ $layoutUi = new LayoutUi($categoryRepository, $cartService, $sessionService, $na
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Learn about Portland Art Supply (PAS), founded in 1975 and now one of the Northwest's largest art retailers serving artists worldwide.">
         <title>PAS | About</title>
         <link href="css/reset.css" rel="stylesheet">
         <link href="css/grid.css" rel="stylesheet">
         <link href="css/collapsable_menu.css" rel="stylesheet">
         <link href="css/main.css" rel="stylesheet">
-        <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+        <link rel="icon" href="images/favicon.ico">
         <script src="js/pas.js.php" defer></script>
     </head>
     <body>
