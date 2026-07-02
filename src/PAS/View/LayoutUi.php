@@ -45,7 +45,7 @@ class LayoutUi
         echo '        <li>' . "\n";
         echo '            <a class="' . PageConstants::SHOPPING_CART_ICON_CLASS . '" href="' . PageConstants::SHOPPING_CART_PAGE . '">' . "\n";
         echo '                <img src="' . PageConstants::IMAGE_FOLDER . PageConstants::SHOPPING_CART_IMAGE . '" alt="' . PageConstants::SHOPPING_CART_IMAGE_ALT . '">' . "\n";
-        echo '                <p id="' . PageConstants::CART_COUNT_DISPLAY_ID . '">' . $this->cartService->getNumItemsInCart() . '</p>' . "\n";
+        echo '                <p id="' . PageConstants::CART_COUNT_DISPLAY_ID . '">' . $this->cartService->getTotalQuantity() . '</p>' . "\n";
         echo '            </a>' . "\n";
         echo '        </li>' . "\n";
         echo '        <li>' . "\n";

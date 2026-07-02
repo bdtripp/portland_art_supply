@@ -7,6 +7,13 @@ namespace PAS\Services;
 use PAS\Models\CartItem;
 use PAS\Config\SessionConstants;
 
+/**
+ * Handles shopping cart operations
+ *
+ * The cart is stored in the session and the session is treated as the single
+ * source of truth. All methods maintain immutability of CartItem objects by replacing
+ * items rather than mutating them in place.
+ */
 class CartService
 {
     public function __construct(
@@ -75,7 +82,7 @@ class CartService
         return array_map(fn (CartItem $i) => $i->toArray(), $this->getCart());
     }
 
-    public function addItemToCart(
+    public function addItem(
         int $id,
         string $category,
         string $subcategory,
@@ -86,15 +93,14 @@ class CartService
         float $price,
         int $quantity
     ): void {
-        /** @var array<int, CartItem> $itemsInCart */
-        $itemsInCart = $this->getCart();
+        /** @var array<int, CartItem> $items */
+        $items = $this->getCart();
         $newItem = true;
 
-        // Check if the item already exists in the cart
-        foreach ($itemsInCart as $index => $item) {
+        // If the item exists, replace it with a new CartItem with updated quantity to maintain immutability
+        foreach ($items as $index => $item) {
             if ($item->productItemId === $id) {
-                // Replace the existing CartItem with a new one (immutability)
-                $itemsInCart[$index] = new CartItem(
+                $items[$index] = new CartItem(
                     productItemId: $item->productItemId,
                     categoryName: $item->categoryName,
                     subcategoryName: $item->subcategoryName,
@@ -112,7 +118,7 @@ class CartService
         }
 
         if ($newItem) {
-            $itemsInCart[] = new CartItem(
+            $items[] = new CartItem(
                 productItemId: $id,
                 categoryName: $category,
                 subcategoryName: $subcategory,
@@ -125,22 +131,23 @@ class CartService
             );
         }
 
-        $this->setCart($itemsInCart);
+        $this->setCart($items);
         $this->sessionService->save([
             'cart' => $this->getCartAsArray(),
         ]);
     }
 
-    public function updateQuantityInSession(int $newQuantity, int $id): int
+    public function setItemQuantity(int $newQuantity, int $id): int
     {
-        /** @var array<int, CartItem> $itemsInCart */
-        $itemsInCart = $this->getCart();
+        /** @var array<int, CartItem> $items */
+        $items = $this->getCart();
         $previousQuantity = 0;
 
-        foreach ($itemsInCart as $index => $item) {
+        // If the item exists, replace it with a new CartItem with updated quantity to maintain immutability
+        foreach ($items as $index => $item) {
             if ($item->productItemId === $id) {
                 $previousQuantity = $item->quantity;
-                $itemsInCart[$index] = new CartItem(
+                $items[$index] = new CartItem(
                     productItemId: $item->productItemId,
                     categoryName: $item->categoryName,
                     subcategoryName: $item->subcategoryName,
@@ -154,7 +161,7 @@ class CartService
             }
         }
 
-        $this->setCart($itemsInCart);
+        $this->setCart($items);
         $this->sessionService->save([
             'cart' => $this->getCartAsArray(),
         ]);
@@ -162,46 +169,43 @@ class CartService
         return $previousQuantity;
     }
 
-    public function removeItemFromCart(int $id): void
+    public function removeItem(int $id): void
     {
-        /** @var array<int, CartItem> $itemsInCart */
-        $itemsInCart = $this->getCart();
+        /** @var array<int, CartItem> $items */
+        $items = $this->getCart();
 
-        foreach ($itemsInCart as $index => $item) {
+        foreach ($items as $index => $item) {
             if ($item->productItemId === $id) {
-                unset($itemsInCart[$index]);
+                unset($items[$index]);
                 break;
             }
         }
 
-        $itemsInCart = array_values($itemsInCart);
+        $items = array_values($items);
 
-        $this->setCart($itemsInCart);
+        $this->setCart($items);
         $this->sessionService->save([
             'cart' => $this->getCartAsArray(),
         ]);
-
-        header("Refresh:0");
-        exit();
     }
 
-    public function getNumItemsInCart(): int
+    public function getTotalQuantity(): int
     {
-        $itemsInCart = $this->getCart();
-        $numItemsInCart = 0;
+        $items = $this->getCart();
+        $total = 0;
 
-        foreach ($itemsInCart as $item) {
-            $numItemsInCart += $item->quantity;
+        foreach ($items as $item) {
+            $total += $item->quantity;
         }
 
-        return $numItemsInCart;
+        return $total;
     }
 
-    public function getQuantityOfItem(int $id): int
+    public function getItemQuantity(int $id): int
     {
-        $itemsInCart = $this->getCart();
+        $items = $this->getCart();
 
-        foreach ($itemsInCart as $item) {
+        foreach ($items as $item) {
             if ($item->productItemId === $id) {
                 return $item->quantity;
             }
@@ -210,12 +214,12 @@ class CartService
         return 0;
     }
 
-    public function getItemSubtotal(int $id): float
+    public function getSubtotal(int $id): float
     {
-        $itemsInCart = $this->getCart();
+        $items = $this->getCart();
         $subtotal = 0;
 
-        foreach ($itemsInCart as $item) {
+        foreach ($items as $item) {
             if ($item->productItemId === $id) {
                 $subtotal += $item->price * $item->quantity;
             }
@@ -224,12 +228,12 @@ class CartService
         return $subtotal;
     }
 
-    public function getCartTotal(): float
+    public function getTotal(): float
     {
-        $itemsInCart = $this->getCart();
+        $items = $this->getCart();
         $total = 0;
 
-        foreach ($itemsInCart as $item) {
+        foreach ($items as $item) {
             $total += $item->price * $item->quantity;
         }
 
