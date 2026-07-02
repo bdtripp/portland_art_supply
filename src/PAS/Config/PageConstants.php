@@ -28,14 +28,6 @@ class PageConstants
     public const PRODUCT_ITEMS_PAGE = '/product_items.php';
 
     /*
-    * Page Titles
-    */
-
-    public const HOME_PAGE_TITLE = 'Home';
-    public const SHOPPING_CART_PAGE_TITLE = 'Cart';
-    public const ABOUT_PAGE_TITLE = 'About';
-
-    /*
     * Folders
     */
 

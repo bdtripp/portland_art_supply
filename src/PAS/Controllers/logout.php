@@ -4,14 +4,14 @@ require_once __DIR__ . '/../../../config.php';
 
 use PAS\Services\SessionService;
 use PAS\Infrastructure\Database;
-use PAS\Repositories\AccountDataRepository;
+use PAS\Repositories\AccountRepository;
 use PAS\Config\PageConstants;
 use PAS\Config\SecurityConstants;
 
 $db = new Database();
-$accountDataRepository = new AccountDataRepository($db);
+$accountRepository = new AccountRepository($db);
 
-$sessionService = new SessionService($accountDataRepository);
+$sessionService = new SessionService($accountRepository);
 $sessionService->destroy();
 
 $returnToUrl = $_SERVER['HTTP_REFERER'] ?? PageConstants::HOME_PAGE;

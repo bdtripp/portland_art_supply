@@ -16,6 +16,12 @@ final class UserRepository
     ) {
     }
 
+    /**
+     * Find a single user record by username.
+     *
+     * @param string $username The username to search for.
+     * @return User|null A User model if found, otherwise null.
+     */
     public function findByUsername(string $username): ?User
     {
         $stmt = $this->db->getConnection()->prepare("
@@ -42,6 +48,15 @@ final class UserRepository
         );
     }
 
+    /**
+     * Create a new user record and return the resulting User model.
+     *
+     * @param string $username The username for the new user.
+     * @param string $hash The hashed password to store.
+     * @return User The newly created User model.
+     *
+     * @throws \RuntimeException If the user cannot be retrieved after insertion.
+     */
     public function createUser(string $username, string $hash): User
     {
         $stmt = $this->db->getConnection()->prepare("

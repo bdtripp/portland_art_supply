@@ -2,35 +2,35 @@
 
 namespace PAS\View;
 
-use PAS\Infrastructure\Database;
 use PAS\Services\CartService;
 use PAS\Config\SessionConstants;
 use PAS\Config\PageConstants;
 use PAS\Config\DbConstants;
 use PAS\Services\SessionService;
 use PAS\Support\NavigationHelper;
+use PAS\Repositories\CategoryRepository;
 
 class LayoutUi
 {
     public function __construct(
-        private Database $db,
+        private CategoryRepository $categoryRepository,
         private CartService $cartService,
         private SessionService $sessionService,
         private NavigationHelper $navigationHelper
     ) {
     }
 
-    public function header(string $categoryName): void
+    public function header(): void
     {
         if (isset($_SESSION[SessionConstants::USER_ID_KEY])) {
             $loginHref = PageConstants::LOGOUT_PAGE;
             $username = e($this->sessionService->get(SessionConstants::USERNAME_KEY));
-            $iconID = PageConstants::LOGOUT_ICON_ID;
+            $iconId = PageConstants::LOGOUT_ICON_ID;
             $iconSrc = 'logout_icon.png';
         } else {
             $loginHref = PageConstants::LOGIN_PAGE;
             $username = '';
-            $iconID = PageConstants::LOGIN_ICON_ID;
+            $iconId = PageConstants::LOGIN_ICON_ID;
             $iconSrc = 'login_icon.png';
         }
 
@@ -53,22 +53,22 @@ class LayoutUi
         echo '        </li>' . "\n";
         echo '        <li>' . "\n";
         echo '            <a id="' . PageConstants::LOGIN_LINK_ID . '" href="' . $loginHref . '">' . "\n";
-        echo '                <img id="' . $iconID . '" src="' . PageConstants::IMAGE_FOLDER . $iconSrc . '">' . "\n";
+        echo '                <img id="' . $iconId . '" src="' . PageConstants::IMAGE_FOLDER . $iconSrc . '">' . "\n";
         echo '            </a>' . "\n";
         echo '        </li>' . "\n";
         echo '    </ul>' . "\n\n";
         echo '    <nav>' . "\n\n";
         echo '        <ul class="' . PageConstants::MENU_CLASS . '">' . "\n";
-        $this->generateNavList($categoryName);
+        $this->generateNavList();
         echo '        </ul>' . "\n\n";
         echo '    </nav>' . "\n\n";
 
         echo '</header>' . "\n\n";
     }
 
-    public function generateNavList(string $activePage): void
+    public function generateNavList(): void
     {
-        $categories = $this->db->lookupCategories();
+        $categories = $this->categoryRepository->getCategories();
 
         echo '            <li><a ' . $this->navigationHelper->currentPage(PageConstants::HOME_PAGE) . 'Home</a></li>' . "\n";
         foreach ($categories as $category) {
@@ -99,10 +99,10 @@ class LayoutUi
      */
     public function showSubcategoryDropdown(array $category): void
     {
-        $categoryID = $category[DbConstants::PRODUCT_CATEGORY_ID_FIELD];
+        $categoryId = $category[DbConstants::PRODUCT_CATEGORY_ID_FIELD];
         $rawCategoryName = $category[DbConstants::PRODUCT_CATEGORY_NAME_FIELD];
         $categoryIdSafe = strtolower(preg_replace('/[^a-zA-Z0-9_-]/', '_', $rawCategoryName) ?? '');
-        $subcategories = $this->db->lookupSubcategories($categoryID);
+        $subcategories = $this->categoryRepository->getSubcategories($categoryId);
 
         echo '                <ul id="' . $categoryIdSafe . '_menu" class="dropdown">' . "\n";
         foreach ($subcategories as $subcategory) {

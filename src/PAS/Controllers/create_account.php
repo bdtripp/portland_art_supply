@@ -10,7 +10,7 @@ use PAS\Config\SecurityConstants;
 use PAS\Services\SessionService;
 use PAS\Services\CsrfService;
 use PAS\Repositories\UserRepository;
-use PAS\Repositories\AccountDataRepository;
+use PAS\Repositories\AccountRepository;
 use PAS\Support\RequestHelper;
 
 $registrationErrors = null;
@@ -18,9 +18,9 @@ $registrationErrors = null;
 $db = new Database();
 
 $userRepository = new UserRepository($db);
-$accountDataRepository = new AccountDataRepository($db);
+$accountRepository = new AccountRepository($db);
 
-$sessionService = new SessionService($accountDataRepository);
+$sessionService = new SessionService($accountRepository);
 $cartService = new CartService($sessionService);
 $loginService = new LoginService($userRepository, $sessionService, $cartService);
 $csrfService = new CsrfService($sessionService);
@@ -32,8 +32,11 @@ $createPassword = $requestHelper->getPostString(LoginConstants::CREATE_PASSWORD_
 $createConfirmPassword = $requestHelper->getPostString(LoginConstants::CREATE_CONFIRM_PASSWORD_KEY);
 $createPressed = $requestHelper->isKeySet(LoginConstants::CREATE_ACCOUNT_BUTTON_ID);
 
-if ($createPressed) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $csrfService->guard($requestHelper);
+}
+
+if ($createPressed) {
     $registrationErrors = $loginService->register($createUsername, $createPassword, $createConfirmPassword);
 }
 ?>
@@ -43,19 +46,12 @@ if ($createPressed) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Create your Portland Art Supply (PAS) account to log in and shop securely. Register with a username and password to get started.">
         <title>PAS | Create Account</title>
         <link href="css/reset.css" rel="stylesheet">
         <link href="css/login.css" rel="stylesheet">
-        <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135450898-2"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'UA-135450898-2');
-        </script>
-        <script src="js/create_account.js.php"></script>
+        <link rel="icon" href="images/favicon.ico">
+        <script src="js/create_account.js.php" defer></script>
     </head>
     <body>
         <form method="POST" action="create_account.php" onsubmit="return checkIfValid();">

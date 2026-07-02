@@ -9,7 +9,7 @@ use PAS\Config\SecurityConstants;
 use PAS\Repositories\UserRepository;
 use PAS\Services\SessionService;
 use PAS\Services\CsrfService;
-use PAS\Repositories\AccountDataRepository;
+use PAS\Repositories\AccountRepository;
 use PAS\Support\RequestHelper;
 use PAS\Services\CartService;
 
@@ -18,9 +18,9 @@ $loginErrors = null;
 $db = new Database();
 
 $userRepository = new UserRepository($db);
-$accountDataRepository = new AccountDataRepository($db);
+$accountRepository = new AccountRepository($db);
 
-$sessionService = new SessionService($accountDataRepository);
+$sessionService = new SessionService($accountRepository);
 $cartService = new CartService($sessionService);
 $loginService = new LoginService($userRepository, $sessionService, $cartService);
 $csrfService = new CsrfService($sessionService);
@@ -31,13 +31,15 @@ $login_username = $requestHelper->getPostString(LoginConstants::LOGIN_USERNAME_K
 $login_password = $requestHelper->getPostString(LoginConstants::LOGIN_PASSWORD_KEY);
 $login_pressed = $requestHelper->isKeySet(LoginConstants::LOGIN_BUTTON_KEY);
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $csrfService->guard($requestHelper);
+}
+
 if (!$login_pressed) {
     if (isset($_SERVER['HTTP_REFERER'])) {
         $sessionService->setReturnToUrl($_SERVER['HTTP_REFERER']);
     }
 } else {
-    $csrfService->guard($requestHelper);
-
     $loginErrors = $loginService->login($login_username, $login_password);
 }
 ?>
@@ -47,18 +49,12 @@ if (!$login_pressed) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="robots" content="noindex, nofollow">
+        <meta name="description" content="Secure login page for PAS. Sign in to access your account, manage your cart, and continue where you left off.">
         <title>PAS | Login</title>
         <link href="css/reset.css" rel="stylesheet">
         <link href="css/login.css" rel="stylesheet">
-        <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135450898-2"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'UA-135450898-2');
-        </script>
+        <link rel="icon" href="images/favicon.ico">
     </head>
     <body>
         <form method="POST" action="login.php">

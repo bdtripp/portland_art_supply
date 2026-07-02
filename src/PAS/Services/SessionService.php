@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace PAS\Services;
 
 use JsonException;
-use PAS\Repositories\AccountDataRepository;
+use PAS\Repositories\AccountRepository;
 use PAS\Config\SessionConstants;
 use PAS\Config\DbConstants;
 use PAS\Services\CartService;
@@ -13,7 +13,7 @@ use PAS\Services\CartService;
 final class SessionService
 {
     public function __construct(
-        private AccountDataRepository $accountRepo
+        private AccountRepository $accountRepository
     ) {
     }
 
@@ -85,7 +85,7 @@ final class SessionService
 
         try {
             $json = json_encode($payload, JSON_THROW_ON_ERROR);
-            $this->accountRepo->saveSession($userId, $json);
+            $this->accountRepository->saveSession($userId, $json);
         } catch (JsonException $e) {
             error_log("Failed to encode session JSON for user {$userId}: " . $e->getMessage());
         }
@@ -98,7 +98,7 @@ final class SessionService
             return;
         }
 
-        $row = $this->accountRepo->findSessionByUserId($userId);
+        $row = $this->accountRepository->findSessionByUserId($userId);
         $blob = $row[DbConstants::ACCOUNT_DATA_SESSION_DATA_FIELD] ?? null;
 
         if (!$blob) {
