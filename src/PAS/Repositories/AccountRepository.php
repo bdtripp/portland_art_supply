@@ -8,7 +8,7 @@ use PDO;
 use PAS\Infrastructure\Database;
 use PAS\Config\DbConstants;
 
-final class AccountDataRepository
+final class AccountRepository
 {
     public function __construct(
         private Database $db,
@@ -42,6 +42,7 @@ final class AccountDataRepository
 
         return $row === false ? null : $row;
     }
+
 
     public function saveSession(?int $userId, string $sessionData): void
     {

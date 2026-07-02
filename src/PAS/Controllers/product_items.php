@@ -7,8 +7,9 @@ use PAS\Config\CartConstants;
 use PAS\View\LayoutUi;
 use PAS\View\ProductUi;
 use PAS\Services\CartService;
+use PAS\Repositories\CategoryRepository;
 use PAS\Repositories\ProductRepository;
-use PAS\Repositories\AccountDataRepository;
+use PAS\Repositories\AccountRepository;
 use PAS\Services\SessionService;
 use PAS\Services\CsrfService;
 use PAS\Support\RequestHelper;
@@ -16,8 +17,9 @@ use PAS\Support\NavigationHelper;
 
 $db = new Database();
 
-$accountRepository = new AccountDataRepository($db);
+$accountRepository = new AccountRepository($db);
 $productRepository = new ProductRepository($db);
+$categoryRepository = new CategoryRepository($db);
 
 $sessionService = new SessionService($accountRepository);
 $cartService = new CartService($sessionService);
@@ -26,7 +28,7 @@ $csrfService = new CsrfService($sessionService);
 $requestHelper = new RequestHelper();
 $navigationHelper = new NavigationHelper($requestHelper);
 
-$layoutUi = new LayoutUi($db, $cartService, $sessionService, $navigationHelper);
+$layoutUi = new LayoutUi($categoryRepository, $cartService, $sessionService, $navigationHelper);
 $productUi = new ProductUi();
 
 $id = $requestHelper->getPostInt(DbConstants::PRODUCT_ITEM_ID_FIELD);
@@ -39,9 +41,11 @@ $size = $requestHelper->getPostString(DbConstants::PRODUCT_SIZE_DESCRIPTION_FIEL
 $price = $requestHelper->getPostFloat(DbConstants::PRODUCT_ITEM_PRICE_FIELD);
 $quantity = $requestHelper->getPostInt(CartConstants::QUANTITY_KEY);
 
-if (!empty($id)) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $csrfService->guard($requestHelper);
+}
 
+if (!empty($id)) {
     $cartService->addItemToCart(
         $id,
         $category ?? '',
@@ -74,21 +78,15 @@ $productItems = $productRepository->getItemsByGroupId($groupId);
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description"
+              content="View details for <?= e($productGroup->description) ?> at Portland Art Supply. See current pricing and photos of products.">
         <title>PAS | <?= e($groupCode) ?></title>
         <link href="css/reset.css" rel="stylesheet">
         <link href="css/grid.css" rel="stylesheet">
         <link href="css/collapsable_menu.css" rel="stylesheet">
         <link href="css/main.css" rel="stylesheet">
-        <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135450898-2"></script>
+        <link rel="icon" href="images/favicon.ico">
         <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'UA-135450898-2');
-        </script>
-        <script type="text/javascript">
             const CSRF_TOKEN = <?= json_encode($csrfService->getToken()) ?>;
             var category = <?= json_encode($categoryName) ?>;
             var subcategory = <?= json_encode($subcategoryName) ?>;
@@ -96,10 +94,10 @@ $productItems = $productRepository->getItemsByGroupId($groupId);
             var groupDescription = <?= json_encode($productGroup->description) ?>;
             var productItems = <?= json_encode($productItems); ?>;
         </script>
-        <script src="js/pas.js.php" type="text/javascript"></script>
+        <script src="js/pas.js.php" defer></script>
     </head>
-    <body onload="init();">
-        <?php $layoutUi->header($categoryName); ?>
+    <body>
+        <?php $layoutUi->header(); ?>
         <?php $productUi->itemDetail($productGroup, $categoryName, $subcategoryName); ?>
         <?php $layoutUi->footer(); ?>
     </body>

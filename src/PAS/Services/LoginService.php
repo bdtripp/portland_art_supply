@@ -19,9 +19,9 @@ class LoginService
     ) {
     }
 
-    public function setUser(int $userID, string $username): void
+    public function setUser(int $userId, string $username): void
     {
-        $this->sessionService->setUser($userID, $username);
+        $this->sessionService->setUser($userId, $username);
     }
 
     public function login(?string $username, ?string $password): \stdClass|string

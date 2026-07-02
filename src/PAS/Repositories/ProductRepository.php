@@ -76,7 +76,7 @@ final class ProductRepository
     public function getGroupById(int $groupId): ?ProductGroup
     {
         $stmt = $this->db->getConnection()->prepare("
-        SELECT
+            SELECT
                 " . DbConstants::PRODUCT_GROUP_ID_FIELD . ",
                 " . DbConstants::PRODUCT_GROUP_CODE_FIELD . ",
                 " . DbConstants::PRODUCT_GROUP_DESCRIPTION_FIELD . ",
@@ -107,7 +107,7 @@ final class ProductRepository
     public function getItemsByGroupId(int $groupId): array
     {
         $stmt = $this->db->getConnection()->prepare("
-        SELECT
+            SELECT
                 " . DbConstants::PRODUCT_ITEM_ID_FIELD . ",
                 " . DbConstants::PRODUCT_COLOR_NAME_FIELD . ",
                 " . DbConstants::PRODUCT_SIZE_DESCRIPTION_FIELD . ",
