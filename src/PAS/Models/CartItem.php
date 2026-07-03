@@ -7,13 +7,13 @@ namespace PAS\Models;
 class CartItem
 {
     public function __construct(
-        public readonly int $productItemId,
-        public readonly string $categoryName,
-        public readonly string $subcategoryName,
+        public readonly int $id,
+        public readonly string $category,
+        public readonly string $subcategory,
         public readonly string $groupCode,
-        public readonly string $groupDescription,
-        public readonly string $colorName,
-        public readonly string $sizeDescription,
+        public readonly string $groupName,
+        public readonly string $color,
+        public readonly string $size,
         public readonly float $price,
         public readonly int $quantity
     ) {
@@ -21,13 +21,13 @@ class CartItem
 
     /**
      * @return array{
-     *     productItemId: int,
-     *     categoryName: string,
-     *     subcategoryName: string,
+     *     id: int,
+     *     category: string,
+     *     subcategory: string,
      *     groupCode: string,
-     *     groupDescription: string,
-     *     colorName: string,
-     *     sizeDescription: string,
+     *     groupName: string,
+     *     color: string,
+     *     size: string,
      *     price: float,
      *     quantity: int
      * }
@@ -35,27 +35,27 @@ class CartItem
     public function toArray(): array
     {
         return [
-            'productItemId'   => $this->productItemId,
-            'categoryName'    => $this->categoryName,
-            'subcategoryName' => $this->subcategoryName,
-            'groupCode'       => $this->groupCode,
-            'groupDescription' => $this->groupDescription,
-            'colorName'       => $this->colorName,
-            'sizeDescription' => $this->sizeDescription,
-            'price'           => $this->price,
-            'quantity'        => $this->quantity,
+            'id' => $this->id,
+            'category' => $this->category,
+            'subcategory' => $this->subcategory,
+            'groupCode' => $this->groupCode,
+            'groupName' => $this->groupName,
+            'color' => $this->color,
+            'size' => $this->size,
+            'price' => $this->price,
+            'quantity' => $this->quantity,
         ];
     }
 
     /**
      * @param array{
-     *     productItemId: int,
-     *     categoryName: string,
-     *     subcategoryName: string,
+     *     id: int,
+     *     category: string,
+     *     subcategory: string,
      *     groupCode: string,
-     *     groupDescription: string,
-     *     colorName: string,
-     *     sizeDescription: string,
+     *     groupName: string,
+     *     color: string,
+     *     size: string,
      *     price: float,
      *     quantity: int
      * } $data
@@ -63,15 +63,15 @@ class CartItem
     public static function fromArray(array $data): self
     {
         return new self(
-            productItemId:   $data['productItemId'],
-            categoryName:    $data['categoryName'],
-            subcategoryName: $data['subcategoryName'],
-            groupCode:       $data['groupCode'],
-            groupDescription:$data['groupDescription'],
-            colorName:       $data['colorName'],
-            sizeDescription: $data['sizeDescription'],
-            price:           $data['price'],
-            quantity:        $data['quantity'],
+            id: $data['id'],
+            category: $data['category'],
+            subcategory: $data['subcategory'],
+            groupCode: $data['groupCode'],
+            groupName: $data['groupName'],
+            color: $data['color'],
+            size: $data['size'],
+            price: $data['price'],
+            quantity: $data['quantity'],
         );
     }
 }

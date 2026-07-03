@@ -47,13 +47,13 @@ class CartService
 
     /**
      * @param array<int, array{
-     *     productItemId: int,
-     *     categoryName: string,
-     *     subcategoryName: string,
+     *     id: int,
+     *     category: string,
+     *     subcategory: string,
      *     groupCode: string,
-     *     groupDescription: string,
-     *     colorName: string,
-     *     sizeDescription: string,
+     *     groupName: string,
+     *     color: string,
+     *     size: string,
      *     price: float,
      *     quantity: int
      * }> $arr
@@ -66,13 +66,13 @@ class CartService
 
     /**
      * @return array<int, array{
-     *     productItemId: int,
-     *     categoryName: string,
-     *     subcategoryName: string,
+     *     id: int,
+     *     category: string,
+     *     subcategory: string,
      *     groupCode: string,
-     *     groupDescription: string,
-     *     colorName: string,
-     *     sizeDescription: string,
+     *     groupName: string,
+     *     color: string,
+     *     size: string,
      *     price: float,
      *     quantity: int
      * }>
@@ -87,7 +87,7 @@ class CartService
         string $category,
         string $subcategory,
         string $groupCode,
-        string $groupDescription,
+        string $groupName,
         string $color,
         string $size,
         float $price,
@@ -99,15 +99,15 @@ class CartService
 
         // If the item exists, replace it with a new CartItem with updated quantity to maintain immutability
         foreach ($items as $index => $item) {
-            if ($item->productItemId === $id) {
+            if ($item->id === $id) {
                 $items[$index] = new CartItem(
-                    productItemId: $item->productItemId,
-                    categoryName: $item->categoryName,
-                    subcategoryName: $item->subcategoryName,
+                    id: $item->id,
+                    category: $item->category,
+                    subcategory: $item->subcategory,
                     groupCode: $item->groupCode,
-                    groupDescription: $item->groupDescription,
-                    colorName: $item->colorName,
-                    sizeDescription: $item->sizeDescription,
+                    groupName: $item->groupName,
+                    color: $item->color,
+                    size: $item->size,
                     price: $item->price,
                     quantity: $item->quantity + $quantity
                 );
@@ -119,13 +119,13 @@ class CartService
 
         if ($newItem) {
             $items[] = new CartItem(
-                productItemId: $id,
-                categoryName: $category,
-                subcategoryName: $subcategory,
+                id: $id,
+                category: $category,
+                subcategory: $subcategory,
                 groupCode: $groupCode,
-                groupDescription: $groupDescription,
-                colorName: $color,
-                sizeDescription: $size,
+                groupName: $groupName,
+                color: $color,
+                size: $size,
                 price: $price,
                 quantity: $quantity
             );
@@ -145,16 +145,16 @@ class CartService
 
         // If the item exists, replace it with a new CartItem with updated quantity to maintain immutability
         foreach ($items as $index => $item) {
-            if ($item->productItemId === $id) {
+            if ($item->id === $id) {
                 $previousQuantity = $item->quantity;
                 $items[$index] = new CartItem(
-                    productItemId: $item->productItemId,
-                    categoryName: $item->categoryName,
-                    subcategoryName: $item->subcategoryName,
+                    id: $item->id,
+                    category: $item->category,
+                    subcategory: $item->subcategory,
                     groupCode: $item->groupCode,
-                    groupDescription: $item->groupDescription,
-                    colorName: $item->colorName,
-                    sizeDescription: $item->sizeDescription,
+                    groupName: $item->groupName,
+                    color: $item->color,
+                    size: $item->size,
                     price: $item->price,
                     quantity: $newQuantity
                 );
@@ -175,7 +175,7 @@ class CartService
         $items = $this->getCart();
 
         foreach ($items as $index => $item) {
-            if ($item->productItemId === $id) {
+            if ($item->id === $id) {
                 unset($items[$index]);
                 break;
             }
@@ -206,7 +206,7 @@ class CartService
         $items = $this->getCart();
 
         foreach ($items as $item) {
-            if ($item->productItemId === $id) {
+            if ($item->id === $id) {
                 return $item->quantity;
             }
         }
@@ -220,7 +220,7 @@ class CartService
         $subtotal = 0;
 
         foreach ($items as $item) {
-            if ($item->productItemId === $id) {
+            if ($item->id === $id) {
                 $subtotal += $item->price * $item->quantity;
             }
         }

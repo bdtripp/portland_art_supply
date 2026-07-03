@@ -64,13 +64,13 @@ final class SessionService
     /**
      * @param array{
      *     cart: array<int, array{
-     *         productItemId: int,
-     *         categoryName: string,
-     *         subcategoryName: string,
+     *         id: int,
+     *         category: string,
+     *         subcategory: string,
      *         groupCode: string,
-     *         groupDescription: string,
-     *         colorName: string,
-     *         sizeDescription: string,
+     *         groupName: string,
+     *         color: string,
+     *         size: string,
      *         price: float,
      *         quantity: int
      *     }>
