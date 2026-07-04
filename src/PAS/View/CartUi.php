@@ -26,7 +26,7 @@ class CartUi
         if (!empty($itemsInCart)) {
             $this->showItemsInCart($itemsInCart);
             echo '        </div>' . "\n";
-            echo '        <p id="' . PageConstants::TOTAL_DISPLAY_ID . '">Total: <span class="' . PageConstants::PRICE_DISPLAY_CLASS . '">$' . number_format($this->cartService->getCartTotal(), 2) . '</span></p>' . "\n";
+            echo '        <p id="' . PageConstants::TOTAL_DISPLAY_ID . '">Total: <span class="' . PageConstants::PRICE_DISPLAY_CLASS . '">$' . number_format($this->cartService->getTotal(), 2) . '</span></p>' . "\n";
             echo '        <input id="' . PageConstants::CHECKOUT_BUTTON_ID . '" type="button" value="Checkout">' . "\n";
             echo '        <p class="checkout-disabled-note">Checkout disabled.<br>This is a demo project.</p>' . "\n";
         } else {
@@ -42,27 +42,27 @@ class CartUi
     public function showItemsInCart(array $itemsInCart): void
     {
         foreach ($itemsInCart as $item) {
-            $id = $item->productItemId;
-            $groupDescription = $item->groupDescription;
-            $categoryName = $item->categoryName;
-            $subcategoryName = $item->subcategoryName;
+            $id = $item->id;
+            $groupName = $item->groupName;
+            $category = $item->category;
+            $subcategory = $item->subcategory;
             $groupCode = $item->groupCode;
-            $color = $item->colorName;
-            $size = $item->sizeDescription;
+            $color = $item->color;
+            $size = $item->size;
             $price = $item->price;
             $quantity = $item->quantity;
 
             echo '        <div id="product_id_' . $id . '_div" class="' . PageConstants::CART_ITEM_CLASS . ' ' . PageConstants::CARD_CLASS . '">' . "\n";
             $this->displayItemImage(
-                $categoryName,
-                $subcategoryName,
+                $category,
+                $subcategory,
                 $groupCode,
                 $color,
                 $size
             );
             echo '            <div class="' . PageConstants::CART_ITEM_INFO_CLASS . '">' . "\n";
             echo '                <div class="' . PageConstants::CART_ITEM_SPECS_CLASS . '">' . "\n";
-            echo '                    <p>' . e($groupDescription) . '</p>' . "\n";
+            echo '                    <p>' . e($groupName) . '</p>' . "\n";
             if ($color != 'null') {
                 echo '                    <p> Color: ' . e($color) . '</p>' . "\n";
             }
