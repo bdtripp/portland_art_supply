@@ -216,16 +216,13 @@ class CartService
 
     public function getSubtotal(int $id): float
     {
-        $items = $this->getCart();
-        $subtotal = 0;
-
-        foreach ($items as $item) {
+        foreach ($this->getCart() as $item) {
             if ($item->id === $id) {
-                $subtotal += $item->price * $item->quantity;
+                return $item->price * $item->quantity;
             }
         }
 
-        return $subtotal;
+        return 0.0;
     }
 
     public function getTotal(): float
