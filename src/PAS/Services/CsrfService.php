@@ -6,7 +6,20 @@ namespace PAS\Services;
 
 use PAS\Config\SecurityConstants;
 use PAS\Support\RequestHelper;
+use PAS\Exceptions\CsrfException;
 
+/**
+ * Provides CSRF protection for form submissions.
+ *
+ * This service manages the full CSRF token lifecycle:
+ * - generating cryptographically secure tokens
+ * - storing tokens in the session (the SSOT)
+ * - retrieving tokens for form rendering
+ * - validating submitted tokens
+ * - enforcing CSRF protection via guard()
+ *
+ * The guard() method throws a CsrfException if validation fails.
+ */
 final class CsrfService
 {
     private const SESSION_KEY = 'csrf_token';
@@ -53,13 +66,20 @@ final class CsrfService
         return $token;
     }
 
+    /**
+     * Enforces CSRF protection for state‑changing requests.
+     *
+     * Validates the incoming token and throws an exception on failure,
+     * allowing the front controller to manage the HTTP response.
+     *
+     * @throws CsrfException When the CSRF token is missing or invalid.
+     */
     public function guard(RequestHelper $requestHelper): void
     {
         $token = $requestHelper->getPostString(SecurityConstants::CSRF_TOKEN_KEY);
 
         if (!$this->validate($token)) {
-            http_response_code(400);
-            exit('Invalid CSRF token');
+            throw new CsrfException('Invalid CSRF token');
         }
     }
 }
