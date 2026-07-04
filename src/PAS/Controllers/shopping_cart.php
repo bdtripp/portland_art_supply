@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 if (!empty($buttonClickedId)) {
-    $cartService->removeItemFromCart($buttonClickedId);
+    $cartService->removeItem($buttonClickedId);
     $uri = str_replace(["\r", "\n"], '', $_SERVER['REQUEST_URI']);
     header("Location: $uri");
     exit();
@@ -47,9 +47,9 @@ if (!empty($buttonClickedId)) {
 
 if (!empty($newQuantity) && !empty($changedItemId)) {
     $responseData = [
-        CartConstants::QUANTITY_KEY => $cartService->updateQuantityInSession($newQuantity, $changedItemId),
-        CartConstants::SUBTOTAL_KEY => $cartService->getItemSubtotal($changedItemId),
-        CartConstants::TOTAL_KEY => $cartService->getCartTotal()
+        CartConstants::QUANTITY_KEY => $cartService->setItemQuantity($newQuantity, $changedItemId),
+        CartConstants::SUBTOTAL_KEY => $cartService->getSubtotal($changedItemId),
+        CartConstants::TOTAL_KEY => $cartService->getTotal()
     ];
     echo json_encode($responseData);
     exit();
