@@ -29,40 +29,47 @@ final class CsrfService
     ) {
     }
 
-    public function getToken(): string
-    {
-        $token = $this->session->get(self::SESSION_KEY);
-
-        if (!$this->isValidToken($token)) {
-            $token = $this->generateAndStoreToken();
-        }
-
-        return $token;
-    }
-
-    public function validate(?string $token): bool
+    public function getToken(): ?string
     {
         $stored = $this->session->get(self::SESSION_KEY);
 
-        if (!is_string($stored) || !is_string($token)) {
-            return false;
-        }
-
-        if ($stored === '' || $token === '') {
-            return false;
-        }
-        return hash_equals($stored, $token);
+        return is_string($stored) ? $stored : null;
     }
 
-    private function isValidToken(mixed $token): bool
+    /**
+     * @phpstan-assert-if-true string $token
+     */
+    private function isNonEmptyString(?string $token): bool
     {
         return is_string($token) && $token !== '';
     }
 
-    private function generateAndStoreToken(): string
+    public function validate(?string $token): bool
+    {
+        $stored = $this->getToken();
+
+        if (!$this->isNonEmptyString($stored) || !$this->isNonEmptyString($token)) {
+            return false;
+        }
+
+        return hash_equals($stored, $token);
+    }
+
+    private function createAndStoreToken(): string
     {
         $token = bin2hex(random_bytes(32));
         $this->session->set(self::SESSION_KEY, $token);
+        return $token;
+    }
+
+    public function getOrCreateToken(): string
+    {
+        $token = $this->getToken();
+
+        if (!$this->isNonEmptyString($token)) {
+            $token = $this->createAndStoreToken();
+        }
+
         return $token;
     }
 
