@@ -60,7 +60,7 @@ if (!$login_pressed) {
         <form method="POST" action="login.php">
             <input type="hidden"
                 name="<?= SecurityConstants::CSRF_TOKEN_KEY ?>"
-                value="<?= e($csrfService->getToken()) ?>">
+                value="<?= e($csrfService->getOrCreateToken()) ?>">
             <h2>Log In</h2>
             <section>
                 <label for="<?= LoginConstants::LOGIN_USERNAME_KEY ?>">Username:</label>
