@@ -70,7 +70,7 @@ if (!empty($newQuantity) && !empty($changedItemId)) {
         <link href="css/main.css" rel="stylesheet">
         <link rel="icon" href="images/favicon.ico">
         <script>
-            const CSRF_TOKEN = <?= json_encode($csrfService->getToken()) ?>;
+            const CSRF_TOKEN = <?= json_encode($csrfService->getOrCreateToken()) ?>;
         </script>
         <script src="js/pas.js.php" defer></script>
     </head>

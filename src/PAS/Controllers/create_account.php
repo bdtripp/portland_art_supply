@@ -57,7 +57,7 @@ if ($createPressed) {
         <form method="POST" action="create_account.php" onsubmit="return checkIfValid();">
             <input type="hidden"
                     name="<?= SecurityConstants::CSRF_TOKEN_KEY ?>"
-                    value="<?= e($csrfService->getToken()) ?>">
+                    value="<?= e($csrfService->getOrCreateToken()) ?>">
             <h2>Create an Account</h2>
             <section>
                 <label for="<?= PageConstants::USERNAME_INPUT_ID ?>">Username:</label>

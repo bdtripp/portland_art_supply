@@ -87,7 +87,7 @@ $productItems = $productRepository->getItemsByGroupId($groupId);
         <link href="css/main.css" rel="stylesheet">
         <link rel="icon" href="images/favicon.ico">
         <script>
-            const CSRF_TOKEN = <?= json_encode($csrfService->getToken()) ?>;
+            const CSRF_TOKEN = <?= json_encode($csrfService->getOrCreateToken()) ?>;
             var category = <?= json_encode($categoryName) ?>;
             var subcategory = <?= json_encode($subcategoryName) ?>;
             var groupCode = <?= json_encode($groupCode) ?>;
