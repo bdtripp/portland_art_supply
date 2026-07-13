@@ -10,6 +10,17 @@ use PAS\Config\LoginConstants;
 use PAS\Config\PageConstants;
 use PAS\Services\CartService;
 
+/**
+ * Handles user authentication and registration workflows.
+ *
+ * Coordinates credential validation, session lifecycle management,
+ * cart restoration, and redirect behavior for both login and account
+ * creation flows.
+ *
+ * This service acts as the central point for all login-related
+ * operations within PAS, delegating persistence to UserRepository
+ * and session handling to SessionService.
+ */
 class LoginService
 {
     public function __construct(
@@ -21,6 +32,7 @@ class LoginService
 
     /**
      * Authenticates a user's credentials and initializes their active session.
+     * Performs a redirect on successful authentication.
      *
      * @param ?string $username Raw username input from POST.
      * @param ?string $password Raw password input from POST.
@@ -70,43 +82,43 @@ class LoginService
         return '';
     }
 
-    public function register(?string $username, ?string $password, ?string $confirm): ?\stdClass
+    public function register(?string $username, ?string $password, ?string $confirm): \stdClass|string
     {
         $errors = new \stdClass();
 
-        if (empty($username)) {
+        if ($username === null || $username === '') {
             $errors->usernameError = LoginConstants::E_NO_USERNAME;
         }
 
-        if (empty($password)) {
+        if ($password === null || $password === '') {
             $errors->passwordError = LoginConstants::E_NO_PASSWORD;
         }
 
-        if (empty($confirm)) {
+        if ($confirm === null || $confirm === '') {
             $errors->confirmPassError = LoginConstants::E_NO_CONFIRM;
         }
 
-        if ((!empty($confirm)) && ($password != $confirm)) {
-            $errors->confirmPassError = LoginConstants::E_CONFIRM_MISMATCH;
-        }
-
-        if ($username === null || $password === null || $confirm === null) {
-            return $errors;
-        }
-
-        $user = $this->userRepository->findByUsername($username);
-
-        if ($user !== null) {
-            $errors->usernameError = LoginConstants::E_ACCOUNT_EXISTS;
-        }
-
-        // if there are any errors, return without logging in
         if (!empty((array)$errors)) {
             return $errors;
         }
 
-        $user = $this->userRepository->createUser($username, password_hash($password, PASSWORD_DEFAULT));
+        if ($password !== $confirm) {
+            $errors->confirmPassError = LoginConstants::E_CONFIRM_MISMATCH;
+            return $errors;
+        }
 
+        assert(is_string($username));
+        assert(is_string($password));
+
+        $user = $this->userRepository->findByUsername($username);
+
+        // Check if account already exists
+        if ($user !== null) {
+            $errors->usernameError = LoginConstants::E_ACCOUNT_EXISTS;
+            return $errors;
+        }
+
+        $user = $this->userRepository->createUser($username, password_hash($password, PASSWORD_DEFAULT));
         $returnToUrl = $this->sessionService->getReturnToUrl();
 
         if ($returnToUrl === PageConstants::DOMAIN_NAME . PageConstants::CREATE_ACCOUNT_PAGE) {
@@ -118,7 +130,7 @@ class LoginService
             'cart' => $this->cartService->getCartAsArray(),
         ]);
         $this->sessionService->redirect($returnToUrl);
-        return null;
+        return '';
     }
 
     public function showErrorSymbol(): string
