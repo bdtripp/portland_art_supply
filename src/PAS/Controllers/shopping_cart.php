@@ -3,7 +3,6 @@ require_once __DIR__ . '/../../../config.php';
 
 use PAS\View\LayoutUi;
 use PAS\View\CartUi;
-use PAS\Config\PageConstants;
 use PAS\Config\CartConstants;
 use PAS\Services\CartService;
 use PAS\Infrastructure\Database;
