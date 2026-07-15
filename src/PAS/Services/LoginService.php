@@ -32,13 +32,14 @@ class LoginService
 
     /**
      * Authenticates a user's credentials and initializes their active session.
+     *
      * Performs a redirect on successful authentication.
      *
      * @param ?string $username Raw username input from POST.
      * @param ?string $password Raw password input from POST.
-     * @return \stdClass|string Error object on failure, empty string on success.
+     * @return ?\stdClass Error object on failure, null on success.
      */
-    public function login(?string $username, ?string $password): \stdClass|string
+    public function login(?string $username, ?string $password): ?\stdClass
     {
         $errors = new \stdClass();
 
@@ -79,10 +80,24 @@ class LoginService
         $this->sessionService->setUser($user->id, $username);
         $this->sessionService->restore($this->cartService);
         $this->sessionService->redirect($returnToUrl);
-        return '';
+        // This is dead code but is included so Intelephense does not complain that "Not all paths return a value."
+        return null;
     }
 
-    public function register(?string $username, ?string $password, ?string $confirm): \stdClass|string
+    /**
+     * Handles new account creation, including input validation, user persistence,
+     * session updates, and redirect behavior.
+     *
+     * On successful registration, updates the user's session and performs a
+     * redirect to the previous web page. Execution does not
+     * continue after the redirect.
+     *
+     * @param ?string $username Raw username input from POST.
+     * @param ?string $password Raw password input from POST.
+     * @param ?string $confirm  Raw confirmation input from POST.
+     * @return ?\stdClass Error object on failure, null on success.
+     */
+    public function register(?string $username, ?string $password, ?string $confirm): ?\stdClass
     {
         $errors = new \stdClass();
 
@@ -130,7 +145,8 @@ class LoginService
             'cart' => $this->cartService->getCartAsArray(),
         ]);
         $this->sessionService->redirect($returnToUrl);
-        return '';
+        // This is dead code but is included so Intelephense does not complain that "Not all paths return a value."
+        return null;
     }
 
     public function showErrorSymbol(): string
