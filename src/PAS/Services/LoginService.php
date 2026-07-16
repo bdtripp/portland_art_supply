@@ -71,8 +71,9 @@ class LoginService
         }
 
         $returnToUrl = $this->sessionService->getReturnToUrl();
+        $returnToPath = parse_url((string) $returnToUrl, PHP_URL_PATH) ?? '';
 
-        if ($returnToUrl === PageConstants::DOMAIN_NAME . PageConstants::CREATE_ACCOUNT_PAGE) {
+        if ($returnToPath === PageConstants::CREATE_ACCOUNT_PAGE) {
             $returnToUrl = PageConstants::HOME_PAGE;
         }
 
@@ -135,8 +136,9 @@ class LoginService
 
         $user = $this->userRepository->createUser($username, password_hash($password, PASSWORD_DEFAULT));
         $returnToUrl = $this->sessionService->getReturnToUrl();
+        $returnToPath = parse_url((string) $returnToUrl, PHP_URL_PATH) ?? '';
 
-        if ($returnToUrl === PageConstants::DOMAIN_NAME . PageConstants::CREATE_ACCOUNT_PAGE) {
+        if ($returnToPath === PageConstants::CREATE_ACCOUNT_PAGE) {
             $returnToUrl = PageConstants::HOME_PAGE;
         }
 
