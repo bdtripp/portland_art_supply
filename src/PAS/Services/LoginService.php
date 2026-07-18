@@ -7,7 +7,6 @@ namespace PAS\Services;
 use PAS\Repositories\UserRepository;
 use PAS\Services\SessionService;
 use PAS\Config\LoginConstants;
-use PAS\Config\PageConstants;
 use PAS\Services\CartService;
 
 /**
@@ -31,6 +30,45 @@ class LoginService
     }
 
     /**
+     * Sets an error message if the username is missing.
+     *
+     * @param string|null $username
+     * @param \stdClass   $errors
+     */
+    private function validateUsername(?string $username, \stdClass $errors): void
+    {
+        if ($username === null || $username === '') {
+            $errors->usernameError = LoginConstants::E_NO_USERNAME;
+        }
+    }
+
+    /**
+     * Sets an error message if the password is missing.
+     *
+     * @param string|null $password
+     * @param \stdClass   $errors
+     */
+    private function validatePassword(?string $password, \stdClass $errors): void
+    {
+        if ($password === null || $password === '') {
+            $errors->passwordError = LoginConstants::E_NO_PASSWORD;
+        }
+    }
+
+    /**
+     * Sets an error message if the confirmation password is missing.
+     *
+     * @param string|null $confirmPassword
+     * @param \stdClass   $errors
+     */
+    private function validateConfirmPassword(?string $confirmPassword, \stdClass $errors): void
+    {
+        if ($confirmPassword === null || $confirmPassword === '') {
+            $errors->confirmPassError = LoginConstants::E_NO_CONFIRM;
+        }
+    }
+
+    /**
      * Authenticates a user's credentials and initializes their active session.
      *
      * Performs a redirect on successful authentication.
@@ -43,13 +81,8 @@ class LoginService
     {
         $errors = new \stdClass();
 
-        if ($username === null || $username === '') {
-            $errors->usernameError = LoginConstants::E_NO_USERNAME;
-        }
-
-        if ($password === null || $password === '') {
-            $errors->passwordError = LoginConstants::E_NO_PASSWORD;
-        }
+        $this->validateUsername($username, $errors);
+        $this->validatePassword($password, $errors);
 
         if (!empty((array)$errors)) {
             return $errors;
@@ -70,13 +103,7 @@ class LoginService
             return $errors;
         }
 
-        $returnToUrl = $this->sessionService->getReturnToUrl();
-        $returnToPath = parse_url((string) $returnToUrl, PHP_URL_PATH) ?? '';
-
-        if ($returnToPath === PageConstants::CREATE_ACCOUNT_PAGE) {
-            $returnToUrl = PageConstants::HOME_PAGE;
-        }
-
+        $returnToUrl = $this->sessionService->resolveReturnToUrl();
         $this->sessionService->regenerate();
         $this->sessionService->setUser($user->id, $username);
         $this->sessionService->restore($this->cartService);
@@ -95,30 +122,22 @@ class LoginService
      *
      * @param ?string $username Raw username input from POST.
      * @param ?string $password Raw password input from POST.
-     * @param ?string $confirm  Raw confirmation input from POST.
+     * @param ?string $confirmPassword  Raw confirmation input from POST.
      * @return ?\stdClass Error object on failure, null on success.
      */
-    public function register(?string $username, ?string $password, ?string $confirm): ?\stdClass
+    public function register(?string $username, ?string $password, ?string $confirmPassword): ?\stdClass
     {
         $errors = new \stdClass();
 
-        if ($username === null || $username === '') {
-            $errors->usernameError = LoginConstants::E_NO_USERNAME;
-        }
-
-        if ($password === null || $password === '') {
-            $errors->passwordError = LoginConstants::E_NO_PASSWORD;
-        }
-
-        if ($confirm === null || $confirm === '') {
-            $errors->confirmPassError = LoginConstants::E_NO_CONFIRM;
-        }
+        $this->validateUsername($username, $errors);
+        $this->validatePassword($password, $errors);
+        $this->validateConfirmPassword($confirmPassword, $errors);
 
         if (!empty((array)$errors)) {
             return $errors;
         }
 
-        if ($password !== $confirm) {
+        if ($password !== $confirmPassword) {
             $errors->confirmPassError = LoginConstants::E_CONFIRM_MISMATCH;
             return $errors;
         }
@@ -135,13 +154,7 @@ class LoginService
         }
 
         $user = $this->userRepository->createUser($username, password_hash($password, PASSWORD_DEFAULT));
-        $returnToUrl = $this->sessionService->getReturnToUrl();
-        $returnToPath = parse_url((string) $returnToUrl, PHP_URL_PATH) ?? '';
-
-        if ($returnToPath === PageConstants::CREATE_ACCOUNT_PAGE) {
-            $returnToUrl = PageConstants::HOME_PAGE;
-        }
-
+        $returnToUrl = $this->sessionService->resolveReturnToUrl();
         $this->sessionService->setUser($user->id, $username);
         $this->sessionService->save([
             'cart' => $this->cartService->getCartAsArray(),
@@ -151,7 +164,7 @@ class LoginService
         return null;
     }
 
-    public function showErrorSymbol(): string
+    public function getErrorSymbol(): string
     {
         return "⚠ ";
     }
