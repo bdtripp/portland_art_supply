@@ -70,7 +70,7 @@ if ($createPressed) {
                 />
                 <div class="<?= PageConstants::MESSAGE_WRAPPER_CLASS ?>">
                     <span class="<?= PageConstants::ERROR_SYMBOL_CLASS ?>">
-                        <?= isset($registrationErrors->usernameError) ? $loginService->showErrorSymbol() : '' ?>
+                        <?= isset($registrationErrors->usernameError) ? $loginService->getErrorSymbol() : '' ?>
                     </span>
                     <span id="<?= PageConstants::USERNAME_MESSAGE_ID ?>" class="<?= PageConstants::MESSAGE_CLASS ?>">
                         <?= isset($registrationErrors->usernameError) ? e($registrationErrors->usernameError) : '' ?>
@@ -87,7 +87,7 @@ if ($createPressed) {
                     />
                     <div class="<?= PageConstants::MESSAGE_WRAPPER_CLASS ?>">
                         <span class="<?= PageConstants::ERROR_SYMBOL_CLASS ?>">
-                            <?= isset($registrationErrors->passwordError) ? $loginService->showErrorSymbol() : '' ?>
+                            <?= isset($registrationErrors->passwordError) ? $loginService->getErrorSymbol() : '' ?>
                         </span>
                         <span id="<?= PageConstants::PASSWORD_MESSAGE_ID ?>" class="<?= PageConstants::MESSAGE_CLASS ?>">
                             <?= isset($registrationErrors->passwordError) ? e($registrationErrors->passwordError) : '' ?>
@@ -114,7 +114,7 @@ if ($createPressed) {
                 />
                 <div class="<?= PageConstants::MESSAGE_WRAPPER_CLASS ?>">
                     <span class="<?= PageConstants::ERROR_SYMBOL_CLASS ?>">
-                        <?= isset($registrationErrors->confirmPassError) ? $loginService->showErrorSymbol() : '' ?>
+                        <?= isset($registrationErrors->confirmPassError) ? $loginService->getErrorSymbol() : '' ?>
                     </span>
                     <span id="<?= PageConstants::CONFIRM_PASSWORD_MESSAGE_ID ?>" class="<?= PageConstants::MESSAGE_CLASS ?>">
                         <?= isset($registrationErrors->confirmPassError) ? e($registrationErrors->confirmPassError) : '' ?>

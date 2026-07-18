@@ -73,7 +73,7 @@ if (!$login_pressed) {
                 />
                 <div class="<?= PageConstants::MESSAGE_WRAPPER_CLASS ?>">
                     <span class="<?= PageConstants::ERROR_SYMBOL_CLASS ?>">
-                        <?= isset($loginErrors->usernameError) ? $loginService->showErrorSymbol() : '' ?>
+                        <?= isset($loginErrors->usernameError) ? $loginService->getErrorSymbol() : '' ?>
                     </span>
                     <span id="<?= PageConstants::USERNAME_MESSAGE_ID ?>" class="<?= PageConstants::MESSAGE_CLASS ?>">
                         <?= isset($loginErrors->usernameError) ? e($loginErrors->usernameError) : '' ?>
@@ -89,7 +89,7 @@ if (!$login_pressed) {
                 />
                 <div class="<?= PageConstants::MESSAGE_WRAPPER_CLASS ?>">
                     <span class="<?= PageConstants::ERROR_SYMBOL_CLASS ?>">
-                        <?= isset($loginErrors->passwordError) ? $loginService->showErrorSymbol() : '' ?>
+                        <?= isset($loginErrors->passwordError) ? $loginService->getErrorSymbol() : '' ?>
                     </span>
                     <span id="<?= PageConstants::PASSWORD_MESSAGE_ID ?>" class="<?= PageConstants::MESSAGE_CLASS ?>">
                         <?= isset($loginErrors->passwordError) ? e($loginErrors->passwordError) : '' ?>
