@@ -8,6 +8,7 @@ use JsonException;
 use PAS\Repositories\AccountRepository;
 use PAS\Config\SessionConstants;
 use PAS\Config\DbConstants;
+use PAS\Config\PageConstants;
 use PAS\Services\CartService;
 
 final class SessionService
@@ -59,6 +60,18 @@ final class SessionService
     public function getReturnToUrl(): ?string
     {
         return self::get(SessionConstants::RETURN_TO_URL_KEY);
+    }
+
+    public function resolveReturnToUrl(): string
+    {
+        $returnToUrl = $this->getReturnToUrl() ?? PageConstants::HOME_PAGE;
+        $returnToPath = parse_url($returnToUrl, PHP_URL_PATH) ?? '';
+
+        if ($returnToPath === PageConstants::CREATE_ACCOUNT_PAGE) {
+            $returnToUrl = PageConstants::HOME_PAGE;
+        }
+
+        return $returnToUrl;
     }
 
     /**
