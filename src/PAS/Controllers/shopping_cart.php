@@ -8,7 +8,7 @@ use PAS\Services\CartService;
 use PAS\Infrastructure\Database;
 use PAS\Repositories\CategoryRepository;
 use PAS\Repositories\AccountRepository;
-use PAS\Services\SessionService;
+use PAS\Services\SessionManager;
 use PAS\Services\CsrfService;
 use PAS\Support\RequestHelper;
 use PAS\Support\NavigationHelper;
@@ -18,14 +18,14 @@ $db = new Database();
 $accountRepository = new AccountRepository($db);
 $categoryRepository = new CategoryRepository($db);
 
-$sessionService = new SessionService($accountRepository);
-$cartService = new CartService($sessionService);
-$csrfService = new CsrfService($sessionService);
+$sessionManager = new SessionManager($accountRepository);
+$cartService = new CartService($sessionManager);
+$csrfService = new CsrfService($sessionManager);
 
 $requestHelper = new RequestHelper();
 $navigationHelper = new NavigationHelper($requestHelper);
 
-$layoutUi = new LayoutUi($categoryRepository, $cartService, $sessionService, $navigationHelper);
+$layoutUi = new LayoutUi($categoryRepository, $cartService, $sessionManager, $navigationHelper);
 $cartUi = new CartUi($cartService);
 
 $buttonClickedId = $requestHelper->getPostInt(CartConstants::BUTTON_ID_KEY);

@@ -7,7 +7,7 @@ use PAS\Infrastructure\Database;
 use PAS\Config\PageConstants;
 use PAS\Config\SecurityConstants;
 use PAS\Repositories\UserRepository;
-use PAS\Services\SessionService;
+use PAS\Services\SessionManager;
 use PAS\Services\CsrfService;
 use PAS\Repositories\AccountRepository;
 use PAS\Support\RequestHelper;
@@ -20,10 +20,10 @@ $db = new Database();
 $userRepository = new UserRepository($db);
 $accountRepository = new AccountRepository($db);
 
-$sessionService = new SessionService($accountRepository);
-$cartService = new CartService($sessionService);
-$loginService = new LoginService($userRepository, $sessionService, $cartService);
-$csrfService = new CsrfService($sessionService);
+$sessionManager = new SessionManager($accountRepository);
+$cartService = new CartService($sessionManager);
+$loginService = new LoginService($userRepository, $sessionManager, $cartService);
+$csrfService = new CsrfService($sessionManager);
 
 $requestHelper = new RequestHelper();
 
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 if (!$login_pressed) {
     if (isset($_SERVER['HTTP_REFERER'])) {
-        $sessionService->setReturnToUrl($_SERVER['HTTP_REFERER']);
+        $sessionManager->setReturnToUrl($_SERVER['HTTP_REFERER']);
     }
 } else {
     $loginErrors = $loginService->login($login_username, $login_password);

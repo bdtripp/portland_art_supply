@@ -25,13 +25,13 @@ final class CsrfService
     private const SESSION_KEY = 'csrf_token';
 
     public function __construct(
-        private SessionService $session
+        private SessionManager $sessionManager
     ) {
     }
 
     public function getToken(): ?string
     {
-        $stored = $this->session->get(self::SESSION_KEY);
+        $stored = $this->sessionManager->get(self::SESSION_KEY);
 
         return is_string($stored) ? $stored : null;
     }
@@ -58,7 +58,7 @@ final class CsrfService
     private function createAndStoreToken(): string
     {
         $token = bin2hex(random_bytes(32));
-        $this->session->set(self::SESSION_KEY, $token);
+        $this->sessionManager->set(self::SESSION_KEY, $token);
         return $token;
     }
 

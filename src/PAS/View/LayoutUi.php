@@ -6,7 +6,7 @@ use PAS\Services\CartService;
 use PAS\Config\SessionConstants;
 use PAS\Config\PageConstants;
 use PAS\Config\DbConstants;
-use PAS\Services\SessionService;
+use PAS\Services\SessionManager;
 use PAS\Support\NavigationHelper;
 use PAS\Repositories\CategoryRepository;
 
@@ -15,7 +15,7 @@ class LayoutUi
     public function __construct(
         private CategoryRepository $categoryRepository,
         private CartService $cartService,
-        private SessionService $sessionService,
+        private SessionManager $sessionManager,
         private NavigationHelper $navigationHelper
     ) {
     }
@@ -24,7 +24,7 @@ class LayoutUi
     {
         if (isset($_SESSION[SessionConstants::USER_ID_KEY])) {
             $loginHref = PageConstants::LOGOUT_PAGE;
-            $username = e($this->sessionService->get(SessionConstants::USERNAME_KEY));
+            $username = e($this->sessionManager->get(SessionConstants::USERNAME_KEY));
             $iconId = PageConstants::LOGOUT_ICON_ID;
             $iconSrc = 'logout_icon.png';
         } else {

@@ -17,7 +17,7 @@ use PAS\Config\SessionConstants;
 class CartService
 {
     public function __construct(
-        private SessionService $sessionService
+        private SessionManager $sessionManager
     ) {
     }
 
@@ -26,7 +26,7 @@ class CartService
      */
     public function getCart(): array
     {
-        $items = $this->sessionService->get(SessionConstants::CART_KEY);
+        $items = $this->sessionManager->get(SessionConstants::CART_KEY);
 
         if (!is_array($items)) {
             return [];
@@ -42,7 +42,7 @@ class CartService
      */
     public function setCart(array $items): void
     {
-        $this->sessionService->set(SessionConstants::CART_KEY, $items);
+        $this->sessionManager->set(SessionConstants::CART_KEY, $items);
     }
 
     /**
@@ -132,7 +132,7 @@ class CartService
         }
 
         $this->setCart($items);
-        $this->sessionService->save([
+        $this->sessionManager->save([
             'cart' => $this->getCartAsArray(),
         ]);
     }
@@ -162,7 +162,7 @@ class CartService
         }
 
         $this->setCart($items);
-        $this->sessionService->save([
+        $this->sessionManager->save([
             'cart' => $this->getCartAsArray(),
         ]);
 
@@ -184,7 +184,7 @@ class CartService
         $items = array_values($items);
 
         $this->setCart($items);
-        $this->sessionService->save([
+        $this->sessionManager->save([
             'cart' => $this->getCartAsArray(),
         ]);
     }
