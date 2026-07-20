@@ -7,7 +7,7 @@ use PAS\Services\LoginService;
 use PAS\Infrastructure\Database;
 use PAS\Config\PageConstants;
 use PAS\Config\SecurityConstants;
-use PAS\Services\SessionService;
+use PAS\Services\SessionManager;
 use PAS\Services\CsrfService;
 use PAS\Repositories\UserRepository;
 use PAS\Repositories\AccountRepository;
@@ -20,10 +20,10 @@ $db = new Database();
 $userRepository = new UserRepository($db);
 $accountRepository = new AccountRepository($db);
 
-$sessionService = new SessionService($accountRepository);
-$cartService = new CartService($sessionService);
-$loginService = new LoginService($userRepository, $sessionService, $cartService);
-$csrfService = new CsrfService($sessionService);
+$sessionManager = new SessionManager($accountRepository);
+$cartService = new CartService($sessionManager);
+$loginService = new LoginService($userRepository, $sessionManager, $cartService);
+$csrfService = new CsrfService($sessionManager);
 
 $requestHelper = new RequestHelper();
 

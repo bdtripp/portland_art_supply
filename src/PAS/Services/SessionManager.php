@@ -11,7 +11,17 @@ use PAS\Config\DbConstants;
 use PAS\Config\PageConstants;
 use PAS\Services\CartService;
 
-final class SessionService
+/**
+ * Manages all session-related operations.
+ *
+ * Provides a unified interface for reading and writing session values,
+ * handling user identity storage, regenerating session IDs, persisting
+ * session-backed cart data, restoring saved session state, and performing
+ * HTTP redirects. This service centralizes all direct interaction with
+ * PHP's native session mechanisms and coordinates session persistence
+ * through AccountRepository.
+ */
+final class SessionManager
 {
     public function __construct(
         private AccountRepository $accountRepository
@@ -74,6 +84,12 @@ final class SessionService
         return $returnToUrl;
     }
 
+    public function redirect(?string $url): void
+    {
+        header('Location: ' . $url);
+        exit;
+    }
+
     /**
      * @param array{
      *     cart: array<int, array{
@@ -127,12 +143,6 @@ final class SessionService
         } catch (JsonException $e) {
             error_log("Failed to decode session JSON for user {$userId}: " . $e->getMessage());
         }
-    }
-
-    public function redirect(?string $url): void
-    {
-        header('Location: ' . $url);
-        exit;
     }
 
     public function regenerate(): void
