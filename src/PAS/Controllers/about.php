@@ -6,7 +6,7 @@ use PAS\Repositories\AccountRepository;
 use PAS\Repositories\CategoryRepository;
 use PAS\Infrastructure\Database;
 use PAS\Services\CartService;
-use PAS\Services\SessionService;
+use PAS\Services\SessionManager;
 use PAS\Support\RequestHelper;
 use PAS\Support\NavigationHelper;
 use PAS\View\LayoutUi;
@@ -16,13 +16,13 @@ $db = new Database();
 $accountRepository = new AccountRepository($db);
 $categoryRepository = new CategoryRepository($db);
 
-$sessionService = new SessionService($accountRepository);
-$cartService = new CartService($sessionService);
+$sessionManager = new SessionManager($accountRepository);
+$cartService = new CartService($sessionManager);
 
 $requestHelper = new RequestHelper();
 $navigationHelper = new NavigationHelper($requestHelper);
 
-$layoutUi = new LayoutUi($categoryRepository, $cartService, $sessionService, $navigationHelper);
+$layoutUi = new LayoutUi($categoryRepository, $cartService, $sessionManager, $navigationHelper);
 ?>
 
 <!doctype html>

@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace PAS\Services;
 
 use PAS\Repositories\UserRepository;
-use PAS\Services\SessionService;
 use PAS\Config\LoginConstants;
-use PAS\Services\CartService;
 
 /**
  * Handles user authentication and registration workflows.
@@ -24,7 +22,7 @@ class LoginService
 {
     public function __construct(
         private UserRepository $userRepository,
-        private SessionService $sessionService,
+        private SessionManager $sessionService,
         private CartService $cartService
     ) {
     }
@@ -108,7 +106,7 @@ class LoginService
         $this->sessionService->setUser($user->id, $username);
         $this->sessionService->restore($this->cartService);
         $this->sessionService->redirect($returnToUrl);
-        // This is dead code but is included so Intelephense does not complain that "Not all paths return a value."
+        // Required fallback return to satisfy static analysis tools.
         return null;
     }
 
@@ -160,10 +158,15 @@ class LoginService
             'cart' => $this->cartService->getCartAsArray(),
         ]);
         $this->sessionService->redirect($returnToUrl);
-        // This is dead code but is included so Intelephense does not complain that "Not all paths return a value."
+        // Required fallback return to satisfy static analysis tools.
         return null;
     }
 
+    /**
+     * Returns the UI error symbol used in form validation messages.
+     *
+     * @return string The warning symbol followed by a space for visual separation from the message text.
+     */
     public function getErrorSymbol(): string
     {
         return "⚠ ";
