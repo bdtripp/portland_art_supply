@@ -30,10 +30,7 @@ final class SessionManager
 
     public function get(string $key): mixed
     {
-        if (isset($_SESSION[$key])) {
-            return $_SESSION[$key];
-        }
-        return null;
+        return $_SESSION[$key] ?? null;
     }
 
     public function set(string $key, mixed $value): void
@@ -41,21 +38,35 @@ final class SessionManager
         $_SESSION[$key] = $value;
     }
 
+    /**
+     * Removes the session data from memory, deletes the session cookie
+     * if a session is active, and destroys the session storage.
+     */
     public function destroy(): void
     {
-        $session_info = session_get_cookie_params();
+        $sessionName = session_name();
+
+        if ($sessionName !== false) {
+            $cookieParams = session_get_cookie_params();
+
+            setcookie(
+                $sessionName,
+                '',
+                [
+                    'expires'  => 0,
+                    'path'     => $cookieParams['path'],
+                    'domain'   => $cookieParams['domain'],
+                    'secure'   => $cookieParams['secure'],
+                    'httponly' => $cookieParams['httponly'],
+                    'samesite' => $cookieParams['samesite'],
+                ]
+            );
+        }
+
         $_SESSION = [];
-        setcookie(
-            (string) session_name(),
-            '',
-            0,
-            $session_info['path'],
-            $session_info['domain'],
-            $session_info['secure'],
-            $session_info['httponly']
-        );
         session_destroy();
     }
+
     public function setUser(int $id, string $username): void
     {
         self::set(SessionConstants::USER_ID_KEY, $id);
