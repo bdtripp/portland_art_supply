@@ -38,56 +38,28 @@ final class SessionManager
         $_SESSION[$key] = $value;
     }
 
-    /**
-     * Removes the session data from memory, deletes the session cookie
-     * if a session is active, and destroys the session storage.
-     */
-    public function destroy(): void
-    {
-        $sessionName = session_name();
-
-        if ($sessionName !== false) {
-            $cookieParams = session_get_cookie_params();
-
-            setcookie(
-                $sessionName,
-                '',
-                [
-                    'expires'  => 0,
-                    'path'     => $cookieParams['path'],
-                    'domain'   => $cookieParams['domain'],
-                    'secure'   => $cookieParams['secure'],
-                    'httponly' => $cookieParams['httponly'],
-                    'samesite' => $cookieParams['samesite'],
-                ]
-            );
-        }
-
-        $_SESSION = [];
-        session_destroy();
-    }
-
     public function setUser(int $id, string $username): void
     {
-        self::set(SessionConstants::USER_ID_KEY, $id);
-        self::set(SessionConstants::USERNAME_KEY, $username);
+        $this->set(SessionConstants::USER_ID_KEY, $id);
+        $this->set(SessionConstants::USERNAME_KEY, $username);
     }
 
     public function setReturnToUrl(string $url): void
     {
-        self::set(SessionConstants::RETURN_TO_URL_KEY, $url);
+        $this->set(SessionConstants::RETURN_TO_URL_KEY, $url);
     }
 
     public function getReturnToUrl(): ?string
     {
-        return self::get(SessionConstants::RETURN_TO_URL_KEY);
+        return $this->get(SessionConstants::RETURN_TO_URL_KEY);
     }
 
     public function resolveReturnToUrl(): string
     {
         $returnToUrl = $this->getReturnToUrl() ?? PageConstants::HOME_PAGE;
-        $returnToPath = parse_url($returnToUrl, PHP_URL_PATH) ?? '';
+        $returnToPath = parse_url($returnToUrl, PHP_URL_PATH) ?: '';
 
+        // Prevent users from being redirected to the registration page after successfully logging in
         if ($returnToPath === PageConstants::CREATE_ACCOUNT_PAGE) {
             $returnToUrl = PageConstants::HOME_PAGE;
         }
@@ -95,7 +67,7 @@ final class SessionManager
         return $returnToUrl;
     }
 
-    public function redirect(?string $url): void
+    public function redirect(string $url): void
     {
         header('Location: ' . $url);
         exit;
@@ -154,6 +126,35 @@ final class SessionManager
         } catch (JsonException $e) {
             error_log("Failed to decode session JSON for user {$userId}: " . $e->getMessage());
         }
+    }
+
+    /**
+     * Removes the session data from memory, deletes the session cookie
+     * if a session is active, and destroys the session storage.
+     */
+    public function destroy(): void
+    {
+        $sessionName = session_name();
+
+        if ($sessionName !== false) {
+            $cookieParams = session_get_cookie_params();
+
+            setcookie(
+                $sessionName,
+                '',
+                [
+                    'expires'  => 0,
+                    'path'     => $cookieParams['path'],
+                    'domain'   => $cookieParams['domain'],
+                    'secure'   => $cookieParams['secure'],
+                    'httponly' => $cookieParams['httponly'],
+                    'samesite' => $cookieParams['samesite'],
+                ]
+            );
+        }
+
+        $_SESSION = [];
+        session_destroy();
     }
 
     public function regenerate(): void
