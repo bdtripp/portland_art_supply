@@ -67,6 +67,11 @@ final class SessionManager
         return $returnToUrl;
     }
 
+    /**
+     * Sends a redirect header and immediately terminates execution.
+     *
+     * @param string $url Fully resolved URL to redirect to.
+     */
     public function redirect(string $url): void
     {
         header('Location: ' . $url);
@@ -74,6 +79,8 @@ final class SessionManager
     }
 
     /**
+     * Saves session data for the current user.
+     *
      * @param array{
      *     cart: array<int, array{
      *         id: int,
@@ -90,7 +97,9 @@ final class SessionManager
      */
     public function save(array $payload): void
     {
-        $userId = self::get(SessionConstants::USER_ID_KEY);
+        $userId = $this->get(SessionConstants::USER_ID_KEY);
+
+        // No logged-in user; nothing to persist.
         if ($userId === null) {
             return;
         }
